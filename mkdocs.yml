@@ -1,0 +1,48 @@
+site_name: Digital Design with Makerchip & TL-Verilog
+site_description: An open curriculum for learning digital design through interactive, visual, game-based projects.
+site_author: Ines Iraoui
+
+theme:
+  name: material
+  palette:
+    scheme: slate
+    primary: deep purple
+    accent: deep purple
+  font:
+    text: JetBrains Mono
+    code: JetBrains Mono
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.expand
+    - navigation.indexes
+    - toc.integrate
+    - navigation.footer
+    - content.code.copy
+    - content.code.annotate
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - tables
+  - attr_list
+  - def_list
+  - footnotes
+
+extra_css:
+  - stylesheets/extra.css
+
+nav:
+  - Home: index.md
+  - Block 1 — Combinational Logic:
+    - Overview: block-1/index.md
+    - Module 1.1 — Logic Gates: block-1/module-1-1-logic-gates.md
