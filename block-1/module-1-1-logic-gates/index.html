@@ -502,24 +502,52 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#putting-gates-together" class="md-nav__link">
+  <a href="#putting-gates-together-the-half-adder" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Putting gates together
+        Putting gates together: the half adder
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Putting gates together: the half adder">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-a-half-adder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What is a half adder?
       
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#your-first-circuit-in-makerchip" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#see-it-running-in-makerchip" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Your first circuit in Makerchip
+        See it running in Makerchip
       
     </span>
   </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-to-read-the-makerchip-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How to read the Makerchip output
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -649,7 +677,7 @@ If the input is <code>0</code>, the output is <code>1</code>.</p>
 </table>
 <p><strong>Circuit symbol:</strong></p>
 <blockquote>
-<p><em>(Insert Quartus screenshot: NOT gate)</em></p>
+<p><em>(Quartus diagram — coming soon)</em></p>
 </blockquote>
 <p><strong>In TL-Verilog:</strong></p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>$x = !$a;
@@ -693,7 +721,7 @@ Think of it exactly like the English word "and" — both things have to be true.
 </table>
 <p><strong>Circuit symbol:</strong></p>
 <blockquote>
-<p><em>(Insert Quartus screenshot: AND gate)</em></p>
+<p><em>(Quartus diagram — coming soon)</em></p>
 </blockquote>
 <p><strong>In TL-Verilog:</strong></p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>$x = $a &amp;&amp; $b;
@@ -735,7 +763,7 @@ Think of it exactly like the English word "and" — both things have to be true.
 </table>
 <p><strong>Circuit symbol:</strong></p>
 <blockquote>
-<p><em>(Insert Quartus screenshot: OR gate)</em></p>
+<p><em>(Quartus diagram — coming soon)</em></p>
 </blockquote>
 <p><strong>In TL-Verilog:</strong></p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>$x = $a || $b;
@@ -778,7 +806,7 @@ Think of it exactly like the English word "and" — both things have to be true.
 <p>Notice the difference from OR: when both inputs are <code>1</code>, XOR gives <code>0</code>, but OR gives <code>1</code>. That's the "exclusive" part.</p>
 <p><strong>Circuit symbol:</strong></p>
 <blockquote>
-<p><em>(Insert Quartus screenshot: XOR gate)</em></p>
+<p><em>(Quartus diagram — coming soon)</em></p>
 </blockquote>
 <p><strong>In TL-Verilog:</strong></p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>$x = $a ^ $b;
@@ -859,20 +887,23 @@ Think of it exactly like the English word "and" — both things have to be true.
 <p>You can build every other gate — AND, OR, NOT, XOR — out of NAND gates alone. This is why NAND is sometimes called a <strong>universal gate</strong>. In practice, chip designers sometimes implement entire logic functions using only NAND gates because it simplifies the physical layout.</p>
 </div>
 <hr />
-<h2 id="putting-gates-together">Putting gates together</h2>
+<h2 id="putting-gates-together-the-half-adder">Putting gates together: the half adder</h2>
 <p>A single gate does one small thing. The real power comes from <strong>combining gates</strong> into more complex functions.</p>
-<p>Here's an example: a <strong>half adder</strong>. It takes two single-bit inputs A and B and produces:
-- <strong>S (sum):</strong> the lower bit of A + B
-- <strong>C (carry):</strong> the upper bit of A + B</p>
-<p>For example: <code>1 + 1 = 10</code> in binary. So S = 0, C = 1.</p>
+<h3 id="what-is-a-half-adder">What is a half adder?</h3>
+<p>A <strong>half adder</strong> adds two single-bit binary numbers. It takes <strong>2 inputs</strong> (A and B) and produces <strong>2 outputs</strong>:</p>
+<ul>
+<li><strong>S (sum):</strong> the lower bit of A + B</li>
+<li><strong>C (carry):</strong> the upper bit of A + B — this is the "overflow" bit that carries into the next position</li>
+</ul>
+<p>Think of it like adding two single digits by hand. If you add 1 + 1, you get 2, which in binary is <code>10</code>. The <code>0</code> is your sum bit (S) and the <code>1</code> is your carry bit (C).</p>
 <p><strong>Truth table:</strong></p>
 <table>
 <thead>
 <tr>
 <th>A</th>
 <th>B</th>
-<th>S</th>
-<th>C</th>
+<th>S (sum)</th>
+<th>C (carry)</th>
 </tr>
 </thead>
 <tbody>
@@ -902,61 +933,94 @@ Think of it exactly like the English word "and" — both things have to be true.
 </tr>
 </tbody>
 </table>
-<p>If you look at S: it's <code>1</code> only when A and B are <em>different</em> — that's XOR.<br />
-If you look at C: it's <code>1</code> only when A and B are <em>both</em> <code>1</code> — that's AND.</p>
+<p>Look at the pattern:</p>
+<ul>
+<li><strong>S</strong> is <code>1</code> only when A and B are <em>different</em> — that's XOR</li>
+<li><strong>C</strong> is <code>1</code> only when A and B are <em>both</em> <code>1</code> — that's AND</li>
+</ul>
+<p>So a half adder is just an XOR gate and an AND gate working together.</p>
 <p><strong>Circuit diagram:</strong></p>
 <blockquote>
-<p><em>(Insert Quartus screenshot: half adder — XOR gate for S, AND gate for C)</em></p>
+<p><em>(Quartus diagram — coming soon)</em></p>
 </blockquote>
 <p><strong>In TL-Verilog:</strong></p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>$s = $a ^ $b;   // XOR for sum
 <a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>$c = $a &amp;&amp; $b;  // AND for carry
 </code></pre></div>
-<p>Two lines. That's a half adder.</p>
-<hr />
-<h2 id="your-first-circuit-in-makerchip">Your first circuit in Makerchip</h2>
-<p>Now let's run this in Makerchip so you can see it working.</p>
-<p>Click the button below to open a starter sandbox with the half adder code pre-loaded:</p>
-<p><a href="https://makerchip.com/sandbox?code_url=PLACEHOLDER_URL"><img alt="Open in Makerchip" src="https://img.shields.io/badge/Open%20in-Makerchip-blue" /></a></p>
-<blockquote>
-<p><em>(You'll replace PLACEHOLDER_URL with your actual saved Makerchip link)</em></p>
-</blockquote>
-<p>Once it's open:</p>
-<ol>
-<li>Click <strong>Compile</strong> (or press the compile shortcut)</li>
-<li>Look at the <strong>Diagram</strong> tab — you should see the XOR and AND gates laid out</li>
-<li>Look at the <strong>Waveform</strong> tab — you'll see <code>$a</code>, <code>$b</code>, <code>$s</code>, and <code>$c</code> signals over time</li>
-<li>Try changing the values of <code>$a</code> and <code>$b</code> and verify the outputs match the truth table above</li>
-</ol>
+<p>Two lines. That's a complete half adder.</p>
+<h3 id="see-it-running-in-makerchip">See it running in Makerchip</h3>
+<p>Click below to open the half adder in Makerchip. The inputs A and B automatically cycle through all four combinations so you can watch the outputs change in the waveform.</p>
+<p><a class="md-button" href="https://www.makerchip.com/v132/ide/~0yPfNhD8/p-0wjhLP">Open half adder in Makerchip <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3m-2 16H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7h-2z"/></svg></span></a></p>
+<h3 id="how-to-read-the-makerchip-output">How to read the Makerchip output</h3>
+<p>Once it's open and compiled, you'll see two main panels:</p>
+<p><strong>The diagram tab</strong> shows an auto-generated circuit drawn from your TL-Verilog code. Each signal you assign becomes a node. You should be able to find the XOR gate (producing <code>$s</code>) and the AND gate (producing <code>$c</code>).</p>
+<p><strong>The waveform tab</strong> shows signal values over time. Each row is a signal, each column is a clock cycle. Read it left to right:</p>
+<table>
+<thead>
+<tr>
+<th>Cycle</th>
+<th>$a</th>
+<th>$b</th>
+<th>$s</th>
+<th>$c</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>2</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>3</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>4</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>Verify that every row matches the truth table above. This is how hardware engineers debug circuits — they look at the waveform and check that the actual behavior matches what they expected.</p>
 <div class="admonition note">
 <p class="admonition-title">Reading the auto-generated diagram</p>
-<p>The diagram Makerchip generates is produced directly from your code. Each signal you assign becomes a node. This is different from drawing gates by hand — the layout is automatic, but the logic is exactly what you wrote. Take a moment to find your XOR gate and your AND gate in the diagram.</p>
+<p>The Makerchip diagram shows you the direct translation of your code into circuit elements. The layout is automatic, but the logic is exactly what you wrote. As you write more complex circuits, getting comfortable reading this diagram will help you debug faster.</p>
 </div>
 <hr />
 <h2 id="exercise-three-input-and">Exercise: Three-input AND</h2>
 <p><strong>Build a circuit that outputs <code>1</code> only when all three inputs A, B, and C are <code>1</code>.</strong></p>
-<p>You can't use a three-input AND gate directly — in TL-Verilog you chain two two-input ANDs:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>// Your code here
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>$x = ???
-</code></pre></div>
+<p><a class="md-button" href="https://www.makerchip.com/v132/ide/~0yPfNhD8/p-0xGhJP">Open starter code in Makerchip <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3m-2 16H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7h-2z"/></svg></span></a></p>
+<p>The starter code has <code>$x = 1'b0</code> as a placeholder — your output is always <code>0</code> right now. Replace that line with the correct gate logic.</p>
+<p>Verify your circuit with all 8 combinations of A, B, C. Only the row where all three are <code>1</code> should give an output of <code>1</code>.</p>
 <details class="hint">
 <summary>Hint</summary>
-<p>Think about it in English: "A AND B AND C". Now write that as two ANDs:
+<p>Think about it in English: "A AND B AND C". Chain two AND gates:
 first compute A AND B, then AND the result with C.</p>
 </details>
 <details class="solution">
 <summary>Solution</summary>
-<p><div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>$x = $a &amp;&amp; $b &amp;&amp; $c;
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>$x = $a &amp;&amp; $b &amp;&amp; $c;
 </code></pre></div>
 TL-Verilog lets you chain <code>&amp;&amp;</code> directly, which is equivalent to two AND gates in sequence.</p>
 </details>
-<p><a href="https://makerchip.com/sandbox?code_url=PLACEHOLDER_URL_EXERCISE">Open starter code in Makerchip</a></p>
-<p>Verify your circuit with all 8 combinations of A, B, C. Only the row where all three are <code>1</code> should give an output of <code>1</code>.</p>
 <hr />
 <h2 id="match-the-waveform">Match the waveform</h2>
-<p>Look at the waveform below. Two inputs, A and B, producing an output X.</p>
-<blockquote>
-<p><em>(Insert screenshot: waveform showing A, B, X signals over 4 clock cycles)</em></p>
+<p>Look at the table below. Two inputs A and B produce an output X. <strong>What gate produces this output?</strong></p>
 <table>
 <thead>
 <tr>
@@ -993,28 +1057,26 @@ TL-Verilog lets you chain <code>&amp;&amp;</code> directly, which is equivalent 
 </tr>
 </tbody>
 </table>
+<blockquote>
+<p><em>(Waveform screenshot — coming soon)</em></p>
 </blockquote>
-<p><strong>What gate produces this output?</strong></p>
-<p>Write the TL-Verilog expression for X:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>$x = ???
-</code></pre></div>
-<p><a href="https://makerchip.com/sandbox?code_url=PLACEHOLDER_URL_PUZZLE">Open in Makerchip to verify</a></p>
+<p>Write the TL-Verilog expression for X, then open the sandbox below to verify:</p>
+<p><a class="md-button" href="https://www.makerchip.com/v132/ide/~0yPfNhD8/p-0zmhRK">Open puzzle in Makerchip <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3m-2 16H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7h-2z"/></svg></span></a></p>
 <details class="hint">
-<summary>How to read the waveform</summary>
-<p>Look at each row. When does X go high (become 1)? In cycles 2 and 3 — when A and B are <em>different</em>. When they're the same (both 0 in cycle 1, both 1 in cycle 4), X is 0.</p>
-<p>Which gate gives 1 when inputs are different?</p>
+<summary>How to read the pattern</summary>
+<p>Look at when X goes high. It's <code>1</code> in cycles 2 and 3 — when A and B are <em>different</em>. When they're the same (both 0 in cycle 1, both 1 in cycle 4), X is <code>0</code>.</p>
+<p>Which gate gives <code>1</code> when inputs are different?</p>
 </details>
 <details class="solution">
 <summary>Solution</summary>
-<p><div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>$x = $a ^ $b;  // XOR
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>$x = $a ^ $b;  // XOR
 </code></pre></div>
-The pattern — true when inputs differ, false when they match — is the definition of XOR.</p>
-<p>Reading waveforms backwards into code is one of the most important debugging skills in hardware design. When something in your circuit is misbehaving, you'll read its waveform and ask: "what logic would produce this pattern?"</p>
+Reading signal patterns backwards into code is one of the most important debugging skills in hardware design. When something in your circuit misbehaves, you read its waveform and ask: "what logic would produce this pattern?"</p>
 </details>
 <hr />
 <h2 id="where-this-fits-next">Where this fits next</h2>
-<p>You now know the fundamental building blocks of all combinational logic. Every circuit — no matter how complex — is made of these gates chained together.</p>
-<p>In <strong>Module 1.2</strong>, you'll meet the multiplexer (MUX): a gate-level circuit that acts as a programmable switch. It's one of the most useful building blocks in digital design, and you'll use it constantly from here on.</p>
+<p>You now know the fundamental building blocks of all combinational logic. Every circuit — no matter how complex — is built from these gates.</p>
+<p>In <strong>Module 1.2</strong>, you'll meet the <strong>multiplexer (MUX)</strong>: a circuit that acts as a programmable switch. It's one of the most useful building blocks in digital design, and you'll use it constantly from here on.</p>
 <hr />
 <h2 id="quick-reference">Quick reference</h2>
 <table>
@@ -1022,24 +1084,24 @@ The pattern — true when inputs differ, false when they match — is the defini
 <tr>
 <th>Gate</th>
 <th>TL-Verilog</th>
-<th>Output is 1 when...</th>
+<th>Output is <code>1</code> when...</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>NOT</td>
 <td><code>!$a</code></td>
-<td>input is 0</td>
+<td>input is <code>0</code></td>
 </tr>
 <tr>
 <td>AND</td>
 <td><code>$a &amp;&amp; $b</code></td>
-<td>both inputs are 1</td>
+<td>both inputs are <code>1</code></td>
 </tr>
 <tr>
 <td>OR</td>
 <td><code>$a \|\| $b</code></td>
-<td>at least one input is 1</td>
+<td>at least one input is <code>1</code></td>
 </tr>
 <tr>
 <td>XOR</td>
@@ -1049,12 +1111,12 @@ The pattern — true when inputs differ, false when they match — is the defini
 <tr>
 <td>NAND</td>
 <td><code>!($a &amp;&amp; $b)</code></td>
-<td>NOT both inputs are 1</td>
+<td>NOT both inputs are <code>1</code></td>
 </tr>
 <tr>
 <td>NOR</td>
 <td><code>!($a \|\| $b)</code></td>
-<td>both inputs are 0</td>
+<td>both inputs are <code>0</code></td>
 </tr>
 </tbody>
 </table>
