@@ -47,7 +47,7 @@ If the input is `0`, the output is `1`.
 
 **Circuit symbol:**
 
-> *(Insert Quartus screenshot: NOT gate)*
+> *(Quartus diagram — coming soon)*
 
 **In TL-Verilog:**
 
@@ -75,7 +75,7 @@ Think of it exactly like the English word "and" — both things have to be true.
 
 **Circuit symbol:**
 
-> *(Insert Quartus screenshot: AND gate)*
+> *(Quartus diagram — coming soon)*
 
 **In TL-Verilog:**
 
@@ -100,7 +100,7 @@ Two inputs, one output. The output is `1` when **at least one input is `1`**.
 
 **Circuit symbol:**
 
-> *(Insert Quartus screenshot: OR gate)*
+> *(Quartus diagram — coming soon)*
 
 **In TL-Verilog:**
 
@@ -127,7 +127,7 @@ Notice the difference from OR: when both inputs are `1`, XOR gives `0`, but OR g
 
 **Circuit symbol:**
 
-> *(Insert Quartus screenshot: XOR gate)*
+> *(Quartus diagram — coming soon)*
 
 **In TL-Verilog:**
 
@@ -171,31 +171,38 @@ $x_nor  = !($a || $b);
 
 ---
 
-## Putting gates together
+## Putting gates together: the half adder
 
 A single gate does one small thing. The real power comes from **combining gates** into more complex functions.
 
-Here's an example: a **half adder**. It takes two single-bit inputs A and B and produces:
-- **S (sum):** the lower bit of A + B
-- **C (carry):** the upper bit of A + B
+### What is a half adder?
 
-For example: `1 + 1 = 10` in binary. So S = 0, C = 1.
+A **half adder** adds two single-bit binary numbers. It takes **2 inputs** (A and B) and produces **2 outputs**:
+
+- **S (sum):** the lower bit of A + B
+- **C (carry):** the upper bit of A + B — this is the "overflow" bit that carries into the next position
+
+Think of it like adding two single digits by hand. If you add 1 + 1, you get 2, which in binary is `10`. The `0` is your sum bit (S) and the `1` is your carry bit (C).
 
 **Truth table:**
 
-| A | B | S | C |
-|---|---|---|---|
-| 0 | 0 | 0 | 0 |
-| 0 | 1 | 1 | 0 |
-| 1 | 0 | 1 | 0 |
-| 1 | 1 | 0 | 1 |
+| A | B | S (sum) | C (carry) |
+|---|---|---------|-----------|
+| 0 | 0 | 0       | 0         |
+| 0 | 1 | 1       | 0         |
+| 1 | 0 | 1       | 0         |
+| 1 | 1 | 0       | 1         |
 
-If you look at S: it's `1` only when A and B are *different* — that's XOR.  
-If you look at C: it's `1` only when A and B are *both* `1` — that's AND.
+Look at the pattern:
+
+- **S** is `1` only when A and B are *different* — that's XOR
+- **C** is `1` only when A and B are *both* `1` — that's AND
+
+So a half adder is just an XOR gate and an AND gate working together.
 
 **Circuit diagram:**
 
-> *(Insert Quartus screenshot: half adder — XOR gate for S, AND gate for C)*
+> *(Quartus diagram — coming soon)*
 
 **In TL-Verilog:**
 
@@ -204,29 +211,33 @@ $s = $a ^ $b;   // XOR for sum
 $c = $a && $b;  // AND for carry
 ```
 
-Two lines. That's a half adder.
+Two lines. That's a complete half adder.
 
----
+### See it running in Makerchip
 
-## Your first circuit in Makerchip
+Click below to open the half adder in Makerchip. The inputs A and B automatically cycle through all four combinations so you can watch the outputs change in the waveform.
 
-Now let's run this in Makerchip so you can see it working.
+[Open half adder in Makerchip :material-open-in-new:](https://www.makerchip.com/v132/ide/~0yPfNhD8/p-0wjhLP){ .md-button }
 
-Click the button below to open a starter sandbox with the half adder code pre-loaded:
+### How to read the Makerchip output
 
-[![Open in Makerchip](https://img.shields.io/badge/Open%20in-Makerchip-blue)](https://makerchip.com/sandbox?code_url=PLACEHOLDER_URL)
+Once it's open and compiled, you'll see two main panels:
 
-> *(You'll replace PLACEHOLDER_URL with your actual saved Makerchip link)*
+**The diagram tab** shows an auto-generated circuit drawn from your TL-Verilog code. Each signal you assign becomes a node. You should be able to find the XOR gate (producing `$s`) and the AND gate (producing `$c`).
 
-Once it's open:
+**The waveform tab** shows signal values over time. Each row is a signal, each column is a clock cycle. Read it left to right:
 
-1. Click **Compile** (or press the compile shortcut)
-2. Look at the **Diagram** tab — you should see the XOR and AND gates laid out
-3. Look at the **Waveform** tab — you'll see `$a`, `$b`, `$s`, and `$c` signals over time
-4. Try changing the values of `$a` and `$b` and verify the outputs match the truth table above
+| Cycle | $a | $b | $s | $c |
+|-------|----|----|----|----|
+| 1     | 0  | 0  | 0  | 0  |
+| 2     | 0  | 1  | 1  | 0  |
+| 3     | 1  | 0  | 1  | 0  |
+| 4     | 1  | 1  | 0  | 1  |
+
+Verify that every row matches the truth table above. This is how hardware engineers debug circuits — they look at the waveform and check that the actual behavior matches what they expected.
 
 !!! note "Reading the auto-generated diagram"
-    The diagram Makerchip generates is produced directly from your code. Each signal you assign becomes a node. This is different from drawing gates by hand — the layout is automatic, but the logic is exactly what you wrote. Take a moment to find your XOR gate and your AND gate in the diagram.
+    The Makerchip diagram shows you the direct translation of your code into circuit elements. The layout is automatic, but the logic is exactly what you wrote. As you write more complex circuits, getting comfortable reading this diagram will help you debug faster.
 
 ---
 
@@ -234,15 +245,14 @@ Once it's open:
 
 **Build a circuit that outputs `1` only when all three inputs A, B, and C are `1`.**
 
-You can't use a three-input AND gate directly — in TL-Verilog you chain two two-input ANDs:
+[Open starter code in Makerchip :material-open-in-new:](https://www.makerchip.com/v132/ide/~0yPfNhD8/p-0xGhJP){ .md-button }
 
-```tlv
-// Your code here
-$x = ???
-```
+The starter code has `$x = 1'b0` as a placeholder — your output is always `0` right now. Replace that line with the correct gate logic.
+
+Verify your circuit with all 8 combinations of A, B, C. Only the row where all three are `1` should give an output of `1`.
 
 ??? hint "Hint"
-    Think about it in English: "A AND B AND C". Now write that as two ANDs:
+    Think about it in English: "A AND B AND C". Chain two AND gates:
     first compute A AND B, then AND the result with C.
 
 ??? solution "Solution"
@@ -251,65 +261,53 @@ $x = ???
     ```
     TL-Verilog lets you chain `&&` directly, which is equivalent to two AND gates in sequence.
 
-[Open starter code in Makerchip](https://makerchip.com/sandbox?code_url=PLACEHOLDER_URL_EXERCISE)
-
-Verify your circuit with all 8 combinations of A, B, C. Only the row where all three are `1` should give an output of `1`.
-
 ---
 
 ## Match the waveform
 
-Look at the waveform below. Two inputs, A and B, producing an output X.
+Look at the table below. Two inputs A and B produce an output X. **What gate produces this output?**
 
-> *(Insert screenshot: waveform showing A, B, X signals over 4 clock cycles)*
->
-> | Cycle | A | B | X |
-> |-------|---|---|---|
-> | 1     | 0 | 0 | 0 |
-> | 2     | 0 | 1 | 1 |
-> | 3     | 1 | 0 | 1 |
-> | 4     | 1 | 1 | 0 |
+| Cycle | A | B | X |
+|-------|---|---|---|
+| 1     | 0 | 0 | 0 |
+| 2     | 0 | 1 | 1 |
+| 3     | 1 | 0 | 1 |
+| 4     | 1 | 1 | 0 |
 
-**What gate produces this output?**
+> *(Waveform screenshot — coming soon)*
 
-Write the TL-Verilog expression for X:
+Write the TL-Verilog expression for X, then open the sandbox below to verify:
 
-```tlv
-$x = ???
-```
+[Open puzzle in Makerchip :material-open-in-new:](https://www.makerchip.com/v132/ide/~0yPfNhD8/p-0zmhRK){ .md-button }
 
-[Open in Makerchip to verify](https://makerchip.com/sandbox?code_url=PLACEHOLDER_URL_PUZZLE)
+??? hint "How to read the pattern"
+    Look at when X goes high. It's `1` in cycles 2 and 3 — when A and B are *different*. When they're the same (both 0 in cycle 1, both 1 in cycle 4), X is `0`.
 
-??? hint "How to read the waveform"
-    Look at each row. When does X go high (become 1)? In cycles 2 and 3 — when A and B are *different*. When they're the same (both 0 in cycle 1, both 1 in cycle 4), X is 0.
-    
-    Which gate gives 1 when inputs are different?
+    Which gate gives `1` when inputs are different?
 
 ??? solution "Solution"
     ```tlv
     $x = $a ^ $b;  // XOR
     ```
-    The pattern — true when inputs differ, false when they match — is the definition of XOR.
-    
-    Reading waveforms backwards into code is one of the most important debugging skills in hardware design. When something in your circuit is misbehaving, you'll read its waveform and ask: "what logic would produce this pattern?"
+    Reading signal patterns backwards into code is one of the most important debugging skills in hardware design. When something in your circuit misbehaves, you read its waveform and ask: "what logic would produce this pattern?"
 
 ---
 
 ## Where this fits next
 
-You now know the fundamental building blocks of all combinational logic. Every circuit — no matter how complex — is made of these gates chained together.
+You now know the fundamental building blocks of all combinational logic. Every circuit — no matter how complex — is built from these gates.
 
-In **Module 1.2**, you'll meet the multiplexer (MUX): a gate-level circuit that acts as a programmable switch. It's one of the most useful building blocks in digital design, and you'll use it constantly from here on.
+In **Module 1.2**, you'll meet the **multiplexer (MUX)**: a circuit that acts as a programmable switch. It's one of the most useful building blocks in digital design, and you'll use it constantly from here on.
 
 ---
 
 ## Quick reference
 
-| Gate | TL-Verilog | Output is 1 when... |
-|------|-----------|---------------------|
-| NOT  | `!$a` | input is 0 |
-| AND  | `$a && $b` | both inputs are 1 |
-| OR   | `$a \|\| $b` | at least one input is 1 |
+| Gate | TL-Verilog | Output is `1` when... |
+|------|------------|----------------------|
+| NOT  | `!$a` | input is `0` |
+| AND  | `$a && $b` | both inputs are `1` |
+| OR   | `$a \|\| $b` | at least one input is `1` |
 | XOR  | `$a ^ $b` | inputs are different |
-| NAND | `!($a && $b)` | NOT both inputs are 1 |
-| NOR  | `!($a \|\| $b)` | both inputs are 0 |
+| NAND | `!($a && $b)` | NOT both inputs are `1` |
+| NOR  | `!($a \|\| $b)` | both inputs are `0` |

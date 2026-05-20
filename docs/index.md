@@ -29,7 +29,7 @@ Each module combines:
 
 ## Curriculum structure
 
-| Block | Topic | Projects |
+| Block | Topic | Project |
 |-------|-------|---------|
 | 1 | Combinational Logic | Gates, MUXes, ALU |
 | 2 | Sequential Logic | Registers, FSMs, Penalty Kick |
@@ -38,4 +38,4 @@ Each module combines:
 
 ---
 
-Start with **Block 1 → Module 1.1: Logic Gates**.
+[Start here → Module 1.1: Logic Gates](block-1/module-1-1-logic-gates.md){ .md-button .md-button--primary }
