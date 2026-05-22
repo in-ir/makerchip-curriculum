@@ -631,7 +631,7 @@
 <h1 id="module-11-logic-gates">Module 1.1: Logic Gates</h1>
 <p><strong>Block 1 — Combinational Logic</strong><br />
 <strong>Estimated time:</strong> 45–60 minutes<br />
-<strong>Prerequisites:</strong> None  </p>
+<strong>Prerequisites:</strong> None</p>
 <hr />
 <h2 id="what-youll-learn">What you'll learn</h2>
 <p>By the end of this module you'll be able to:</p>
@@ -649,8 +649,8 @@
 <p>A <strong>logic gate</strong> is a circuit that takes one or more binary inputs and produces a binary output based on a fixed logical rule. Gates are the atoms of digital design. Everything else is built by combining them.</p>
 <div class="admonition note">
 <p class="admonition-title">Why ones and zeros?</p>
-<p>In hardware, a <code>1</code> represents a high voltage (typically ~3.3V or 1.8V depending on the technology) and a <code>0</code> represents a low voltage (close to 0V). The circuit doesn't care about the exact voltage — just whether it's "high" or "low". This binary representation is what makes digital circuits so reliable and noise-resistant.</p>
 </div>
+<p>In hardware, a <code>1</code> represents a high voltage (typically ~3.3V or 1.8V depending on the technology) and a <code>0</code> represents a low voltage (close to 0V). The circuit doesn't care about the exact voltage — just whether it's "high" or "low". This binary representation is what makes digital circuits so reliable and noise-resistant.</p>
 <hr />
 <h2 id="the-not-gate">The NOT gate</h2>
 <p>The simplest gate. One input, one output. It <strong>inverts</strong> the signal.</p>
@@ -884,8 +884,8 @@ Think of it exactly like the English word "and" — both things have to be true.
 </code></pre></div>
 <div class="admonition tip">
 <p class="admonition-title">NAND is universal</p>
-<p>You can build every other gate — AND, OR, NOT, XOR — out of NAND gates alone. This is why NAND is sometimes called a <strong>universal gate</strong>. In practice, chip designers sometimes implement entire logic functions using only NAND gates because it simplifies the physical layout.</p>
 </div>
+<p>You can build every other gate — AND, OR, NOT, XOR — out of NAND gates alone. This is why NAND is sometimes called a <strong>universal gate</strong>. In practice, chip designers sometimes implement entire logic functions using only NAND gates because it simplifies the physical layout.</p>
 <hr />
 <h2 id="putting-gates-together-the-half-adder">Putting gates together: the half adder</h2>
 <p>A single gate does one small thing. The real power comes from <strong>combining gates</strong> into more complex functions.</p>
@@ -950,7 +950,7 @@ Think of it exactly like the English word "and" — both things have to be true.
 <p>Two lines. That's a complete half adder.</p>
 <h3 id="see-it-running-in-makerchip">See it running in Makerchip</h3>
 <p>Click below to open the half adder in Makerchip. The inputs A and B automatically cycle through all four combinations so you can watch the outputs change in the waveform.</p>
-<p><a class="md-button" href="https://www.makerchip.com/v132/ide/~0yPfNhD8/p-0wjhLP">Open half adder in Makerchip <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3m-2 16H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7h-2z"/></svg></span></a></p>
+<p><a class="md-button" href="https://makerchip.com/sandbox?code_url=https://raw.githubusercontent.com/in-ir/makerchip-curriculum/main/code/block-1/half-adder.tlv">Open half adder in Makerchip <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3m-2 16H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7h-2z"/></svg></span></a></p>
 <h3 id="how-to-read-the-makerchip-output">How to read the Makerchip output</h3>
 <p>Once it's open and compiled, you'll see two main panels:</p>
 <p><strong>The diagram tab</strong> shows an auto-generated circuit drawn from your TL-Verilog code. Each signal you assign becomes a node. You should be able to find the XOR gate (producing <code>$s</code>) and the AND gate (producing <code>$c</code>).</p>
@@ -999,25 +999,25 @@ Think of it exactly like the English word "and" — both things have to be true.
 <p>Verify that every row matches the truth table above. This is how hardware engineers debug circuits — they look at the waveform and check that the actual behavior matches what they expected.</p>
 <div class="admonition note">
 <p class="admonition-title">Reading the auto-generated diagram</p>
-<p>The Makerchip diagram shows you the direct translation of your code into circuit elements. The layout is automatic, but the logic is exactly what you wrote. As you write more complex circuits, getting comfortable reading this diagram will help you debug faster.</p>
 </div>
+<p>The Makerchip diagram shows you the direct translation of your code into circuit elements. The layout is automatic, but the logic is exactly what you wrote. As you write more complex circuits, getting comfortable reading this diagram will help you debug faster.</p>
 <hr />
 <h2 id="exercise-three-input-and">Exercise: Three-input AND</h2>
 <p><strong>Build a circuit that outputs <code>1</code> only when all three inputs A, B, and C are <code>1</code>.</strong></p>
-<p><a class="md-button" href="https://www.makerchip.com/v132/ide/~0yPfNhD8/p-0xGhJP">Open starter code in Makerchip <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3m-2 16H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7h-2z"/></svg></span></a></p>
+<p><a class="md-button" href="https://makerchip.com/sandbox?code_url=https://raw.githubusercontent.com/in-ir/makerchip-curriculum/main/code/block-1/three-input-and.tlv">Open starter code in Makerchip <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3m-2 16H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7h-2z"/></svg></span></a></p>
 <p>The starter code has <code>$x = 1'b0</code> as a placeholder — your output is always <code>0</code> right now. Replace that line with the correct gate logic.</p>
 <p>Verify your circuit with all 8 combinations of A, B, C. Only the row where all three are <code>1</code> should give an output of <code>1</code>.</p>
 <details class="hint">
 <summary>Hint</summary>
+</details>
 <p>Think about it in English: "A AND B AND C". Chain two AND gates:
 first compute A AND B, then AND the result with C.</p>
-</details>
 <details class="solution">
 <summary>Solution</summary>
-<p><div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>$x = $a &amp;&amp; $b &amp;&amp; $c;
-</code></pre></div>
-TL-Verilog lets you chain <code>&amp;&amp;</code> directly, which is equivalent to two AND gates in sequence.</p>
 </details>
+<p><code>tlv
+    $x = $a &amp;&amp; $b &amp;&amp; $c;</code>
+TL-Verilog lets you chain <code>&amp;&amp;</code> directly, which is equivalent to two AND gates in sequence.</p>
 <hr />
 <h2 id="match-the-waveform">Match the waveform</h2>
 <p>Look at the table below. Two inputs A and B produce an output X. <strong>What gate produces this output?</strong></p>
@@ -1061,18 +1061,19 @@ TL-Verilog lets you chain <code>&amp;&amp;</code> directly, which is equivalent 
 <p><em>(Waveform screenshot — coming soon)</em></p>
 </blockquote>
 <p>Write the TL-Verilog expression for X, then open the sandbox below to verify:</p>
-<p><a class="md-button" href="https://www.makerchip.com/v132/ide/~0yPfNhD8/p-0zmhRK">Open puzzle in Makerchip <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3m-2 16H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7h-2z"/></svg></span></a></p>
+<p><a class="md-button" href="https://makerchip.com/sandbox?code_url=https://raw.githubusercontent.com/in-ir/makerchip-curriculum/main/code/block-1/xor-puzzle.tlv">Open puzzle in Makerchip <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3m-2 16H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7h-2z"/></svg></span></a></p>
 <details class="hint">
 <summary>How to read the pattern</summary>
-<p>Look at when X goes high. It's <code>1</code> in cycles 2 and 3 — when A and B are <em>different</em>. When they're the same (both 0 in cycle 1, both 1 in cycle 4), X is <code>0</code>.</p>
-<p>Which gate gives <code>1</code> when inputs are different?</p>
 </details>
+<p>Look at when X goes high. It's <code>1</code> in cycles 2 and 3 — when A and B are <em>different</em>. When they're the same (both 0 in cycle 1, both 1 in cycle 4), X is <code>0</code>.</p>
+<div class="highlight"><pre><span></span><code>Which gate gives `1` when inputs are different?
+</code></pre></div>
 <details class="solution">
 <summary>Solution</summary>
-<p><div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>$x = $a ^ $b;  // XOR
-</code></pre></div>
-Reading signal patterns backwards into code is one of the most important debugging skills in hardware design. When something in your circuit misbehaves, you read its waveform and ask: "what logic would produce this pattern?"</p>
 </details>
+<p><code>tlv
+    $x = $a ^ $b;  // XOR</code>
+Reading signal patterns backwards into code is one of the most important debugging skills in hardware design. When something in your circuit misbehaves, you read its waveform and ask: "what logic would produce this pattern?"</p>
 <hr />
 <h2 id="where-this-fits-next">Where this fits next</h2>
 <p>You now know the fundamental building blocks of all combinational logic. Every circuit — no matter how complex — is built from these gates.</p>
