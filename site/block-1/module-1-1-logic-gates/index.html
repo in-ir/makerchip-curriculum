@@ -950,7 +950,7 @@ Think of it exactly like the English word "and" — both things have to be true.
 <p>Two lines. That's a complete half adder.</p>
 <h3 id="see-it-running-in-makerchip">See it running in Makerchip</h3>
 <p>Click below to open the half adder in Makerchip. The inputs A and B automatically cycle through all four combinations so you can watch the outputs change in the waveform.</p>
-<p><a class="md-button" href="https://makerchip.com/sandbox?code_url=https://raw.githubusercontent.com/in-ir/makerchip-curriculum/main/code/block-1/half-adder.tlv">Open half adder in Makerchip <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3m-2 16H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7h-2z"/></svg></span></a></p>
+<p><a class="md-button" href="http://www.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fin-ir%2Fmakerchip-curriculum%2Fmain%2Fcode%2Fblock-1%2Fhalf-adder.tlv">Open half adder in Makerchip <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3m-2 16H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7h-2z"/></svg></span></a></p>
 <h3 id="how-to-read-the-makerchip-output">How to read the Makerchip output</h3>
 <p>Once it's open and compiled, you'll see two main panels:</p>
 <p><strong>The diagram tab</strong> shows an auto-generated circuit drawn from your TL-Verilog code. Each signal you assign becomes a node. You should be able to find the XOR gate (producing <code>$s</code>) and the AND gate (producing <code>$c</code>).</p>
@@ -1004,7 +1004,7 @@ Think of it exactly like the English word "and" — both things have to be true.
 <hr />
 <h2 id="exercise-three-input-and">Exercise: Three-input AND</h2>
 <p><strong>Build a circuit that outputs <code>1</code> only when all three inputs A, B, and C are <code>1</code>.</strong></p>
-<p><a class="md-button" href="https://makerchip.com/sandbox?code_url=https://raw.githubusercontent.com/in-ir/makerchip-curriculum/main/code/block-1/three-input-and.tlv">Open starter code in Makerchip <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3m-2 16H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7h-2z"/></svg></span></a></p>
+<p><a class="md-button" href="http://www.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fin-ir%2Fmakerchip-curriculum%2Fmain%2Fcode%2Fblock-1%2Fthree-input-and.tlv">Open starter code in Makerchip <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3m-2 16H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7h-2z"/></svg></span></a></p>
 <p>The starter code has <code>$x = 1'b0</code> as a placeholder — your output is always <code>0</code> right now. Replace that line with the correct gate logic.</p>
 <p>Verify your circuit with all 8 combinations of A, B, C. Only the row where all three are <code>1</code> should give an output of <code>1</code>.</p>
 <details class="hint">
@@ -1061,7 +1061,7 @@ TL-Verilog lets you chain <code>&amp;&amp;</code> directly, which is equivalent 
 <p><em>(Waveform screenshot — coming soon)</em></p>
 </blockquote>
 <p>Write the TL-Verilog expression for X, then open the sandbox below to verify:</p>
-<p><a class="md-button" href="https://makerchip.com/sandbox?code_url=https://raw.githubusercontent.com/in-ir/makerchip-curriculum/main/code/block-1/xor-puzzle.tlv">Open puzzle in Makerchip <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3m-2 16H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7h-2z"/></svg></span></a></p>
+<p><a class="md-button" href="http://www.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fin-ir%2Fmakerchip-curriculum%2Fmain%2Fcode%2Fblock-1%2Fxor-puzzle.tlv">Open puzzle in Makerchip <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3m-2 16H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7h-2z"/></svg></span></a></p>
 <details class="hint">
 <summary>How to read the pattern</summary>
 </details>
