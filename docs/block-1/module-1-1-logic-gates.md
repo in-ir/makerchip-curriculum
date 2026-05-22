@@ -2,7 +2,7 @@
 
 **Block 1 — Combinational Logic**  
 **Estimated time:** 45–60 minutes  
-**Prerequisites:** None  
+**Prerequisites:** None
 
 ---
 
@@ -27,7 +27,7 @@ That's it. A processor running a video game, a memory controller reading your fi
 A **logic gate** is a circuit that takes one or more binary inputs and produces a binary output based on a fixed logical rule. Gates are the atoms of digital design. Everything else is built by combining them.
 
 !!! note "Why ones and zeros?"
-    In hardware, a `1` represents a high voltage (typically ~3.3V or 1.8V depending on the technology) and a `0` represents a low voltage (close to 0V). The circuit doesn't care about the exact voltage — just whether it's "high" or "low". This binary representation is what makes digital circuits so reliable and noise-resistant.
+In hardware, a `1` represents a high voltage (typically ~3.3V or 1.8V depending on the technology) and a `0` represents a low voltage (close to 0V). The circuit doesn't care about the exact voltage — just whether it's "high" or "low". This binary representation is what makes digital circuits so reliable and noise-resistant.
 
 ---
 
@@ -41,13 +41,13 @@ If the input is `0`, the output is `1`.
 **Truth table:**
 
 | A (input) | X (output) |
-|-----------|------------|
+| --------- | ---------- |
 | 0         | 1          |
 | 1         | 0          |
 
 **Circuit symbol:**
 
-> *(Quartus diagram — coming soon)*
+> _(Quartus diagram — coming soon)_
 
 **In TL-Verilog:**
 
@@ -66,16 +66,16 @@ Think of it exactly like the English word "and" — both things have to be true.
 
 **Truth table:**
 
-| A | B | X |
-|---|---|---|
-| 0 | 0 | 0 |
-| 0 | 1 | 0 |
-| 1 | 0 | 0 |
-| 1 | 1 | 1 |
+| A   | B   | X   |
+| --- | --- | --- |
+| 0   | 0   | 0   |
+| 0   | 1   | 0   |
+| 1   | 0   | 0   |
+| 1   | 1   | 1   |
 
 **Circuit symbol:**
 
-> *(Quartus diagram — coming soon)*
+> _(Quartus diagram — coming soon)_
 
 **In TL-Verilog:**
 
@@ -91,16 +91,16 @@ Two inputs, one output. The output is `1` when **at least one input is `1`**.
 
 **Truth table:**
 
-| A | B | X |
-|---|---|---|
-| 0 | 0 | 0 |
-| 0 | 1 | 1 |
-| 1 | 0 | 1 |
-| 1 | 1 | 1 |
+| A   | B   | X   |
+| --- | --- | --- |
+| 0   | 0   | 0   |
+| 0   | 1   | 1   |
+| 1   | 0   | 1   |
+| 1   | 1   | 1   |
 
 **Circuit symbol:**
 
-> *(Quartus diagram — coming soon)*
+> _(Quartus diagram — coming soon)_
 
 **In TL-Verilog:**
 
@@ -116,18 +116,18 @@ XOR stands for **exclusive OR**. The output is `1` when the inputs are **differe
 
 **Truth table:**
 
-| A | B | X |
-|---|---|---|
-| 0 | 0 | 0 |
-| 0 | 1 | 1 |
-| 1 | 0 | 1 |
-| 1 | 1 | 0 |
+| A   | B   | X   |
+| --- | --- | --- |
+| 0   | 0   | 0   |
+| 0   | 1   | 1   |
+| 1   | 0   | 1   |
+| 1   | 1   | 0   |
 
 Notice the difference from OR: when both inputs are `1`, XOR gives `0`, but OR gives `1`. That's the "exclusive" part.
 
 **Circuit symbol:**
 
-> *(Quartus diagram — coming soon)*
+> _(Quartus diagram — coming soon)_
 
 **In TL-Verilog:**
 
@@ -143,21 +143,21 @@ NAND and NOR are simply AND and OR with the output **inverted** (the N stands fo
 
 **NAND truth table:**
 
-| A | B | X |
-|---|---|---|
-| 0 | 0 | 1 |
-| 0 | 1 | 1 |
-| 1 | 0 | 1 |
-| 1 | 1 | 0 |
+| A   | B   | X   |
+| --- | --- | --- |
+| 0   | 0   | 1   |
+| 0   | 1   | 1   |
+| 1   | 0   | 1   |
+| 1   | 1   | 0   |
 
 **NOR truth table:**
 
-| A | B | X |
-|---|---|---|
-| 0 | 0 | 1 |
-| 0 | 1 | 0 |
-| 1 | 0 | 0 |
-| 1 | 1 | 0 |
+| A   | B   | X   |
+| --- | --- | --- |
+| 0   | 0   | 1   |
+| 0   | 1   | 0   |
+| 1   | 0   | 0   |
+| 1   | 1   | 0   |
 
 **In TL-Verilog:**
 
@@ -167,7 +167,7 @@ $x_nor  = !($a || $b);
 ```
 
 !!! tip "NAND is universal"
-    You can build every other gate — AND, OR, NOT, XOR — out of NAND gates alone. This is why NAND is sometimes called a **universal gate**. In practice, chip designers sometimes implement entire logic functions using only NAND gates because it simplifies the physical layout.
+You can build every other gate — AND, OR, NOT, XOR — out of NAND gates alone. This is why NAND is sometimes called a **universal gate**. In practice, chip designers sometimes implement entire logic functions using only NAND gates because it simplifies the physical layout.
 
 ---
 
@@ -186,23 +186,23 @@ Think of it like adding two single digits by hand. If you add 1 + 1, you get 2, 
 
 **Truth table:**
 
-| A | B | S (sum) | C (carry) |
-|---|---|---------|-----------|
-| 0 | 0 | 0       | 0         |
-| 0 | 1 | 1       | 0         |
-| 1 | 0 | 1       | 0         |
-| 1 | 1 | 0       | 1         |
+| A   | B   | S (sum) | C (carry) |
+| --- | --- | ------- | --------- |
+| 0   | 0   | 0       | 0         |
+| 0   | 1   | 1       | 0         |
+| 1   | 0   | 1       | 0         |
+| 1   | 1   | 0       | 1         |
 
 Look at the pattern:
 
-- **S** is `1` only when A and B are *different* — that's XOR
-- **C** is `1` only when A and B are *both* `1` — that's AND
+- **S** is `1` only when A and B are _different_ — that's XOR
+- **C** is `1` only when A and B are _both_ `1` — that's AND
 
 So a half adder is just an XOR gate and an AND gate working together.
 
 **Circuit diagram:**
 
-> *(Quartus diagram — coming soon)*
+> _(Quartus diagram — coming soon)_
 
 **In TL-Verilog:**
 
@@ -217,7 +217,7 @@ Two lines. That's a complete half adder.
 
 Click below to open the half adder in Makerchip. The inputs A and B automatically cycle through all four combinations so you can watch the outputs change in the waveform.
 
-[Open half adder in Makerchip :material-open-in-new:](https://www.makerchip.com/v132/ide/~0yPfNhD8/p-0wjhLP){ .md-button }
+[Open half adder in Makerchip :material-open-in-new:](http://www.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fin-ir%2Fmakerchip-curriculum%2Fmain%2Fcode%2Fblock-1%2Fhalf-adder.tlv){ .md-button }
 
 ### How to read the Makerchip output
 
@@ -227,17 +227,17 @@ Once it's open and compiled, you'll see two main panels:
 
 **The waveform tab** shows signal values over time. Each row is a signal, each column is a clock cycle. Read it left to right:
 
-| Cycle | $a | $b | $s | $c |
-|-------|----|----|----|----|
-| 1     | 0  | 0  | 0  | 0  |
-| 2     | 0  | 1  | 1  | 0  |
-| 3     | 1  | 0  | 1  | 0  |
-| 4     | 1  | 1  | 0  | 1  |
+| Cycle | $a  | $b  | $s  | $c  |
+| ----- | --- | --- | --- | --- |
+| 1     | 0   | 0   | 0   | 0   |
+| 2     | 0   | 1   | 1   | 0   |
+| 3     | 1   | 0   | 1   | 0   |
+| 4     | 1   | 1   | 0   | 1   |
 
 Verify that every row matches the truth table above. This is how hardware engineers debug circuits — they look at the waveform and check that the actual behavior matches what they expected.
 
 !!! note "Reading the auto-generated diagram"
-    The Makerchip diagram shows you the direct translation of your code into circuit elements. The layout is automatic, but the logic is exactly what you wrote. As you write more complex circuits, getting comfortable reading this diagram will help you debug faster.
+The Makerchip diagram shows you the direct translation of your code into circuit elements. The layout is automatic, but the logic is exactly what you wrote. As you write more complex circuits, getting comfortable reading this diagram will help you debug faster.
 
 ---
 
@@ -245,21 +245,21 @@ Verify that every row matches the truth table above. This is how hardware engine
 
 **Build a circuit that outputs `1` only when all three inputs A, B, and C are `1`.**
 
-[Open starter code in Makerchip :material-open-in-new:](https://www.makerchip.com/v132/ide/~0yPfNhD8/p-0xGhJP){ .md-button }
+[Open starter code in Makerchip :material-open-in-new:](http://www.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fin-ir%2Fmakerchip-curriculum%2Fmain%2Fcode%2Fblock-1%2Fthree-input-and.tlv){ .md-button }
 
 The starter code has `$x = 1'b0` as a placeholder — your output is always `0` right now. Replace that line with the correct gate logic.
 
 Verify your circuit with all 8 combinations of A, B, C. Only the row where all three are `1` should give an output of `1`.
 
 ??? hint "Hint"
-    Think about it in English: "A AND B AND C". Chain two AND gates:
-    first compute A AND B, then AND the result with C.
+Think about it in English: "A AND B AND C". Chain two AND gates:
+first compute A AND B, then AND the result with C.
 
 ??? solution "Solution"
-    ```tlv
+`tlv
     $x = $a && $b && $c;
-    ```
-    TL-Verilog lets you chain `&&` directly, which is equivalent to two AND gates in sequence.
+    `
+TL-Verilog lets you chain `&&` directly, which is equivalent to two AND gates in sequence.
 
 ---
 
@@ -267,29 +267,29 @@ Verify your circuit with all 8 combinations of A, B, C. Only the row where all t
 
 Look at the table below. Two inputs A and B produce an output X. **What gate produces this output?**
 
-| Cycle | A | B | X |
-|-------|---|---|---|
-| 1     | 0 | 0 | 0 |
-| 2     | 0 | 1 | 1 |
-| 3     | 1 | 0 | 1 |
-| 4     | 1 | 1 | 0 |
+| Cycle | A   | B   | X   |
+| ----- | --- | --- | --- |
+| 1     | 0   | 0   | 0   |
+| 2     | 0   | 1   | 1   |
+| 3     | 1   | 0   | 1   |
+| 4     | 1   | 1   | 0   |
 
-> *(Waveform screenshot — coming soon)*
+> _(Waveform screenshot — coming soon)_
 
 Write the TL-Verilog expression for X, then open the sandbox below to verify:
 
-[Open puzzle in Makerchip :material-open-in-new:](https://www.makerchip.com/v132/ide/~0yPfNhD8/p-0zmhRK){ .md-button }
+[Open puzzle in Makerchip :material-open-in-new:](http://www.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fin-ir%2Fmakerchip-curriculum%2Fmain%2Fcode%2Fblock-1%2Fxor-puzzle.tlv){ .md-button }
 
 ??? hint "How to read the pattern"
-    Look at when X goes high. It's `1` in cycles 2 and 3 — when A and B are *different*. When they're the same (both 0 in cycle 1, both 1 in cycle 4), X is `0`.
+Look at when X goes high. It's `1` in cycles 2 and 3 — when A and B are _different_. When they're the same (both 0 in cycle 1, both 1 in cycle 4), X is `0`.
 
     Which gate gives `1` when inputs are different?
 
 ??? solution "Solution"
-    ```tlv
+`tlv
     $x = $a ^ $b;  // XOR
-    ```
-    Reading signal patterns backwards into code is one of the most important debugging skills in hardware design. When something in your circuit misbehaves, you read its waveform and ask: "what logic would produce this pattern?"
+    `
+Reading signal patterns backwards into code is one of the most important debugging skills in hardware design. When something in your circuit misbehaves, you read its waveform and ask: "what logic would produce this pattern?"
 
 ---
 
@@ -303,11 +303,11 @@ In **Module 1.2**, you'll meet the **multiplexer (MUX)**: a circuit that acts as
 
 ## Quick reference
 
-| Gate | TL-Verilog | Output is `1` when... |
-|------|------------|----------------------|
-| NOT  | `!$a` | input is `0` |
-| AND  | `$a && $b` | both inputs are `1` |
-| OR   | `$a \|\| $b` | at least one input is `1` |
-| XOR  | `$a ^ $b` | inputs are different |
-| NAND | `!($a && $b)` | NOT both inputs are `1` |
-| NOR  | `!($a \|\| $b)` | both inputs are `0` |
+| Gate | TL-Verilog      | Output is `1` when...     |
+| ---- | --------------- | ------------------------- |
+| NOT  | `!$a`           | input is `0`              |
+| AND  | `$a && $b`      | both inputs are `1`       |
+| OR   | `$a \|\| $b`    | at least one input is `1` |
+| XOR  | `$a ^ $b`       | inputs are different      |
+| NAND | `!($a && $b)`   | NOT both inputs are `1`   |
+| NOR  | `!($a \|\| $b)` | both inputs are `0`       |
