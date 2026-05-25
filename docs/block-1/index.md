@@ -18,8 +18,8 @@ A combinational circuit is one where the output depends only on the current inpu
 ## Modules
 
 1. [Module 1.1 — Logic Gates](module-1-1-logic-gates.md)
-2. Module 1.2 — Multiplexers *(coming soon)*
-3. Module 1.3 — Arithmetic Circuits *(coming soon)*
+2. [Module 1.2 — Multiplexers](module-1-2-mux.md)
+3. Module 1.3 — Arithmetic Circuits _(coming soon)_
 
 ---
 

@@ -217,7 +217,7 @@ Two lines. That's a complete half adder.
 
 Click below to open the half adder in Makerchip. The inputs A and B automatically cycle through all four combinations so you can watch the outputs change in the waveform.
 
-[Open half adder in Makerchip :material-open-in-new:](http://www.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fin-ir%2Fmakerchip-curriculum%2Fmain%2Fcode%2Fblock-1%2Fhalf-adder.tlv){ .md-button }
+<a href="http://www.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fin-ir%2Fmakerchip-curriculum%2Fmain%2Fcode%2Fblock-1%2Fhalf-adder.tlv" target="_blank" class="md-button">Open half adder in Makerchip ↗</a>
 
 ### How to read the Makerchip output
 
@@ -245,7 +245,7 @@ The Makerchip diagram shows you the direct translation of your code into circuit
 
 **Build a circuit that outputs `1` only when all three inputs A, B, and C are `1`.**
 
-[Open starter code in Makerchip :material-open-in-new:](http://www.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fin-ir%2Fmakerchip-curriculum%2Fmain%2Fcode%2Fblock-1%2Fthree-input-and.tlv){ .md-button }
+<a href="http://www.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fin-ir%2Fmakerchip-curriculum%2Fmain%2Fcode%2Fblock-1%2Fthree-input-and.tlv" target="_blank" class="md-button">Open starter code in Makerchip ↗</a>
 
 The starter code has `$x = 1'b0` as a placeholder — your output is always `0` right now. Replace that line with the correct gate logic.
 
@@ -278,7 +278,7 @@ Look at the table below. Two inputs A and B produce an output X. **What gate pro
 
 Write the TL-Verilog expression for X, then open the sandbox below to verify:
 
-[Open puzzle in Makerchip :material-open-in-new:](http://www.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fin-ir%2Fmakerchip-curriculum%2Fmain%2Fcode%2Fblock-1%2Fxor-puzzle.tlv){ .md-button }
+<a href="http://www.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fin-ir%2Fmakerchip-curriculum%2Fmain%2Fcode%2Fblock-1%2Fxor-puzzle.tlv" target="_blank" class="md-button">Open puzzle in Makerchip ↗</a>
 
 ??? hint "How to read the pattern"
 Look at when X goes high. It's `1` in cycles 2 and 3 — when A and B are _different_. When they're the same (both 0 in cycle 1, both 1 in cycle 4), X is `0`.

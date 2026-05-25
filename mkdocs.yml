@@ -44,5 +44,6 @@ extra_css:
 nav:
   - Home: index.md
   - Block 1 — Combinational Logic:
-    - Overview: block-1/index.md
-    - Module 1.1 — Logic Gates: block-1/module-1-1-logic-gates.md
+      - Overview: block-1/index.md
+      - Module 1.1 — Logic Gates: block-1/module-1-1-logic-gates.md
+      - Module 1.2 — The Multiplexer: block-1/module-1-2-mux.md
