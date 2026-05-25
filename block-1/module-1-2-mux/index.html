@@ -647,9 +647,7 @@
 </table>
 <p>When SEL is <code>0</code>, the output is whatever A is. When SEL is <code>1</code>, the output is whatever B is.</p>
 <p><strong>Circuit symbol:</strong></p>
-<blockquote>
-<p><em>(Quartus diagram — coming soon)</em></p>
-</blockquote>
+<p><img alt="2-to-1 MUX" src="../assets/images/2to1-mux.png" /></p>
 <p><strong>In TL-Verilog:</strong></p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>$out = $sel ? $b : $a;
 </code></pre></div>
@@ -657,8 +655,8 @@
 <p>One line. That's a complete 2-to-1 MUX.</p>
 <div class="admonition note">
 <p class="admonition-title">Why ternary?</p>
-</div>
 <p>TL-Verilog (and Verilog) uses <code>?:</code> for MUX-like selection because it maps directly to hardware. The synthesizer sees <code>condition ? x : y</code> and produces exactly a MUX circuit. It's not just shorthand — it's the idiomatic way to describe selection in hardware.</p>
+</div>
 <h3 id="see-it-running-in-makerchip">See it running in Makerchip</h3>
 <p>Click below to open the 2-to-1 MUX in Makerchip. The inputs A, B, and SEL automatically cycle through combinations so you can watch the output switch between them in the waveform.</p>
 <p><a href="http://www.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fin-ir%2Fmakerchip-curriculum%2Fmain%2Fcode%2Fblock-1%2F2to1-mux.tlv" target="_blank" class="md-button">Open 2-to-1 MUX in Makerchip ↗</a></p>
@@ -745,20 +743,14 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>$out = $sel[1] ? ($sel[0] ? $d : $c)
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>               : ($sel[0] ? $b : $a);
 </code></pre></div>
-<p>Read it from the outside in:</p>
-<ul>
-<li>If SEL[1] is <code>1</code>, choose between C and D using SEL[0]</li>
-<li>If SEL[1] is <code>0</code>, choose between A and B using SEL[0]</li>
-</ul>
+<p>Read it from the outside in:
+- If SEL[1] is <code>1</code>, choose between C and D using SEL[0]
+- If SEL[1] is <code>0</code>, choose between A and B using SEL[0]</p>
 <p>This is two 2-to-1 MUXes connected together — exactly how you'd build it in hardware.</p>
-<p><strong>Circuit symbol:</strong></p>
-<blockquote>
-<p><em>(Quartus diagram — coming soon)</em></p>
-</blockquote>
 <div class="admonition tip">
 <p class="admonition-title">MUX trees</p>
-</div>
 <p>You can keep chaining MUXes this way. An 8-to-1 MUX uses three select lines. A 16-to-1 uses four. Each added select bit doubles the number of inputs you can choose from. This pattern — a <strong>MUX tree</strong> — is one of the most common structures in digital design.</p>
+</div>
 <hr />
 <h2 id="exercise-build-a-4-to-1-mux-with-logic-output">Exercise: Build a 4-to-1 MUX with logic output</h2>
 <p><strong>The task:</strong> Build a 4-to-1 MUX where each input is not a free signal but a simple logic expression:</p>
@@ -774,25 +766,25 @@
 <p>Verify your circuit: for each combination of SEL, the output should match the corresponding logic expression evaluated on <code>$x</code> and <code>$y</code>.</p>
 <details class="hint">
 <summary>Hint</summary>
-</details>
 <p>Break it into two steps. First compute all four expressions as intermediate signals:
-<code>tlv
-    $a = $x &amp;&amp; $y;
-    $b = $x || $y;
-    $c = !$x;
-    $d = $x ^ $y;</code>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>$a = $x &amp;&amp; $y;
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>$b = $x || $y;
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>$c = !$x;
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>$d = $x ^ $y;
+</code></pre></div>
 Then wire them into your 4-to-1 MUX using chained ternary operators.</p>
+</details>
 <details class="solution">
 <summary>Solution</summary>
-</details>
-<p><code>tlv
-    $a = $x &amp;&amp; $y;
-    $b = $x || $y;
-    $c = !$x;
-    $d = $x ^ $y;
-    $out = $sel[1] ? ($sel[0] ? $d : $c)
-                   : ($sel[0] ? $b : $a);</code>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>$a = $x &amp;&amp; $y;
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>$b = $x || $y;
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>$c = !$x;
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>$d = $x ^ $y;
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>$out = $sel[1] ? ($sel[0] ? $d : $c)
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>               : ($sel[0] ? $b : $a);
+</code></pre></div>
 Notice how clean this is — the gate logic and the selection logic are completely separate. This separation is a good habit: compute your signals first, then select between them.</p>
+</details>
 <hr />
 <h2 id="challenge-priority-selector">Challenge: Priority selector</h2>
 <p><strong>This one requires more thought.</strong></p>
@@ -806,17 +798,17 @@ Notice how clean this is — the gate logic and the selection logic are complete
 <p><a href="http://www.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fin-ir%2Fmakerchip-curriculum%2Fmain%2Fcode%2Fblock-1%2Fmux-challenge.tlv" target="_blank" class="md-button">Open challenge starter code in Makerchip ↗</a></p>
 <details class="hint">
 <summary>Hint</summary>
-</details>
 <p>Think of <code>$p</code> and <code>$q</code> as your select signals. A nested ternary is your friend here — the same pattern as a 4-to-1 MUX, but the select lines are the input signals themselves.</p>
+</details>
 <details class="solution">
 <summary>Solution</summary>
-</details>
-<p><code>tlv
-    $out = $p ? $p : ($q ? $q : $r);</code>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>$out = $p ? $p : ($q ? $q : $r);
+</code></pre></div>
 Or more cleanly, since <code>$p</code> selects itself:
-<code>tlv
-    $out = $p | ($q &amp; !$p) | ($r &amp; !$p &amp; !$q);</code>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>$out = $p | ($q &amp; !$p) | ($r &amp; !$p &amp; !$q);
+</code></pre></div>
 Both are valid. The ternary version is more idiomatic for MUX-style thinking. The gate version makes the priority logic more explicit. Try both and compare the diagrams Makerchip generates for each.</p>
+</details>
 <hr />
 <h2 id="where-this-fits-next">Where this fits next</h2>
 <p>You now have two of the most important combinational building blocks: <strong>gates</strong> and <strong>MUXes</strong>. These two alone can express any combinational logic function.</p>
