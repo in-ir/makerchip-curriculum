@@ -52,7 +52,7 @@ This uses the **ternary operator** — the same `?:` you might know from C or Py
 One line. That's a complete 2-to-1 MUX.
 
 !!! note "Why ternary?"
-TL-Verilog (and Verilog) uses `?:` for MUX-like selection because it maps directly to hardware. The synthesizer sees `condition ? x : y` and produces exactly a MUX circuit. It's not just shorthand — it's the idiomatic way to describe selection in hardware.
+    TL-Verilog (and Verilog) uses `?:` for MUX-like selection because it maps directly to hardware. The synthesizer sees `condition ? x : y` and produces exactly a MUX circuit. It's not just shorthand — it's the idiomatic way to describe selection in hardware.
 
 ### See it running in Makerchip
 
@@ -98,7 +98,7 @@ $out = $sel == 2'b11 ? $d :
 Read it top to bottom: check each value of SEL in order, and output the matching signal. The last line is the default — if none of the conditions above matched, output A.
 
 !!! tip "MUX trees"
-You can keep extending this pattern for as many inputs as you need. An 8-to-1 MUX checks 8 conditions with a 3-bit select. The structure stays the same — one condition per input, a default at the bottom.
+    You can keep extending this pattern for as many inputs as you need. An 8-to-1 MUX checks 8 conditions with a 3-bit select. The structure stays the same — one condition per input, a default at the bottom.
 
 ## Exercise: Build a 4-to-1 MUX with logic output
 
@@ -114,32 +114,31 @@ You can keep extending this pattern for as many inputs as you need. An 8-to-1 MU
 The starter code has `$out = 1'b0` as a placeholder. Replace it with the correct MUX logic.
 
 ??? hint "Hint"
-Break it into two steps. First compute all four expressions as intermediate signals:
+    Break it into two steps. First compute all four expressions as intermediate signals:
 
-        ```tlv
-        $and = $x && $y;
-        $or  = $x || $y;
-        $not = !$x;
-        $xor = $x ^ $y;
-        ```
+    ```tlv
+    $and = $x && $y;
+    $or  = $x || $y;
+    $not = !$x;
+    $xor = $x ^ $y;
+    ```
 
-        Then chain them into a 4-to-1 MUX using `==` conditions.
+    Then chain them into a 4-to-1 MUX using `==` conditions.
 
 ??? solution "Solution"
-
-    ````tlv
+    ```tlv
     $and = $x && $y;
-        $or  = $x || $y;
-        $not = !$x;
+    $or  = $x || $y;
+    $not = !$x;
     $xor = $x ^ $y;
 
-        $out = $sel == 2'b11 ? $xor :
-               $sel == 2'b10 ? $not :
-               $sel == 2'b01 ? $or  :
-                               $and;
-        ```
+    $out = $sel == 2'b11 ? $xor :
+           $sel == 2'b10 ? $not :
+           $sel == 2'b01 ? $or  :
+                           $and;
+    ```
 
-        Compute your signals first, then select between them. This separation keeps the gate logic and the selection logic clean and easy to read.
+    Compute your signals first, then select between them. This separation keeps the gate logic and the selection logic clean and easy to read.
 
 ## Challenge: 2-bit function selector
 
@@ -159,22 +158,22 @@ This is a simplified ALU — a circuit that selects between operations based on 
 <a href="http://www.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fin-ir%2Fmakerchip-curriculum%2Fmain%2Fcode%2Fblock-1%2Fmux-challenge.tlv" target="_blank" class="md-button">Open challenge starter code in Makerchip ↗</a>
 
 ??? hint "Hint"
-Same pattern as the exercise — compute all four results first as intermediate signals, then use `$op` as your select to choose between them.
+    Same pattern as the exercise — compute all four results first as intermediate signals, then use `$op` as your select to choose between them.
 
 ??? solution "Solution"
-```tlv
-$and = $a && $b;
-        $or  = $a || $b;
-        $xor = $a ^ $b;
-        $not = !$a;
+    ```tlv
+    $and = $a && $b;
+    $or  = $a || $b;
+    $xor = $a ^ $b;
+    $not = !$a;
 
-        $out = $op == 2'b11 ? $not :
-               $op == 2'b10 ? $xor :
-               $op == 2'b01 ? $or  :
-                              $and;
-        ```
+    $out = $op == 2'b11 ? $not :
+           $op == 2'b10 ? $xor :
+           $op == 2'b01 ? $or  :
+                          $and;
+    ```
 
-        Notice that `NOT` only uses `$a` — `$b` is ignored when `$op == 2'b11`. That's fine; in a real ALU some operations don't use all inputs.
+    Notice that `NOT` only uses `$a` — `$b` is ignored when `$op == 2'b11`. That's fine; in a real ALU some operations don't use all inputs.
 
 ## Where this fits next
 

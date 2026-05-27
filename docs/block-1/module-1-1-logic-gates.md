@@ -23,7 +23,7 @@ That's it. A processor running a video game, a memory controller reading your fi
 A **logic gate** is a circuit that takes one or more binary inputs and produces a binary output based on a fixed logical rule. Gates are the atoms of digital design. Everything else is built by combining them.
 
 !!! note "Why ones and zeros?"
-In hardware, a `1` represents a high voltage (typically ~3.3V or 1.8V depending on the technology) and a `0` represents a low voltage (close to 0V). The circuit doesn't care about the exact voltage — just whether it's "high" or "low". This binary representation is what makes digital circuits so reliable and noise-resistant.
+    In hardware, a `1` represents a high voltage (typically ~3.3V or 1.8V depending on the technology) and a `0` represents a low voltage (close to 0V). The circuit doesn't care about the exact voltage — just whether it's "high" or "low". This binary representation is what makes digital circuits so reliable and noise-resistant.
 
 ## The NOT gate
 
@@ -161,7 +161,7 @@ $x_nor  = !($a || $b);
 ```
 
 !!! tip "NAND is universal"
-You can build every other gate — AND, OR, NOT, XOR — out of NAND gates alone. This is why NAND is sometimes called a **universal gate**. In practice, chip designers sometimes implement entire logic functions using only NAND gates because it simplifies the physical layout.
+    You can build every other gate — AND, OR, NOT, XOR — out of NAND gates alone. This is why NAND is sometimes called a **universal gate**. In practice, chip designers sometimes implement entire logic functions using only NAND gates because it simplifies the physical layout.
 
 ## Putting gates together: the half adder
 
@@ -229,7 +229,7 @@ Once it's open and compiled, you'll see two main panels:
 Verify that every row matches the truth table above. This is how hardware engineers debug circuits — they look at the waveform and check that the actual behavior matches what they expected.
 
 !!! note "Reading the auto-generated diagram"
-The Makerchip diagram shows you the direct translation of your code into circuit elements. The layout is automatic, but the logic is exactly what you wrote. As you write more complex circuits, getting comfortable reading this diagram will help you debug faster.
+    The Makerchip diagram shows you the direct translation of your code into circuit elements. The layout is automatic, but the logic is exactly what you wrote. As you write more complex circuits, getting comfortable reading this diagram will help you debug faster.
 
 ## Exercise: Three-input AND
 
@@ -242,12 +242,12 @@ The starter code has `$x = 1'b0` as a placeholder — your output is always `0` 
 Verify your circuit with all 8 combinations of A, B, C. Only the row where all three are `1` should give an output of `1`.
 
 ??? hint "Hint"
-Think about it in English: "A AND B AND C". Chain two AND gates: first compute A AND B, then AND the result with C.
+    Think about it in English: "A AND B AND C". Chain two AND gates: first compute A AND B, then AND the result with C.
 
 ??? solution "Solution"
-`tlv
-        $x = $a && $b && $c;
-        `
+    ```tlv
+    $x = $a && $b && $c;
+    ```
 
         TL-Verilog lets you chain `&&` directly, which is equivalent to two AND gates in sequence.
 
@@ -267,14 +267,14 @@ Write the TL-Verilog expression for X, then open the sandbox below to verify:
 <a href="http://www.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fin-ir%2Fmakerchip-curriculum%2Fmain%2Fcode%2Fblock-1%2Fxor-puzzle.tlv" target="_blank" class="md-button">Open puzzle in Makerchip ↗</a>
 
 ??? hint "How to read the pattern"
-Look at when X goes high. It's `1` in cycles 2 and 3 — when A and B are _different_. When they're the same (both 0 in cycle 1, both 1 in cycle 4), X is `0`.
+    Look at when X goes high. It's `1` in cycles 2 and 3 — when A and B are _different_. When they're the same (both 0 in cycle 1, both 1 in cycle 4), X is `0`.
 
     Which gate gives `1` when inputs are different?
 
 ??? solution "Solution"
-`tlv
-        $x = $a ^ $b;  // XOR
-        `
+    ```tlv
+    $x = $a ^ $b;  // XOR
+    ```
 
         Reading signal patterns backwards into code is one of the most important debugging skills in hardware design. When something in your circuit misbehaves, you read its waveform and ask: "what logic would produce this pattern?"
 

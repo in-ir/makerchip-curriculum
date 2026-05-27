@@ -548,28 +548,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#where-this-fits-next" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Where this fits next
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#quick-reference" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Quick reference
-      
-    </span>
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -755,19 +733,18 @@
 <summary>Hint</summary>
 </details>
 <p>Break it into two steps. First compute all four expressions as intermediate signals:</p>
-<div class="highlight"><pre><span></span><code>```tlv
-$and = $x &amp;&amp; $y;
-$or  = $x || $y;
-$not = !$x;
-$xor = $x ^ $y;
-```
+<div class="highlight"><pre><span></span><code>    ```tlv
+    $and = $x &amp;&amp; $y;
+    $or  = $x || $y;
+    $not = !$x;
+    $xor = $x ^ $y;
+    ```
 
-Then chain them into a 4-to-1 MUX using `==` conditions.
+    Then chain them into a 4-to-1 MUX using `==` conditions.
 </code></pre></div>
 <details class="solution">
 <summary>Solution</summary>
-</details>
-<p>```tlv
+<p>````tlv
 $and = $x &amp;&amp; $y;
     $or  = $x || $y;
     $not = !$x;
@@ -780,6 +757,7 @@ $xor = $x ^ $y;</p>
 
 Compute your signals first, then select between them. This separation keeps the gate logic and the selection logic clean and easy to read.
 </code></pre></div>
+</details>
 <h2 id="challenge-2-bit-function-selector">Challenge: 2-bit function selector</h2>
 <p><strong>Build a circuit that applies a different operation depending on a 2-bit opcode.</strong></p>
 <p>You have two 1-bit inputs <code>$a</code> and <code>$b</code>, and a 2-bit opcode <code>$op[1:0]</code>. Based on the opcode, the output should be:</p>
@@ -818,44 +796,33 @@ Compute your signals first, then select between them. This separation keeps the 
 <details class="solution">
 <summary>Solution</summary>
 </details>
-<p>```tlv
-$and = $a &amp;&amp; $b;
-    $or  = $a || $b;
-    $xor = $a ^ $b;
-    $not = !$a;</p>
-<div class="highlight"><pre><span></span><code>$out = $op == 2&#39;b11 ? $not :
-       $op == 2&#39;b10 ? $xor :
-       $op == 2&#39;b01 ? $or  :
-                      $and;
-```
-
-Notice that `NOT` only uses `$a` — `$b` is ignored when `$op == 2&#39;b11`. That&#39;s fine; in a real ALU some operations don&#39;t use all inputs.
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>$and = $a &amp;&amp; $b;
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>        $or  = $a || $b;
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>        $xor = $a ^ $b;
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>        $not = !$a;
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>        $out = $op == 2&#39;b11 ? $not :
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>               $op == 2&#39;b10 ? $xor :
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>               $op == 2&#39;b01 ? $or  :
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>                              $and;
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>        ```
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>        Notice that `NOT` only uses `$a` — `$b` is ignored when `$op == 2&#39;b11`. That&#39;s fine; in a real ALU some operations don&#39;t use all inputs.
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>## Where this fits next
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>You now have two of the most important combinational building blocks: **gates** and **MUXes**. These two alone can express any combinational logic function.
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>
+<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>In **Module 1.5**, you&#39;ll combine them into an **ALU** — an Arithmetic Logic Unit — the circuit at the heart of every processor. It&#39;s a MUX that selects between several operations based on an opcode. You already built a mini version of it in the challenge above.
+<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a>
+<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a>## Quick reference
+<a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a>
+<a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a>| Circuit    | TL-Verilog                        | What it does                              |
+<a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a>| ---------- | --------------------------------- | ----------------------------------------- |
+<a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a>| 2-to-1 MUX | `$out = $sel ? $b : $a`           | Select A or B based on SEL                |
+<a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a>| 4-to-1 MUX | `$out = $sel == 2&#39;b11 ? $d : ...` | Select between inputs using == conditions |
 </code></pre></div>
-<h2 id="where-this-fits-next">Where this fits next</h2>
-<p>You now have two of the most important combinational building blocks: <strong>gates</strong> and <strong>MUXes</strong>. These two alone can express any combinational logic function.</p>
-<p>In <strong>Module 1.5</strong>, you'll combine them into an <strong>ALU</strong> — an Arithmetic Logic Unit — the circuit at the heart of every processor. It's a MUX that selects between several operations based on an opcode. You already built a mini version of it in the challenge above.</p>
-<h2 id="quick-reference">Quick reference</h2>
-<table>
-<thead>
-<tr>
-<th>Circuit</th>
-<th>TL-Verilog</th>
-<th>What it does</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>2-to-1 MUX</td>
-<td><code>$out = $sel ? $b : $a</code></td>
-<td>Select A or B based on SEL</td>
-</tr>
-<tr>
-<td>4-to-1 MUX</td>
-<td><code>$out = $sel == 2'b11 ? $d : ...</code></td>
-<td>Select between inputs using == conditions</td>
-</tr>
-</tbody>
-</table>
+<p>```</p>
 
 
 

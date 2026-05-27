@@ -1032,8 +1032,8 @@ Think of it exactly like the English word "and" — both things have to be true.
 <summary>Solution</summary>
 </details>
 <p><code>tlv
-    $x = $a &amp;&amp; $b &amp;&amp; $c;</code></p>
-<div class="highlight"><pre><span></span><code>TL-Verilog lets you chain `&amp;&amp;` directly, which is equivalent to two AND gates in sequence.
+        $x = $a &amp;&amp; $b &amp;&amp; $c;</code></p>
+<div class="highlight"><pre><span></span><code>    TL-Verilog lets you chain `&amp;&amp;` directly, which is equivalent to two AND gates in sequence.
 </code></pre></div>
 <h2 id="match-the-waveform">Match the waveform</h2>
 <p>Look at the table below. Two inputs A and B produce an output X. <strong>What gate produces this output?</strong></p>
@@ -1085,8 +1085,8 @@ Think of it exactly like the English word "and" — both things have to be true.
 <summary>Solution</summary>
 </details>
 <p><code>tlv
-    $x = $a ^ $b;  // XOR</code></p>
-<div class="highlight"><pre><span></span><code>Reading signal patterns backwards into code is one of the most important debugging skills in hardware design. When something in your circuit misbehaves, you read its waveform and ask: &quot;what logic would produce this pattern?&quot;
+        $x = $a ^ $b;  // XOR</code></p>
+<div class="highlight"><pre><span></span><code>    Reading signal patterns backwards into code is one of the most important debugging skills in hardware design. When something in your circuit misbehaves, you read its waveform and ask: &quot;what logic would produce this pattern?&quot;
 </code></pre></div>
 <h2 id="where-this-fits-next">Where this fits next</h2>
 <p>You now know the fundamental building blocks of all combinational logic. Every circuit — no matter how complex — is built from these gates.</p>
