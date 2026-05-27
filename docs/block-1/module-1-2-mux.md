@@ -39,7 +39,7 @@ When SEL is `0`, the output is whatever A is. When SEL is `1`, the output is wha
 
 **Circuit symbol:**
 
-![2-to-1 MUX](../assets/images/2to1-mux.png)
+![2-to-1 MUX](../assets/images/2to1-mux.jpg)
 
 **In TL-Verilog:**
 
@@ -115,13 +115,15 @@ The starter code has `$out = 1'b0` as a placeholder. Replace it with the correct
 
 ??? hint "Hint"
 Break it into two steps. First compute all four expressions as intermediate signals:
-`tlv
+
+    ```tlv
     $and = $x && $y;
     $or  = $x || $y;
     $not = !$x;
     $xor = $x ^ $y;
-    `
-Then chain them into a 4-to-1 MUX using `==` conditions.
+    ```
+
+    Then chain them into a 4-to-1 MUX using `==` conditions.
 
 ??? solution "Solution"
 ```tlv
@@ -135,6 +137,7 @@ $xor = $x ^ $y;
            $sel == 2'b01 ? $or  :
                            $and;
     ```
+
     Compute your signals first, then select between them. This separation keeps the gate logic and the selection logic clean and easy to read.
 
 ## Challenge: 2-bit function selector
@@ -150,7 +153,7 @@ You have two 1-bit inputs `$a` and `$b`, and a 2-bit opcode `$op[1:0]`. Based on
 | 10  | `$a XOR $b` |
 | 11  | `NOT $a`    |
 
-This is a simplified ALU — a circuit that selects between operations based on a control code. You'll build a full one in Module 1.3.
+This is a simplified ALU — a circuit that selects between operations based on a control code. You'll build a full one in Module 1.5.
 
 <a href="http://www.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fin-ir%2Fmakerchip-curriculum%2Fmain%2Fcode%2Fblock-1%2Fmux-challenge.tlv" target="_blank" class="md-button">Open challenge starter code in Makerchip ↗</a>
 
@@ -169,13 +172,14 @@ $and = $a && $b;
            $op == 2'b01 ? $or  :
                           $and;
     ```
+
     Notice that `NOT` only uses `$a` — `$b` is ignored when `$op == 2'b11`. That's fine; in a real ALU some operations don't use all inputs.
 
 ## Where this fits next
 
 You now have two of the most important combinational building blocks: **gates** and **MUXes**. These two alone can express any combinational logic function.
 
-In **Module 1.3**, you'll combine them into an **ALU** — an Arithmetic Logic Unit — the circuit at the heart of every processor. It's a MUX that selects between several operations based on an opcode. You already built a mini version of it in the challenge above.
+In **Module 1.5**, you'll combine them into an **ALU** — an Arithmetic Logic Unit — the circuit at the heart of every processor. It's a MUX that selects between several operations based on an opcode. You already built a mini version of it in the challenge above.
 
 ## Quick reference
 

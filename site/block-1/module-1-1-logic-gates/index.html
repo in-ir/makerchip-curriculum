@@ -705,7 +705,7 @@ If the input is <code>0</code>, the output is <code>1</code>.</p>
 </tbody>
 </table>
 <p><strong>Circuit symbol:</strong></p>
-<p><img alt="NOT gate" src="../assets/images/not-gate.png" /></p>
+<p><img alt="NOT gate" src="../../assets/images/not-gate.jpg" /></p>
 <p><strong>In TL-Verilog:</strong></p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>$x = !$a;
 </code></pre></div>
@@ -746,7 +746,7 @@ Think of it exactly like the English word "and" — both things have to be true.
 </tbody>
 </table>
 <p><strong>Circuit symbol:</strong></p>
-<p><img alt="AND gate" src="../assets/images/and-gate.png" /></p>
+<p><img alt="AND gate" src="../../assets/images/and-gate.jpg" /></p>
 <p><strong>In TL-Verilog:</strong></p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>$x = $a &amp;&amp; $b;
 </code></pre></div>
@@ -785,7 +785,7 @@ Think of it exactly like the English word "and" — both things have to be true.
 </tbody>
 </table>
 <p><strong>Circuit symbol:</strong></p>
-<p><img alt="OR gate" src="../assets/images/or-gate.png" /></p>
+<p><img alt="OR gate" src="../../assets/images/or-gate.jpg" /></p>
 <p><strong>In TL-Verilog:</strong></p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>$x = $a || $b;
 </code></pre></div>
@@ -825,7 +825,7 @@ Think of it exactly like the English word "and" — both things have to be true.
 </table>
 <p>Notice the difference from OR: when both inputs are <code>1</code>, XOR gives <code>0</code>, but OR gives <code>1</code>. That's the "exclusive" part.</p>
 <p><strong>Circuit symbol:</strong></p>
-<p><img alt="XOR gate" src="../assets/images/xor-gate.png" /></p>
+<p><img alt="XOR gate" src="../../assets/images/xor-gate.jpg" /></p>
 <p><strong>In TL-Verilog:</strong></p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>$x = $a ^ $b;
 </code></pre></div>
@@ -864,7 +864,7 @@ Think of it exactly like the English word "and" — both things have to be true.
 </tbody>
 </table>
 <p><strong>Circuit symbol:</strong></p>
-<p><img alt="NAND gate" src="../assets/images/nand-gate.png" /></p>
+<p><img alt="NAND gate" src="../../assets/images/nand-gate.jpg" /></p>
 <p><strong>NOR truth table:</strong></p>
 <table>
 <thead>
@@ -898,7 +898,7 @@ Think of it exactly like the English word "and" — both things have to be true.
 </tbody>
 </table>
 <p><strong>Circuit symbol:</strong></p>
-<p><img alt="NOR gate" src="../assets/images/nor-gate.png" /></p>
+<p><img alt="NOR gate" src="../../assets/images/nor-gate.jpg" /></p>
 <p><strong>In TL-Verilog:</strong></p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>$x_nand = !($a &amp;&amp; $b);
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>$x_nor  = !($a || $b);
@@ -960,7 +960,7 @@ Think of it exactly like the English word "and" — both things have to be true.
 </ul>
 <p>So a half adder is just an XOR gate and an AND gate working together.</p>
 <p><strong>Circuit diagram:</strong></p>
-<p><img alt="Half adder" src="../assets/images/half-adder.png" /></p>
+<p><img alt="Half adder" src="../../assets/images/half-adder.jpg" /></p>
 <p><strong>In TL-Verilog:</strong></p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>$s = $a ^ $b;   // XOR for sum
 <a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>$c = $a &amp;&amp; $b;  // AND for carry
@@ -1032,8 +1032,9 @@ Think of it exactly like the English word "and" — both things have to be true.
 <summary>Solution</summary>
 </details>
 <p><code>tlv
-    $x = $a &amp;&amp; $b &amp;&amp; $c;</code>
-TL-Verilog lets you chain <code>&amp;&amp;</code> directly, which is equivalent to two AND gates in sequence.</p>
+    $x = $a &amp;&amp; $b &amp;&amp; $c;</code></p>
+<div class="highlight"><pre><span></span><code>TL-Verilog lets you chain `&amp;&amp;` directly, which is equivalent to two AND gates in sequence.
+</code></pre></div>
 <h2 id="match-the-waveform">Match the waveform</h2>
 <p>Look at the table below. Two inputs A and B produce an output X. <strong>What gate produces this output?</strong></p>
 <table>
@@ -1084,8 +1085,9 @@ TL-Verilog lets you chain <code>&amp;&amp;</code> directly, which is equivalent 
 <summary>Solution</summary>
 </details>
 <p><code>tlv
-    $x = $a ^ $b;  // XOR</code>
-Reading signal patterns backwards into code is one of the most important debugging skills in hardware design. When something in your circuit misbehaves, you read its waveform and ask: "what logic would produce this pattern?"</p>
+    $x = $a ^ $b;  // XOR</code></p>
+<div class="highlight"><pre><span></span><code>Reading signal patterns backwards into code is one of the most important debugging skills in hardware design. When something in your circuit misbehaves, you read its waveform and ask: &quot;what logic would produce this pattern?&quot;
+</code></pre></div>
 <h2 id="where-this-fits-next">Where this fits next</h2>
 <p>You now know the fundamental building blocks of all combinational logic. Every circuit — no matter how complex — is built from these gates.</p>
 <p>In <strong>Module 1.2</strong>, you'll meet the <strong>multiplexer (MUX)</strong>: a circuit that acts as a programmable switch. It's one of the most useful building blocks in digital design, and you'll use it constantly from here on.</p>

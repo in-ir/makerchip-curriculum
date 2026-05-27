@@ -41,7 +41,7 @@ If the input is `0`, the output is `1`.
 
 **Circuit symbol:**
 
-![NOT gate](../assets/images/not-gate.png)
+![NOT gate](../assets/images/not-gate.jpg)
 
 **In TL-Verilog:**
 
@@ -67,7 +67,7 @@ Think of it exactly like the English word "and" — both things have to be true.
 
 **Circuit symbol:**
 
-![AND gate](../assets/images/and-gate.png)
+![AND gate](../assets/images/and-gate.jpg)
 
 **In TL-Verilog:**
 
@@ -90,7 +90,7 @@ Two inputs, one output. The output is `1` when **at least one input is `1`**.
 
 **Circuit symbol:**
 
-![OR gate](../assets/images/or-gate.png)
+![OR gate](../assets/images/or-gate.jpg)
 
 **In TL-Verilog:**
 
@@ -115,7 +115,7 @@ Notice the difference from OR: when both inputs are `1`, XOR gives `0`, but OR g
 
 **Circuit symbol:**
 
-![XOR gate](../assets/images/xor-gate.png)
+![XOR gate](../assets/images/xor-gate.jpg)
 
 **In TL-Verilog:**
 
@@ -138,7 +138,7 @@ NAND and NOR are simply AND and OR with the output **inverted** (the N stands fo
 
 **Circuit symbol:**
 
-![NAND gate](../assets/images/nand-gate.png)
+![NAND gate](../assets/images/nand-gate.jpg)
 
 **NOR truth table:**
 
@@ -151,7 +151,7 @@ NAND and NOR are simply AND and OR with the output **inverted** (the N stands fo
 
 **Circuit symbol:**
 
-![NOR gate](../assets/images/nor-gate.png)
+![NOR gate](../assets/images/nor-gate.jpg)
 
 **In TL-Verilog:**
 
@@ -194,7 +194,7 @@ So a half adder is just an XOR gate and an AND gate working together.
 
 **Circuit diagram:**
 
-![Half adder](../assets/images/half-adder.png)
+![Half adder](../assets/images/half-adder.jpg)
 
 **In TL-Verilog:**
 
@@ -248,7 +248,8 @@ Think about it in English: "A AND B AND C". Chain two AND gates: first compute A
 `tlv
     $x = $a && $b && $c;
     `
-TL-Verilog lets you chain `&&` directly, which is equivalent to two AND gates in sequence.
+
+    TL-Verilog lets you chain `&&` directly, which is equivalent to two AND gates in sequence.
 
 ## Match the waveform
 
@@ -274,7 +275,8 @@ Look at when X goes high. It's `1` in cycles 2 and 3 — when A and B are _diffe
 `tlv
     $x = $a ^ $b;  // XOR
     `
-Reading signal patterns backwards into code is one of the most important debugging skills in hardware design. When something in your circuit misbehaves, you read its waveform and ask: "what logic would produce this pattern?"
+
+    Reading signal patterns backwards into code is one of the most important debugging skills in hardware design. When something in your circuit misbehaves, you read its waveform and ask: "what logic would produce this pattern?"
 
 ## Where this fits next
 

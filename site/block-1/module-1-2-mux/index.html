@@ -644,7 +644,7 @@
 </table>
 <p>When SEL is <code>0</code>, the output is whatever A is. When SEL is <code>1</code>, the output is whatever B is.</p>
 <p><strong>Circuit symbol:</strong></p>
-<p><img alt="2-to-1 MUX" src="../assets/images/2to1-mux.png" /></p>
+<p><img alt="2-to-1 MUX" src="../../assets/images/2to1-mux.jpg" /></p>
 <p><strong>In TL-Verilog:</strong></p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>$out = $sel ? $b : $a;
 </code></pre></div>
@@ -754,13 +754,16 @@
 <details class="hint">
 <summary>Hint</summary>
 </details>
-<p>Break it into two steps. First compute all four expressions as intermediate signals:
-<code>tlv
-    $and = $x &amp;&amp; $y;
-    $or  = $x || $y;
-    $not = !$x;
-    $xor = $x ^ $y;</code>
-Then chain them into a 4-to-1 MUX using <code>==</code> conditions.</p>
+<p>Break it into two steps. First compute all four expressions as intermediate signals:</p>
+<div class="highlight"><pre><span></span><code>```tlv
+$and = $x &amp;&amp; $y;
+$or  = $x || $y;
+$not = !$x;
+$xor = $x ^ $y;
+```
+
+Then chain them into a 4-to-1 MUX using `==` conditions.
+</code></pre></div>
 <details class="solution">
 <summary>Solution</summary>
 </details>
@@ -774,6 +777,7 @@ $xor = $x ^ $y;</p>
        $sel == 2&#39;b01 ? $or  :
                        $and;
 ```
+
 Compute your signals first, then select between them. This separation keeps the gate logic and the selection logic clean and easy to read.
 </code></pre></div>
 <h2 id="challenge-2-bit-function-selector">Challenge: 2-bit function selector</h2>
@@ -805,7 +809,7 @@ Compute your signals first, then select between them. This separation keeps the 
 </tr>
 </tbody>
 </table>
-<p>This is a simplified ALU — a circuit that selects between operations based on a control code. You'll build a full one in Module 1.3.</p>
+<p>This is a simplified ALU — a circuit that selects between operations based on a control code. You'll build a full one in Module 1.5.</p>
 <p><a href="http://www.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fin-ir%2Fmakerchip-curriculum%2Fmain%2Fcode%2Fblock-1%2Fmux-challenge.tlv" target="_blank" class="md-button">Open challenge starter code in Makerchip ↗</a></p>
 <details class="hint">
 <summary>Hint</summary>
@@ -824,11 +828,12 @@ $and = $a &amp;&amp; $b;
        $op == 2&#39;b01 ? $or  :
                       $and;
 ```
+
 Notice that `NOT` only uses `$a` — `$b` is ignored when `$op == 2&#39;b11`. That&#39;s fine; in a real ALU some operations don&#39;t use all inputs.
 </code></pre></div>
 <h2 id="where-this-fits-next">Where this fits next</h2>
 <p>You now have two of the most important combinational building blocks: <strong>gates</strong> and <strong>MUXes</strong>. These two alone can express any combinational logic function.</p>
-<p>In <strong>Module 1.3</strong>, you'll combine them into an <strong>ALU</strong> — an Arithmetic Logic Unit — the circuit at the heart of every processor. It's a MUX that selects between several operations based on an opcode. You already built a mini version of it in the challenge above.</p>
+<p>In <strong>Module 1.5</strong>, you'll combine them into an <strong>ALU</strong> — an Arithmetic Logic Unit — the circuit at the heart of every processor. It's a MUX that selects between several operations based on an opcode. You already built a mini version of it in the challenge above.</p>
 <h2 id="quick-reference">Quick reference</h2>
 <table>
 <thead>
