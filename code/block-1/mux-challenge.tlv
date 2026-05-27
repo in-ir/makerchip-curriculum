@@ -3,14 +3,15 @@
 \SV
    m5_makerchip_module
 \TLV
-   $p = *cyc_cnt[2];
-   $q = *cyc_cnt[1];
-   $r = *cyc_cnt[0];
+   $op[1:0] = *cyc_cnt[3:2];
+   $a = *cyc_cnt[1];
+   $b = *cyc_cnt[0];
    
-   // TODO: build a priority selector
-   // If $p is 1, output $p
-   // Else if $q is 1, output $q
-   // Else output $r
+   // TODO: build a 2-bit function selector
+   // op=00: $a AND $b
+   // op=01: $a OR $b
+   // op=10: $a XOR $b
+   // op=11: NOT $a
    $out = 1'b0;
    
    *passed = *cyc_cnt > 20;

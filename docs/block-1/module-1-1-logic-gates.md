@@ -4,8 +4,6 @@
 **Estimated time:** 45–60 minutes  
 **Prerequisites:** None
 
----
-
 ## What you'll learn
 
 By the end of this module you'll be able to:
@@ -16,8 +14,6 @@ By the end of this module you'll be able to:
 - Run a combinational circuit in Makerchip and read its output
 - Combine gates to build a simple function
 
----
-
 ## The one idea behind all of digital logic
 
 Every circuit on every chip on every device you own is doing exactly one thing: manipulating **ones and zeros**.
@@ -27,9 +23,7 @@ That's it. A processor running a video game, a memory controller reading your fi
 A **logic gate** is a circuit that takes one or more binary inputs and produces a binary output based on a fixed logical rule. Gates are the atoms of digital design. Everything else is built by combining them.
 
 !!! note "Why ones and zeros?"
-    In hardware, a `1` represents a high voltage (typically ~3.3V or 1.8V depending on the technology) and a `0` represents a low voltage (close to 0V). The circuit doesn't care about the exact voltage — just whether it's "high" or "low". This binary representation is what makes digital circuits so reliable and noise-resistant.
-
----
+In hardware, a `1` represents a high voltage (typically ~3.3V or 1.8V depending on the technology) and a `0` represents a low voltage (close to 0V). The circuit doesn't care about the exact voltage — just whether it's "high" or "low". This binary representation is what makes digital circuits so reliable and noise-resistant.
 
 ## The NOT gate
 
@@ -57,8 +51,6 @@ $x = !$a;
 
 That's it. One line. The `!` operator inverts the bit.
 
----
-
 ## The AND gate
 
 Two inputs, one output. The output is `1` **only when both inputs are `1`**.  
@@ -83,8 +75,6 @@ Think of it exactly like the English word "and" — both things have to be true.
 $x = $a && $b;
 ```
 
----
-
 ## The OR gate
 
 Two inputs, one output. The output is `1` when **at least one input is `1`**.
@@ -107,8 +97,6 @@ Two inputs, one output. The output is `1` when **at least one input is `1`**.
 ```tlv
 $x = $a || $b;
 ```
-
----
 
 ## The XOR gate
 
@@ -134,8 +122,6 @@ Notice the difference from OR: when both inputs are `1`, XOR gives `0`, but OR g
 ```tlv
 $x = $a ^ $b;
 ```
-
----
 
 ## NAND and NOR
 
@@ -175,9 +161,7 @@ $x_nor  = !($a || $b);
 ```
 
 !!! tip "NAND is universal"
-    You can build every other gate — AND, OR, NOT, XOR — out of NAND gates alone. This is why NAND is sometimes called a **universal gate**. In practice, chip designers sometimes implement entire logic functions using only NAND gates because it simplifies the physical layout.
-
----
+You can build every other gate — AND, OR, NOT, XOR — out of NAND gates alone. This is why NAND is sometimes called a **universal gate**. In practice, chip designers sometimes implement entire logic functions using only NAND gates because it simplifies the physical layout.
 
 ## Putting gates together: the half adder
 
@@ -245,9 +229,7 @@ Once it's open and compiled, you'll see two main panels:
 Verify that every row matches the truth table above. This is how hardware engineers debug circuits — they look at the waveform and check that the actual behavior matches what they expected.
 
 !!! note "Reading the auto-generated diagram"
-    The Makerchip diagram shows you the direct translation of your code into circuit elements. The layout is automatic, but the logic is exactly what you wrote. As you write more complex circuits, getting comfortable reading this diagram will help you debug faster.
-
----
+The Makerchip diagram shows you the direct translation of your code into circuit elements. The layout is automatic, but the logic is exactly what you wrote. As you write more complex circuits, getting comfortable reading this diagram will help you debug faster.
 
 ## Exercise: Three-input AND
 
@@ -260,16 +242,13 @@ The starter code has `$x = 1'b0` as a placeholder — your output is always `0` 
 Verify your circuit with all 8 combinations of A, B, C. Only the row where all three are `1` should give an output of `1`.
 
 ??? hint "Hint"
-    Think about it in English: "A AND B AND C". Chain two AND gates:
-    first compute A AND B, then AND the result with C.
+Think about it in English: "A AND B AND C". Chain two AND gates: first compute A AND B, then AND the result with C.
 
 ??? solution "Solution"
-    ```tlv
+`tlv
     $x = $a && $b && $c;
-    ```
-    TL-Verilog lets you chain `&&` directly, which is equivalent to two AND gates in sequence.
-
----
+    `
+TL-Verilog lets you chain `&&` directly, which is equivalent to two AND gates in sequence.
 
 ## Match the waveform
 
@@ -287,25 +266,21 @@ Write the TL-Verilog expression for X, then open the sandbox below to verify:
 <a href="http://www.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fin-ir%2Fmakerchip-curriculum%2Fmain%2Fcode%2Fblock-1%2Fxor-puzzle.tlv" target="_blank" class="md-button">Open puzzle in Makerchip ↗</a>
 
 ??? hint "How to read the pattern"
-    Look at when X goes high. It's `1` in cycles 2 and 3 — when A and B are _different_. When they're the same (both 0 in cycle 1, both 1 in cycle 4), X is `0`.
+Look at when X goes high. It's `1` in cycles 2 and 3 — when A and B are _different_. When they're the same (both 0 in cycle 1, both 1 in cycle 4), X is `0`.
 
     Which gate gives `1` when inputs are different?
 
 ??? solution "Solution"
-    ```tlv
+`tlv
     $x = $a ^ $b;  // XOR
-    ```
-    Reading signal patterns backwards into code is one of the most important debugging skills in hardware design. When something in your circuit misbehaves, you read its waveform and ask: "what logic would produce this pattern?"
-
----
+    `
+Reading signal patterns backwards into code is one of the most important debugging skills in hardware design. When something in your circuit misbehaves, you read its waveform and ask: "what logic would produce this pattern?"
 
 ## Where this fits next
 
 You now know the fundamental building blocks of all combinational logic. Every circuit — no matter how complex — is built from these gates.
 
 In **Module 1.2**, you'll meet the **multiplexer (MUX)**: a circuit that acts as a programmable switch. It's one of the most useful building blocks in digital design, and you'll use it constantly from here on.
-
----
 
 ## Quick reference
 
