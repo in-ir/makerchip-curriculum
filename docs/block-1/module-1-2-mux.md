@@ -116,29 +116,30 @@ The starter code has `$out = 1'b0` as a placeholder. Replace it with the correct
 ??? hint "Hint"
 Break it into two steps. First compute all four expressions as intermediate signals:
 
-    ```tlv
-    $and = $x && $y;
-    $or  = $x || $y;
-    $not = !$x;
-    $xor = $x ^ $y;
-    ```
+        ```tlv
+        $and = $x && $y;
+        $or  = $x || $y;
+        $not = !$x;
+        $xor = $x ^ $y;
+        ```
 
-    Then chain them into a 4-to-1 MUX using `==` conditions.
+        Then chain them into a 4-to-1 MUX using `==` conditions.
 
 ??? solution "Solution"
-```tlv
-$and = $x && $y;
-    $or  = $x || $y;
-    $not = !$x;
-$xor = $x ^ $y;
 
-    $out = $sel == 2'b11 ? $xor :
-           $sel == 2'b10 ? $not :
-           $sel == 2'b01 ? $or  :
-                           $and;
-    ```
+    ````tlv
+    $and = $x && $y;
+        $or  = $x || $y;
+        $not = !$x;
+    $xor = $x ^ $y;
 
-    Compute your signals first, then select between them. This separation keeps the gate logic and the selection logic clean and easy to read.
+        $out = $sel == 2'b11 ? $xor :
+               $sel == 2'b10 ? $not :
+               $sel == 2'b01 ? $or  :
+                               $and;
+        ```
+
+        Compute your signals first, then select between them. This separation keeps the gate logic and the selection logic clean and easy to read.
 
 ## Challenge: 2-bit function selector
 
@@ -163,17 +164,17 @@ Same pattern as the exercise — compute all four results first as intermediate 
 ??? solution "Solution"
 ```tlv
 $and = $a && $b;
-    $or  = $a || $b;
-    $xor = $a ^ $b;
-    $not = !$a;
+        $or  = $a || $b;
+        $xor = $a ^ $b;
+        $not = !$a;
 
-    $out = $op == 2'b11 ? $not :
-           $op == 2'b10 ? $xor :
-           $op == 2'b01 ? $or  :
-                          $and;
-    ```
+        $out = $op == 2'b11 ? $not :
+               $op == 2'b10 ? $xor :
+               $op == 2'b01 ? $or  :
+                              $and;
+        ```
 
-    Notice that `NOT` only uses `$a` — `$b` is ignored when `$op == 2'b11`. That's fine; in a real ALU some operations don't use all inputs.
+        Notice that `NOT` only uses `$a` — `$b` is ignored when `$op == 2'b11`. That's fine; in a real ALU some operations don't use all inputs.
 
 ## Where this fits next
 
@@ -187,3 +188,7 @@ In **Module 1.5**, you'll combine them into an **ALU** — an Arithmetic Logic U
 | ---------- | --------------------------------- | ----------------------------------------- |
 | 2-to-1 MUX | `$out = $sel ? $b : $a`           | Select A or B based on SEL                |
 | 4-to-1 MUX | `$out = $sel == 2'b11 ? $d : ...` | Select between inputs using == conditions |
+
+```
+
+```

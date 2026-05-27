@@ -246,10 +246,10 @@ Think about it in English: "A AND B AND C". Chain two AND gates: first compute A
 
 ??? solution "Solution"
 `tlv
-    $x = $a && $b && $c;
-    `
+        $x = $a && $b && $c;
+        `
 
-    TL-Verilog lets you chain `&&` directly, which is equivalent to two AND gates in sequence.
+        TL-Verilog lets you chain `&&` directly, which is equivalent to two AND gates in sequence.
 
 ## Match the waveform
 
@@ -273,10 +273,10 @@ Look at when X goes high. It's `1` in cycles 2 and 3 — when A and B are _diffe
 
 ??? solution "Solution"
 `tlv
-    $x = $a ^ $b;  // XOR
-    `
+        $x = $a ^ $b;  // XOR
+        `
 
-    Reading signal patterns backwards into code is one of the most important debugging skills in hardware design. When something in your circuit misbehaves, you read its waveform and ask: "what logic would produce this pattern?"
+        Reading signal patterns backwards into code is one of the most important debugging skills in hardware design. When something in your circuit misbehaves, you read its waveform and ask: "what logic would produce this pattern?"
 
 ## Where this fits next
 

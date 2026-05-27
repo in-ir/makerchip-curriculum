@@ -2,7 +2,7 @@
 
 In this block you'll learn the foundation of all digital design: **combinational logic**.
 
-A combinational circuit is one where the output depends only on the current inputs — no memory, no clock, no state. Just pure logic operating on ones and zeros.
+A combinational circuit is one where the output depends only on the current inputs; no memory, no clock, no state. Just pure logic operating on ones and zeros.
 
 ---
 
