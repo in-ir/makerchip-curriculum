@@ -7,12 +7,11 @@
    $x = *cyc_cnt[1];
    $y = *cyc_cnt[0];
    
-   $a = $x && $y;
-   $b = $x || $y;
-   $c = !$x;
-   $d = $x ^ $y;
-   
-   // TODO: replace this with a 4-to-1 MUX selecting between $a, $b, $c, $d
+   // TODO: replace $out = 1'b0 with a 4-to-1 MUX
+   // sel=00: $x AND $y
+   // sel=01: $x OR $y
+   // sel=10: NOT $x
+   // sel=11: $x XOR $y
    $out = 1'b0;
    
    *passed = *cyc_cnt > 20;
