@@ -1,0 +1,779 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="An open curriculum for learning digital design through interactive, visual, game-based projects.">
+      
+      
+        <meta name="author" content="Ines Iraoui">
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Module 1.3: Decoders - Digital Design with Makerchip & TL-Verilog</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=JetBrains+Mono:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"JetBrains Mono";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="deep-purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#module-13-decoders" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Digital Design with Makerchip &amp; TL-Verilog" class="md-header__button md-logo" aria-label="Digital Design with Makerchip & TL-Verilog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Digital Design with Makerchip & TL-Verilog
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Module 1.3: Decoders
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Block 1 — Combinational Logic
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Digital Design with Makerchip &amp; TL-Verilog" class="md-nav__button md-logo" aria-label="Digital Design with Makerchip & TL-Verilog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Digital Design with Makerchip & TL-Verilog
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Block 1 — Combinational Logic
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Block 1 — Combinational Logic
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../module-1-1-logic-gates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 1.1 — Logic Gates
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../module-1-2-mux/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 1.2 — The Multiplexer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="module-13-decoders">Module 1.3: Decoders</h1>
+<p><strong>Block 1 Combinational Logic</strong><br />
+<strong>Estimated time:</strong> 45–60 minutes<br />
+<strong>Prerequisites:</strong> Module 1.2 The Multiplexer</p>
+<h2 id="what-youll-learn">What you'll learn</h2>
+<p>By the end of this module you'll be able to:</p>
+<ul>
+<li>Explain what a decoder does and where it shows up in real hardware</li>
+<li>Read and write a 2-to-4 decoder in TL-Verilog</li>
+<li>Understand the relationship between decoders and MUXes</li>
+<li>Build a 3-to-8 decoder from scratch</li>
+<li>Apply decoder logic to drive a 7-segment display</li>
+</ul>
+<h2 id="one-input-many-outputs">One input, many outputs</h2>
+<p>So far every circuit you've built has taken multiple inputs and produced one output. A decoder flips that around.</p>
+<p>A <strong>decoder</strong> takes an n-bit binary input and activates exactly one of 2^n outputs the one that corresponds to the input value. Everything else stays at <code>0</code>.</p>
+<p>Think of it like a postal sorting machine. A package comes in with a zip code (your input), and the machine routes it to exactly one delivery chute (your output). All the other chutes stay closed.</p>
+<p>Decoders show up everywhere in real hardware. Every time a processor needs to figure out which instruction to execute, which memory address to access, or which register to write to, there's a decoder doing that routing work.</p>
+<h2 id="the-2-to-4-decoder">The 2-to-4 decoder</h2>
+<p>The simplest useful decoder: <strong>2 input bits, 4 output lines</strong>.</p>
+<p>With 2 bits you can represent 4 different values 00, 01, 10, 11. The decoder takes that 2-bit input and raises exactly one of four output lines high.</p>
+<p><strong>Truth table:</strong></p>
+<table>
+<thead>
+<tr>
+<th>IN[1]</th>
+<th>IN[0]</th>
+<th>Y[3]</th>
+<th>Y[2]</th>
+<th>Y[1]</th>
+<th>Y[0]</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>Read it row by row: when the input is <code>00</code>, only Y[0] is <code>1</code>. When the input is <code>01</code>, only Y[1] is <code>1</code>. And so on.</p>
+<p><strong>Circuit diagram:</strong></p>
+<p><img alt="2-to-4 decoder" src="../assets/images/decoder-2to4.jpg" /></p>
+<p><strong>In TL-Verilog:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>$y[3:0] = $in[1:0] == 2&#39;b11 ? 4&#39;b1000 :
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>           $in[1:0] == 2&#39;b10 ? 4&#39;b0100 :
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>           $in[1:0] == 2&#39;b01 ? 4&#39;b0010 :
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>                               4&#39;b0001;
+</code></pre></div>
+<p>You already know this pattern it's the same chained condition syntax from Module 1.2. The difference is that instead of selecting a single-bit signal, you're outputting a 4-bit one-hot value (exactly one bit set to <code>1</code>).</p>
+<div class="admonition note">
+<p class="admonition-title">One-hot encoding</p>
+<p>The output pattern of a decoder exactly one bit high at a time is called <strong>one-hot encoding</strong>. It's used throughout digital design when you need to represent mutually exclusive states. FSMs, instruction decoders, and memory address logic all use this idea.</p>
+</div>
+<h3 id="see-it-running-in-makerchip">See it running in Makerchip</h3>
+<p><a href="http://www.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fin-ir%2Fmakerchip-curriculum%2Fmain%2Fcode%2Fblock-1%2F2to4-decoder.tlv" target="_blank" class="md-button">Open 2-to-4 decoder in Makerchip ↗</a></p>
+<p>Watch the <code>$y</code> signal in the waveform. As <code>$in</code> cycles through 00, 01, 10, 11, you should see the active bit shift from the right to the left one bit moving across four outputs like a spotlight scanning across a stage.</p>
+<h2 id="the-decoder-as-an-inverse-mux">The decoder as an inverse MUX</h2>
+<p>It helps to think of decoders and MUXes as opposites:</p>
+<ul>
+<li>A <strong>MUX</strong> takes many inputs and routes one to the output, based on a select signal</li>
+<li>A <strong>decoder</strong> takes one input (the select) and routes it to one of many outputs</li>
+</ul>
+<p>In fact, you can build a MUX out of a decoder and some AND gates. That's not something you need to do right now, but it shows how these building blocks compose understanding one deepens your understanding of the other.</p>
+<h2 id="exercise-3-to-8-decoder">Exercise: 3-to-8 decoder</h2>
+<p><strong>Build a 3-to-8 decoder.</strong></p>
+<p>You have a 3-bit input <code>$in[2:0]</code>. Your output <code>$y[7:0]</code> should have exactly one bit set to <code>1</code> the bit corresponding to the value of <code>$in</code>.</p>
+<p>For example, when <code>$in = 3'b101</code> (which is 5 in decimal), <code>$y[5]</code> should be <code>1</code> and all others should be <code>0</code>.</p>
+<p><a href="http://www.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fin-ir%2Fmakerchip-curriculum%2Fmain%2Fcode%2Fblock-1%2Fdecoder-exercise.tlv" target="_blank" class="md-button">Open starter code in Makerchip ↗</a></p>
+<p>The starter code has <code>$y[7:0] = 8'b0</code> as a placeholder. Replace it with the correct decoder logic.</p>
+<details class="hint">
+<summary>Hint</summary>
+<p>Same pattern as the 2-to-4 decoder, just with 8 cases instead of 4. Work through each value of <code>$in</code> from <code>3'b111</code> down to the default, and for each one output an 8-bit value with exactly one <code>1</code> in the right position.</p>
+</details>
+<details class="solution">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>$y[7:0] = $in[2:0] == 3&#39;b111 ? 8&#39;b10000000 :
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>           $in[2:0] == 3&#39;b110 ? 8&#39;b01000000 :
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>           $in[2:0] == 3&#39;b101 ? 8&#39;b00100000 :
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>           $in[2:0] == 3&#39;b100 ? 8&#39;b00010000 :
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>           $in[2:0] == 3&#39;b011 ? 8&#39;b00001000 :
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>           $in[2:0] == 3&#39;b010 ? 8&#39;b00000100 :
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>           $in[2:0] == 3&#39;b001 ? 8&#39;b00000010 :
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>                                8&#39;b00000001;
+</code></pre></div>
+<p>Check the waveform: as <code>$in</code> counts from 0 to 7, the single active bit in <code>$y</code> should march from right to left. If it does, your decoder is working correctly.</p>
+</details>
+<h2 id="challenge-7-segment-display-driver">Challenge: 7-segment display driver</h2>
+<p>Every digital clock, calculator, and scoreboard you've ever seen uses a <strong>7-segment display</strong> those rectangular digits made of seven individually-controlled LED segments.</p>
+<p>Each segment is labeled A through G:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a> _
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>|_|
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>|_|
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>Segments: A (top), B (top-right), C (bottom-right),
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>          D (bottom), E (bottom-left), F (top-left), G (middle)
+</code></pre></div>
+<p>To display a digit, you turn on the right combination of segments. For example:</p>
+<ul>
+<li><strong>0</strong> → A, B, C, D, E, F on G off</li>
+<li><strong>1</strong> → B, C on everything else off</li>
+<li><strong>7</strong> → A, B, C on everything else off</li>
+</ul>
+<p><strong>The task:</strong> Build a circuit that takes a 4-bit BCD input <code>$digit[3:0]</code> (representing digits 0–7) and outputs a 7-bit signal <code>$seg[6:0]</code> where each bit controls one segment.</p>
+<p>Use this mapping for <code>$seg</code>: <code>{A, B, C, D, E, F, G}</code> bit 6 is segment A, bit 0 is segment G.</p>
+<table>
+<thead>
+<tr>
+<th>Digit</th>
+<th>A</th>
+<th>B</th>
+<th>C</th>
+<th>D</th>
+<th>E</th>
+<th>F</th>
+<th>G</th>
+<th><code>$seg</code> (binary)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>1111110</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0110000</td>
+</tr>
+<tr>
+<td>2</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>1101101</td>
+</tr>
+<tr>
+<td>3</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1111001</td>
+</tr>
+<tr>
+<td>4</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0110011</td>
+</tr>
+<tr>
+<td>5</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1011011</td>
+</tr>
+<tr>
+<td>6</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1011111</td>
+</tr>
+<tr>
+<td>7</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1110000</td>
+</tr>
+</tbody>
+</table>
+<p><a href="http://www.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fin-ir%2Fmakerchip-curriculum%2Fmain%2Fcode%2Fblock-1%2Fdecoder-challenge.tlv" target="_blank" class="md-button">Open challenge starter code in Makerchip ↗</a></p>
+<details class="hint">
+<summary>Hint</summary>
+<p>Same chained condition pattern one case per digit. For each value of <code>$digit</code>, output the 7-bit segment pattern from the table above.</p>
+</details>
+<details class="solution">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>$seg[6:0] = $digit[3:0] == 4&#39;d7 ? 7&#39;b1110000 :
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>            $digit[3:0] == 4&#39;d6 ? 7&#39;b1011111 :
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>            $digit[3:0] == 4&#39;d5 ? 7&#39;b1011011 :
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>            $digit[3:0] == 4&#39;d4 ? 7&#39;b0110011 :
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>            $digit[3:0] == 4&#39;d3 ? 7&#39;b1111001 :
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>            $digit[3:0] == 4&#39;d2 ? 7&#39;b1101101 :
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>            $digit[3:0] == 4&#39;d1 ? 7&#39;b0110000 :
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>                                  7&#39;b1111110;
+</code></pre></div>
+<p>In real hardware, 7-segment display drivers are one of the first things engineers build when learning FPGAs. You just built one. Every digit on a digital clock works exactly like this.</p>
+</details>
+<h2 id="where-this-fits-next">Where this fits next</h2>
+<p>Decoders are the last pure gate-level building block you need before arithmetic. In <strong>Module 1.4</strong>, you'll build a <strong>comparator</strong> a circuit that tells you whether two numbers are equal, greater, or less than each other. Combined with what you've built so far, you'll have everything you need for the ALU in Module 1.5.</p>
+<h2 id="quick-reference">Quick reference</h2>
+<table>
+<thead>
+<tr>
+<th>Circuit</th>
+<th>TL-Verilog pattern</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2-to-4 decoder</td>
+<td><code>$y[3:0] = $in == 2'b11 ? 4'b1000 : ...</code></td>
+<td>One-hot output from 2-bit input</td>
+</tr>
+<tr>
+<td>3-to-8 decoder</td>
+<td><code>$y[7:0] = $in == 3'b111 ? 8'b10000000 : ...</code></td>
+<td>One-hot output from 3-bit input</td>
+</tr>
+<tr>
+<td>7-seg driver</td>
+<td><code>$seg[6:0] = $digit == 4'd7 ? 7'b1110000 : ...</code></td>
+<td>Segment pattern from digit value</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.indexes", "toc.integrate", "navigation.footer", "content.code.copy", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
