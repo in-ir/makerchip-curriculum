@@ -153,7 +153,7 @@ You have two 1-bit inputs `$a` and `$b`, and a 2-bit opcode `$op[1:0]`. Based on
 | 10  | `$a XOR $b` |
 | 11  | `NOT $a`    |
 
-This is a simplified ALU — a circuit that selects between operations based on a control code. You'll build a full one in Module 1.5.
+This is a simplified ALU — a circuit that selects between operations based on a control code. You'll build a full one in Module 1.4.
 
 <a href="http://www.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fin-ir%2Fmakerchip-curriculum%2Fmain%2Fcode%2Fblock-1%2Fmux-challenge.tlv" target="_blank" class="md-button">Open challenge starter code in Makerchip ↗</a>
 
@@ -179,7 +179,7 @@ This is a simplified ALU — a circuit that selects between operations based on 
 
 You now have two of the most important combinational building blocks: **gates** and **MUXes**. These two alone can express any combinational logic function.
 
-In **Module 1.5**, you'll combine them into an **ALU** — an Arithmetic Logic Unit — the circuit at the heart of every processor. It's a MUX that selects between several operations based on an opcode. You already built a mini version of it in the challenge above.
+In **Module 1.4**, you'll combine them into an **ALU** — an Arithmetic Logic Unit — the circuit at the heart of every processor. It's a MUX that selects between several operations based on an opcode. You already built a mini version of it in the challenge above.
 
 ## Quick reference
 

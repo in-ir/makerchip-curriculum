@@ -120,13 +120,13 @@ Segments: A (top), B (top-right), C (bottom-right),
 
 To display a digit, you turn on the right combination of segments. For example:
 
-- **0** → A, B, C, D, E, F on G off
-- **1** → B, C on everything else off
-- **7** → A, B, C on everything else off
+- **0** → A, B, C, D, E, F on; G off
+- **1** → B, C on; everything else off
+- **7** → A, B, C on; everything else off
 
-**The task:** Build a circuit that takes a 4-bit BCD input `$digit[3:0]` (representing digits 0–7) and outputs a 7-bit signal `$seg[6:0]` where each bit controls one segment.
+**The task:** Build a circuit that takes a 4-bit BCD input `$digit[2:0]` (representing digits 0–7) and outputs a 7-bit signal `$seg[6:0]` where each bit controls one segment.
 
-Use this mapping for `$seg`: `{A, B, C, D, E, F, G}` bit 6 is segment A, bit 0 is segment G.
+Use this mapping for `$seg`: `{A, B, C, D, E, F, G}` where bit 6 is segment A (top) and bit 0 is segment G (middle).
 
 | Digit | A | B | C | D | E | F | G | `$seg` (binary) |
 | ----- | - | - | - | - | - | - | - | --------------- |
@@ -146,13 +146,13 @@ Use this mapping for `$seg`: `{A, B, C, D, E, F, G}` bit 6 is segment A, bit 0 i
 
 ??? solution "Solution"
     ```tlv
-    $seg[6:0] = $digit[3:0] == 4'd7 ? 7'b1110000 :
-                $digit[3:0] == 4'd6 ? 7'b1011111 :
-                $digit[3:0] == 4'd5 ? 7'b1011011 :
-                $digit[3:0] == 4'd4 ? 7'b0110011 :
-                $digit[3:0] == 4'd3 ? 7'b1111001 :
-                $digit[3:0] == 4'd2 ? 7'b1101101 :
-                $digit[3:0] == 4'd1 ? 7'b0110000 :
+    $seg[6:0] = $digit[2:0] == 3'd7 ? 7'b1110000 :
+                $digit[2:0] == 3'd6 ? 7'b1011111 :
+                $digit[2:0] == 3'd5 ? 7'b1011011 :
+                $digit[2:0] == 3'd4 ? 7'b0110011 :
+                $digit[2:0] == 3'd3 ? 7'b1111001 :
+                $digit[2:0] == 3'd2 ? 7'b1101101 :
+                $digit[2:0] == 3'd1 ? 7'b0110000 :
                                       7'b1111110;
     ```
 
@@ -160,7 +160,7 @@ Use this mapping for `$seg`: `{A, B, C, D, E, F, G}` bit 6 is segment A, bit 0 i
 
 ## Where this fits next
 
-Decoders are the last pure gate-level building block you need before arithmetic. In **Module 1.4**, you'll build a **comparator** a circuit that tells you whether two numbers are equal, greater, or less than each other. Combined with what you've built so far, you'll have everything you need for the ALU in Module 1.5.
+Decoders are the last pure gate-level building block you need before arithmetic. In **Module 1.4**, you'll put everything together into an **ALU** — an Arithmetic Logic Unit — the circuit at the heart of every processor. Gates, MUXes, and decoders are all the ingredients you need.
 
 ## Quick reference
 
@@ -168,4 +168,4 @@ Decoders are the last pure gate-level building block you need before arithmetic.
 | ------------ | ----------------------------------------------- | ----------------------------------- |
 | 2-to-4 decoder | `$y[3:0] = $in == 2'b11 ? 4'b1000 : ...`     | One-hot output from 2-bit input     |
 | 3-to-8 decoder | `$y[7:0] = $in == 3'b111 ? 8'b10000000 : ...`| One-hot output from 3-bit input     |
-| 7-seg driver   | `$seg[6:0] = $digit == 4'd7 ? 7'b1110000 : ...` | Segment pattern from digit value |
+| 7-seg driver   | `$seg[6:0] = $digit == 3'd7 ? 7'b1110000 : ...` | Segment pattern from digit value |
