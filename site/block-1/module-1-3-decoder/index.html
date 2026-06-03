@@ -16,6 +16,8 @@
         <link rel="prev" href="../module-1-2-mux/">
       
       
+        <link rel="next" href="../module-1-4-alu/">
+      
       
         
       
@@ -297,6 +299,8 @@
       
         
           
+        
+      
         
       
         
@@ -598,6 +602,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../module-1-4-alu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 1.4 — Arithmetic Logic Units
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -749,12 +781,12 @@
 </code></pre></div>
 <p>To display a digit, you turn on the right combination of segments. For example:</p>
 <ul>
-<li><strong>0</strong> → A, B, C, D, E, F on G off</li>
-<li><strong>1</strong> → B, C on everything else off</li>
-<li><strong>7</strong> → A, B, C on everything else off</li>
+<li><strong>0</strong> → A, B, C, D, E, F on; G off</li>
+<li><strong>1</strong> → B, C on; everything else off</li>
+<li><strong>7</strong> → A, B, C on; everything else off</li>
 </ul>
-<p><strong>The task:</strong> Build a circuit that takes a 4-bit BCD input <code>$digit[3:0]</code> (representing digits 0–7) and outputs a 7-bit signal <code>$seg[6:0]</code> where each bit controls one segment.</p>
-<p>Use this mapping for <code>$seg</code>: <code>{A, B, C, D, E, F, G}</code> bit 6 is segment A, bit 0 is segment G.</p>
+<p><strong>The task:</strong> Build a circuit that takes a 4-bit BCD input <code>$digit[2:0]</code> (representing digits 0–7) and outputs a 7-bit signal <code>$seg[6:0]</code> where each bit controls one segment.</p>
+<p>Use this mapping for <code>$seg</code>: <code>{A, B, C, D, E, F, G}</code> where bit 6 is segment A (top) and bit 0 is segment G (middle).</p>
 <table>
 <thead>
 <tr>
@@ -867,19 +899,19 @@
 </details>
 <details class="solution">
 <summary>Solution</summary>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>$seg[6:0] = $digit[3:0] == 4&#39;d7 ? 7&#39;b1110000 :
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>            $digit[3:0] == 4&#39;d6 ? 7&#39;b1011111 :
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>            $digit[3:0] == 4&#39;d5 ? 7&#39;b1011011 :
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>            $digit[3:0] == 4&#39;d4 ? 7&#39;b0110011 :
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>            $digit[3:0] == 4&#39;d3 ? 7&#39;b1111001 :
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>            $digit[3:0] == 4&#39;d2 ? 7&#39;b1101101 :
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>            $digit[3:0] == 4&#39;d1 ? 7&#39;b0110000 :
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>$seg[6:0] = $digit[2:0] == 3&#39;d7 ? 7&#39;b1110000 :
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>            $digit[2:0] == 3&#39;d6 ? 7&#39;b1011111 :
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>            $digit[2:0] == 3&#39;d5 ? 7&#39;b1011011 :
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>            $digit[2:0] == 3&#39;d4 ? 7&#39;b0110011 :
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>            $digit[2:0] == 3&#39;d3 ? 7&#39;b1111001 :
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>            $digit[2:0] == 3&#39;d2 ? 7&#39;b1101101 :
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>            $digit[2:0] == 3&#39;d1 ? 7&#39;b0110000 :
 <a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>                                  7&#39;b1111110;
 </code></pre></div>
 <p>In real hardware, 7-segment display drivers are one of the first things engineers build when learning FPGAs. You just built one. Every digit on a digital clock works exactly like this.</p>
 </details>
 <h2 id="where-this-fits-next">Where this fits next</h2>
-<p>Decoders are the last pure gate-level building block you need before arithmetic. In <strong>Module 1.4</strong>, you'll build a <strong>comparator</strong> a circuit that tells you whether two numbers are equal, greater, or less than each other. Combined with what you've built so far, you'll have everything you need for the ALU in Module 1.5.</p>
+<p>Decoders are the last pure gate-level building block you need before arithmetic. In <strong>Module 1.4</strong>, you'll put everything together into an <strong>ALU</strong> — an Arithmetic Logic Unit — the circuit at the heart of every processor. Gates, MUXes, and decoders are all the ingredients you need.</p>
 <h2 id="quick-reference">Quick reference</h2>
 <table>
 <thead>
@@ -902,7 +934,7 @@
 </tr>
 <tr>
 <td>7-seg driver</td>
-<td><code>$seg[6:0] = $digit == 4'd7 ? 7'b1110000 : ...</code></td>
+<td><code>$seg[6:0] = $digit == 3'd7 ? 7'b1110000 : ...</code></td>
 <td>Segment pattern from digit value</td>
 </tr>
 </tbody>
@@ -951,6 +983,22 @@
             </div>
           </a>
         
+        
+          
+          <a href="../module-1-4-alu/" class="md-footer__link md-footer__link--next" aria-label="Next: Module 1.4 — Arithmetic Logic Units">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Module 1.4 — Arithmetic Logic Units
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
         
       </nav>
     

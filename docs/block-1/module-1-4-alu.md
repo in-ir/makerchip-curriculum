@@ -78,7 +78,7 @@ $add[7:0] = $a[7:0] + $b[7:0];
 One line. TL-Verilog synthesizes the full carry chain for you.
 
 !!! note "Overflow"
-When the result of an addition doesn't fit in 8 bits, the extra bit is lost. For example, 255 + 1 wraps around to 0. In a real processor the ALU produces a carry-out flag to signal this. We keep things simple here and ignore overflow, but it's worth knowing it exists.
+    When the result of an addition doesn't fit in 8 bits, the extra bit is lost. For example, 255 + 1 wraps around to 0. In a real processor the ALU produces a carry-out flag to signal this. We keep things simple here and ignore overflow, but it's worth knowing it exists.
 
 ## Subtraction and two's complement
 
@@ -109,7 +109,7 @@ $sub[7:0] = $a[7:0] - $b[7:0];
 ```
 
 !!! note "Why two's complement?"
-Two's complement is the standard way computers represent negative numbers. It has a beautiful property: addition and subtraction use exactly the same hardware. Your processor doesn't have a separate subtraction circuit it just feeds the two's complement into the adder. This is one of the most elegant ideas in computer architecture.
+    Two's complement is the standard way computers represent negative numbers. It has a beautiful property: addition and subtraction use exactly the same hardware. Your processor doesn't have a separate subtraction circuit it just feeds the two's complement into the adder. This is one of the most elegant ideas in computer architecture.
 
 ## Shifting
 
@@ -139,7 +139,7 @@ $shr[7:0] = $a[7:0] >> 1;
 ```
 
 !!! tip "Other types of shifts"
-The shifts above are called **logical shifts** empty positions always fill with zero. There are two other variants worth knowing about. An **arithmetic right shift** fills the empty position with the sign bit (the leftmost bit) instead of zero, which preserves the sign of a negative number in two's complement. A **circular shift** (also called a rotate) wraps the bit that falls off one end back in on the other end, so no bits are ever lost. Both are common in real processors and cryptographic hardware.
+    The shifts above are called **logical shifts** empty positions always fill with zero. There are two other variants worth knowing about. An **arithmetic right shift** fills the empty position with the sign bit (the leftmost bit) instead of zero, which preserves the sign of a negative number in two's complement. A **circular shift** (also called a rotate) wraps the bit that falls off one end back in on the other end, so no bits are ever lost. Both are common in real processors and cryptographic hardware.
 
 ## Putting it all together
 
@@ -195,29 +195,29 @@ XNOR is the inverse of XOR the output is `1` when both inputs are the same. Exte
 <a href="http://www.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fin-ir%2Fmakerchip-curriculum%2Fmain%2Fcode%2Fblock-1%2Falu-exercise.tlv" target="_blank" class="md-button">Open starter code in Makerchip ↗</a>
 
 ??? hint "Hint"
-XNOR is just XOR with the output inverted. Compute it as an intermediate signal first, then add it as the first case in your opcode chain with `$op[3:0] == 4'b1000`.
+    XNOR is just XOR with the output inverted. Compute it as an intermediate signal first, then add it as the first case in your opcode chain with `$op[3:0] == 4'b1000`.
 
 ??? solution "Solution"
-```tlv
-$and[7:0]  = $a[7:0] & $b[7:0];
+    ```tlv
+    $and[7:0]  = $a[7:0] & $b[7:0];
     $or[7:0]   = $a[7:0] | $b[7:0];
     $xor[7:0]  = $a[7:0] ^ $b[7:0];
     $xnor[7:0] = ~($a[7:0] ^ $b[7:0]);
     $not[7:0]  = ~$a[7:0];
-$add[7:0] = $a[7:0] + $b[7:0];
-$sub[7:0] = $a[7:0] - $b[7:0];
-$shl[7:0] = $a[7:0] << 1;
-$shr[7:0] = $a[7:0] >> 1;
+    $add[7:0]  = $a[7:0] + $b[7:0];
+    $sub[7:0]  = $a[7:0] - $b[7:0];
+    $shl[7:0]  = $a[7:0] << 1;
+    $shr[7:0]  = $a[7:0] >> 1;
 
     $out[7:0] = $op[3:0] == 4'b1000 ? $xnor :
-                $op[3:0] == 4'b0111 ? $shr  :
-                $op[3:0] == 4'b0110 ? $shl  :
-                $op[3:0] == 4'b0101 ? $sub  :
-                $op[3:0] == 4'b0100 ? $add  :
-                $op[3:0] == 4'b0011 ? $not  :
-                $op[3:0] == 4'b0010 ? $xor  :
-                $op[3:0] == 4'b0001 ? $or   :
-                                      $and;
+               $op[3:0] == 4'b0111 ? $shr  :
+               $op[3:0] == 4'b0110 ? $shl  :
+               $op[3:0] == 4'b0101 ? $sub  :
+               $op[3:0] == 4'b0100 ? $add  :
+               $op[3:0] == 4'b0011 ? $not  :
+               $op[3:0] == 4'b0010 ? $xor  :
+               $op[3:0] == 4'b0001 ? $or   :
+                                     $and;
     ```
 
 ## Challenge: Flag generation
@@ -233,27 +233,27 @@ A real ALU doesn't just produce a result it also produces **flags** that describ
 <a href="http://www.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fin-ir%2Fmakerchip-curriculum%2Fmain%2Fcode%2Fblock-1%2Falu-challenge.tlv" target="_blank" class="md-button">Open challenge starter code in Makerchip ↗</a>
 
 ??? hint "Hint"
-The zero flag is just a NOR of all output bits if any bit is `1`, the result is not zero. The negative flag is simply `$out[7]`. For the carry flag, compute addition with a 9-bit result and take the extra bit: `$add_with_carry[8:0] = {1'b0, $a} + {1'b0, $b}` then `$carry = $add_with_carry[8]`.
+    The zero flag is just a NOR of all output bits if any bit is `1`, the result is not zero. The negative flag is simply `$out[7]`. For the carry flag, compute addition with a 9-bit result and take the extra bit: `$add_with_carry[8:0] = {1'b0, $a} + {1'b0, $b}` then `$carry = $add_with_carry[8]`.
 
 ??? solution "Solution"
-```tlv
-$and[7:0] = $a[7:0] & $b[7:0];
+    ```tlv
+    $and[7:0] = $a[7:0] & $b[7:0];
     $or[7:0]  = $a[7:0] | $b[7:0];
     $xor[7:0] = $a[7:0] ^ $b[7:0];
     $not[7:0] = ~$a[7:0];
-$add[7:0] = $a[7:0] + $b[7:0];
-$sub[7:0] = $a[7:0] - $b[7:0];
-$shl[7:0] = $a[7:0] << 1;
-$shr[7:0] = $a[7:0] >> 1;
+    $add[7:0] = $a[7:0] + $b[7:0];
+    $sub[7:0] = $a[7:0] - $b[7:0];
+    $shl[7:0] = $a[7:0] << 1;
+    $shr[7:0] = $a[7:0] >> 1;
 
     $out[7:0] = $op[2:0] == 3'b111 ? $shr :
-                $op[2:0] == 3'b110 ? $shl :
-                $op[2:0] == 3'b101 ? $sub :
-                $op[2:0] == 3'b100 ? $add :
-                $op[2:0] == 3'b011 ? $not :
-                $op[2:0] == 3'b010 ? $xor :
-                $op[2:0] == 3'b001 ? $or  :
-                                     $and;
+               $op[2:0] == 3'b110 ? $shl :
+               $op[2:0] == 3'b101 ? $sub :
+               $op[2:0] == 3'b100 ? $add :
+               $op[2:0] == 3'b011 ? $not :
+               $op[2:0] == 3'b010 ? $xor :
+               $op[2:0] == 3'b001 ? $or  :
+                                    $and;
 
     $zero  = ($out[7:0] == 8'b0);
     $neg   = $out[7];
