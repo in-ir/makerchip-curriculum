@@ -770,7 +770,7 @@
 </table>
 <p>Read it row by row: when the input is <code>00</code>, only Y[0] is <code>1</code>. When the input is <code>01</code>, only Y[1] is <code>1</code>. And so on.</p>
 <p><strong>Circuit diagram:</strong></p>
-<p><img alt="2-to-4 decoder" src="../assets/images/decoder-2to4.jpg" /></p>
+<p><img alt="2-to-4 decoder" src="../../assets/images/decoder-2to4.svg" /></p>
 <p><strong>In TL-Verilog:</strong></p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>$y[3:0] = $in[1:0] == 2&#39;b11 ? 4&#39;b1000 :
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>           $in[1:0] == 2&#39;b10 ? 4&#39;b0100 :

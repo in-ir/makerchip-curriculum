@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 140" width="400" height="140">
+  <style>
+    .wire { stroke: #9575cd; stroke-width: 2; fill: none; }
+    .gate { stroke: #9575cd; stroke-width: 2; fill: #1e1e2e; }
+    .label { font-family: "JetBrains Mono", monospace; font-size: 16px; fill: #cdd6f4; }
+  </style>
+
+  <!-- Input wires -->
+  <line class="wire" x1="40" y1="45" x2="155" y2="45"/>
+  <line class="wire" x1="40" y1="95" x2="155" y2="95"/>
+
+  <!-- OR gate body -->
+  <path class="gate" d="M140,20 Q170,70 140,120 Q200,120 240,70 Q200,20 140,20 Z"/>
+
+  <!-- Inversion bubble -->
+  <circle class="gate" cx="251" cy="70" r="11"/>
+
+  <!-- Output wire -->
+  <line class="wire" x1="262" y1="70" x2="370" y2="70"/>
+
+  <!-- Labels -->
+  <text class="label" x="18" y="50">A</text>
+  <text class="label" x="18" y="100">B</text>
+  <text class="label" x="375" y="75">X</text>
+</svg>

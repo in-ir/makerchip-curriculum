@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 200" width="500" height="200">
+  <style>
+    .wire { stroke: #9575cd; stroke-width: 1.5; fill: none; }
+    .gate { stroke: #9575cd; stroke-width: 1.5; fill: #1e1e2e; }
+    .label { font-family: "JetBrains Mono", monospace; font-size: 13px; fill: #cdd6f4; }
+    .dot { fill: #9575cd; }
+  </style>
+
+  <!-- Input A wire -->
+  <line class="wire" x1="20" y1="60" x2="180" y2="60"/>
+  <!-- Input B wire -->
+  <line class="wire" x1="20" y1="120" x2="180" y2="120"/>
+
+  <!-- Junction dots -->
+  <circle class="dot" cx="100" cy="60" r="4"/>
+  <circle class="dot" cx="100" cy="120" r="4"/>
+
+  <!-- XOR gate (top) -->
+  <path class="wire" d="M170,35 Q195,60 170,85"/>
+  <path class="gate" d="M180,35 Q205,60 180,85 Q230,85 270,60 Q230,35 180,35 Z"/>
+
+  <!-- AND gate (bottom) -->
+  <path class="gate" d="M180,115 L180,165 Q255,165 255,140 Q255,115 180,115 Z"/>
+
+  <!-- Wires from inputs to AND gate -->
+  <line class="wire" x1="100" y1="60" x2="100" y2="130"/>
+  <line class="wire" x1="100" y1="130" x2="180" y2="130"/>
+  <line class="wire" x1="100" y1="120" x2="100" y2="148"/>
+  <line class="wire" x1="100" y1="148" x2="180" y2="148"/>
+
+  <!-- Output wires -->
+  <line class="wire" x1="270" y1="60" x2="400" y2="60"/>
+  <line class="wire" x1="255" y1="140" x2="400" y2="140"/>
+
+  <!-- Labels -->
+  <text class="label" x="4" y="64">A</text>
+  <text class="label" x="4" y="124">B</text>
+  <text class="label" x="408" y="64">S</text>
+  <text class="label" x="408" y="144">C</text>
+</svg>
