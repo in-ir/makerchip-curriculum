@@ -198,6 +198,25 @@
   
   
   
+  
+    <li class="md-tabs__item">
+      <a href="../../test-plugin/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Test
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
     
   
   
@@ -290,6 +309,33 @@
       
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../../test-plugin/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Test
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
     
   
   
@@ -325,7 +371,7 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
         
           
           <div class="md-nav__link md-nav__container">
@@ -347,14 +393,14 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_2">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -718,7 +764,8 @@
 </div>
 <h3 id="see-it-running-in-makerchip">See it running in Makerchip</h3>
 <p>Click below to open the 2-to-1 MUX in Makerchip. The inputs A, B, and SEL automatically cycle through combinations so you can watch the output switch between them in the waveform.</p>
-<p><a href="http://www.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fin-ir%2Fmakerchip-curriculum%2Fmain%2Fcode%2Fblock-1%2F2to1-mux.tlv" target="_blank" class="md-button">Open 2-to-1 MUX in Makerchip ↗</a></p>
+<iframe src="http://www.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fin-ir%2Fmakerchip-curriculum%2Fmain%2Fcode%2Fblock-1%2F2to1-mux.tlv" style="width:100%; height:500px; border:none;"></iframe>
+
 <h3 id="how-to-read-the-waveform">How to read the waveform</h3>
 <p>Watch the <code>$out</code> signal. It should match <code>$a</code> whenever <code>$sel</code> is <code>0</code>, and match <code>$b</code> whenever <code>$sel</code> is <code>1</code>.</p>
 <table>
@@ -811,7 +858,8 @@
 <li>When <code>$sel == 2'b10</code>, output <code>NOT $x</code></li>
 <li>When <code>$sel == 2'b11</code>, output <code>$x XOR $y</code></li>
 </ul>
-<p><a href="http://www.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fin-ir%2Fmakerchip-curriculum%2Fmain%2Fcode%2Fblock-1%2Fmux-exercise.tlv" target="_blank" class="md-button">Open starter code in Makerchip ↗</a></p>
+<iframe src="http://www.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fin-ir%2Fmakerchip-curriculum%2Fmain%2Fcode%2Fblock-1%2Fmux-exercise.tlv" style="width:100%; height:500px; border:none;"></iframe>
+
 <p>The starter code has <code>$out = 1'b0</code> as a placeholder. Replace it with the correct MUX logic.</p>
 <details class="hint">
 <summary>Hint</summary>
@@ -867,7 +915,8 @@
 </tbody>
 </table>
 <p>This is a simplified ALU — a circuit that selects between operations based on a control code. You'll build a full one in Module 1.4.</p>
-<p><a href="http://www.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fin-ir%2Fmakerchip-curriculum%2Fmain%2Fcode%2Fblock-1%2Fmux-challenge.tlv" target="_blank" class="md-button">Open challenge starter code in Makerchip ↗</a></p>
+<iframe src="http://www.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fin-ir%2Fmakerchip-curriculum%2Fmain%2Fcode%2Fblock-1%2Fmux-challenge.tlv" style="width:100%; height:500px; border:none;"></iframe>
+
 <details class="hint">
 <summary>Hint</summary>
 <p>Same pattern as the exercise — compute all four results first as intermediate signals, then use <code>$op</code> as your select to choose between them.</p>

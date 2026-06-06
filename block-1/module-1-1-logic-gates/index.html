@@ -198,6 +198,25 @@
   
   
   
+  
+    <li class="md-tabs__item">
+      <a href="../../test-plugin/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Test
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
     
   
   
@@ -290,6 +309,33 @@
       
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../../test-plugin/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Test
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
     
   
   
@@ -325,7 +371,7 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
         
           
           <div class="md-nav__link md-nav__container">
@@ -347,14 +393,14 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_2">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1028,7 +1074,8 @@ Think of it exactly like the English word "and" — both things have to be true.
 <p>Two lines. That's a complete half adder.</p>
 <h3 id="see-it-running-in-makerchip">See it running in Makerchip</h3>
 <p>Click below to open the half adder in Makerchip. The inputs A and B automatically cycle through all four combinations so you can watch the outputs change in the waveform.</p>
-<p><a href="http://www.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fin-ir%2Fmakerchip-curriculum%2Fmain%2Fcode%2Fblock-1%2Fhalf-adder.tlv" target="_blank" class="md-button">Open half adder in Makerchip ↗</a></p>
+<iframe src="http://www.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fin-ir%2Fmakerchip-curriculum%2Fmain%2Fcode%2Fblock-1%2Fhalf-adder.tlv" style="width:100%; height:500px; border:none;"></iframe>
+
 <h3 id="how-to-read-the-makerchip-output">How to read the Makerchip output</h3>
 <p>Once it's open and compiled, you'll see two main panels:</p>
 <p><strong>The diagram tab</strong> shows an auto-generated circuit drawn from your TL-Verilog code. Each signal you assign becomes a node. You should be able to find the XOR gate (producing <code>$s</code>) and the AND gate (producing <code>$c</code>).</p>
@@ -1081,7 +1128,8 @@ Think of it exactly like the English word "and" — both things have to be true.
 </div>
 <h2 id="exercise-three-input-and">Exercise: Three-input AND</h2>
 <p><strong>Build a circuit that outputs <code>1</code> only when all three inputs A, B, and C are <code>1</code>.</strong></p>
-<p><a href="http://www.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fin-ir%2Fmakerchip-curriculum%2Fmain%2Fcode%2Fblock-1%2Fthree-input-and.tlv" target="_blank" class="md-button">Open starter code in Makerchip ↗</a></p>
+<iframe src="http://www.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fin-ir%2Fmakerchip-curriculum%2Fmain%2Fcode%2Fblock-1%2Fthree-input-and.tlv" style="width:100%; height:500px; border:none;"></iframe>
+
 <p>The starter code has <code>$x = 1'b0</code> as a placeholder — your output is always <code>0</code> right now. Replace that line with the correct gate logic.</p>
 <p>Verify your circuit with all 8 combinations of A, B, C. Only the row where all three are <code>1</code> should give an output of <code>1</code>.</p>
 <details class="hint">
@@ -1134,7 +1182,8 @@ Think of it exactly like the English word "and" — both things have to be true.
 </tbody>
 </table>
 <p>Write the TL-Verilog expression for X, then open the sandbox below to verify:</p>
-<p><a href="http://www.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fin-ir%2Fmakerchip-curriculum%2Fmain%2Fcode%2Fblock-1%2Fxor-puzzle.tlv" target="_blank" class="md-button">Open puzzle in Makerchip ↗</a></p>
+<iframe src="http://www.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fin-ir%2Fmakerchip-curriculum%2Fmain%2Fcode%2Fblock-1%2Fxor-puzzle.tlv" style="width:100%; height:500px; border:none;"></iframe>
+
 <details class="hint">
 <summary>How to read the pattern</summary>
 <p>Look at when X goes high. It's <code>1</code> in cycles 2 and 3 — when A and B are <em>different</em>. When they're the same (both 0 in cycle 1, both 1 in cycle 4), X is <code>0</code>.</p>
