@@ -58,7 +58,7 @@ One line. That's a complete 2-to-1 MUX.
 
 Click below to open the 2-to-1 MUX in Makerchip. The inputs A, B, and SEL automatically cycle through combinations so you can watch the output switch between them in the waveform.
 
-<iframe src="http://www.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fin-ir%2Fmakerchip-curriculum%2Fmain%2Fcode%2Fblock-1%2F2to1-mux.tlv" style="width:100%; height:500px; border:none;"></iframe>
+<iframe src="https://www.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fin-ir%2Fmakerchip-curriculum%2Fmain%2Fcode%2Fblock-1%2F2to1-mux.tlv" style="width:100%; height:500px; border:none;"></iframe>
 
 ### How to read the waveform
 
@@ -109,7 +109,7 @@ Read it top to bottom: check each value of SEL in order, and output the matching
 - When `$sel == 2'b10`, output `NOT $x`
 - When `$sel == 2'b11`, output `$x XOR $y`
 
-<iframe src="http://www.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fin-ir%2Fmakerchip-curriculum%2Fmain%2Fcode%2Fblock-1%2Fmux-exercise.tlv" style="width:100%; height:500px; border:none;"></iframe>
+<iframe src="https://www.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fin-ir%2Fmakerchip-curriculum%2Fmain%2Fcode%2Fblock-1%2Fmux-exercise.tlv" style="width:100%; height:500px; border:none;"></iframe>
 
 The starter code has `$out = 1'b0` as a placeholder. Replace it with the correct MUX logic.
 
@@ -155,7 +155,7 @@ You have two 1-bit inputs `$a` and `$b`, and a 2-bit opcode `$op[1:0]`. Based on
 
 This is a simplified ALU — a circuit that selects between operations based on a control code. You'll build a full one in Module 1.4.
 
-<iframe src="http://www.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fin-ir%2Fmakerchip-curriculum%2Fmain%2Fcode%2Fblock-1%2Fmux-challenge.tlv" style="width:100%; height:500px; border:none;"></iframe>
+<iframe src="https://www.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fin-ir%2Fmakerchip-curriculum%2Fmain%2Fcode%2Fblock-1%2Fmux-challenge.tlv" style="width:100%; height:500px; border:none;"></iframe>
 
 ??? hint "Hint"
     Same pattern as the exercise — compute all four results first as intermediate signals, then use `$op` as your select to choose between them.

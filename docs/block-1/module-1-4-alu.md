@@ -182,7 +182,7 @@ Ten lines. That's a complete ALU.
 
 ### See it running in Makerchip
 
-<iframe src="http://www.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fin-ir%2Fmakerchip-curriculum%2Fmain%2Fcode%2Fblock-1%2Falu.tlv" style="width:100%; height:500px; border:none;"></iframe>
+<iframe src="https://www.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fin-ir%2Fmakerchip-curriculum%2Fmain%2Fcode%2Fblock-1%2Falu.tlv" style="width:100%; height:500px; border:none;"></iframe>
 
 Open the waveform and try different values of `$op`. Watch `$out` change as the ALU switches between operations. Try inputs where the results are clearly different for example, `$a = 8'b10101010` and `$b = 8'b11001100` and verify each operation by hand against what the waveform shows.
 
@@ -192,7 +192,7 @@ Open the waveform and try different values of `$op`. Watch `$out` change as the 
 
 XNOR is the inverse of XOR the output is `1` when both inputs are the same. Extend the opcode to 4 bits and add XNOR as operation `4'b1000`.
 
-<iframe src="http://www.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fin-ir%2Fmakerchip-curriculum%2Fmain%2Fcode%2Fblock-1%2Falu-exercise.tlv" style="width:100%; height:500px; border:none;"></iframe>
+<iframe src="https://www.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fin-ir%2Fmakerchip-curriculum%2Fmain%2Fcode%2Fblock-1%2Falu-exercise.tlv" style="width:100%; height:500px; border:none;"></iframe>
 
 
 ??? hint "Hint"
@@ -231,7 +231,7 @@ A real ALU doesn't just produce a result it also produces **flags** that describ
 - **Negative flag (`$neg`):** `1` if the most significant bit of `$out` is `1` (indicating a negative number in two's complement)
 - **Carry flag (`$carry`):** `1` if the addition produced a carry out of the 8th bit
 
-<iframe src="http://www.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fin-ir%2Fmakerchip-curriculum%2Fmain%2Fcode%2Fblock-1%2Falu-challenge.tlv" style="width:100%; height:500px; border:none;"></iframe>
+<iframe src="https://www.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fin-ir%2Fmakerchip-curriculum%2Fmain%2Fcode%2Fblock-1%2Falu-challenge.tlv" style="width:100%; height:500px; border:none;"></iframe>
 
 
 ??? hint "Hint"
