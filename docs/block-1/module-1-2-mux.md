@@ -39,7 +39,7 @@ When SEL is `0`, the output is whatever A is. When SEL is `1`, the output is wha
 
 **Circuit symbol:**
 
-![2-to-1 MUX](../assets/images/2to1-mux.jpg)
+![2-to-1 MUX](../assets/images/2to1-mux.svg)
 
 **In TL-Verilog:**
 

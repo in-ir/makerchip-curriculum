@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 120" width="400" height="120">
+  <style>
+    .wire { stroke: #9575cd; stroke-width: 2; fill: none; }
+    .gate { stroke: #9575cd; stroke-width: 2; fill: #1e1e2e; }
+    .label { font-family: "JetBrains Mono", monospace; font-size: 16px; fill: #cdd6f4; }
+    .name { font-family: "JetBrains Mono", monospace; font-size: 12px; fill: #6c7086; }
+  </style>
+
+  <!-- Input wire -->
+  <line class="wire" x1="40" y1="60" x2="150" y2="60"/>
+
+  <!-- Triangle body -->
+  <polygon class="gate" points="150,25 150,95 255,60"/>
+
+  <!-- Inversion bubble -->
+  <circle class="gate" cx="265" cy="60" r="11"/>
+
+  <!-- Output wire -->
+  <line class="wire" x1="276" y1="60" x2="370" y2="60"/>
+
+  <!-- Labels -->
+  <text class="label" x="20" y="65">A</text>
+  <text class="label" x="375" y="65">X</text>
+</svg>

@@ -43,7 +43,7 @@ Read it row by row: when the input is `00`, only Y[0] is `1`. When the input is 
 
 **Circuit diagram:**
 
-![2-to-4 decoder](../assets/images/decoder-2to4.jpg)
+![2-to-4 decoder](../assets/images/decoder-2to4.svg)
 
 **In TL-Verilog:**
 

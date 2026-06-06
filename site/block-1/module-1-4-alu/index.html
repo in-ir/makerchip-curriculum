@@ -921,13 +921,13 @@
 </code></pre></div>
 <p>Ten lines. That's a complete ALU.</p>
 <h3 id="see-it-running-in-makerchip">See it running in Makerchip</h3>
-<iframe src="http://www.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fin-ir%2Fmakerchip-curriculum%2Fmain%2Fcode%2Fblock-1%2Falu.tlv" style="width:100%; height:500px; border:none;"></iframe>
+<iframe src="https://www.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fin-ir%2Fmakerchip-curriculum%2Fmain%2Fcode%2Fblock-1%2Falu.tlv" style="width:100%; height:500px; border:none;"></iframe>
 
 <p>Open the waveform and try different values of <code>$op</code>. Watch <code>$out</code> change as the ALU switches between operations. Try inputs where the results are clearly different for example, <code>$a = 8'b10101010</code> and <code>$b = 8'b11001100</code> and verify each operation by hand against what the waveform shows.</p>
 <h2 id="exercise-extend-the-alu">Exercise: Extend the ALU</h2>
 <p><strong>Add a ninth operation to the ALU: XNOR.</strong></p>
 <p>XNOR is the inverse of XOR the output is <code>1</code> when both inputs are the same. Extend the opcode to 4 bits and add XNOR as operation <code>4'b1000</code>.</p>
-<iframe src="http://www.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fin-ir%2Fmakerchip-curriculum%2Fmain%2Fcode%2Fblock-1%2Falu-exercise.tlv" style="width:100%; height:500px; border:none;"></iframe>
+<iframe src="https://www.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fin-ir%2Fmakerchip-curriculum%2Fmain%2Fcode%2Fblock-1%2Falu-exercise.tlv" style="width:100%; height:500px; border:none;"></iframe>
 
 <details class="hint">
 <summary>Hint</summary>
@@ -964,7 +964,7 @@
 <li><strong>Negative flag (<code>$neg</code>):</strong> <code>1</code> if the most significant bit of <code>$out</code> is <code>1</code> (indicating a negative number in two's complement)</li>
 <li><strong>Carry flag (<code>$carry</code>):</strong> <code>1</code> if the addition produced a carry out of the 8th bit</li>
 </ul>
-<iframe src="http://www.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fin-ir%2Fmakerchip-curriculum%2Fmain%2Fcode%2Fblock-1%2Falu-challenge.tlv" style="width:100%; height:500px; border:none;"></iframe>
+<iframe src="https://www.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fin-ir%2Fmakerchip-curriculum%2Fmain%2Fcode%2Fblock-1%2Falu-challenge.tlv" style="width:100%; height:500px; border:none;"></iframe>
 
 <details class="hint">
 <summary>Hint</summary>

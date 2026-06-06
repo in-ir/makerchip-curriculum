@@ -783,7 +783,7 @@
 <p>The output pattern of a decoder exactly one bit high at a time is called <strong>one-hot encoding</strong>. It's used throughout digital design when you need to represent mutually exclusive states. FSMs, instruction decoders, and memory address logic all use this idea.</p>
 </div>
 <h3 id="see-it-running-in-makerchip">See it running in Makerchip</h3>
-<iframe src="http://www.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fin-ir%2Fmakerchip-curriculum%2Fmain%2Fcode%2Fblock-1%2F2to4-decoder.tlv" style="width:100%; height:500px; border:none;"></iframe>
+<iframe src="https://www.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fin-ir%2Fmakerchip-curriculum%2Fmain%2Fcode%2Fblock-1%2F2to4-decoder.tlv" style="width:100%; height:500px; border:none;"></iframe>
 
 <p>Watch the <code>$y</code> signal in the waveform. As <code>$in</code> cycles through 00, 01, 10, 11, you should see the active bit shift from the right to the left one bit moving across four outputs like a spotlight scanning across a stage.</p>
 <h2 id="the-decoder-as-an-inverse-mux">The decoder as an inverse MUX</h2>
@@ -797,7 +797,7 @@
 <p><strong>Build a 3-to-8 decoder.</strong></p>
 <p>You have a 3-bit input <code>$in[2:0]</code>. Your output <code>$y[7:0]</code> should have exactly one bit set to <code>1</code> the bit corresponding to the value of <code>$in</code>.</p>
 <p>For example, when <code>$in = 3'b101</code> (which is 5 in decimal), <code>$y[5]</code> should be <code>1</code> and all others should be <code>0</code>.</p>
-<iframe src="http://www.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fin-ir%2Fmakerchip-curriculum%2Fmain%2Fcode%2Fblock-1%2Fdecoder-exercise.tlv" style="width:100%; height:500px; border:none;"></iframe>
+<iframe src="https://www.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fin-ir%2Fmakerchip-curriculum%2Fmain%2Fcode%2Fblock-1%2Fdecoder-exercise.tlv" style="width:100%; height:500px; border:none;"></iframe>
 
 <p>The starter code has <code>$y[7:0] = 8'b0</code> as a placeholder. Replace it with the correct decoder logic.</p>
 <details class="hint">
@@ -940,7 +940,7 @@
 </tr>
 </tbody>
 </table>
-<iframe src="http://www.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fin-ir%2Fmakerchip-curriculum%2Fmain%2Fcode%2Fblock-1%2Fdecoder-challenge.tlv" style="width:100%; height:500px; border:none;"></iframe>
+<iframe src="https://www.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fin-ir%2Fmakerchip-curriculum%2Fmain%2Fcode%2Fblock-1%2Fdecoder-challenge.tlv" style="width:100%; height:500px; border:none;"></iframe>
 
 <details class="hint">
 <summary>Hint</summary>

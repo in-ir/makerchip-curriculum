@@ -41,7 +41,7 @@ If the input is `0`, the output is `1`.
 
 **Circuit symbol:**
 
-![NOT gate](../assets/images/not-gate.jpg)
+![NOT gate](../assets/images/not-gate.svg)
 
 **In TL-Verilog:**
 
@@ -67,7 +67,7 @@ Think of it exactly like the English word "and" — both things have to be true.
 
 **Circuit symbol:**
 
-![AND gate](../assets/images/and-gate.jpg)
+![AND gate](../assets/images/and-gate.svg)
 
 **In TL-Verilog:**
 
@@ -90,7 +90,7 @@ Two inputs, one output. The output is `1` when **at least one input is `1`**.
 
 **Circuit symbol:**
 
-![OR gate](../assets/images/or-gate.jpg)
+![OR gate](../assets/images/or-gate.svg)
 
 **In TL-Verilog:**
 
@@ -115,7 +115,7 @@ Notice the difference from OR: when both inputs are `1`, XOR gives `0`, but OR g
 
 **Circuit symbol:**
 
-![XOR gate](../assets/images/xor-gate.jpg)
+![XOR gate](../assets/images/xor-gate.svg)
 
 **In TL-Verilog:**
 
@@ -138,7 +138,7 @@ NAND and NOR are simply AND and OR with the output **inverted** (the N stands fo
 
 **Circuit symbol:**
 
-![NAND gate](../assets/images/nand-gate.jpg)
+![NAND gate](../assets/images/nand-gate.svg)
 
 **NOR truth table:**
 
@@ -151,7 +151,7 @@ NAND and NOR are simply AND and OR with the output **inverted** (the N stands fo
 
 **Circuit symbol:**
 
-![NOR gate](../assets/images/nor-gate.jpg)
+![NOR gate](../assets/images/nor-gate.svg)
 
 **In TL-Verilog:**
 
@@ -194,7 +194,7 @@ So a half adder is just an XOR gate and an AND gate working together.
 
 **Circuit diagram:**
 
-![Half adder](../assets/images/half-adder.jpg)
+![Half adder](../assets/images/half-adder.svg)
 
 **In TL-Verilog:**
 

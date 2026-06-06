@@ -35,7 +35,7 @@ In this module you'll work with 8-bit operands and a 3-bit opcode, giving you 8 
 
 **Circuit diagram:**
 
-![ALU](../assets/images/alu.jpg)
+![ALU](../assets/images/alu.svg)
 
 ## The eight operations
 
