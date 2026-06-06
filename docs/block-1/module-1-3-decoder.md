@@ -61,7 +61,7 @@ You already know this pattern it's the same chained condition syntax from Module
 
 ### See it running in Makerchip
 
-<a href="http://www.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fin-ir%2Fmakerchip-curriculum%2Fmain%2Fcode%2Fblock-1%2F2to4-decoder.tlv" target="_blank" class="md-button">Open 2-to-4 decoder in Makerchip ↗</a>
+<iframe src="http://www.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fin-ir%2Fmakerchip-curriculum%2Fmain%2Fcode%2Fblock-1%2F2to4-decoder.tlv" style="width:100%; height:500px; border:none;"></iframe>
 
 Watch the `$y` signal in the waveform. As `$in` cycles through 00, 01, 10, 11, you should see the active bit shift from the right to the left one bit moving across four outputs like a spotlight scanning across a stage.
 
@@ -82,9 +82,10 @@ You have a 3-bit input `$in[2:0]`. Your output `$y[7:0]` should have exactly one
 
 For example, when `$in = 3'b101` (which is 5 in decimal), `$y[5]` should be `1` and all others should be `0`.
 
-<a href="http://www.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fin-ir%2Fmakerchip-curriculum%2Fmain%2Fcode%2Fblock-1%2Fdecoder-exercise.tlv" target="_blank" class="md-button">Open starter code in Makerchip ↗</a>
+<iframe src="http://www.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fin-ir%2Fmakerchip-curriculum%2Fmain%2Fcode%2Fblock-1%2Fdecoder-exercise.tlv" style="width:100%; height:500px; border:none;"></iframe>
 
 The starter code has `$y[7:0] = 8'b0` as a placeholder. Replace it with the correct decoder logic.
+
 
 ??? hint "Hint"
     Same pattern as the 2-to-4 decoder, just with 8 cases instead of 4. Work through each value of `$in` from `3'b111` down to the default, and for each one output an 8-bit value with exactly one `1` in the right position.
@@ -139,10 +140,11 @@ Use this mapping for `$seg`: `{A, B, C, D, E, F, G}` where bit 6 is segment A (t
 | 6     | 1 | 0 | 1 | 1 | 1 | 1 | 1 | 1011111         |
 | 7     | 1 | 1 | 1 | 0 | 0 | 0 | 0 | 1110000         |
 
-<a href="http://www.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fin-ir%2Fmakerchip-curriculum%2Fmain%2Fcode%2Fblock-1%2Fdecoder-challenge.tlv" target="_blank" class="md-button">Open challenge starter code in Makerchip ↗</a>
+<iframe src="http://www.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fin-ir%2Fmakerchip-curriculum%2Fmain%2Fcode%2Fblock-1%2Fdecoder-challenge.tlv" style="width:100%; height:500px; border:none;"></iframe>
+
 
 ??? hint "Hint"
-    Same chained condition pattern one case per digit. For each value of `$digit`, output the 7-bit segment pattern from the table above.
+    Same chained condition pattern, one case per digit. For each value of `$digit`, output the 7-bit segment pattern from the table above.
 
 ??? solution "Solution"
     ```tlv

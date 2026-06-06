@@ -37,12 +37,14 @@ markdown_extensions:
   - attr_list
   - def_list
   - footnotes
+  - md_in_html
 
 extra_css:
   - stylesheets/extra.css
 
 nav:
   - Home: index.md
+  - Test: test-plugin.md
   - Block 1 — Combinational Logic:
       - Overview: block-1/index.md
       - Module 1.1 — Logic Gates: block-1/module-1-1-logic-gates.md
