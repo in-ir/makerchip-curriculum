@@ -3,13 +3,12 @@
 \SV
    m5_makerchip_module
 \TLV
+   // Drive inputs through all combinations
    $a = *cyc_cnt[1];
    $b = *cyc_cnt[0];
    
-   $s = $a ^ $b;
-   $c = $a && $b;
-   
-   `BOGUS_USE(>>1$s >>1$c)  // (this just helps with the DIAGRAM)
+   // AND gate - output is 1 only when both inputs are 1
+   $x = $a && $b;
    
    *passed = *cyc_cnt > 20;
    *failed = 1'b0;

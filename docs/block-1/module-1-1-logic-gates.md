@@ -25,6 +25,14 @@ A **logic gate** is a circuit that takes one or more binary inputs and produces 
 !!! note "Why ones and zeros?"
     In hardware, a `1` represents a high voltage (typically ~3.3V or 1.8V depending on the technology) and a `0` represents a low voltage (close to 0V). The circuit doesn't care about the exact voltage — just whether it's "high" or "low". This binary representation is what makes digital circuits so reliable and noise-resistant.
 
+## See logic gates in action
+
+Before we dive into each gate individually, let's see them all together.
+
+<div id="mc-logic-gates" class="makerchip-embed"></div>
+
+The visualization shows various logic gates processing input signals. Use the slider and arrow buttons at the bottom to step through different input combinations and watch how each gate produces its output. You can also use your mouse wheel to zoom in/out and drag to pan the visualization. Now, let's explain what you see.
+
 ## The NOT gate
 
 The simplest gate. One input, one output. It **inverts** the signal.
@@ -209,7 +217,7 @@ Two lines. That's a complete half adder.
 
 Click below to open the half adder in Makerchip. The inputs A and B automatically cycle through all four combinations so you can watch the outputs change in the waveform.
 
-<iframe src="https://www.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fin-ir%2Fmakerchip-curriculum%2Fmain%2Fcode%2Fblock-1%2Fhalf-adder.tlv" style="width:100%; height:500px; border:none;"></iframe>
+<div id="mc-half-adder" class="makerchip-embed"></div>
 
 ### How to read the Makerchip output
 
@@ -235,7 +243,7 @@ Verify that every row matches the truth table above. This is how hardware engine
 
 **Build a circuit that outputs `1` only when all three inputs A, B, and C are `1`.**
 
-<iframe src="https://www.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fin-ir%2Fmakerchip-curriculum%2Fmain%2Fcode%2Fblock-1%2Fthree-input-and.tlv" style="width:100%; height:500px; border:none;"></iframe>
+<div id="mc-three-input-and" class="makerchip-embed"></div>
 
 The starter code has `$x = 1'b0` as a placeholder — your output is always `0` right now. Replace that line with the correct gate logic.
 
@@ -253,30 +261,44 @@ Verify your circuit with all 8 combinations of A, B, C. Only the row where all t
 
 ## Match the waveform
 
-Look at the table below. Two inputs A and B produce an output X. **What gate produces this output?**
+Look at the waveform below. Two inputs A and B produce an output X. **What gate produces this output?**
 
-| Cycle | A   | B   | X   |
-| ----- | --- | --- | --- |
-| 1     | 0   | 0   | 0   |
-| 2     | 0   | 1   | 1   |
-| 3     | 1   | 0   | 1   |
-| 4     | 1   | 1   | 0   |
+<div id="mc-and-waveform" class="makerchip-embed-small"></div>
 
-Write the TL-Verilog expression for X, then open the sandbox below to verify:
-
-<iframe src="https://www.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fin-ir%2Fmakerchip-curriculum%2Fmain%2Fcode%2Fblock-1%2Fxor-puzzle.tlv" style="width:100%; height:500px; border:none;"></iframe>
+Study the waveform and observe when X goes high. Write the TL-Verilog expression for X based on the pattern you see.
 
 ??? hint "How to read the pattern"
-    Look at when X goes high. It's `1` in cycles 2 and 3 — when A and B are _different_. When they're the same (both 0 in cycle 1, both 1 in cycle 4), X is `0`.
+    Look at when X goes high in the waveform. Notice that X is `1` only when both A and B are `1` at the same time. When either A or B is `0`, X is also `0`.
 
-    Which gate gives `1` when inputs are different?
+    Which gate gives `1` only when all inputs are `1`?
+
+??? solution "Solution"
+    ```tlv
+    $x = $a && $b;  // AND
+    ```
+
+        Reading signal patterns backwards into code is one of the most important debugging skills in hardware design. When something in your circuit misbehaves, you read its waveform and ask: "what logic would produce this pattern?"
+
+## Exercise: Code the XOR gate
+
+Now it's your turn. In the Makerchip editor below, write code to produce this pattern:
+
+- When A and B are **different** → X = 1
+- When A and B are **the same** → X = 0
+
+<div id="mc-xor-exercise" class="makerchip-embed"></div>
+
+**Your task:** Replace `$x = 1'b0` with the correct gate logic. Compile and check the waveform to verify your solution.
+
+??? hint "Hint"
+    Which gate outputs `1` when inputs are different? Think back to the XOR gate we covered earlier.
 
 ??? solution "Solution"
     ```tlv
     $x = $a ^ $b;  // XOR
     ```
 
-        Reading signal patterns backwards into code is one of the most important debugging skills in hardware design. When something in your circuit misbehaves, you read its waveform and ask: "what logic would produce this pattern?"
+    The XOR gate outputs `1` when the inputs are different and `0` when they're the same.
 
 ## Where this fits next
 
@@ -294,3 +316,88 @@ In **Module 1.2**, you'll meet the **multiplexer (MUX)**: a circuit that acts as
 | XOR  | `$a ^ $b`       | inputs are different      |
 | NAND | `!($a && $b)`   | NOT both inputs are `1`   |
 | NOR  | `!($a \|\| $b)` | both inputs are `0`       |
+
+<style>
+.makerchip-embed { position: relative; width: 100%; height: 500px; }
+.makerchip-embed-small { position: relative; width: 100%; height: 333px; }
+</style>
+
+<script type="module">
+  import IdePlugin from 'https://beta.makerchip.com/dist/makerchip-plugin.js';
+
+  const base = 'https://raw.githubusercontent.com/in-ir/makerchip-curriculum/main/code/block-1/';
+
+  // Custom plugin class for VIZ-only display
+  class VizOnlyIDE extends IdePlugin {
+    async onReady() {
+      // Set layout to show only the VIZ pane
+      await this.setLayoutState({
+        panes: ['Viz'],
+        activePane: 'Viz'
+      });
+    }
+  }
+
+  // Custom plugin class for Waveform-only display
+  class WaveformOnlyIDE extends IdePlugin {
+    async onReady() {
+      // Temporarily showing Editor for debugging
+      await this.setLayoutState({
+        panes: ['Waveform'],
+        activePane: 'Waveform'
+      });
+    }
+  }
+
+  // Custom plugin class for Editor and Waveform display
+  class EditorWaveformIDE extends IdePlugin {
+    async onReady() {
+      await this.setLayoutState({
+        sides: {
+          left: { panes: ['Editor'], activePane: 'Editor' },
+          right: { panes: ['Waveform'], activePane: 'Waveform' }
+        },
+        splitAt: 0.5
+      });
+    }
+  }
+
+  // Standard embeds with default layout
+  const embeds = [
+    { id: 'mc-half-adder',      file: 'half-adder.tlv' },
+    { id: 'mc-three-input-and', file: 'three-input-and.tlv' },
+  ];
+
+  // Editor+Waveform embeds for coding exercises
+  const editorWaveformEmbeds = [
+    { id: 'mc-xor-exercise', file: 'xor-exercise.tlv' },
+  ];
+
+  for (const { id, file } of embeds) {
+    if (document.getElementById(id)) {
+      new IdePlugin(id, { codeURL: base + file });
+    }
+  }
+
+  // Logic gates visualization with VIZ-only layout
+  if (document.getElementById('mc-logic-gates')) {
+    new VizOnlyIDE('mc-logic-gates', {
+      codeURL: 'https://cdn.jsdelivr.net/gh/stevehoover/makerchip_examples@a0d80f640661653639c05de49fb8df76e9616f5c/logic_gates.tlv'
+    });
+  }
+
+  // AND waveform puzzle with Waveform-only layout
+  if (document.getElementById('mc-and-waveform')) {
+    new WaveformOnlyIDE('mc-and-waveform', {
+      codeURL: base + 'and-waveform.tlv'
+    });
+  }
+
+  // Editor+Waveform embeds for coding exercises
+  for (const { id, file } of editorWaveformEmbeds) {
+    if (document.getElementById(id)) {
+      new EditorWaveformIDE(id, { codeURL: base + file });
+    }
+  }
+</script>
+

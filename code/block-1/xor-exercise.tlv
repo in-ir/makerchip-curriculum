@@ -1,17 +1,14 @@
 \m5_TLV_version 1d: tl-x.org
-\m5
 \SV
    m5_makerchip_module
 \TLV
    $a = *cyc_cnt[1];
    $b = *cyc_cnt[0];
    
-   $s = $a ^ $b;
-   $c = $a && $b;
+   // Replace the line below with the correct logic gate
+   $x = 1'b0;
    
-   `BOGUS_USE(>>1$s >>1$c)  // (this just helps with the DIAGRAM)
-   
-   *passed = *cyc_cnt > 20;
+   *passed = *cyc_cnt > 10;
    *failed = 1'b0;
 \SV
    endmodule
