@@ -1,107 +1,97 @@
 \m5_TLV_version 1d: tl-x.org
 
 \SV
-   `include "sqrt32.v";
+   m5_makerchip_module
 \TLV
-   |display
-      @0
-         $reset = *reset;
-         $cnt[5:0] = $reset ? 6'b0 : >>1$cnt + 1;
-         $pattern[1:0] = $cnt[5:4];
+   /pixel_art
+      $reset = *reset;
+      $cnt[5:0] = $reset ? 6'b0 : >>1$cnt + 1;
+      $pattern[1:0] = $cnt[5:4];
 
-         // PATTERN 0: Smiley Face (provided)
-         $smiley_r0[7:0] = 8'b00111100;
-         $smiley_r1[7:0] = 8'b01000010;
-         $smiley_r2[7:0] = 8'b10100101;
-         $smiley_r3[7:0] = 8'b10000001;
-         $smiley_r4[7:0] = 8'b10100101;
-         $smiley_r5[7:0] = 8'b10011001;
-         $smiley_r6[7:0] = 8'b01000010;
-         $smiley_r7[7:0] = 8'b00111100;
+      // PATTERN 0: Smiley Face (provided)
+      $smiley_r0[7:0] = 8'b00111100;
+      $smiley_r1[7:0] = 8'b01000010;
+      $smiley_r2[7:0] = 8'b10100101;
+      $smiley_r3[7:0] = 8'b10000001;
+      $smiley_r4[7:0] = 8'b10100101;
+      $smiley_r5[7:0] = 8'b10011001;
+      $smiley_r6[7:0] = 8'b01000010;
+      $smiley_r7[7:0] = 8'b00111100;
 
-         // PATTERN 1: Heart -- YOUR CODE HERE
-         $heart_r0[7:0] = 8'b00000000;
-         $heart_r1[7:0] = 8'b00000000;
-         $heart_r2[7:0] = 8'b00000000;
-         $heart_r3[7:0] = 8'b00000000;
-         $heart_r4[7:0] = 8'b00000000;
-         $heart_r5[7:0] = 8'b00000000;
-         $heart_r6[7:0] = 8'b00000000;
-         $heart_r7[7:0] = 8'b00000000;
+      // PATTERN 1: Heart -- YOUR CODE HERE
+      $heart_r0[7:0] = 8'b00000000;
+      $heart_r1[7:0] = 8'b00000000;
+      $heart_r2[7:0] = 8'b00000000;
+      $heart_r3[7:0] = 8'b00000000;
+      $heart_r4[7:0] = 8'b00000000;
+      $heart_r5[7:0] = 8'b00000000;
+      $heart_r6[7:0] = 8'b00000000;
+      $heart_r7[7:0] = 8'b00000000;
 
-         // PATTERN 2: Custom -- YOUR DESIGN HERE
-         $custom_r0[7:0] = 8'b00000000;
-         $custom_r1[7:0] = 8'b00000000;
-         $custom_r2[7:0] = 8'b00000000;
-         $custom_r3[7:0] = 8'b00000000;
-         $custom_r4[7:0] = 8'b00000000;
-         $custom_r5[7:0] = 8'b00000000;
-         $custom_r6[7:0] = 8'b00000000;
-         $custom_r7[7:0] = 8'b00000000;
+      // PATTERN 2: Custom -- YOUR DESIGN HERE
+      $custom_r0[7:0] = 8'b00000000;
+      $custom_r1[7:0] = 8'b00000000;
+      $custom_r2[7:0] = 8'b00000000;
+      $custom_r3[7:0] = 8'b00000000;
+      $custom_r4[7:0] = 8'b00000000;
+      $custom_r5[7:0] = 8'b00000000;
+      $custom_r6[7:0] = 8'b00000000;
+      $custom_r7[7:0] = 8'b00000000;
 
-         // MUX: select active pattern
-         $row0[7:0] = $pattern == 2'b10 ? $custom_r0 : $pattern == 2'b01 ? $heart_r0 : $smiley_r0;
-         $row1[7:0] = $pattern == 2'b10 ? $custom_r1 : $pattern == 2'b01 ? $heart_r1 : $smiley_r1;
-         $row2[7:0] = $pattern == 2'b10 ? $custom_r2 : $pattern == 2'b01 ? $heart_r2 : $smiley_r2;
-         $row3[7:0] = $pattern == 2'b10 ? $custom_r3 : $pattern == 2'b01 ? $heart_r3 : $smiley_r3;
-         $row4[7:0] = $pattern == 2'b10 ? $custom_r4 : $pattern == 2'b01 ? $heart_r4 : $smiley_r4;
-         $row5[7:0] = $pattern == 2'b10 ? $custom_r5 : $pattern == 2'b01 ? $heart_r5 : $smiley_r5;
-         $row6[7:0] = $pattern == 2'b10 ? $custom_r6 : $pattern == 2'b01 ? $heart_r6 : $smiley_r6;
-         $row7[7:0] = $pattern == 2'b10 ? $custom_r7 : $pattern == 2'b01 ? $heart_r7 : $smiley_r7;
+      // MUX: select active pattern
+      $row0[7:0] = $pattern == 2'b10 ? $custom_r0 : $pattern == 2'b01 ? $heart_r0 : $smiley_r0;
+      $row1[7:0] = $pattern == 2'b10 ? $custom_r1 : $pattern == 2'b01 ? $heart_r1 : $smiley_r1;
+      $row2[7:0] = $pattern == 2'b10 ? $custom_r2 : $pattern == 2'b01 ? $heart_r2 : $smiley_r2;
+      $row3[7:0] = $pattern == 2'b10 ? $custom_r3 : $pattern == 2'b01 ? $heart_r3 : $smiley_r3;
+      $row4[7:0] = $pattern == 2'b10 ? $custom_r4 : $pattern == 2'b01 ? $heart_r4 : $smiley_r4;
+      $row5[7:0] = $pattern == 2'b10 ? $custom_r5 : $pattern == 2'b01 ? $heart_r5 : $smiley_r5;
+      $row6[7:0] = $pattern == 2'b10 ? $custom_r6 : $pattern == 2'b01 ? $heart_r6 : $smiley_r6;
+      $row7[7:0] = $pattern == 2'b10 ? $custom_r7 : $pattern == 2'b01 ? $heart_r7 : $smiley_r7;
 
-         /grid
-            \viz_js
-               box: {strokeWidth: 0, left: -10, top: -40, width: 310, height: 340, fill: "#1e1e2e"},
-               init() {
-                  let cell = 34
-                  let pad  = 10
-                  let ret = {}
-                  ret.label = new fabric.Text("Pixel Art", {
-                     left: 145, top: -28,
-                     originX: "center",
-                     fontSize: 13, fontFamily: "Courier New",
-                     fill: "#cdd6f4"
+      \viz_js
+         box: {strokeWidth: 0, left: -10, top: -40, width: 310, height: 340, fill: "#1e1e2e"},
+         init() {
+            let cell = 34
+            let pad  = 10
+            let ret = {}
+            ret.label = new fabric.Text("Pixel Art", {
+               left: 145, top: -28,
+               originX: "center",
+               fontSize: 13, fontFamily: "Courier New",
+               fill: "#cdd6f4"
+            })
+            for (let r = 0; r < 8; r++) {
+               for (let c = 0; c < 8; c++) {
+                  ret["px_" + r + "_" + c] = new fabric.Rect({
+                     left: pad + c * cell,
+                     top:  pad + r * cell,
+                     width:  cell - 3,
+                     height: cell - 3,
+                     fill: "#313244",
+                     strokeWidth: 0
                   })
-                  for (let r = 0; r < 8; r++) {
-                     for (let c = 0; c < 8; c++) {
-                        ret["px_" + r + "_" + c] = new fabric.Rect({
-                           left: pad + c * cell,
-                           top:  pad + r * cell,
-                           width:  cell - 3,
-                           height: cell - 3,
-                           fill: "#313244",
-                           strokeWidth: 0
-                        })
-                     }
-                  }
-                  return ret
-               },
-               render() {
-                  let objs = this.obj
-                  let pat = '|display$pattern'.asInt()
-                  let labels = ["Pattern 0: Smiley", "Pattern 1: Heart", "Pattern 2: Custom"]
-                  objs.label.set({text: labels[pat] || "Pattern " + pat})
-                  let rows = [
-                     '|display$row0'.asInt(),
-                     '|display$row1'.asInt(),
-                     '|display$row2'.asInt(),
-                     '|display$row3'.asInt(),
-                     '|display$row4'.asInt(),
-                     '|display$row5'.asInt(),
-                     '|display$row6'.asInt(),
-                     '|display$row7'.asInt()
-                  ]
-                  for (let r = 0; r < 8; r++) {
-                     for (let c = 0; c < 8; c++) {
-                        let bit = (rows[r] >> (7 - c)) & 1
-                        objs["px_" + r + "_" + c].set({fill: bit ? "#f5c542" : "#313244"})
-                     }
-                  }
-                  return []
                }
+            }
+            return ret
+         },
+         render() {
+            let pat = '$pattern'.asInt()
+            let labels = ["Pattern 0: Smiley", "Pattern 1: Heart", "Pattern 2: Custom"]
+            this.obj.label.set({text: labels[pat] || "Pattern " + pat})
+            let rows = [
+               '$row0'.asInt(), '$row1'.asInt(), '$row2'.asInt(), '$row3'.asInt(),
+               '$row4'.asInt(), '$row5'.asInt(), '$row6'.asInt(), '$row7'.asInt()
+            ]
+            for (let r = 0; r < 8; r++) {
+               for (let c = 0; c < 8; c++) {
+                  let bit = (rows[r] >> (7 - c)) & 1
+                  this.obj["px_" + r + "_" + c].set({fill: bit ? "#f5c542" : "#313244"})
+               }
+            }
+         },
+         where: {left: 0, top: 0, width: 10, height: 10}
 
    *passed = *cyc_cnt > 80;
    *failed = 1'b0;
-
 \SV
    endmodule
