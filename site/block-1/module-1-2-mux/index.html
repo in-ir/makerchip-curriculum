@@ -200,13 +200,13 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../test-plugin/" class="md-tabs__link">
+      <a href="../../get-started/" class="md-tabs__link">
         
   
   
     
   
-  Test
+  Get Started
 
       </a>
     </li>
@@ -312,14 +312,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../test-plugin/" class="md-nav__link">
+      <a href="../../get-started/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Test
+    Get Started
   
 
     
@@ -345,6 +345,8 @@
       
         
           
+        
+      
         
       
         
@@ -518,10 +520,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#the-idea-a-programmable-switch" class="md-nav__link">
+  <a href="#a-programmable-switch" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The idea: a programmable switch
+        A programmable switch
       
     </span>
   </a>
@@ -541,21 +543,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#see-it-running-in-makerchip" class="md-nav__link">
+  <a href="#see-the-mux-circuit-in-makerchip" class="md-nav__link">
     <span class="md-ellipsis">
       
-        See it running in Makerchip
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#how-to-read-the-waveform" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        How to read the waveform
+        See the MUX circuit in Makerchip
       
     </span>
   </a>
@@ -564,6 +555,28 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#match-the-waveform" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Match the waveform
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise-code-the-2-to-1-mux" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise: Code the 2-to-1 MUX
+      
+    </span>
+  </a>
   
 </li>
       
@@ -687,6 +700,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../block-1-project/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pixel Art
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -716,22 +757,14 @@
 <strong>Estimated time:</strong> 45–60 minutes<br />
 <strong>Prerequisites:</strong> Module 1.1 — Logic Gates</p>
 <h2 id="what-youll-learn">What you'll learn</h2>
-<p>By the end of this module you'll be able to:</p>
-<ul>
-<li>Explain what a multiplexer does and why it's useful</li>
-<li>Read and write a 2-to-1 MUX in TL-Verilog using the ternary operator</li>
-<li>Scale a 2-to-1 MUX to a 4-to-1 MUX using chained conditions</li>
-<li>Use a MUX to select between signals in a circuit</li>
-<li>Solve a MUX-based design challenge</li>
-</ul>
-<h2 id="the-idea-a-programmable-switch">The idea: a programmable switch</h2>
-<p>You now know how logic gates work. Gates are fixed — an AND gate always ANDs, an OR gate always ORs. But what if you want a circuit that can <strong>choose</strong> what it does based on a control signal?</p>
-<p>That's a <strong>multiplexer</strong>, or <strong>MUX</strong>.</p>
-<p>A MUX is a circuit that selects one of several input signals and forwards it to the output. The selection is controlled by one or more <strong>select lines</strong>.</p>
-<p>Think of it like a railway switch. Multiple tracks come in, but only one is routed forward — and the switch lever (the select signal) decides which one.</p>
-<p>MUXes are everywhere in digital design. Every time a processor chooses between two values, every time a circuit picks a path — there's almost certainly a MUX doing the work.</p>
+<p>By the end of this module you will be able to explain what a multiplexer does and why it is useful, read and write a 2-to-1 MUX in TL-Verilog using the ternary operator, scale a 2-to-1 MUX to a 4-to-1 MUX using chained conditions, use a MUX to select between signals in a circuit, and solve a MUX-based design challenge.</p>
+<h2 id="a-programmable-switch">A programmable switch</h2>
+<p>You now know how logic gates work. Gates are fixed: an AND gate always ANDs, an OR gate always ORs. But what if you want a circuit that can <strong>choose</strong> what it does based on a control signal?</p>
+<p>That is what a <strong>multiplexer</strong>, or <strong>MUX</strong>, does.</p>
+<p>A MUX is a circuit that selects one of several input signals and forwards it to the output. The selection is controlled by one or more <strong>select lines</strong>. Think of it like a railway switch. Multiple tracks come in, but only one is routed forward, and the switch lever decides which one.</p>
+<p>MUXes are everywhere in digital design. Every time a processor chooses between two values or a circuit picks a path, there is almost certainly a MUX doing that work.</p>
 <h2 id="the-2-to-1-mux">The 2-to-1 MUX</h2>
-<p>The simplest MUX: <strong>two inputs, one select line, one output</strong>.</p>
+<p>The simplest MUX has two inputs, one select line, and one output.</p>
 <table>
 <thead>
 <tr>
@@ -751,23 +784,24 @@
 </tbody>
 </table>
 <p>When SEL is <code>0</code>, the output is whatever A is. When SEL is <code>1</code>, the output is whatever B is.</p>
-<p><strong>Circuit symbol:</strong></p>
-<p><img alt="2-to-1 MUX" src="../../assets/images/2to1-mux.jpg" /></p>
+<p><strong>Circuit diagram:</strong></p>
+<p><img alt="2-to-1 MUX" src="../../assets/images/2to1-mux.svg" /></p>
 <p><strong>In TL-Verilog:</strong></p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>$out = $sel ? $b : $a;
 </code></pre></div>
-<p>This uses the <strong>ternary operator</strong> — the same <code>?:</code> you might know from C or Python. Read it as: "if SEL is true, output B, otherwise output A."</p>
-<p>One line. That's a complete 2-to-1 MUX.</p>
-<div class="admonition note">
-<p class="admonition-title">Why ternary?</p>
-<p>TL-Verilog (and Verilog) uses <code>?:</code> for MUX-like selection because it maps directly to hardware. The synthesizer sees <code>condition ? x : y</code> and produces exactly a MUX circuit. It's not just shorthand — it's the idiomatic way to describe selection in hardware.</p>
-</div>
-<h3 id="see-it-running-in-makerchip">See it running in Makerchip</h3>
-<p>Click below to open the 2-to-1 MUX in Makerchip. The inputs A, B, and SEL automatically cycle through combinations so you can watch the output switch between them in the waveform.</p>
-<iframe src="https://www.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fin-ir%2Fmakerchip-curriculum%2Fmain%2Fcode%2Fblock-1%2F2to1-mux.tlv" style="width:100%; height:500px; border:none;"></iframe>
+<p>This uses the <strong>ternary operator</strong>, the same <code>?:</code> you may know from C or Python. Read it as: if SEL is true, output B, otherwise output A. One line. That is a complete 2-to-1 MUX.</p>
+<details class="note">
+<summary>Why ternary?</summary>
+<p>TL-Verilog uses <code>?:</code> for MUX-like selection because it maps directly to hardware. The synthesizer sees <code>condition ? x : y</code> and produces exactly a MUX circuit. It is not just shorthand. It is the idiomatic way to describe selection in hardware description languages.</p>
+</details>
+<h3 id="see-the-mux-circuit-in-makerchip">See the MUX circuit in Makerchip</h3>
+<p>The embed below shows the 2-to-1 MUX circuit and its waveform. Watch the <code>$out</code> signal: it should follow <code>$a</code> when <code>$sel</code> is <code>0</code> and follow <code>$b</code> when <code>$sel</code> is <code>1</code>.</p>
+<div id="mc-mux-demo" class="makerchip-embed"></div>
 
-<h3 id="how-to-read-the-waveform">How to read the waveform</h3>
-<p>Watch the <code>$out</code> signal. It should match <code>$a</code> whenever <code>$sel</code> is <code>0</code>, and match <code>$b</code> whenever <code>$sel</code> is <code>1</code>.</p>
+<details class="note">
+<summary>What are <code>clk</code> and <code>reset</code>?</summary>
+<p>Makerchip always shows <code>clk</code> and <code>reset</code> in the waveform. Ignore them for now. Combinational circuits do not use a clock. The output responds instantly to the inputs with no timing involved. You will learn what the clock does when we get to sequential logic in Block 2.</p>
+</details>
 <table>
 <thead>
 <tr>
@@ -810,8 +844,77 @@
 </tbody>
 </table>
 <p>In cycles 1 and 2, SEL is <code>0</code> so the output follows A. In cycles 3 and 4, SEL is <code>1</code> so the output follows B. The select line is the lever; A and B are the tracks.</p>
+<h2 id="match-the-waveform">Match the waveform</h2>
+<p>Look at the waveform below. Three signals <code>$a</code>, <code>$b</code>, and <code>$sel</code> produce an output <code>$out</code>. Study the pattern and determine what the relationship is between <code>$sel</code> and <code>$out</code>.</p>
+<div id="mc-mux-waveform" class="makerchip-embed-small"></div>
+
+<table>
+<thead>
+<tr>
+<th>Cycle</th>
+<th>$sel</th>
+<th>$a</th>
+<th>$b</th>
+<th>$out</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>2</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>3</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>4</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>Write the TL-Verilog expression for <code>$out</code>, then verify it in the exercise below.</p>
+<details class="hint">
+<summary>How to read the pattern</summary>
+<p>In cycle 1, <code>$sel</code> is <code>0</code> and <code>$out</code> matches <code>$a</code> which is <code>1</code>. In cycle 2, <code>$sel</code> is <code>1</code> and <code>$out</code> matches <code>$b</code> which is <code>0</code>. The output always tracks one of the two inputs. Which one depends on <code>$sel</code>. Which operator selects between two values based on a condition?</p>
+</details>
+<details class="solution">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>$out = $sel ? $b : $a;
+</code></pre></div>
+<p>When <code>$sel</code> is <code>0</code> the output follows <code>$a</code>. When <code>$sel</code> is <code>1</code> it follows <code>$b</code>. This is exactly the ternary operator mapping to a 2-to-1 MUX.</p>
+</details>
+<h2 id="exercise-code-the-2-to-1-mux">Exercise: Code the 2-to-1 MUX</h2>
+<p>Now write it yourself. Replace <code>$out = 1'b0</code> with the correct MUX logic and compile. Check that the waveform matches the table above.</p>
+<div id="mc-mux-exercise-basic" class="makerchip-embed"></div>
+
+<details class="hint">
+<summary>Hint</summary>
+<p>Use the ternary operator: <code>condition ? value_if_true : value_if_false</code>. What is the condition here? What are the two values to choose between?</p>
+</details>
+<details class="solution">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>$out = $sel ? $b : $a;
+</code></pre></div>
+</details>
 <h2 id="scaling-up-the-4-to-1-mux">Scaling up: the 4-to-1 MUX</h2>
-<p>What if you have four inputs and want to select between them? You need <strong>two select lines</strong> — because two bits give you four combinations (00, 01, 10, 11).</p>
+<p>What if you have four inputs and want to select between them? You need two select lines, because two bits give you four combinations: 00, 01, 10, and 11.</p>
 <p><strong>Selection table:</strong></p>
 <table>
 <thead>
@@ -839,55 +942,48 @@
 </tr>
 </tbody>
 </table>
-<p><strong>In TL-Verilog</strong>, you chain conditions using <code>==</code>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>$out = $sel == 2&#39;b11 ? $d :
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>       $sel == 2&#39;b10 ? $c :
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>       $sel == 2&#39;b01 ? $b :
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>                       $a;
+<p>In TL-Verilog, you chain conditions using <code>==</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>$out = $sel == 2&#39;b11 ? $d :
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>       $sel == 2&#39;b10 ? $c :
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>       $sel == 2&#39;b01 ? $b :
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>                       $a;
 </code></pre></div>
-<p>Read it top to bottom: check each value of SEL in order, and output the matching signal. The last line is the default — if none of the conditions above matched, output A.</p>
+<p>Read it top to bottom: check each value of SEL in order and output the matching signal. The last line is the default. If none of the conditions above matched, output A.</p>
 <div class="admonition tip">
 <p class="admonition-title">MUX trees</p>
-<p>You can keep extending this pattern for as many inputs as you need. An 8-to-1 MUX checks 8 conditions with a 3-bit select. The structure stays the same — one condition per input, a default at the bottom.</p>
+<p>You can extend this pattern for as many inputs as you need. An 8-to-1 MUX checks 8 conditions with a 3-bit select. The structure stays the same: one condition per input, a default at the bottom.</p>
 </div>
 <h2 id="exercise-build-a-4-to-1-mux-with-logic-output">Exercise: Build a 4-to-1 MUX with logic output</h2>
-<p><strong>The task:</strong> Build a 4-to-1 MUX where each input is a logic expression:</p>
-<ul>
-<li>When <code>$sel == 2'b00</code>, output <code>$x AND $y</code></li>
-<li>When <code>$sel == 2'b01</code>, output <code>$x OR $y</code></li>
-<li>When <code>$sel == 2'b10</code>, output <code>NOT $x</code></li>
-<li>When <code>$sel == 2'b11</code>, output <code>$x XOR $y</code></li>
-</ul>
-<iframe src="https://www.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fin-ir%2Fmakerchip-curriculum%2Fmain%2Fcode%2Fblock-1%2Fmux-exercise.tlv" style="width:100%; height:500px; border:none;"></iframe>
+<p>Build a 4-to-1 MUX where each input is a logic expression. When <code>$sel == 2'b00</code>, output <code>$x AND $y</code>. When <code>$sel == 2'b01</code>, output <code>$x OR $y</code>. When <code>$sel == 2'b10</code>, output <code>NOT $x</code>. When <code>$sel == 2'b11</code>, output <code>$x XOR $y</code>.</p>
+<div id="mc-mux-exercise" class="makerchip-embed"></div>
 
 <p>The starter code has <code>$out = 1'b0</code> as a placeholder. Replace it with the correct MUX logic.</p>
 <details class="hint">
 <summary>Hint</summary>
 <p>Break it into two steps. First compute all four expressions as intermediate signals:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>$and = $x &amp;&amp; $y;
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>$or  = $x || $y;
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>$not = !$x;
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>$xor = $x ^ $y;
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>$and = $x &amp;&amp; $y;
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>$or  = $x || $y;
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>$not = !$x;
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>$xor = $x ^ $y;
 </code></pre></div>
 <p>Then chain them into a 4-to-1 MUX using <code>==</code> conditions.</p>
 </details>
 <details class="solution">
 <summary>Solution</summary>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>$and = $x &amp;&amp; $y;
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>$or  = $x || $y;
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>$not = !$x;
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>$xor = $x ^ $y;
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>$out = $sel == 2&#39;b11 ? $xor :
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>       $sel == 2&#39;b10 ? $not :
-<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>       $sel == 2&#39;b01 ? $or  :
-<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>                       $and;
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>$and = $x &amp;&amp; $y;
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>$or  = $x || $y;
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>$not = !$x;
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>$xor = $x ^ $y;
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>$out = $sel == 2&#39;b11 ? $xor :
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>       $sel == 2&#39;b10 ? $not :
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>       $sel == 2&#39;b01 ? $or  :
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>                       $and;
 </code></pre></div>
-<p>Compute your signals first, then select between them. This separation keeps the gate logic and the selection logic clean and easy to read.</p>
+<p>Compute your signals first, then select between them. This keeps the gate logic and the selection logic clean and easy to read.</p>
 </details>
 <h2 id="challenge-2-bit-function-selector">Challenge: 2-bit function selector</h2>
-<p><strong>Build a circuit that applies a different operation depending on a 2-bit opcode.</strong></p>
-<p>You have two 1-bit inputs <code>$a</code> and <code>$b</code>, and a 2-bit opcode <code>$op[1:0]</code>. Based on the opcode, the output should be:</p>
+<p>Build a circuit that applies a different operation depending on a 2-bit opcode. You have two 1-bit inputs <code>$a</code> and <code>$b</code>, and a 2-bit opcode <code>$op[1:0]</code>. Based on the opcode, the output should be:</p>
 <table>
 <thead>
 <tr>
@@ -914,30 +1010,30 @@
 </tr>
 </tbody>
 </table>
-<p>This is a simplified ALU — a circuit that selects between operations based on a control code. You'll build a full one in Module 1.4.</p>
-<iframe src="https://www.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fin-ir%2Fmakerchip-curriculum%2Fmain%2Fcode%2Fblock-1%2Fmux-challenge.tlv" style="width:100%; height:500px; border:none;"></iframe>
+<p>This is a simplified ALU, a circuit that selects between operations based on a control code. You will build a full one in Module 1.4.</p>
+<div id="mc-mux-challenge" class="makerchip-embed"></div>
 
 <details class="hint">
 <summary>Hint</summary>
-<p>Same pattern as the exercise — compute all four results first as intermediate signals, then use <code>$op</code> as your select to choose between them.</p>
+<p>Same pattern as the exercise. Compute all four results first as intermediate signals, then use <code>$op</code> as your select to choose between them.</p>
 </details>
 <details class="solution">
 <summary>Solution</summary>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>$and = $a &amp;&amp; $b;
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>$or  = $a || $b;
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>$xor = $a ^ $b;
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>$not = !$a;
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>
-<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>$out = $op == 2&#39;b11 ? $not :
-<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>       $op == 2&#39;b10 ? $xor :
-<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>       $op == 2&#39;b01 ? $or  :
-<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>                      $and;
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>$and = $a &amp;&amp; $b;
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>$or  = $a || $b;
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>$xor = $a ^ $b;
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>$not = !$a;
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>$out = $op == 2&#39;b11 ? $not :
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>       $op == 2&#39;b10 ? $xor :
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>       $op == 2&#39;b01 ? $or  :
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>                      $and;
 </code></pre></div>
-<p>Notice that <code>NOT</code> only uses <code>$a</code> — <code>$b</code> is ignored when <code>$op == 2'b11</code>. That's fine; in a real ALU some operations don't use all inputs.</p>
+<p>Notice that NOT only uses <code>$a</code>. When <code>$op == 2'b11</code>, <code>$b</code> is ignored entirely. That is perfectly fine. In a real ALU, some operations do not use all inputs.</p>
 </details>
 <h2 id="where-this-fits-next">Where this fits next</h2>
-<p>You now have two of the most important combinational building blocks: <strong>gates</strong> and <strong>MUXes</strong>. These two alone can express any combinational logic function.</p>
-<p>In <strong>Module 1.4</strong>, you'll combine them into an <strong>ALU</strong> — an Arithmetic Logic Unit — the circuit at the heart of every processor. It's a MUX that selects between several operations based on an opcode. You already built a mini version of it in the challenge above.</p>
+<p>You now have two of the most important combinational building blocks: gates and MUXes. These two alone can express any combinational logic function.</p>
+<p>In Module 1.3 you will meet the <strong>decoder</strong>, a circuit that takes a binary number and activates exactly one output line. It shows up inside ALUs, memory addressing, and instruction decoding in real processors.</p>
 <h2 id="quick-reference">Quick reference</h2>
 <table>
 <thead>
@@ -960,8 +1056,88 @@
 </tr>
 </tbody>
 </table>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>
-</code></pre></div>
+<style>
+.makerchip-embed       { position: relative; width: 100%; height: 500px; }
+.makerchip-embed-small { position: relative; width: 100%; height: 333px; }
+</style>
+
+<script type="module">
+  import IdePlugin from 'https://beta.makerchip.com/dist/makerchip-plugin.js';
+
+  const base = 'https://raw.githubusercontent.com/in-ir/makerchip-curriculum/main/code/block-1/';
+
+  // DIAGRAM + WAVEFORM — for circuit demos
+  class DiagramWaveformIDE extends IdePlugin {
+    async onReady() {
+      await this.setLayoutState({
+        sides: {
+          left:  { panes: ['Diagram'],  activePane: 'Diagram'  },
+          right: { panes: ['Waveform'], activePane: 'Waveform' }
+        },
+        splitAt: 0.5
+      });
+    }
+  }
+
+  // WAVEFORM only — for match-the-waveform exercises
+  class WaveformOnlyIDE extends IdePlugin {
+    async onReady() {
+      await this.setLayoutState({
+        panes: ['Waveform'],
+        activePane: 'Waveform'
+      });
+      await this.compile();
+    }
+  }
+
+  // EDITOR + WAVEFORM — for coding exercises
+  class EditorWaveformIDE extends IdePlugin {
+    async onReady() {
+      await this.setLayoutState({
+        sides: {
+          left:  { panes: ['Editor'],   activePane: 'Editor'   },
+          right: { panes: ['Waveform'], activePane: 'Waveform' }
+        },
+        splitAt: 0.5
+      });
+    }
+  }
+
+  // MUX demo — DIAGRAM + WAVEFORM
+  if (document.getElementById('mc-mux-demo')) {
+    new DiagramWaveformIDE('mc-mux-demo', {
+      codeURL: base + '2to1-mux.tlv'
+    });
+  }
+
+  // Match the waveform — WAVEFORM only
+  if (document.getElementById('mc-mux-waveform')) {
+    new WaveformOnlyIDE('mc-mux-waveform', {
+      codeURL: base + '2to1-mux.tlv'
+    });
+  }
+
+  // Basic MUX coding exercise — EDITOR + WAVEFORM
+  if (document.getElementById('mc-mux-exercise-basic')) {
+    new EditorWaveformIDE('mc-mux-exercise-basic', {
+      codeURL: base + 'mux-exercise.tlv'
+    });
+  }
+
+  // 4-to-1 MUX exercise — EDITOR + WAVEFORM
+  if (document.getElementById('mc-mux-exercise')) {
+    new EditorWaveformIDE('mc-mux-exercise', {
+      codeURL: base + 'mux-exercise.tlv'
+    });
+  }
+
+  // Challenge — EDITOR + WAVEFORM
+  if (document.getElementById('mc-mux-challenge')) {
+    new EditorWaveformIDE('mc-mux-challenge', {
+      codeURL: base + 'mux-challenge.tlv'
+    });
+  }
+</script>
 
 
 

@@ -1,0 +1,909 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="An open curriculum for learning digital design through interactive, visual, game-based projects.">
+      
+      
+        <meta name="author" content="Ines Iraoui">
+      
+      
+      
+        <link rel="prev" href="../module-1-4-alu/">
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Pixel Art - Digital Design with Makerchip & TL-Verilog</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=JetBrains+Mono:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"JetBrains Mono";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="deep-purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#block-1-project-pixel-art-generator" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Digital Design with Makerchip &amp; TL-Verilog" class="md-header__button md-logo" aria-label="Digital Design with Makerchip & TL-Verilog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Digital Design with Makerchip & TL-Verilog
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Pixel Art
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../get-started/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Get Started
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Block 1 — Combinational Logic
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Digital Design with Makerchip &amp; TL-Verilog" class="md-nav__button md-logo" aria-label="Digital Design with Makerchip & TL-Verilog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Digital Design with Makerchip & TL-Verilog
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../get-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Get Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Block 1 — Combinational Logic
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Block 1 — Combinational Logic
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../module-1-1-logic-gates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 1.1 — Logic Gates
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../module-1-2-mux/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 1.2 — The Multiplexer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../module-1-3-decoder/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 1.3 — Decoders
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../module-1-4-alu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 1.4 — Arithmetic Logic Units
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pixel Art
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pixel Art
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-you-are-building" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What you are building
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-the-grid-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How the grid works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-starter-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The starter code
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise-draw-the-heart" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise: Draw the heart
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#challenge-design-your-own-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Challenge: Design your own pattern
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#challenge-add-a-fourth-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Challenge: Add a fourth pattern
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-you-just-built" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What you just built
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#where-this-fits-next" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Where this fits next
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="block-1-project-pixel-art-generator">Block 1 Project: Pixel Art Generator</h1>
+<p><strong>Block 1 — Combinational Logic</strong><br />
+<strong>Estimated time:</strong> 60–90 minutes<br />
+<strong>Prerequisites:</strong> Modules 1.1 through 1.4</p>
+<h2 id="what-you-are-building">What you are building</h2>
+<p>You have spent Block 1 learning the individual building blocks of combinational logic: gates, multiplexers, decoders, and the ALU. This project puts all of them to work in something you can actually show people.</p>
+<p>You are going to build a <strong>pixel art generator</strong> — a circuit that renders images on an 8x8 pixel grid entirely through combinational logic. No memory, no clock, no processor. Just gate logic deciding whether each of the 64 pixels is on or off, and a MUX selecting between different images based on a 2-bit pattern code.</p>
+<p>When you are done, your circuit will display a smiley face, a heart, and a design of your own choosing — switchable in real time by changing a single 2-bit input.</p>
+<h2 id="how-the-grid-works">How the grid works</h2>
+<p>The display is an 8x8 grid of pixels. Each pixel is a single bit: <code>1</code> means the pixel is on (lit up) and <code>0</code> means it is off.</p>
+<p>You represent each row of the grid as an 8-bit signal. The leftmost pixel in a row is the most significant bit (bit 7) and the rightmost is the least significant bit (bit 0).</p>
+<p>For example, this row:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a># # . . . . # #   →   11000011   →   8&#39;b11000011
+</code></pre></div>
+<p>has pixels on at positions 7, 6, 1, and 0. Writing it out as a binary literal makes the pattern immediately readable — you can see the image just by looking at the code.</p>
+<p>Eight rows of 8 bits each gives you 64 pixels total: a complete 8x8 image.</p>
+<h2 id="the-starter-code">The starter code</h2>
+<p>Open the circuit below. You will see the Viz pane rendering the display on the right, and the Editor on the left where you will write your logic.</p>
+<div id="mc-pixel-art" class="makerchip-embed"></div>
+
+<p>The starter code already has Pattern 0 (a smiley face) fully working. Take a moment to look at how it is structured:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>$smiley_r0[7:0] = 8&#39;b00111100;  //   ####
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>$smiley_r1[7:0] = 8&#39;b01000010;  //  #    #
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>$smiley_r2[7:0] = 8&#39;b10100101;  // # #  # #
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>$smiley_r3[7:0] = 8&#39;b10000001;  // #      #
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>$smiley_r4[7:0] = 8&#39;b10100101;  // # #  # #
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>$smiley_r5[7:0] = 8&#39;b10011001;  // #  ##  #
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>$smiley_r6[7:0] = 8&#39;b01000010;  //  #    #
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>$smiley_r7[7:0] = 8&#39;b00111100;  //   ####
+</code></pre></div>
+<p>Each row is defined as a constant 8-bit value. The comments show the pixel pattern in ASCII art so you can read the image directly in the code.</p>
+<p>The pattern selector at the bottom uses the MUX syntax from Module 1.2 to choose between images:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>$row0[7:0] = $pattern == 2&#39;b01 ? $heart_r0 : $smiley_r0;
+</code></pre></div>
+<p>When <code>$pattern</code> is <code>01</code>, the output is the heart row. Otherwise it is the smiley.</p>
+<div class="admonition note">
+<p class="admonition-title">How the cycling works</p>
+<p>The <code>$pattern</code> signal auto-cycles every 16 clock cycles so you can see all your patterns animate in the Viz pane without needing to manually change inputs. When you add your own patterns, they will appear automatically in the rotation.</p>
+</div>
+<h2 id="exercise-draw-the-heart">Exercise: Draw the heart</h2>
+<p>Pattern 1 is currently all zeros — a blank screen. Your task is to fill in the 8 heart rows with the correct pixel values.</p>
+<p>Here is the heart pattern you are aiming for:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>. # # . . # # .   →   01100110   →   8&#39;b01100110
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a># # # # # # # #   →   11111111   →   8&#39;b11111111
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a># # # # # # # #   →   11111111   →   8&#39;b11111111
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a># # # # # # # #   →   11111111   →   8&#39;b11111111
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>. # # # # # # .   →   01111110   →   8&#39;b01111110
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>. . # # # # . .   →   00111100   →   8&#39;b00111100
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>. . . # # . . .   →   00011000   →   8&#39;b00011000
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>. . . . . . . .   →   00000000   →   8&#39;b00000000
+</code></pre></div>
+<p>Replace the placeholder rows in the <code>$heart_r0</code> through <code>$heart_r7</code> assignments with the correct values. Compile and watch the heart appear in the Viz pane when the pattern cycles to <code>01</code>.</p>
+<details class="hint">
+<summary>Hint</summary>
+<p>Write out the pixel pattern row by row on paper first — mark each cell as <code>#</code> (on) or <code>.</code> (off). Then convert each row to binary from left to right, where <code>#</code> is <code>1</code> and <code>.</code> is <code>0</code>. The comment next to each assignment is a great place to keep your ASCII art so you can read the image in the code.</p>
+</details>
+<details class="solution">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>$heart_r0[7:0] = 8&#39;b01100110;  //  ##  ##
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>$heart_r1[7:0] = 8&#39;b11111111;  // ########
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>$heart_r2[7:0] = 8&#39;b11111111;  // ########
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>$heart_r3[7:0] = 8&#39;b11111111;  // ########
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>$heart_r4[7:0] = 8&#39;b01111110;  //  ######
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>$heart_r5[7:0] = 8&#39;b00111100;  //   ####
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>$heart_r6[7:0] = 8&#39;b00011000;  //    ##
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>$heart_r7[7:0] = 8&#39;b00000000;  //
+</code></pre></div>
+<p>Once you compile, the Viz pane should show the heart when <code>$pattern</code> cycles to <code>01</code>. If a pixel is in the wrong place, go back to the row that looks wrong and check which bit position needs to flip.</p>
+</details>
+<h2 id="challenge-design-your-own-pattern">Challenge: Design your own pattern</h2>
+<p>Pattern 2 is reserved for your own design. Fill in <code>$custom_r0</code> through <code>$custom_r7</code> with whatever you want to draw.</p>
+<p>Some ideas: your initials, a spaceship, a star, an arrow, a house, a Tetris piece. The constraint of 8x8 pixels is part of the fun — you have to think carefully about what fits and what reads clearly at low resolution.</p>
+<p>Once your pattern is working, take a screenshot of the Viz pane. You have just designed hardware that renders an image.</p>
+<h2 id="challenge-add-a-fourth-pattern">Challenge: Add a fourth pattern</h2>
+<p>The <code>$pattern</code> signal is 2 bits, which gives you four possible values: <code>00</code>, <code>01</code>, <code>10</code>, and <code>11</code>. The starter code only uses three of them. Add a fourth pattern using <code>$pattern == 2'b11</code> and extend the MUX to include it.</p>
+<details class="hint">
+<summary>Hint</summary>
+<p>Add a set of <code>$pattern3_rN</code> signals for your new image, then extend each row MUX from a 3-way to a 4-way selection. The structure is exactly the same as the 4-to-1 MUX from Module 1.2 — one condition per pattern, a default at the bottom.</p>
+</details>
+<h2 id="what-you-just-built">What you just built</h2>
+<p>Take a moment to look at the full circuit and recognize every piece of it.</p>
+<p>The <strong>row signals</strong> (<code>$smiley_r0</code> through <code>$custom_r7</code>) are constant combinational assignments — the simplest form of gate logic. Each one is a fixed binary value that defines a row of pixels.</p>
+<p>The <strong>pattern MUX</strong> is the 4-to-1 MUX from Module 1.2, applied 8 times (once per row). The <code>$pattern</code> input is the select line. The row signals are the inputs. The <code>$rowN</code> outputs are what the Viz pane reads.</p>
+<p>The <strong>Viz pane</strong> is reading those 8 output signals and drawing pixels based on their bit values. The hardware is the circuit. The visualization is just making it visible.</p>
+<p>This is how real display hardware works. The pixels on your screen right now are being driven by circuits that are not fundamentally different from what you just built.</p>
+<h2 id="where-this-fits-next">Where this fits next</h2>
+<p>In Block 2 you will add <strong>state</strong> to your circuits. Instead of constant patterns, you will be able to make things move — a pixel that shifts position every clock cycle, a counter that drives an animation. The same 8x8 grid, but now alive.</p>
+<style>
+.makerchip-embed { position: relative; width: 100%; height: 600px; }
+</style>
+
+<script type="module">
+  import IdePlugin from 'https://beta.makerchip.com/dist/makerchip-plugin.js';
+
+  const base = 'https://raw.githubusercontent.com/in-ir/makerchip-curriculum/main/code/block-1/';
+
+  // EDITOR + VIZ — students write pixel patterns and see them rendered live
+  class EditorVizIDE extends IdePlugin {
+    async onReady() {
+      await this.setLayoutState({
+        sides: {
+          left:  { panes: ['Editor'], activePane: 'Editor' },
+          right: { panes: ['Viz'],    activePane: 'Viz'    }
+        },
+        splitAt: 0.5
+      });
+    }
+  }
+
+  if (document.getElementById('mc-pixel-art')) {
+    new EditorVizIDE('mc-pixel-art', {
+      codeURL: base + 'pixel-art.tlv'
+    });
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../module-1-4-alu/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Module 1.4 — Arithmetic Logic Units">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Module 1.4 — Arithmetic Logic Units
+              </div>
+            </div>
+          </a>
+        
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.indexes", "toc.integrate", "navigation.footer", "content.code.copy", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

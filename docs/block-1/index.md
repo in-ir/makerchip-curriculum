@@ -18,6 +18,7 @@ A combinational circuit is one where the output depends only on the current inpu
 2. [Module 1.2 — The Multiplexer](module-1-2-mux.md)
 3. [Module 1.3 — Decoders](module-1-3-decoder.md)
 4. [Module 1.4 — Arithmetic Logic Unit](module-1-4-alu.md)
+5. [Project — Pixel Art](block-1-project.md)
 
 ## Project
 
