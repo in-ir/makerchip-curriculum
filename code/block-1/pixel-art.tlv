@@ -3,7 +3,7 @@
 \SV
    m5_makerchip_module
 \TLV
-   |pipe
+   |display
       @0
          $reset = *reset;
          $cnt[5:0] = $reset ? 6'b0 : >>1$cnt + 1;
@@ -20,6 +20,7 @@
          $smiley_r7[7:0] = 8'b00111100;
 
          // PATTERN 1: Heart — YOUR CODE HERE
+         // Replace each 8'b00000000 with the correct row
          $heart_r0[7:0] = 8'b00000000;
          $heart_r1[7:0] = 8'b00000000;
          $heart_r2[7:0] = 8'b00000000;
@@ -39,7 +40,7 @@
          $custom_r6[7:0] = 8'b00000000;
          $custom_r7[7:0] = 8'b00000000;
 
-         // MUX: select active pattern
+         // MUX: select active pattern (Module 1.2 syntax)
          $row0[7:0] = $pattern == 2'b10 ? $custom_r0 : $pattern == 2'b01 ? $heart_r0 : $smiley_r0;
          $row1[7:0] = $pattern == 2'b10 ? $custom_r1 : $pattern == 2'b01 ? $heart_r1 : $smiley_r1;
          $row2[7:0] = $pattern == 2'b10 ? $custom_r2 : $pattern == 2'b01 ? $heart_r2 : $smiley_r2;
@@ -50,13 +51,13 @@
          $row7[7:0] = $pattern == 2'b10 ? $custom_r7 : $pattern == 2'b01 ? $heart_r7 : $smiley_r7;
 
          \viz_js
-            box: {strokeWidth: 0, left: -10, top: -30, width: 320, height: 340, fill: "#1e1e2e"},
+            box: {strokeWidth: 0, left: -10, top: -40, width: 310, height: 340, fill: "#1e1e2e"},
             init() {
                let ret = {}
                let cell = 34
                let pad  = 10
                ret.label = new fabric.Text("Pattern 0: Smiley", {
-                  left: 150, top: -20,
+                  left: 145, top: -28,
                   originX: "center",
                   fontSize: 13, fontFamily: "Courier New",
                   fill: "#cdd6f4"
@@ -81,17 +82,12 @@
                let pat = '$pattern'.asInt()
                let labels = ["Pattern 0: Smiley", "Pattern 1: Heart", "Pattern 2: Custom", "Pattern 3: Custom"]
                objs.label.set({text: labels[pat] || ("Pattern " + pat)})
-               let rowSignals = [
-                  '$row0', '$row1', '$row2', '$row3',
-                  '$row4', '$row5', '$row6', '$row7'
-               ]
+               let rowSigs = ['$row0','$row1','$row2','$row3','$row4','$row5','$row6','$row7']
                for (let r = 0; r < 8; r++) {
-                  let rowVal = rowSignals[r].asInt()
+                  let rowVal = rowSigs[r].asInt()
                   for (let c = 0; c < 8; c++) {
                      let bit = (rowVal >> (7 - c)) & 1
-                     objs["px_" + r + "_" + c].set({
-                        fill: bit ? "#f5c542" : "#313244"
-                     })
+                     objs["px_" + r + "_" + c].set({fill: bit ? "#f5c542" : "#313244"})
                   }
                }
                return []
