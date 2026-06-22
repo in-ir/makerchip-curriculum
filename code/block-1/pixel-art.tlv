@@ -1,7 +1,7 @@
 \m5_TLV_version 1d: tl-x.org
 
 \SV
-   m5_makerchip_module
+   `include "sqrt32.v";
 \TLV
    |display
       @0
@@ -20,7 +20,6 @@
          $smiley_r7[7:0] = 8'b00111100;
 
          // PATTERN 1: Heart — YOUR CODE HERE
-         // Replace each 8'b00000000 with the correct row
          $heart_r0[7:0] = 8'b00000000;
          $heart_r1[7:0] = 8'b00000000;
          $heart_r2[7:0] = 8'b00000000;
@@ -40,7 +39,7 @@
          $custom_r6[7:0] = 8'b00000000;
          $custom_r7[7:0] = 8'b00000000;
 
-         // MUX: select active pattern (Module 1.2 syntax)
+         // MUX: select active pattern
          $row0[7:0] = $pattern == 2'b10 ? $custom_r0 : $pattern == 2'b01 ? $heart_r0 : $smiley_r0;
          $row1[7:0] = $pattern == 2'b10 ? $custom_r1 : $pattern == 2'b01 ? $heart_r1 : $smiley_r1;
          $row2[7:0] = $pattern == 2'b10 ? $custom_r2 : $pattern == 2'b01 ? $heart_r2 : $smiley_r2;
