@@ -1,50 +1,49 @@
 \m5_TLV_version 1d: tl-x.org
-\m5
+
 \SV
-   `include "sqrt32.v";
+   m5_makerchip_module
 \TLV
-   // ──────────────────────────────────────────────
-   // PIXEL ART GENERATOR
-   // Block 1 Project — Combinational Logic
-   //
-   // A 2-bit pattern selector drives an 8x8 pixel grid.
-   // Each pixel is a single bit: 1 = ON, 0 = OFF.
-   // The pattern is selected combinationally using the
-   // chained condition syntax from Module 1.2.
-   // ──────────────────────────────────────────────
+   // ============================================
+   // PIXEL ART GENERATOR — Block 1 Project
+   // ============================================
+   // A 2-bit pattern selector drives an 8x8 grid.
+   // Each row is an 8-bit signal. Bit 7 = leftmost pixel.
+   // Change the $patternN_rN values to draw your own images.
+   // ============================================
 
-   // Auto-cycling pattern selector (cycles through 0,1,2,3 every 16 cycles)
-   $pattern[1:0] = (*cyc_cnt >> 4) % 4;
+   // Auto-cycle through patterns every 16 clock cycles
+   $reset = *reset;
+   $cnt[5:0] = $reset ? 6'b0 : >>1$cnt + 1;
+   $pattern[1:0] = $cnt[5:4];
 
-   // ──────────────────────────────────────────────
-   // PATTERN 0: Smiley Face
-   // Read row by row, left to right, MSB = leftmost pixel
-   // ──────────────────────────────────────────────
-   $smiley_r0[7:0] = 8'b00111100;  //   ####
-   $smiley_r1[7:0] = 8'b01000010;  //  #    #
-   $smiley_r2[7:0] = 8'b10100101;  // # #  # #
-   $smiley_r3[7:0] = 8'b10000001;  // #      #
-   $smiley_r4[7:0] = 8'b10100101;  // # #  # #
-   $smiley_r5[7:0] = 8'b10011001;  // #  ##  #
-   $smiley_r6[7:0] = 8'b01000010;  //  #    #
-   $smiley_r7[7:0] = 8'b00111100;  //   ####
+   // --------------------------------------------
+   // PATTERN 0: Smiley Face (provided)
+   // --------------------------------------------
+   $smiley_r0[7:0] = 8'b00111100;
+   $smiley_r1[7:0] = 8'b01000010;
+   $smiley_r2[7:0] = 8'b10100101;
+   $smiley_r3[7:0] = 8'b10000001;
+   $smiley_r4[7:0] = 8'b10100101;
+   $smiley_r5[7:0] = 8'b10011001;
+   $smiley_r6[7:0] = 8'b01000010;
+   $smiley_r7[7:0] = 8'b00111100;
 
-   // ──────────────────────────────────────────────
-   // PATTERN 1: Heart
-   // YOUR CODE HERE — replace each row with the correct 8-bit pattern
-   // ──────────────────────────────────────────────
-   $heart_r0[7:0] = 8'b00000000;  // replace this
-   $heart_r1[7:0] = 8'b00000000;  // replace this
-   $heart_r2[7:0] = 8'b00000000;  // replace this
-   $heart_r3[7:0] = 8'b00000000;  // replace this
-   $heart_r4[7:0] = 8'b00000000;  // replace this
-   $heart_r5[7:0] = 8'b00000000;  // replace this
-   $heart_r6[7:0] = 8'b00000000;  // replace this
-   $heart_r7[7:0] = 8'b00000000;  // replace this
+   // --------------------------------------------
+   // PATTERN 1: Heart — YOUR CODE HERE
+   // Replace each 8'b00000000 with the correct row
+   // --------------------------------------------
+   $heart_r0[7:0] = 8'b00000000;
+   $heart_r1[7:0] = 8'b00000000;
+   $heart_r2[7:0] = 8'b00000000;
+   $heart_r3[7:0] = 8'b00000000;
+   $heart_r4[7:0] = 8'b00000000;
+   $heart_r5[7:0] = 8'b00000000;
+   $heart_r6[7:0] = 8'b00000000;
+   $heart_r7[7:0] = 8'b00000000;
 
-   // ──────────────────────────────────────────────
-   // PATTERN 2: YOUR DESIGN — replace with your own pattern
-   // ──────────────────────────────────────────────
+   // --------------------------------------------
+   // PATTERN 2: Custom — YOUR DESIGN HERE
+   // --------------------------------------------
    $custom_r0[7:0] = 8'b00000000;
    $custom_r1[7:0] = 8'b00000000;
    $custom_r2[7:0] = 8'b00000000;
@@ -54,102 +53,82 @@
    $custom_r6[7:0] = 8'b00000000;
    $custom_r7[7:0] = 8'b00000000;
 
-   // ──────────────────────────────────────────────
-   // MUX: select the active pattern using the opcode
-   // This is the same chained condition syntax from Module 1.2
-   // ──────────────────────────────────────────────
-   $row0[7:0] = $pattern == 2'b10 ? $custom_r0 :
-                $pattern == 2'b01 ? $heart_r0   :
-                                    $smiley_r0;
-   $row1[7:0] = $pattern == 2'b10 ? $custom_r1 :
-                $pattern == 2'b01 ? $heart_r1   :
-                                    $smiley_r1;
-   $row2[7:0] = $pattern == 2'b10 ? $custom_r2 :
-                $pattern == 2'b01 ? $heart_r2   :
-                                    $smiley_r2;
-   $row3[7:0] = $pattern == 2'b10 ? $custom_r3 :
-                $pattern == 2'b01 ? $heart_r3   :
-                                    $smiley_r3;
-   $row4[7:0] = $pattern == 2'b10 ? $custom_r4 :
-                $pattern == 2'b01 ? $heart_r4   :
-                                    $smiley_r4;
-   $row5[7:0] = $pattern == 2'b10 ? $custom_r5 :
-                $pattern == 2'b01 ? $heart_r5   :
-                                    $smiley_r5;
-   $row6[7:0] = $pattern == 2'b10 ? $custom_r6 :
-                $pattern == 2'b01 ? $heart_r6   :
-                                    $smiley_r6;
-   $row7[7:0] = $pattern == 2'b10 ? $custom_r7 :
-                $pattern == 2'b01 ? $heart_r7   :
-                                    $smiley_r7;
+   // --------------------------------------------
+   // MUX: select active pattern (Module 1.2 syntax)
+   // --------------------------------------------
+   $row0[7:0] = $pattern == 2'b10 ? $custom_r0 : $pattern == 2'b01 ? $heart_r0 : $smiley_r0;
+   $row1[7:0] = $pattern == 2'b10 ? $custom_r1 : $pattern == 2'b01 ? $heart_r1 : $smiley_r1;
+   $row2[7:0] = $pattern == 2'b10 ? $custom_r2 : $pattern == 2'b01 ? $heart_r2 : $smiley_r2;
+   $row3[7:0] = $pattern == 2'b10 ? $custom_r3 : $pattern == 2'b01 ? $heart_r3 : $smiley_r3;
+   $row4[7:0] = $pattern == 2'b10 ? $custom_r4 : $pattern == 2'b01 ? $heart_r4 : $smiley_r4;
+   $row5[7:0] = $pattern == 2'b10 ? $custom_r5 : $pattern == 2'b01 ? $heart_r5 : $smiley_r5;
+   $row6[7:0] = $pattern == 2'b10 ? $custom_r6 : $pattern == 2'b01 ? $heart_r6 : $smiley_r6;
+   $row7[7:0] = $pattern == 2'b10 ? $custom_r7 : $pattern == 2'b01 ? $heart_r7 : $smiley_r7;
 
-   *passed = *cyc_cnt > 60;
-   *failed = 1'b0;
-
-   // ──────────────────────────────────────────────
-   // VIZ: Render the 8x8 pixel grid
-   // ──────────────────────────────────────────────
    \viz_js
-      initContext: {
-         // Canvas setup
-         let canvas = document.createElement('canvas');
-         canvas.width  = 320;
-         canvas.height = 360;
-         this.canvas = canvas;
-         this.getContext().appendChild(canvas);
-      },
-      renderContext: {
-         let ctx = this.canvas.getContext('2d');
-         let cell = 36;
-         let pad  = 8;
-
-         // Background
-         ctx.fillStyle = '#1e1e2e';
-         ctx.fillRect(0, 0, 320, 360);
+      box: {strokeWidth: 0, left: -10, top: -30, width: 320, height: 340, fill: "#1e1e2e"},
+      init() {
+         let ret = {}
+         let cell = 34
+         let pad  = 10
 
          // Pattern label
-         let pattern = '$pattern'.asInt();
-         let labels = ['Pattern 0: Smiley', 'Pattern 1: Heart', 'Pattern 2: Custom', 'Pattern 3: Custom'];
-         ctx.fillStyle = '#cdd6f4';
-         ctx.font = 'bold 13px JetBrains Mono, monospace';
-         ctx.textAlign = 'center';
-         ctx.fillText(labels[pattern] || 'Pattern ' + pattern, 160, 22);
+         ret.label = new fabric.Text("Pattern 0: Smiley", {
+            left: 150, top: -20,
+            originX: "center",
+            fontSize: 13, fontFamily: "Courier New",
+            fill: "#cdd6f4"
+         })
 
-         // Row signals
-         let rows = [
-            '$row0'.asInt(),
-            '$row1'.asInt(),
-            '$row2'.asInt(),
-            '$row3'.asInt(),
-            '$row4'.asInt(),
-            '$row5'.asInt(),
-            '$row6'.asInt(),
-            '$row7'.asInt(),
-         ];
-
-         // Draw grid
+         // Create 64 pixel cells
          for (let r = 0; r < 8; r++) {
             for (let c = 0; c < 8; c++) {
-               // MSB = leftmost pixel: bit (7 - c) of row r
-               let bit = (rows[r] >> (7 - c)) & 1;
-               let x = pad + c * cell;
-               let y = pad + 28 + r * cell;
-
-               if (bit) {
-                  // ON pixel: bright purple/gold
-                  ctx.fillStyle = '#f5c542';
-                  ctx.shadowColor = '#f5c542';
-                  ctx.shadowBlur = 8;
-               } else {
-                  // OFF pixel: dark
-                  ctx.fillStyle = '#313244';
-                  ctx.shadowBlur = 0;
-               }
-               // Rounded pixel
-               ctx.beginPath();
-               ctx.roundRect(x + 2, y + 2, cell - 4, cell - 4, 4);
-               ctx.fill();
-               ctx.shadowBlur = 0;
+               let key = "px_" + r + "_" + c
+               ret[key] = new fabric.Rect({
+                  left: pad + c * cell,
+                  top:  pad + r * cell,
+                  width:  cell - 3,
+                  height: cell - 3,
+                  fill: "#313244",
+                  rx: 3, ry: 3,
+                  strokeWidth: 0
+               })
             }
          }
+         return ret
+      },
+      render() {
+         let objs = this.obj
+         let cell = 34
+
+         // Update label
+         let pat = '$pattern'.asInt()
+         let labels = ["Pattern 0: Smiley", "Pattern 1: Heart", "Pattern 2: Custom", "Pattern 3: Custom"]
+         objs.label.set({text: labels[pat] || ("Pattern " + pat)})
+
+         // Row signal names
+         let rowSignals = [
+            '$row0', '$row1', '$row2', '$row3',
+            '$row4', '$row5', '$row6', '$row7'
+         ]
+
+         // Update each pixel
+         for (let r = 0; r < 8; r++) {
+            let rowVal = rowSignals[r].asInt()
+            for (let c = 0; c < 8; c++) {
+               // Bit 7 = leftmost pixel (column 0)
+               let bit = (rowVal >> (7 - c)) & 1
+               let key = "px_" + r + "_" + c
+               objs[key].set({
+                  fill: bit ? "#f5c542" : "#313244"
+               })
+            }
+         }
+         return []
       }
+
+   *passed = *cyc_cnt > 80;
+   *failed = 1'b0;
+
+\SV
+   endmodule
