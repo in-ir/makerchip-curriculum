@@ -49,9 +49,6 @@
          $row6[7:0] = $pattern == 2'b10 ? $custom_r6 : $pattern == 2'b01 ? $heart_r6 : $smiley_r6;
          $row7[7:0] = $pattern == 2'b10 ? $custom_r7 : $pattern == 2'b01 ? $heart_r7 : $smiley_r7;
 
-         // Pack all 8 rows into one 64-bit signal for easy viz access
-         $grid[63:0] = {$row0, $row1, $row2, $row3, $row4, $row5, $row6, $row7};
-
          /grid
             \viz_js
                box: {strokeWidth: 0, left: -10, top: -40, width: 310, height: 340, fill: "#1e1e2e"},
@@ -65,29 +62,40 @@
                      fontSize: 13, fontFamily: "Courier New",
                      fill: "#cdd6f4"
                   })
-                  for (let i = 0; i < 64; i++) {
-                     let r = Math.floor(i / 8)
-                     let c = i % 8
-                     ret["px" + i] = new fabric.Rect({
-                        left: pad + c * cell,
-                        top:  pad + r * cell,
-                        width:  cell - 3,
-                        height: cell - 3,
-                        fill: "#313244",
-                        strokeWidth: 0
-                     })
+                  for (let r = 0; r < 8; r++) {
+                     for (let c = 0; c < 8; c++) {
+                        ret["px_" + r + "_" + c] = new fabric.Rect({
+                           left: pad + c * cell,
+                           top:  pad + r * cell,
+                           width:  cell - 3,
+                           height: cell - 3,
+                           fill: "#313244",
+                           strokeWidth: 0
+                        })
+                     }
                   }
                   return ret
                },
                render() {
                   let objs = this.obj
-                  let grid = '|display$grid'.asInt()
-                  let pat  = '|display$pattern'.asInt()
+                  let pat = '|display$pattern'.asInt()
                   let labels = ["Pattern 0: Smiley", "Pattern 1: Heart", "Pattern 2: Custom"]
                   objs.label.set({text: labels[pat] || "Pattern " + pat})
-                  for (let i = 0; i < 64; i++) {
-                     let bit = (grid >> (63 - i)) & 1
-                     objs["px" + i].set({fill: bit ? "#f5c542" : "#313244"})
+                  let rows = [
+                     '|display$row0'.asInt(),
+                     '|display$row1'.asInt(),
+                     '|display$row2'.asInt(),
+                     '|display$row3'.asInt(),
+                     '|display$row4'.asInt(),
+                     '|display$row5'.asInt(),
+                     '|display$row6'.asInt(),
+                     '|display$row7'.asInt()
+                  ]
+                  for (let r = 0; r < 8; r++) {
+                     for (let c = 0; c < 8; c++) {
+                        let bit = (rows[r] >> (7 - c)) & 1
+                        objs["px_" + r + "_" + c].set({fill: bit ? "#f5c542" : "#313244"})
+                     }
                   }
                   return []
                }
