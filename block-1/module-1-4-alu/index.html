@@ -16,6 +16,8 @@
         <link rel="prev" href="../module-1-3-decoder/">
       
       
+        <link rel="next" href="../block-1-project/">
+      
       
         
       
@@ -198,13 +200,13 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../test-plugin/" class="md-tabs__link">
+      <a href="../../get-started/" class="md-tabs__link">
         
   
   
     
   
-  Test
+  Get Started
 
       </a>
     </li>
@@ -310,14 +312,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../test-plugin/" class="md-nav__link">
+      <a href="../../get-started/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Test
+    Get Started
   
 
     
@@ -343,6 +345,8 @@
       
         
           
+        
+      
         
       
         
@@ -661,10 +665,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#see-it-running-in-makerchip" class="md-nav__link">
+  <a href="#see-the-alu-in-makerchip" class="md-nav__link">
     <span class="md-ellipsis">
       
-        See it running in Makerchip
+        See the ALU in Makerchip
       
     </span>
   </a>
@@ -677,10 +681,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#exercise-extend-the-alu" class="md-nav__link">
+  <a href="#match-the-waveform" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Exercise: Extend the ALU
+        Match the waveform
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise-extend-the-alu-with-xnor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise: Extend the ALU with XNOR
       
     </span>
   </a>
@@ -729,6 +744,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../block-1-project/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pixel Art
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -754,35 +797,20 @@
 
 
 <h1 id="module-14-the-alu">Module 1.4: The ALU</h1>
-<p><strong>Block 1 Combinational Logic</strong><br />
+<p><strong>Block 1 — Combinational Logic</strong><br />
 <strong>Estimated time:</strong> 60–90 minutes<br />
-<strong>Prerequisites:</strong> Module 1.3 Decoders</p>
+<strong>Prerequisites:</strong> Module 1.3 — Decoders</p>
 <h2 id="what-youll-learn">What you'll learn</h2>
-<p>By the end of this module you'll be able to:</p>
-<ul>
-<li>Explain what an ALU is and why it sits at the heart of every processor</li>
-<li>Implement all eight ALU operations in TL-Verilog</li>
-<li>Understand how addition and subtraction work in binary</li>
-<li>Explain logical and arithmetic shifting</li>
-<li>Connect everything you've built in Block 1 into one complete circuit</li>
-</ul>
+<p>By the end of this module you will be able to explain what an ALU is and why it sits at the heart of every processor, implement all eight ALU operations in TL-Verilog, understand how addition and subtraction work in binary, explain logical and arithmetic shifting, and connect everything you have built in Block 1 into one complete circuit.</p>
 <h2 id="the-circuit-at-the-heart-of-every-processor">The circuit at the heart of every processor</h2>
-<p>Every computation your computer performs adding two numbers, comparing values, running a loop, rendering a pixel eventually comes down to one circuit: the <strong>Arithmetic Logic Unit</strong>, or <strong>ALU</strong>.</p>
-<p>An ALU is a combinational circuit that takes two inputs and an opcode, and produces one output. The opcode tells it which operation to perform. Everything else the clock, the memory, the registers feeds into and out of the ALU, but the ALU itself is pure combinational logic. No state, no memory, just inputs in and output out.</p>
-<p>You've already built a mini version of this in Module 1.2. What you're building now is the real thing.</p>
+<p>Every computation your computer performs, whether adding two numbers, comparing values, running a loop, or rendering a pixel, eventually comes down to one circuit: the <strong>Arithmetic Logic Unit</strong>, or <strong>ALU</strong>.</p>
+<p>An ALU is a combinational circuit that takes two inputs and an opcode and produces one output. The opcode tells it which operation to perform. Everything else (the clock, the memory, the registers) feeds into and out of the ALU, but the ALU itself is pure combinational logic. No state, no memory. Just inputs in and output out.</p>
+<p>You built a simplified version of this in Module 1.2. What you are building now is the real thing.</p>
 <h2 id="the-inputs-and-outputs">The inputs and outputs</h2>
-<p>A standard ALU has:</p>
-<ul>
-<li><strong>A</strong> first operand (the data to operate on)</li>
-<li><strong>B</strong> second operand</li>
-<li><strong>OP</strong> opcode (selects the operation)</li>
-<li><strong>OUT</strong> result</li>
-</ul>
-<p>In this module you'll work with 8-bit operands and a 3-bit opcode, giving you 8 possible operations.</p>
+<p>A standard ALU has a first operand A, a second operand B, an opcode OP that selects the operation, and a result OUT. In this module you will work with 8-bit operands and a 3-bit opcode, giving you 8 possible operations.</p>
 <p><strong>Circuit diagram:</strong></p>
 <p><img alt="ALU" src="../../assets/images/alu.svg" /></p>
 <h2 id="the-eight-operations">The eight operations</h2>
-<p>Here are the operations your ALU will support:</p>
 <table>
 <thead>
 <tr>
@@ -835,7 +863,7 @@
 </tbody>
 </table>
 <h2 id="logic-operations">Logic operations</h2>
-<p>The first four operations are direct extensions of what you learned in Module 1.1. The only difference is that instead of operating on single bits, you're now operating on all 8 bits at once. TL-Verilog handles this automatically when you use multi-bit signals.</p>
+<p>The first four operations are direct extensions of what you learned in Module 1.1. The only difference is that instead of operating on single bits, you are now operating on all 8 bits at once. TL-Verilog handles this automatically when you use multi-bit signals.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>$and[7:0] = $a[7:0] &amp; $b[7:0];
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>$or[7:0]  = $a[7:0] | $b[7:0];
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>$xor[7:0] = $a[7:0] ^ $b[7:0];
@@ -843,18 +871,18 @@
 </code></pre></div>
 <p>Notice that bitwise operations use single operators (<code>&amp;</code>, <code>|</code>, <code>^</code>, <code>~</code>) rather than the double operators (<code>&amp;&amp;</code>, <code>||</code>) you used for single-bit logic. The double operators are for boolean conditions. The single operators work bit by bit across the whole signal.</p>
 <h2 id="addition">Addition</h2>
-<p>Adding two binary numbers works exactly like adding decimal numbers by hand you add each column and carry the overflow into the next.</p>
+<p>Adding two binary numbers works exactly like adding decimal numbers by hand. You add each column and carry the overflow into the next position.</p>
 <p>In Module 1.1 you built a half adder that adds two single bits and produces a sum and a carry. A full 8-bit adder chains eight of these together, passing the carry from each bit position into the next. TL-Verilog handles this automatically with the <code>+</code> operator:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>$add[7:0] = $a[7:0] + $b[7:0];
 </code></pre></div>
 <p>One line. TL-Verilog synthesizes the full carry chain for you.</p>
 <div class="admonition note">
 <p class="admonition-title">Overflow</p>
-<p>When the result of an addition doesn't fit in 8 bits, the extra bit is lost. For example, 255 + 1 wraps around to 0. In a real processor the ALU produces a carry-out flag to signal this. We keep things simple here and ignore overflow, but it's worth knowing it exists.</p>
+<p>When the result of an addition does not fit in 8 bits, the extra bit is lost. For example, 255 + 1 wraps around to 0. In a real processor the ALU produces a carry-out flag to signal this condition. We keep things simple here and ignore overflow, but it is worth knowing it exists.</p>
 </div>
 <h2 id="subtraction-and-twos-complement">Subtraction and two's complement</h2>
-<p>Subtraction is where things get interesting. In hardware, you don't build a separate subtractor circuit. Instead, you reuse the adder with a clever trick called <strong>two's complement</strong>.</p>
-<p>To compute A minus B, you instead compute A plus the two's complement of B. The two's complement of a number is obtained by inverting all its bits and adding 1:</p>
+<p>Subtraction is where things get interesting. In hardware, you do not build a separate subtractor circuit. Instead, you reuse the adder with a clever technique called <strong>two's complement</strong>.</p>
+<p>To compute A minus B, you compute A plus the two's complement of B. The two's complement of a number is obtained by inverting all its bits and adding 1:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>two&#39;s complement of B = ~B + 1
 </code></pre></div>
 <p>So subtraction becomes:</p>
@@ -868,29 +896,29 @@
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Why two's complement?</p>
-<p>Two's complement is the standard way computers represent negative numbers. It has a beautiful property: addition and subtraction use exactly the same hardware. Your processor doesn't have a separate subtraction circuit it just feeds the two's complement into the adder. This is one of the most elegant ideas in computer architecture.</p>
+<p>Two's complement is the standard way computers represent negative numbers. It has a remarkable property: addition and subtraction use exactly the same hardware. Your processor does not have a separate subtraction circuit. It feeds the two's complement into the adder. This is one of the most elegant ideas in computer architecture.</p>
 </div>
 <h2 id="shifting">Shifting</h2>
-<p>A <strong>shift</strong> moves all the bits in a signal left or right by a number of positions. Bits that shift out of range are lost, and the empty positions are filled with zeros.</p>
-<p><strong>Shift left by 1</strong> (<code>SHL</code>): every bit moves one position to the left. The leftmost bit is lost, and a <code>0</code> comes in from the right.</p>
+<p>A <strong>shift</strong> moves all the bits in a signal left or right by a number of positions. Bits that shift out of range are lost and the empty positions are filled with zeros.</p>
+<p>Shift left by 1 (SHL): every bit moves one position to the left. The leftmost bit is lost and a <code>0</code> comes in from the right.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>Before: 0 1 1 0 1 0 1 0
 <a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>After:  1 1 0 1 0 1 0 0
 </code></pre></div>
-<p><strong>Shift right by 1</strong> (<code>SHR</code>): every bit moves one position to the right. The rightmost bit is lost, and a <code>0</code> comes in from the left.</p>
+<p>Shift right by 1 (SHR): every bit moves one position to the right. The rightmost bit is lost and a <code>0</code> comes in from the left.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>Before: 0 1 1 0 1 0 1 0
 <a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>After:  0 0 1 1 0 1 0 1
 </code></pre></div>
-<p>Notice that shifting left by 1 is equivalent to multiplying by 2, and shifting right by 1 is equivalent to dividing by 2 (ignoring remainders). Processors use shifts constantly for fast multiplication and division.</p>
+<p>Shifting left by 1 is equivalent to multiplying by 2. Shifting right by 1 is equivalent to dividing by 2, ignoring remainders. Processors use shifts constantly for fast multiplication and division.</p>
 <p>In TL-Verilog:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>$shl[7:0] = $a[7:0] &lt;&lt; 1;
 <a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>$shr[7:0] = $a[7:0] &gt;&gt; 1;
 </code></pre></div>
 <div class="admonition tip">
 <p class="admonition-title">Other types of shifts</p>
-<p>The shifts above are called <strong>logical shifts</strong> empty positions always fill with zero. There are two other variants worth knowing about. An <strong>arithmetic right shift</strong> fills the empty position with the sign bit (the leftmost bit) instead of zero, which preserves the sign of a negative number in two's complement. A <strong>circular shift</strong> (also called a rotate) wraps the bit that falls off one end back in on the other end, so no bits are ever lost. Both are common in real processors and cryptographic hardware.</p>
+<p>The shifts above are called <strong>logical shifts</strong> because empty positions always fill with zero. Two other variants are worth knowing. An <strong>arithmetic right shift</strong> fills the empty position with the sign bit (the leftmost bit) instead of zero, which preserves the sign of a negative number in two's complement. A <strong>circular shift</strong> wraps the bit that falls off one end back in on the other end so no bits are ever lost. Both appear regularly in real processors and cryptographic hardware.</p>
 </div>
 <h2 id="putting-it-all-together">Putting it all together</h2>
-<p>Now that you have all eight results, you select the right one using the opcode exactly the MUX pattern from Module 1.2:</p>
+<p>Now that you have all eight results, you select the right one using the opcode, exactly the MUX pattern from Module 1.2:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>$out[7:0] = $op[2:0] == 3&#39;b111 ? $shr :
 <a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>             $op[2:0] == 3&#39;b110 ? $shl :
 <a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>             $op[2:0] == 3&#39;b101 ? $sub :
@@ -900,7 +928,7 @@
 <a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>             $op[2:0] == 3&#39;b001 ? $or  :
 <a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>                                  $and;
 </code></pre></div>
-<p>The full ALU in TL-Verilog:</p>
+<p>The complete ALU in TL-Verilog:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>$and[7:0] = $a[7:0] &amp; $b[7:0];
 <a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>$or[7:0]  = $a[7:0] | $b[7:0];
 <a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>$xor[7:0] = $a[7:0] ^ $b[7:0];
@@ -919,16 +947,73 @@
 <a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a>             $op[2:0] == 3&#39;b001 ? $or  :
 <a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a>                                  $and;
 </code></pre></div>
-<p>Ten lines. That's a complete ALU.</p>
-<h3 id="see-it-running-in-makerchip">See it running in Makerchip</h3>
-<iframe src="https://www.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fin-ir%2Fmakerchip-curriculum%2Fmain%2Fcode%2Fblock-1%2Falu.tlv" style="width:100%; height:500px; border:none;"></iframe>
+<p>Ten lines. That is a complete ALU.</p>
+<h3 id="see-the-alu-in-makerchip">See the ALU in Makerchip</h3>
+<p>The embed below shows the ALU circuit and its waveform. Watch <code>$out</code> change as <code>$op</code> cycles through the eight operations.</p>
+<div id="mc-alu-demo" class="makerchip-embed"></div>
 
-<p>Open the waveform and try different values of <code>$op</code>. Watch <code>$out</code> change as the ALU switches between operations. Try inputs where the results are clearly different for example, <code>$a = 8'b10101010</code> and <code>$b = 8'b11001100</code> and verify each operation by hand against what the waveform shows.</p>
-<h2 id="exercise-extend-the-alu">Exercise: Extend the ALU</h2>
-<p><strong>Add a ninth operation to the ALU: XNOR.</strong></p>
-<p>XNOR is the inverse of XOR the output is <code>1</code> when both inputs are the same. Extend the opcode to 4 bits and add XNOR as operation <code>4'b1000</code>.</p>
-<iframe src="https://www.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fin-ir%2Fmakerchip-curriculum%2Fmain%2Fcode%2Fblock-1%2Falu-exercise.tlv" style="width:100%; height:500px; border:none;"></iframe>
+<details class="note">
+<summary>What are <code>clk</code> and <code>reset</code>?</summary>
+<p>Makerchip always shows <code>clk</code> and <code>reset</code> in the waveform. Ignore them for now. Combinational circuits do not use a clock. The output responds instantly to the inputs with no timing involved. You will learn what the clock does when we get to sequential logic in Block 2.</p>
+</details>
+<h2 id="match-the-waveform">Match the waveform</h2>
+<p>Look at the waveform below. Two 8-bit inputs <code>$a</code> and <code>$b</code> and a 3-bit opcode <code>$op</code> produce an output <code>$out</code>. Study the pattern and determine which operation is being applied in each cycle.</p>
+<div id="mc-alu-waveform" class="makerchip-embed-small"></div>
 
+<table>
+<thead>
+<tr>
+<th>Cycle</th>
+<th>$op</th>
+<th>$a</th>
+<th>$b</th>
+<th>$out</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>3'b000</td>
+<td>11001100</td>
+<td>10101010</td>
+<td>10001000</td>
+</tr>
+<tr>
+<td>2</td>
+<td>3'b001</td>
+<td>11001100</td>
+<td>10101010</td>
+<td>11101110</td>
+</tr>
+<tr>
+<td>3</td>
+<td>3'b100</td>
+<td>00000011</td>
+<td>00000001</td>
+<td>00000100</td>
+</tr>
+<tr>
+<td>4</td>
+<td>3'b110</td>
+<td>00000001</td>
+<td>xxxxxxxx</td>
+<td>00000010</td>
+</tr>
+</tbody>
+</table>
+<details class="hint">
+<summary>How to read the pattern</summary>
+<p>In cycle 1, <code>$out</code> has a <code>1</code> only where both <code>$a</code> and <code>$b</code> have <code>1</code>. In cycle 2, <code>$out</code> has a <code>1</code> wherever either input has a <code>1</code>. In cycle 3, <code>$out</code> is the sum of <code>$a</code> and <code>$b</code>. In cycle 4, <code>$out</code> is <code>$a</code> shifted one position left. Match each to the opcode table above.</p>
+</details>
+<details class="solution">
+<summary>Solution</summary>
+<p>Cycle 1 (<code>3'b000</code>) is AND, cycle 2 (<code>3'b001</code>) is OR, cycle 3 (<code>3'b100</code>) is ADD, and cycle 4 (<code>3'b110</code>) is SHL. Reading waveforms and identifying operations from output patterns is exactly what hardware engineers do when debugging a processor.</p>
+</details>
+<h2 id="exercise-extend-the-alu-with-xnor">Exercise: Extend the ALU with XNOR</h2>
+<p>Add a ninth operation to the ALU: XNOR. XNOR is the inverse of XOR: the output is <code>1</code> when both inputs are the same. Extend the opcode to 4 bits and add XNOR as operation <code>4'b1000</code>.</p>
+<div id="mc-alu-exercise" class="makerchip-embed"></div>
+
+<p>The starter code has the 8-operation ALU already working. Add the XNOR operation and update the opcode MUX to include it.</p>
 <details class="hint">
 <summary>Hint</summary>
 <p>XNOR is just XOR with the output inverted. Compute it as an intermediate signal first, then add it as the first case in your opcode chain with <code>$op[3:0] == 4'b1000</code>.</p>
@@ -957,18 +1042,13 @@
 </code></pre></div>
 </details>
 <h2 id="challenge-flag-generation">Challenge: Flag generation</h2>
-<p>A real ALU doesn't just produce a result it also produces <strong>flags</strong> that describe properties of the result. These flags are used by the processor to make decisions (like whether to take a branch in an if-statement).</p>
-<p><strong>Add the following flags to your ALU:</strong></p>
-<ul>
-<li><strong>Zero flag (<code>$zero</code>):</strong> <code>1</code> if <code>$out</code> is all zeros, <code>0</code> otherwise</li>
-<li><strong>Negative flag (<code>$neg</code>):</strong> <code>1</code> if the most significant bit of <code>$out</code> is <code>1</code> (indicating a negative number in two's complement)</li>
-<li><strong>Carry flag (<code>$carry</code>):</strong> <code>1</code> if the addition produced a carry out of the 8th bit</li>
-</ul>
-<iframe src="https://www.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fin-ir%2Fmakerchip-curriculum%2Fmain%2Fcode%2Fblock-1%2Falu-challenge.tlv" style="width:100%; height:500px; border:none;"></iframe>
+<p>A real ALU does not just produce a result. It also produces <strong>flags</strong> that describe properties of the result. These flags are what allow the processor to make decisions. They are the hardware that makes if-statements possible.</p>
+<p>Add the following flags to your ALU. The <strong>zero flag</strong> <code>$zero</code> should be <code>1</code> if <code>$out</code> is all zeros. The <strong>negative flag</strong> <code>$neg</code> should be <code>1</code> if the most significant bit of <code>$out</code> is <code>1</code>, indicating a negative number in two's complement. The <strong>carry flag</strong> <code>$carry</code> should be <code>1</code> if the addition produced a carry out of the 8th bit.</p>
+<div id="mc-alu-challenge" class="makerchip-embed"></div>
 
 <details class="hint">
 <summary>Hint</summary>
-<p>The zero flag is just a NOR of all output bits. If any bit is <code>1</code>, the result is not zero. The negative flag is simply <code>$out[7]</code>. For the carry flag, compute addition with a 9-bit result and take the extra bit: <code>$add_with_carry[8:0] = {1'b0, $a} + {1'b0, $b}</code> then <code>$carry = $add_with_carry[8]</code>.</p>
+<p>The zero flag is a NOR of all output bits. If any bit is <code>1</code>, the result is not zero. The negative flag is simply <code>$out[7]</code>. For the carry flag, compute addition with a 9-bit result and take the extra bit: <code>$add_with_carry[8:0] = {1'b0, $a} + {1'b0, $b}</code> then <code>$carry = $add_with_carry[8]</code>.</p>
 </details>
 <details class="solution">
 <summary>Solution</summary>
@@ -995,11 +1075,11 @@
 <a id="__codelineno-12-21" name="__codelineno-12-21" href="#__codelineno-12-21"></a>$add_with_carry[8:0] = {1&#39;b0, $a[7:0]} + {1&#39;b0, $b[7:0]};
 <a id="__codelineno-12-22" name="__codelineno-12-22" href="#__codelineno-12-22"></a>$carry = $add_with_carry[8];
 </code></pre></div>
-<p>These three flags are exactly what a real processor uses to implement conditional branching. When you write <code>if (a == b)</code> in C, the compiler generates a SUB instruction and checks the zero flag. When you write <code>if (a &lt; 0)</code>, it checks the negative flag. You just built the hardware that makes those decisions possible.</p>
+<p>When you write <code>if (a == b)</code> in C, the compiler generates a SUB instruction and checks the zero flag. When you write <code>if (a &lt; 0)</code>, it checks the negative flag. You just built the hardware that makes those decisions possible.</p>
 </details>
 <h2 id="where-this-fits-next">Where this fits next</h2>
-<p>You've now completed Block 1. You can build any combinational circuit from gates, route signals with MUXes, decode binary values, and perform arithmetic and logic operations with a full ALU. These are the building blocks of every digital system ever made.</p>
-<p>In <strong>Block 2</strong>, you'll add the missing ingredient: <strong>state</strong>. You'll learn how circuits can remember values across clock cycles, and use that to build counters, registers, and your first finite state machine which will power the penalty kick game.</p>
+<p>You have now completed Block 1. You can build any combinational circuit from gates, route signals with MUXes, decode binary values, and perform arithmetic and logic operations with a full ALU. These are the building blocks of every digital system ever made.</p>
+<p>In Block 2 you will add the missing ingredient: <strong>state</strong>. You will learn how circuits can remember values across clock cycles and use that to build counters, registers, and your first finite state machine.</p>
 <h2 id="quick-reference">Quick reference</h2>
 <table>
 <thead>
@@ -1052,6 +1132,81 @@
 </tr>
 </tbody>
 </table>
+<style>
+.makerchip-embed       { position: relative; width: 100%; height: 500px; }
+.makerchip-embed-small { position: relative; width: 100%; height: 333px; }
+</style>
+
+<script type="module">
+  import IdePlugin from 'https://beta.makerchip.com/dist/makerchip-plugin.js';
+
+  const base = 'https://raw.githubusercontent.com/in-ir/makerchip-curriculum/main/code/block-1/';
+
+  // DIAGRAM + WAVEFORM — for circuit demos
+  class DiagramWaveformIDE extends IdePlugin {
+    async onReady() {
+      await this.setLayoutState({
+        sides: {
+          left:  { panes: ['Diagram'],  activePane: 'Diagram'  },
+          right: { panes: ['Waveform'], activePane: 'Waveform' }
+        },
+        splitAt: 0.5
+      });
+    }
+  }
+
+  // WAVEFORM only — for match-the-waveform exercises
+  class WaveformOnlyIDE extends IdePlugin {
+    async onReady() {
+      await this.setLayoutState({
+        panes: ['Waveform'],
+        activePane: 'Waveform'
+      });
+      await this.compile();
+    }
+  }
+
+  // EDITOR + WAVEFORM — for coding exercises
+  class EditorWaveformIDE extends IdePlugin {
+    async onReady() {
+      await this.setLayoutState({
+        sides: {
+          left:  { panes: ['Editor'],   activePane: 'Editor'   },
+          right: { panes: ['Waveform'], activePane: 'Waveform' }
+        },
+        splitAt: 0.5
+      });
+    }
+  }
+
+  // ALU demo — DIAGRAM + WAVEFORM
+  if (document.getElementById('mc-alu-demo')) {
+    new DiagramWaveformIDE('mc-alu-demo', {
+      codeURL: base + 'alu.tlv'
+    });
+  }
+
+  // Match the waveform — WAVEFORM only
+  if (document.getElementById('mc-alu-waveform')) {
+    new WaveformOnlyIDE('mc-alu-waveform', {
+      codeURL: base + 'alu.tlv'
+    });
+  }
+
+  // XNOR exercise — EDITOR + WAVEFORM
+  if (document.getElementById('mc-alu-exercise')) {
+    new EditorWaveformIDE('mc-alu-exercise', {
+      codeURL: base + 'alu-exercise.tlv'
+    });
+  }
+
+  // Flag generation challenge — EDITOR + WAVEFORM
+  if (document.getElementById('mc-alu-challenge')) {
+    new EditorWaveformIDE('mc-alu-challenge', {
+      codeURL: base + 'alu-challenge.tlv'
+    });
+  }
+</script>
 
 
 
@@ -1096,6 +1251,22 @@
             </div>
           </a>
         
+        
+          
+          <a href="../block-1-project/" class="md-footer__link md-footer__link--next" aria-label="Next: Pixel Art">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Pixel Art
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
         
       </nav>
     
