@@ -19,7 +19,7 @@
          $smiley_r6[7:0] = 8'b01000010;
          $smiley_r7[7:0] = 8'b00111100;
 
-         // PATTERN 1: Heart — YOUR CODE HERE
+         // PATTERN 1: Heart -- YOUR CODE HERE
          $heart_r0[7:0] = 8'b00000000;
          $heart_r1[7:0] = 8'b00000000;
          $heart_r2[7:0] = 8'b00000000;
@@ -29,7 +29,7 @@
          $heart_r6[7:0] = 8'b00000000;
          $heart_r7[7:0] = 8'b00000000;
 
-         // PATTERN 2: Custom — YOUR DESIGN HERE
+         // PATTERN 2: Custom -- YOUR DESIGN HERE
          $custom_r0[7:0] = 8'b00000000;
          $custom_r1[7:0] = 8'b00000000;
          $custom_r2[7:0] = 8'b00000000;
@@ -49,37 +49,51 @@
          $row6[7:0] = $pattern == 2'b10 ? $custom_r6 : $pattern == 2'b01 ? $heart_r6 : $smiley_r6;
          $row7[7:0] = $pattern == 2'b10 ? $custom_r7 : $pattern == 2'b01 ? $heart_r7 : $smiley_r7;
 
-         \viz_js
-            box: {strokeWidth: 0, left: -10, top: -40, width: 310, height: 340, fill: "#1e1e2e"},
-            render() {
-               let cell = 34
-               let pad  = 10
-               let pat = '$pattern'.asInt()
-               let labels = ["Pattern 0: Smiley", "Pattern 1: Heart", "Pattern 2: Custom"]
-               let rowSigs = ['$row0','$row1','$row2','$row3','$row4','$row5','$row6','$row7']
-               let objs = []
-               objs.push(new fabric.Text(labels[pat] || "Pattern " + pat, {
-                  left: 145, top: -28,
-                  originX: "center",
-                  fontSize: 13, fontFamily: "Courier New",
-                  fill: "#cdd6f4"
-               }))
-               for (let r = 0; r < 8; r++) {
-                  let rowVal = rowSigs[r].asInt()
-                  for (let c = 0; c < 8; c++) {
-                     let bit = (rowVal >> (7 - c)) & 1
-                     objs.push(new fabric.Rect({
-                        left: pad + c * cell,
-                        top:  pad + r * cell,
-                        width:  cell - 3,
-                        height: cell - 3,
-                        fill: bit ? "#f5c542" : "#313244",
-                        strokeWidth: 0
-                     }))
+         /grid
+            \viz_js
+               box: {strokeWidth: 0, left: -10, top: -40, width: 310, height: 340, fill: "#1e1e2e"},
+               init() {
+                  let cell = 34
+                  let pad  = 10
+                  let ret = {}
+                  ret.label = new fabric.Text("Pixel Art", {
+                     left: 145, top: -28,
+                     originX: "center",
+                     fontSize: 13, fontFamily: "Courier New",
+                     fill: "#cdd6f4"
+                  })
+                  for (let r = 0; r < 8; r++) {
+                     for (let c = 0; c < 8; c++) {
+                        ret["px_" + r + "_" + c] = new fabric.Rect({
+                           left: pad + c * cell,
+                           top:  pad + r * cell,
+                           width:  cell - 3,
+                           height: cell - 3,
+                           fill: "#313244",
+                           strokeWidth: 0
+                        })
+                     }
                   }
+                  return ret
+               },
+               render() {
+                  let objs = this.obj
+                  let pat = '|display/top$pattern'.asInt()
+                  let labels = ["Pattern 0: Smiley", "Pattern 1: Heart", "Pattern 2: Custom"]
+                  objs.label.set({text: labels[pat] || "Pattern " + pat})
+                  let rowSigs = [
+                     '|display/top$row0', '|display/top$row1', '|display/top$row2', '|display/top$row3',
+                     '|display/top$row4', '|display/top$row5', '|display/top$row6', '|display/top$row7'
+                  ]
+                  for (let r = 0; r < 8; r++) {
+                     let rowVal = rowSigs[r].asInt()
+                     for (let c = 0; c < 8; c++) {
+                        let bit = (rowVal >> (7 - c)) & 1
+                        objs["px_" + r + "_" + c].set({fill: bit ? "#f5c542" : "#313244"})
+                     }
+                  }
+                  return []
                }
-               return objs
-            }
 
    *passed = *cyc_cnt > 80;
    *failed = 1'b0;
