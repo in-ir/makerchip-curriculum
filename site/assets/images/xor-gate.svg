@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 140" width="400" height="140">
+  <style>
+    .wire { stroke: #9575cd; stroke-width: 2; fill: none; }
+    .gate { stroke: #9575cd; stroke-width: 2; fill: #1e1e2e; }
+    .label { font-family: "JetBrains Mono", monospace; font-size: 16px; fill: #cdd6f4; }
+  </style>
+
+  <!-- Input wires -->
+  <line class="wire" x1="40" y1="45" x2="160" y2="45"/>
+  <line class="wire" x1="40" y1="95" x2="160" y2="95"/>
+
+  <!-- XOR extra curve -->
+  <path class="wire" d="M130,20 Q160,70 130,120"/>
+
+  <!-- OR gate body -->
+  <path class="gate" d="M145,20 Q175,70 145,120 Q205,120 255,70 Q205,20 145,20 Z"/>
+
+  <!-- Output wire -->
+  <line class="wire" x1="255" y1="70" x2="370" y2="70"/>
+
+  <!-- Labels -->
+  <text class="label" x="18" y="50">A</text>
+  <text class="label" x="18" y="100">B</text>
+  <text class="label" x="375" y="75">X</text>
+</svg>

@@ -6,39 +6,23 @@
 
 ## What you'll learn
 
-By the end of this module you'll be able to:
-
-- Explain what a logic gate does and why it matters
-- Read and write truth tables for NOT, AND, OR, XOR, NAND, and NOR
-- Express gate logic in TL-Verilog
-- Run a combinational circuit in Makerchip and read its output
-- Combine gates to build a simple function
+By the end of this module you will be able to explain what a logic gate does and why it matters, read and write truth tables for NOT, AND, OR, XOR, NAND, and NOR, express gate logic in TL-Verilog, run a combinational circuit in Makerchip and read its output, and combine gates to build a simple function.
 
 ## The one idea behind all of digital logic
 
 Every circuit on every chip on every device you own is doing exactly one thing: manipulating **ones and zeros**.
 
-That's it. A processor running a video game, a memory controller reading your files, the Wi-Fi chip sending your messages — all of it, at the lowest level, is ones and zeros being operated on by logic gates.
+A processor running a video game, a memory controller reading your files, the Wi-Fi chip sending your messages: all of it, at the lowest level, is ones and zeros being operated on by logic gates.
 
 A **logic gate** is a circuit that takes one or more binary inputs and produces a binary output based on a fixed logical rule. Gates are the atoms of digital design. Everything else is built by combining them.
 
 !!! note "Why ones and zeros?"
-    In hardware, a `1` represents a high voltage (typically ~3.3V or 1.8V depending on the technology) and a `0` represents a low voltage (close to 0V). The circuit doesn't care about the exact voltage — just whether it's "high" or "low". This binary representation is what makes digital circuits so reliable and noise-resistant.
 
-## See logic gates in action
-
-Before we dive into each gate individually, let's see them all together.
-
-<div id="mc-logic-gates" class="makerchip-embed"></div>
-
-The visualization shows various logic gates processing input signals. Use the slider and arrow buttons at the bottom to step through different input combinations and watch how each gate produces its output. You can also use your mouse wheel to zoom in/out and drag to pan the visualization. Now, let's explain what you see.
+    In hardware, a `1` represents a high voltage (typically around 3.3V or 1.8V depending on the technology) and a `0` represents a low voltage close to 0V. The circuit does not care about the exact voltage, only whether it is high or low. This binary representation is what makes digital circuits so reliable and noise-resistant.
 
 ## The NOT gate
 
-The simplest gate. One input, one output. It **inverts** the signal.
-
-If the input is `1`, the output is `0`.  
-If the input is `0`, the output is `1`.
+The simplest gate. One input, one output. It **inverts** the signal: if the input is `1`, the output is `0`, and vice versa.
 
 **Truth table:**
 
@@ -57,12 +41,11 @@ If the input is `0`, the output is `1`.
 $x = !$a;
 ```
 
-That's it. One line. The `!` operator inverts the bit.
+One line. The `!` operator inverts the bit.
 
 ## The AND gate
 
-Two inputs, one output. The output is `1` **only when both inputs are `1`**.  
-Think of it exactly like the English word "and" — both things have to be true.
+Two inputs, one output. The output is `1` **only when both inputs are `1`**. Think of it exactly like the English word "and": both things have to be true.
 
 **Truth table:**
 
@@ -108,7 +91,7 @@ $x = $a || $b;
 
 ## The XOR gate
 
-XOR stands for **exclusive OR**. The output is `1` when the inputs are **different** from each other.
+XOR stands for **exclusive OR**. The output is `1` when the inputs are **different** from each other. Notice the key distinction from OR: when both inputs are `1`, XOR gives `0` where OR gives `1`. That is the "exclusive" part.
 
 **Truth table:**
 
@@ -118,8 +101,6 @@ XOR stands for **exclusive OR**. The output is `1` when the inputs are **differe
 | 0   | 1   | 1   |
 | 1   | 0   | 1   |
 | 1   | 1   | 0   |
-
-Notice the difference from OR: when both inputs are `1`, XOR gives `0`, but OR gives `1`. That's the "exclusive" part.
 
 **Circuit symbol:**
 
@@ -133,7 +114,7 @@ $x = $a ^ $b;
 
 ## NAND and NOR
 
-NAND and NOR are simply AND and OR with the output **inverted** (the N stands for NOT).
+NAND and NOR are simply AND and OR with the output **inverted**. The N stands for NOT.
 
 **NAND truth table:**
 
@@ -169,7 +150,14 @@ $x_nor  = !($a || $b);
 ```
 
 !!! tip "NAND is universal"
-    You can build every other gate — AND, OR, NOT, XOR — out of NAND gates alone. This is why NAND is sometimes called a **universal gate**. In practice, chip designers sometimes implement entire logic functions using only NAND gates because it simplifies the physical layout.
+
+    You can build every other gate (AND, OR, NOT, XOR) out of NAND gates alone. This is why NAND is called a **universal gate**. In practice, chip designers sometimes implement entire logic functions using only NAND gates because it simplifies the physical layout.
+
+## See all gates in action
+
+Now that you know each gate, here they all are together. Use the slider and arrow buttons to step through different input combinations and watch how each gate responds.
+
+<div id="mc-logic-gates" class="makerchip-embed"></div>
 
 ## Putting gates together: the half adder
 
@@ -177,12 +165,9 @@ A single gate does one small thing. The real power comes from **combining gates*
 
 ### What is a half adder?
 
-A **half adder** adds two single-bit binary numbers. It takes **2 inputs** (A and B) and produces **2 outputs**:
+A **half adder** adds two single-bit binary numbers. It takes two inputs (A and B) and produces two outputs. The **sum** S is the lower bit of A + B, and the **carry** C is the upper bit, the overflow that carries into the next position.
 
-- **S (sum):** the lower bit of A + B
-- **C (carry):** the upper bit of A + B — this is the "overflow" bit that carries into the next position
-
-Think of it like adding two single digits by hand. If you add 1 + 1, you get 2, which in binary is `10`. The `0` is your sum bit (S) and the `1` is your carry bit (C).
+Think of it like adding two single digits by hand. If you add 1 + 1, you get 2, which in binary is `10`. The `0` is your sum bit and the `1` is your carry bit.
 
 **Truth table:**
 
@@ -193,12 +178,7 @@ Think of it like adding two single digits by hand. If you add 1 + 1, you get 2, 
 | 1   | 0   | 1       | 0         |
 | 1   | 1   | 0       | 1         |
 
-Look at the pattern:
-
-- **S** is `1` only when A and B are _different_ — that's XOR
-- **C** is `1` only when A and B are _both_ `1` — that's AND
-
-So a half adder is just an XOR gate and an AND gate working together.
+Look at the pattern. S is `1` only when A and B are different, which is XOR. C is `1` only when both A and B are `1`, which is AND. A half adder is simply an XOR gate and an AND gate working together.
 
 **Circuit diagram:**
 
@@ -211,21 +191,21 @@ $s = $a ^ $b;   // XOR for sum
 $c = $a && $b;  // AND for carry
 ```
 
-Two lines. That's a complete half adder.
+Two lines. That is a complete half adder.
 
-### See it running in Makerchip
+### See the half adder circuit in Makerchip
 
-Click below to open the half adder in Makerchip. The inputs A and B automatically cycle through all four combinations so you can watch the outputs change in the waveform.
+The embed below shows the half adder circuit and its waveform. On the left, find the XOR gate producing `$s` and the AND gate producing `$c`. On the right, verify each row of the waveform matches the truth table above.
 
 <div id="mc-half-adder" class="makerchip-embed"></div>
 
-### How to read the Makerchip output
+### How to read the waveform
 
-Once it's open and compiled, you'll see two main panels:
+Each row is a signal and each column is a clock cycle. The inputs A and B cycle through all four combinations automatically.
 
-**The diagram tab** shows an auto-generated circuit drawn from your TL-Verilog code. Each signal you assign becomes a node. You should be able to find the XOR gate (producing `$s`) and the AND gate (producing `$c`).
+??? note "What are `clk` and `reset`?"
 
-**The waveform tab** shows signal values over time. Each row is a signal, each column is a clock cycle. Read it left to right:
+    Makerchip always shows `clk` and `reset` in the waveform. Ignore them for now. Combinational circuits do not use a clock. The output responds instantly to the inputs with no timing involved. You will learn what the clock does when we get to sequential logic in Block 2.
 
 | Cycle | $a  | $b  | $s  | $c  |
 | ----- | --- | --- | --- | --- |
@@ -234,77 +214,76 @@ Once it's open and compiled, you'll see two main panels:
 | 3     | 1   | 0   | 1   | 0   |
 | 4     | 1   | 1   | 0   | 1   |
 
-Verify that every row matches the truth table above. This is how hardware engineers debug circuits — they look at the waveform and check that the actual behavior matches what they expected.
-
-!!! note "Reading the auto-generated diagram"
-    The Makerchip diagram shows you the direct translation of your code into circuit elements. The layout is automatic, but the logic is exactly what you wrote. As you write more complex circuits, getting comfortable reading this diagram will help you debug faster.
-
-## Exercise: Three-input AND
-
-**Build a circuit that outputs `1` only when all three inputs A, B, and C are `1`.**
-
-<div id="mc-three-input-and" class="makerchip-embed"></div>
-
-The starter code has `$x = 1'b0` as a placeholder — your output is always `0` right now. Replace that line with the correct gate logic.
-
-Verify your circuit with all 8 combinations of A, B, C. Only the row where all three are `1` should give an output of `1`.
-
-??? hint "Hint"
-    Think about it in English: "A AND B AND C". Chain two AND gates: first compute A AND B, then AND the result with C.
-
-??? solution "Solution"
-    ```tlv
-    $x = $a && $b && $c;
-    ```
-
-        TL-Verilog lets you chain `&&` directly, which is equivalent to two AND gates in sequence.
+This is how hardware engineers debug circuits: read the waveform and check that actual behavior matches expected behavior.
 
 ## Match the waveform
 
-Look at the waveform below. Two inputs A and B produce an output X. **What gate produces this output?**
+Look at the waveform below. Two inputs A and B produce an output X. Study the pattern and determine what gate produces this output.
 
 <div id="mc-and-waveform" class="makerchip-embed-small"></div>
 
-Study the waveform and observe when X goes high. Write the TL-Verilog expression for X based on the pattern you see.
+| Cycle | A   | B   | X   |
+| ----- | --- | --- | --- |
+| 1     | 0   | 0   | 0   |
+| 2     | 0   | 1   | 1   |
+| 3     | 1   | 0   | 1   |
+| 4     | 1   | 1   | 0   |
+
+Write the TL-Verilog expression for X, then verify it in the exercise below.
 
 ??? hint "How to read the pattern"
-    Look at when X goes high in the waveform. Notice that X is `1` only when both A and B are `1` at the same time. When either A or B is `0`, X is also `0`.
 
-    Which gate gives `1` only when all inputs are `1`?
-
-??? solution "Solution"
-    ```tlv
-    $x = $a && $b;  // AND
-    ```
-
-        Reading signal patterns backwards into code is one of the most important debugging skills in hardware design. When something in your circuit misbehaves, you read its waveform and ask: "what logic would produce this pattern?"
-
-## Exercise: Code the XOR gate
-
-Now it's your turn. In the Makerchip editor below, write code to produce this pattern:
-
-- When A and B are **different** → X = 1
-- When A and B are **the same** → X = 0
-
-<div id="mc-xor-exercise" class="makerchip-embed"></div>
-
-**Your task:** Replace `$x = 1'b0` with the correct gate logic. Compile and check the waveform to verify your solution.
-
-??? hint "Hint"
-    Which gate outputs `1` when inputs are different? Think back to the XOR gate we covered earlier.
+    X is `1` in cycles 2 and 3, when A and B are different. When they are the same (both `0` in cycle 1, both `1` in cycle 4), X is `0`. Which gate gives `1` when inputs are different?
 
 ??? solution "Solution"
+
     ```tlv
     $x = $a ^ $b;  // XOR
     ```
 
-    The XOR gate outputs `1` when the inputs are different and `0` when they're the same.
+    Reading signal patterns backwards into code is one of the most important debugging skills in hardware design. When something in your circuit misbehaves, you read its waveform and ask: what logic would produce this pattern?
+
+## Exercise: Code the XOR gate
+
+Now write it yourself. Replace `$x = 1'b0` with the correct gate logic and compile. The waveform should match the table above exactly.
+
+<div id="mc-xor-exercise" class="makerchip-embed"></div>
+
+??? hint "Hint"
+
+    Which gate outputs `1` when inputs are different? Think back to the XOR gate we covered earlier.
+
+??? solution "Solution"
+
+    ```tlv
+    $x = $a ^ $b;
+    ```
+
+## Exercise: Three-input AND
+
+Build a circuit that outputs `1` only when all three inputs A, B, and C are `1`.
+
+<div id="mc-three-input-and" class="makerchip-embed"></div>
+
+The starter code has `$x = 1'b0` as a placeholder. Replace that line with the correct gate logic and verify all 8 combinations of A, B, C in the waveform. Only the row where all three inputs are `1` should give an output of `1`.
+
+??? hint "Hint"
+
+    Think about it in plain English: A AND B AND C. Chain two AND gates. First compute A AND B, then AND the result with C.
+
+??? solution "Solution"
+
+    ```tlv
+    $x = $a && $b && $c;
+    ```
+
+    TL-Verilog lets you chain `&&` directly, which is equivalent to two AND gates in sequence.
 
 ## Where this fits next
 
-You now know the fundamental building blocks of all combinational logic. Every circuit — no matter how complex — is built from these gates.
+You now know the fundamental building blocks of all combinational logic. Every circuit, no matter how complex, is built from these gates.
 
-In **Module 1.2**, you'll meet the **multiplexer (MUX)**: a circuit that acts as a programmable switch. It's one of the most useful building blocks in digital design, and you'll use it constantly from here on.
+In Module 1.2 you will meet the **multiplexer (MUX)**, a circuit that acts as a programmable switch. It is one of the most useful building blocks in digital design and you will use it constantly from here on.
 
 ## Quick reference
 
@@ -318,7 +297,7 @@ In **Module 1.2**, you'll meet the **multiplexer (MUX)**: a circuit that acts as
 | NOR  | `!($a \|\| $b)` | both inputs are `0`       |
 
 <style>
-.makerchip-embed { position: relative; width: 100%; height: 500px; }
+.makerchip-embed       { position: relative; width: 100%; height: 500px; }
 .makerchip-embed-small { position: relative; width: 100%; height: 333px; }
 </style>
 
@@ -327,10 +306,9 @@ In **Module 1.2**, you'll meet the **multiplexer (MUX)**: a circuit that acts as
 
   const base = 'https://raw.githubusercontent.com/in-ir/makerchip-curriculum/main/code/block-1/';
 
-  // Custom plugin class for VIZ-only display
+  // VIZ only — for the logic gates overview visualization
   class VizOnlyIDE extends IdePlugin {
     async onReady() {
-      // Set layout to show only the VIZ pane
       await this.setLayoutState({
         panes: ['Viz'],
         activePane: 'Viz'
@@ -338,23 +316,12 @@ In **Module 1.2**, you'll meet the **multiplexer (MUX)**: a circuit that acts as
     }
   }
 
-  // Custom plugin class for Waveform-only display
-  class WaveformOnlyIDE extends IdePlugin {
-    async onReady() {
-      // Temporarily showing Editor for debugging
-      await this.setLayoutState({
-        panes: ['Waveform'],
-        activePane: 'Waveform'
-      });
-    }
-  }
-
-  // Custom plugin class for Editor and Waveform display
-  class EditorWaveformIDE extends IdePlugin {
+  // DIAGRAM + WAVEFORM — for circuit demos where we want to show both the circuit and signal values
+  class DiagramWaveformIDE extends IdePlugin {
     async onReady() {
       await this.setLayoutState({
         sides: {
-          left: { panes: ['Editor'], activePane: 'Editor' },
+          left:  { panes: ['Diagram'],   activePane: 'Diagram'   },
           right: { panes: ['Waveform'], activePane: 'Waveform' }
         },
         splitAt: 0.5
@@ -362,42 +329,62 @@ In **Module 1.2**, you'll meet the **multiplexer (MUX)**: a circuit that acts as
     }
   }
 
-  // Standard embeds with default layout
-  const embeds = [
-    { id: 'mc-half-adder',      file: 'half-adder.tlv' },
-    { id: 'mc-three-input-and', file: 'three-input-and.tlv' },
-  ];
-
-  // Editor+Waveform embeds for coding exercises
-  const editorWaveformEmbeds = [
-    { id: 'mc-xor-exercise', file: 'xor-exercise.tlv' },
-  ];
-
-  for (const { id, file } of embeds) {
-    if (document.getElementById(id)) {
-      new IdePlugin(id, { codeURL: base + file });
+  // WAVEFORM only — for match-the-waveform exercises
+  class WaveformOnlyIDE extends IdePlugin {
+    async onReady() {
+      await this.setLayoutState({
+        panes: ['Waveform'],
+        activePane: 'Waveform'
+      });
+      await this.compile();
     }
   }
 
-  // Logic gates visualization with VIZ-only layout
+  // EDITOR + WAVEFORM — for coding exercises where student writes code and verifies output
+  class EditorWaveformIDE extends IdePlugin {
+    async onReady() {
+      await this.setLayoutState({
+        sides: {
+          left:  { panes: ['Editor'],   activePane: 'Editor'   },
+          right: { panes: ['Waveform'], activePane: 'Waveform' }
+        },
+        splitAt: 0.5
+      });
+    }
+  }
+
+  // Logic gates overview — VIZ only
   if (document.getElementById('mc-logic-gates')) {
     new VizOnlyIDE('mc-logic-gates', {
       codeURL: 'https://cdn.jsdelivr.net/gh/stevehoover/makerchip_examples@a0d80f640661653639c05de49fb8df76e9616f5c/logic_gates.tlv'
     });
   }
 
-  // AND waveform puzzle with Waveform-only layout
-  if (document.getElementById('mc-and-waveform')) {
-    new WaveformOnlyIDE('mc-and-waveform', {
-      codeURL: base + 'and-waveform.tlv'
+  // Half adder demo — DIAGRAM + WAVEFORM (show circuit and verify signal values)
+  if (document.getElementById('mc-half-adder')) {
+    new DiagramWaveformIDE('mc-half-adder', {
+      codeURL: base + 'half-adder.tlv'
     });
   }
 
-  // Editor+Waveform embeds for coding exercises
-  for (const { id, file } of editorWaveformEmbeds) {
-    if (document.getElementById(id)) {
-      new EditorWaveformIDE(id, { codeURL: base + file });
-    }
+  // Match the waveform — WAVEFORM only (student reads the pattern)
+  if (document.getElementById('mc-and-waveform')) {
+    new WaveformOnlyIDE('mc-and-waveform', {
+      codeURL: base + 'xor-puzzle.tlv'
+    });
+  }
+
+  // XOR coding exercise — EDITOR + WAVEFORM (student writes code and checks output)
+  if (document.getElementById('mc-xor-exercise')) {
+    new EditorWaveformIDE('mc-xor-exercise', {
+      codeURL: base + 'xor-puzzle.tlv'
+    });
+  }
+
+  // Three-input AND exercise — EDITOR + WAVEFORM
+  if (document.getElementById('mc-three-input-and')) {
+    new EditorWaveformIDE('mc-three-input-and', {
+      codeURL: base + 'three-input-and.tlv'
+    });
   }
 </script>
-

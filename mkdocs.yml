@@ -44,10 +44,11 @@ extra_css:
 
 nav:
   - Home: index.md
-  - Test: test-plugin.md
+  - Get Started: get-started.md
   - Block 1 — Combinational Logic:
       - Overview: block-1/index.md
       - Module 1.1 — Logic Gates: block-1/module-1-1-logic-gates.md
       - Module 1.2 — The Multiplexer: block-1/module-1-2-mux.md
       - Module 1.3 — Decoders: block-1/module-1-3-decoder.md
       - Module 1.4 — Arithmetic Logic Units: block-1/module-1-4-alu.md
+      - Pixel Art: block-1/block-1-project.md

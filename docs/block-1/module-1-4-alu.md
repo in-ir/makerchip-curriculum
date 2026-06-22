@@ -1,45 +1,30 @@
 # Module 1.4: The ALU
 
-**Block 1 Combinational Logic**  
+**Block 1 — Combinational Logic**  
 **Estimated time:** 60–90 minutes  
-**Prerequisites:** Module 1.3 Decoders
+**Prerequisites:** Module 1.3 — Decoders
 
 ## What you'll learn
 
-By the end of this module you'll be able to:
-
-- Explain what an ALU is and why it sits at the heart of every processor
-- Implement all eight ALU operations in TL-Verilog
-- Understand how addition and subtraction work in binary
-- Explain logical and arithmetic shifting
-- Connect everything you've built in Block 1 into one complete circuit
+By the end of this module you will be able to explain what an ALU is and why it sits at the heart of every processor, implement all eight ALU operations in TL-Verilog, understand how addition and subtraction work in binary, explain logical and arithmetic shifting, and connect everything you have built in Block 1 into one complete circuit.
 
 ## The circuit at the heart of every processor
 
-Every computation your computer performs adding two numbers, comparing values, running a loop, rendering a pixel eventually comes down to one circuit: the **Arithmetic Logic Unit**, or **ALU**.
+Every computation your computer performs, whether adding two numbers, comparing values, running a loop, or rendering a pixel, eventually comes down to one circuit: the **Arithmetic Logic Unit**, or **ALU**.
 
-An ALU is a combinational circuit that takes two inputs and an opcode, and produces one output. The opcode tells it which operation to perform. Everything else the clock, the memory, the registers feeds into and out of the ALU, but the ALU itself is pure combinational logic. No state, no memory, just inputs in and output out.
+An ALU is a combinational circuit that takes two inputs and an opcode and produces one output. The opcode tells it which operation to perform. Everything else (the clock, the memory, the registers) feeds into and out of the ALU, but the ALU itself is pure combinational logic. No state, no memory. Just inputs in and output out.
 
-You've already built a mini version of this in Module 1.2. What you're building now is the real thing.
+You built a simplified version of this in Module 1.2. What you are building now is the real thing.
 
 ## The inputs and outputs
 
-A standard ALU has:
-
-- **A** first operand (the data to operate on)
-- **B** second operand
-- **OP** opcode (selects the operation)
-- **OUT** result
-
-In this module you'll work with 8-bit operands and a 3-bit opcode, giving you 8 possible operations.
+A standard ALU has a first operand A, a second operand B, an opcode OP that selects the operation, and a result OUT. In this module you will work with 8-bit operands and a 3-bit opcode, giving you 8 possible operations.
 
 **Circuit diagram:**
 
 ![ALU](../assets/images/alu.svg)
 
 ## The eight operations
-
-Here are the operations your ALU will support:
 
 | OP     | Operation | Description                     |
 | ------ | --------- | ------------------------------- |
@@ -54,7 +39,7 @@ Here are the operations your ALU will support:
 
 ## Logic operations
 
-The first four operations are direct extensions of what you learned in Module 1.1. The only difference is that instead of operating on single bits, you're now operating on all 8 bits at once. TL-Verilog handles this automatically when you use multi-bit signals.
+The first four operations are direct extensions of what you learned in Module 1.1. The only difference is that instead of operating on single bits, you are now operating on all 8 bits at once. TL-Verilog handles this automatically when you use multi-bit signals.
 
 ```tlv
 $and[7:0] = $a[7:0] & $b[7:0];
@@ -67,7 +52,7 @@ Notice that bitwise operations use single operators (`&`, `|`, `^`, `~`) rather 
 
 ## Addition
 
-Adding two binary numbers works exactly like adding decimal numbers by hand you add each column and carry the overflow into the next.
+Adding two binary numbers works exactly like adding decimal numbers by hand. You add each column and carry the overflow into the next position.
 
 In Module 1.1 you built a half adder that adds two single bits and produces a sum and a carry. A full 8-bit adder chains eight of these together, passing the carry from each bit position into the next. TL-Verilog handles this automatically with the `+` operator:
 
@@ -78,13 +63,14 @@ $add[7:0] = $a[7:0] + $b[7:0];
 One line. TL-Verilog synthesizes the full carry chain for you.
 
 !!! note "Overflow"
-    When the result of an addition doesn't fit in 8 bits, the extra bit is lost. For example, 255 + 1 wraps around to 0. In a real processor the ALU produces a carry-out flag to signal this. We keep things simple here and ignore overflow, but it's worth knowing it exists.
+
+    When the result of an addition does not fit in 8 bits, the extra bit is lost. For example, 255 + 1 wraps around to 0. In a real processor the ALU produces a carry-out flag to signal this condition. We keep things simple here and ignore overflow, but it is worth knowing it exists.
 
 ## Subtraction and two's complement
 
-Subtraction is where things get interesting. In hardware, you don't build a separate subtractor circuit. Instead, you reuse the adder with a clever trick called **two's complement**.
+Subtraction is where things get interesting. In hardware, you do not build a separate subtractor circuit. Instead, you reuse the adder with a clever technique called **two's complement**.
 
-To compute A minus B, you instead compute A plus the two's complement of B. The two's complement of a number is obtained by inverting all its bits and adding 1:
+To compute A minus B, you compute A plus the two's complement of B. The two's complement of a number is obtained by inverting all its bits and adding 1:
 
 ```
 two's complement of B = ~B + 1
@@ -109,27 +95,28 @@ $sub[7:0] = $a[7:0] - $b[7:0];
 ```
 
 !!! note "Why two's complement?"
-    Two's complement is the standard way computers represent negative numbers. It has a beautiful property: addition and subtraction use exactly the same hardware. Your processor doesn't have a separate subtraction circuit it just feeds the two's complement into the adder. This is one of the most elegant ideas in computer architecture.
+
+    Two's complement is the standard way computers represent negative numbers. It has a remarkable property: addition and subtraction use exactly the same hardware. Your processor does not have a separate subtraction circuit. It feeds the two's complement into the adder. This is one of the most elegant ideas in computer architecture.
 
 ## Shifting
 
-A **shift** moves all the bits in a signal left or right by a number of positions. Bits that shift out of range are lost, and the empty positions are filled with zeros.
+A **shift** moves all the bits in a signal left or right by a number of positions. Bits that shift out of range are lost and the empty positions are filled with zeros.
 
-**Shift left by 1** (`SHL`): every bit moves one position to the left. The leftmost bit is lost, and a `0` comes in from the right.
+Shift left by 1 (SHL): every bit moves one position to the left. The leftmost bit is lost and a `0` comes in from the right.
 
 ```
 Before: 0 1 1 0 1 0 1 0
 After:  1 1 0 1 0 1 0 0
 ```
 
-**Shift right by 1** (`SHR`): every bit moves one position to the right. The rightmost bit is lost, and a `0` comes in from the left.
+Shift right by 1 (SHR): every bit moves one position to the right. The rightmost bit is lost and a `0` comes in from the left.
 
 ```
 Before: 0 1 1 0 1 0 1 0
 After:  0 0 1 1 0 1 0 1
 ```
 
-Notice that shifting left by 1 is equivalent to multiplying by 2, and shifting right by 1 is equivalent to dividing by 2 (ignoring remainders). Processors use shifts constantly for fast multiplication and division.
+Shifting left by 1 is equivalent to multiplying by 2. Shifting right by 1 is equivalent to dividing by 2, ignoring remainders. Processors use shifts constantly for fast multiplication and division.
 
 In TL-Verilog:
 
@@ -139,11 +126,12 @@ $shr[7:0] = $a[7:0] >> 1;
 ```
 
 !!! tip "Other types of shifts"
-    The shifts above are called **logical shifts** empty positions always fill with zero. There are two other variants worth knowing about. An **arithmetic right shift** fills the empty position with the sign bit (the leftmost bit) instead of zero, which preserves the sign of a negative number in two's complement. A **circular shift** (also called a rotate) wraps the bit that falls off one end back in on the other end, so no bits are ever lost. Both are common in real processors and cryptographic hardware.
+
+    The shifts above are called **logical shifts** because empty positions always fill with zero. Two other variants are worth knowing. An **arithmetic right shift** fills the empty position with the sign bit (the leftmost bit) instead of zero, which preserves the sign of a negative number in two's complement. A **circular shift** wraps the bit that falls off one end back in on the other end so no bits are ever lost. Both appear regularly in real processors and cryptographic hardware.
 
 ## Putting it all together
 
-Now that you have all eight results, you select the right one using the opcode exactly the MUX pattern from Module 1.2:
+Now that you have all eight results, you select the right one using the opcode, exactly the MUX pattern from Module 1.2:
 
 ```tlv
 $out[7:0] = $op[2:0] == 3'b111 ? $shr :
@@ -156,7 +144,7 @@ $out[7:0] = $op[2:0] == 3'b111 ? $shr :
                                   $and;
 ```
 
-The full ALU in TL-Verilog:
+The complete ALU in TL-Verilog:
 
 ```tlv
 $and[7:0] = $a[7:0] & $b[7:0];
@@ -178,27 +166,53 @@ $out[7:0] = $op[2:0] == 3'b111 ? $shr :
                                   $and;
 ```
 
-Ten lines. That's a complete ALU.
+Ten lines. That is a complete ALU.
 
-### See it running in Makerchip
+### See the ALU in Makerchip
 
-<iframe src="https://www.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fin-ir%2Fmakerchip-curriculum%2Fmain%2Fcode%2Fblock-1%2Falu.tlv" style="width:100%; height:500px; border:none;"></iframe>
+The embed below shows the ALU circuit and its waveform. Watch `$out` change as `$op` cycles through the eight operations.
 
-Open the waveform and try different values of `$op`. Watch `$out` change as the ALU switches between operations. Try inputs where the results are clearly different for example, `$a = 8'b10101010` and `$b = 8'b11001100` and verify each operation by hand against what the waveform shows.
+<div id="mc-alu-demo" class="makerchip-embed"></div>
 
-## Exercise: Extend the ALU
+??? note "What are `clk` and `reset`?"
 
-**Add a ninth operation to the ALU: XNOR.**
+    Makerchip always shows `clk` and `reset` in the waveform. Ignore them for now. Combinational circuits do not use a clock. The output responds instantly to the inputs with no timing involved. You will learn what the clock does when we get to sequential logic in Block 2.
 
-XNOR is the inverse of XOR the output is `1` when both inputs are the same. Extend the opcode to 4 bits and add XNOR as operation `4'b1000`.
+## Match the waveform
 
-<iframe src="https://www.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fin-ir%2Fmakerchip-curriculum%2Fmain%2Fcode%2Fblock-1%2Falu-exercise.tlv" style="width:100%; height:500px; border:none;"></iframe>
+Look at the waveform below. Two 8-bit inputs `$a` and `$b` and a 3-bit opcode `$op` produce an output `$out`. Study the pattern and determine which operation is being applied in each cycle.
 
+<div id="mc-alu-waveform" class="makerchip-embed-small"></div>
+
+| Cycle | $op    | $a       | $b       | $out     |
+| ----- | ------ | -------- | -------- | -------- |
+| 1     | 3'b000 | 11001100 | 10101010 | 10001000 |
+| 2     | 3'b001 | 11001100 | 10101010 | 11101110 |
+| 3     | 3'b100 | 00000011 | 00000001 | 00000100 |
+| 4     | 3'b110 | 00000001 | xxxxxxxx | 00000010 |
+
+??? hint "How to read the pattern"
+
+    In cycle 1, `$out` has a `1` only where both `$a` and `$b` have `1`. In cycle 2, `$out` has a `1` wherever either input has a `1`. In cycle 3, `$out` is the sum of `$a` and `$b`. In cycle 4, `$out` is `$a` shifted one position left. Match each to the opcode table above.
+
+??? solution "Solution"
+
+    Cycle 1 (`3'b000`) is AND, cycle 2 (`3'b001`) is OR, cycle 3 (`3'b100`) is ADD, and cycle 4 (`3'b110`) is SHL. Reading waveforms and identifying operations from output patterns is exactly what hardware engineers do when debugging a processor.
+
+## Exercise: Extend the ALU with XNOR
+
+Add a ninth operation to the ALU: XNOR. XNOR is the inverse of XOR: the output is `1` when both inputs are the same. Extend the opcode to 4 bits and add XNOR as operation `4'b1000`.
+
+<div id="mc-alu-exercise" class="makerchip-embed"></div>
+
+The starter code has the 8-operation ALU already working. Add the XNOR operation and update the opcode MUX to include it.
 
 ??? hint "Hint"
+
     XNOR is just XOR with the output inverted. Compute it as an intermediate signal first, then add it as the first case in your opcode chain with `$op[3:0] == 4'b1000`.
 
 ??? solution "Solution"
+
     ```tlv
     $and[7:0]  = $a[7:0] & $b[7:0];
     $or[7:0]   = $a[7:0] | $b[7:0];
@@ -223,21 +237,18 @@ XNOR is the inverse of XOR the output is `1` when both inputs are the same. Exte
 
 ## Challenge: Flag generation
 
-A real ALU doesn't just produce a result it also produces **flags** that describe properties of the result. These flags are used by the processor to make decisions (like whether to take a branch in an if-statement).
+A real ALU does not just produce a result. It also produces **flags** that describe properties of the result. These flags are what allow the processor to make decisions. They are the hardware that makes if-statements possible.
 
-**Add the following flags to your ALU:**
+Add the following flags to your ALU. The **zero flag** `$zero` should be `1` if `$out` is all zeros. The **negative flag** `$neg` should be `1` if the most significant bit of `$out` is `1`, indicating a negative number in two's complement. The **carry flag** `$carry` should be `1` if the addition produced a carry out of the 8th bit.
 
-- **Zero flag (`$zero`):** `1` if `$out` is all zeros, `0` otherwise
-- **Negative flag (`$neg`):** `1` if the most significant bit of `$out` is `1` (indicating a negative number in two's complement)
-- **Carry flag (`$carry`):** `1` if the addition produced a carry out of the 8th bit
-
-<iframe src="https://www.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fin-ir%2Fmakerchip-curriculum%2Fmain%2Fcode%2Fblock-1%2Falu-challenge.tlv" style="width:100%; height:500px; border:none;"></iframe>
-
+<div id="mc-alu-challenge" class="makerchip-embed"></div>
 
 ??? hint "Hint"
-    The zero flag is just a NOR of all output bits. If any bit is `1`, the result is not zero. The negative flag is simply `$out[7]`. For the carry flag, compute addition with a 9-bit result and take the extra bit: `$add_with_carry[8:0] = {1'b0, $a} + {1'b0, $b}` then `$carry = $add_with_carry[8]`.
+
+    The zero flag is a NOR of all output bits. If any bit is `1`, the result is not zero. The negative flag is simply `$out[7]`. For the carry flag, compute addition with a 9-bit result and take the extra bit: `$add_with_carry[8:0] = {1'b0, $a} + {1'b0, $b}` then `$carry = $add_with_carry[8]`.
 
 ??? solution "Solution"
+
     ```tlv
     $and[7:0] = $a[7:0] & $b[7:0];
     $or[7:0]  = $a[7:0] | $b[7:0];
@@ -263,13 +274,13 @@ A real ALU doesn't just produce a result it also produces **flags** that describ
     $carry = $add_with_carry[8];
     ```
 
-    These three flags are exactly what a real processor uses to implement conditional branching. When you write `if (a == b)` in C, the compiler generates a SUB instruction and checks the zero flag. When you write `if (a < 0)`, it checks the negative flag. You just built the hardware that makes those decisions possible.
+    When you write `if (a == b)` in C, the compiler generates a SUB instruction and checks the zero flag. When you write `if (a < 0)`, it checks the negative flag. You just built the hardware that makes those decisions possible.
 
 ## Where this fits next
 
-You've now completed Block 1. You can build any combinational circuit from gates, route signals with MUXes, decode binary values, and perform arithmetic and logic operations with a full ALU. These are the building blocks of every digital system ever made.
+You have now completed Block 1. You can build any combinational circuit from gates, route signals with MUXes, decode binary values, and perform arithmetic and logic operations with a full ALU. These are the building blocks of every digital system ever made.
 
-In **Block 2**, you'll add the missing ingredient: **state**. You'll learn how circuits can remember values across clock cycles, and use that to build counters, registers, and your first finite state machine which will power the penalty kick game.
+In Block 2 you will add the missing ingredient: **state**. You will learn how circuits can remember values across clock cycles and use that to build counters, registers, and your first finite state machine.
 
 ## Quick reference
 
@@ -283,3 +294,79 @@ In **Block 2**, you'll add the missing ingredient: **state**. You'll learn how c
 | SUB       | `$a - $b`  | Subtraction (two's complement) |
 | SHL       | `$a << 1`  | Logical shift left             |
 | SHR       | `$a >> 1`  | Logical shift right            |
+
+<style>
+.makerchip-embed       { position: relative; width: 100%; height: 500px; }
+.makerchip-embed-small { position: relative; width: 100%; height: 333px; }
+</style>
+
+<script type="module">
+  import IdePlugin from 'https://beta.makerchip.com/dist/makerchip-plugin.js';
+
+  const base = 'https://raw.githubusercontent.com/in-ir/makerchip-curriculum/main/code/block-1/';
+
+  // DIAGRAM + WAVEFORM — for circuit demos
+  class DiagramWaveformIDE extends IdePlugin {
+    async onReady() {
+      await this.setLayoutState({
+        sides: {
+          left:  { panes: ['Diagram'],  activePane: 'Diagram'  },
+          right: { panes: ['Waveform'], activePane: 'Waveform' }
+        },
+        splitAt: 0.5
+      });
+    }
+  }
+
+  // WAVEFORM only — for match-the-waveform exercises
+  class WaveformOnlyIDE extends IdePlugin {
+    async onReady() {
+      await this.setLayoutState({
+        panes: ['Waveform'],
+        activePane: 'Waveform'
+      });
+      await this.compile();
+    }
+  }
+
+  // EDITOR + WAVEFORM — for coding exercises
+  class EditorWaveformIDE extends IdePlugin {
+    async onReady() {
+      await this.setLayoutState({
+        sides: {
+          left:  { panes: ['Editor'],   activePane: 'Editor'   },
+          right: { panes: ['Waveform'], activePane: 'Waveform' }
+        },
+        splitAt: 0.5
+      });
+    }
+  }
+
+  // ALU demo — DIAGRAM + WAVEFORM
+  if (document.getElementById('mc-alu-demo')) {
+    new DiagramWaveformIDE('mc-alu-demo', {
+      codeURL: base + 'alu.tlv'
+    });
+  }
+
+  // Match the waveform — WAVEFORM only
+  if (document.getElementById('mc-alu-waveform')) {
+    new WaveformOnlyIDE('mc-alu-waveform', {
+      codeURL: base + 'alu.tlv'
+    });
+  }
+
+  // XNOR exercise — EDITOR + WAVEFORM
+  if (document.getElementById('mc-alu-exercise')) {
+    new EditorWaveformIDE('mc-alu-exercise', {
+      codeURL: base + 'alu-exercise.tlv'
+    });
+  }
+
+  // Flag generation challenge — EDITOR + WAVEFORM
+  if (document.getElementById('mc-alu-challenge')) {
+    new EditorWaveformIDE('mc-alu-challenge', {
+      codeURL: base + 'alu-challenge.tlv'
+    });
+  }
+</script>

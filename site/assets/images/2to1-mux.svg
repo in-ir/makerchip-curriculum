@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 580 220" width="580" height="220">
+  <style>
+    .wire { stroke: #9575cd; stroke-width: 1.5; fill: none; }
+    .gate { stroke: #9575cd; stroke-width: 1.5; fill: #1e1e2e; }
+    .label { font-family: "JetBrains Mono", monospace; font-size: 13px; fill: #cdd6f4; }
+    .dot { fill: #9575cd; }
+  </style>
+  <line class="wire" x1="40" y1="185" x2="110" y2="185"/>
+  <polygon class="gate" points="110,172 110,198 148,185"/>
+  <circle class="gate" cx="154" cy="185" r="6"/>
+  <line class="wire" x1="160" y1="185" x2="190" y2="185"/>
+  <line class="wire" x1="190" y1="185" x2="190" y2="95"/>
+  <line class="wire" x1="190" y1="95" x2="210" y2="95"/>
+  <path class="gate" d="M210,75 L210,115 Q248,115 248,95 Q248,75 210,75 Z"/>
+  <path class="gate" d="M210,135 L210,175 Q248,175 248,155 Q248,135 210,135 Z"/>
+  <line class="wire" x1="20" y1="85" x2="210" y2="85"/>
+  <line class="wire" x1="20" y1="155" x2="210" y2="155"/>
+  <line class="wire" x1="40" y1="185" x2="40" y2="165"/>
+  <line class="wire" x1="40" y1="165" x2="210" y2="165"/>
+  <circle class="dot" cx="40" cy="185" r="3.5"/>
+  <line class="wire" x1="248" y1="95" x2="300" y2="95"/>
+  <line class="wire" x1="248" y1="155" x2="300" y2="155"/>
+  <path class="gate" d="M290,72 Q310,125 290,178 Q340,178 380,125 Q340,72 290,72 Z"/>
+  <line class="wire" x1="380" y1="125" x2="480" y2="125"/>
+  <text class="label" x="2" y="89">A</text>
+  <text class="label" x="2" y="159">B</text>
+  <text class="label" x="2" y="189">S</text>
+  <text class="label" x="485" y="129">Y</text>
+</svg>
