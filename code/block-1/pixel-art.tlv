@@ -51,11 +51,11 @@
 
          \viz_js
             box: {strokeWidth: 0, left: -10, top: -40, width: 310, height: 340, fill: "#1e1e2e"},
-            init() {
-               let ret = {}
+            init: function() {
+               let pixels = {}
                let cell = 34
                let pad  = 10
-               ret.label = new fabric.Text("Pattern 0: Smiley", {
+               pixels.label = new fabric.Text("Pixel Art", {
                   left: 145, top: -28,
                   originX: "center",
                   fontSize: 13, fontFamily: "Courier New",
@@ -63,20 +63,19 @@
                })
                for (let r = 0; r < 8; r++) {
                   for (let c = 0; c < 8; c++) {
-                     ret["px_" + r + "_" + c] = new fabric.Rect({
+                     pixels["px_" + r + "_" + c] = new fabric.Rect({
                         left: pad + c * cell,
                         top:  pad + r * cell,
                         width:  cell - 3,
                         height: cell - 3,
                         fill: "#313244",
-                        rx: 3, ry: 3,
                         strokeWidth: 0
                      })
                   }
                }
-               return ret
+               return pixels
             },
-            render() {
+            render: function() {
                let objs = this.obj
                let pat = '$pattern'.asInt()
                let labels = ["Pattern 0: Smiley", "Pattern 1: Heart", "Pattern 2: Custom", "Pattern 3: Custom"]
