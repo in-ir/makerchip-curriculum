@@ -51,44 +51,34 @@
 
          \viz_js
             box: {strokeWidth: 0, left: -10, top: -40, width: 310, height: 340, fill: "#1e1e2e"},
-            init: function() {
-               let pixels = {}
+            render() {
                let cell = 34
                let pad  = 10
-               pixels.label = new fabric.Text("Pixel Art", {
+               let pat = '$pattern'.asInt()
+               let labels = ["Pattern 0: Smiley", "Pattern 1: Heart", "Pattern 2: Custom"]
+               let rowSigs = ['$row0','$row1','$row2','$row3','$row4','$row5','$row6','$row7']
+               let objs = []
+               objs.push(new fabric.Text(labels[pat] || "Pattern " + pat, {
                   left: 145, top: -28,
                   originX: "center",
                   fontSize: 13, fontFamily: "Courier New",
                   fill: "#cdd6f4"
-               })
-               for (let r = 0; r < 8; r++) {
-                  for (let c = 0; c < 8; c++) {
-                     pixels["px_" + r + "_" + c] = new fabric.Rect({
-                        left: pad + c * cell,
-                        top:  pad + r * cell,
-                        width:  cell - 3,
-                        height: cell - 3,
-                        fill: "#313244",
-                        strokeWidth: 0
-                     })
-                  }
-               }
-               return pixels
-            },
-            render: function() {
-               let objs = this.obj
-               let pat = '$pattern'.asInt()
-               let labels = ["Pattern 0: Smiley", "Pattern 1: Heart", "Pattern 2: Custom", "Pattern 3: Custom"]
-               objs.label.set({text: labels[pat] || ("Pattern " + pat)})
-               let rowSigs = ['$row0','$row1','$row2','$row3','$row4','$row5','$row6','$row7']
+               }))
                for (let r = 0; r < 8; r++) {
                   let rowVal = rowSigs[r].asInt()
                   for (let c = 0; c < 8; c++) {
                      let bit = (rowVal >> (7 - c)) & 1
-                     objs["px_" + r + "_" + c].set({fill: bit ? "#f5c542" : "#313244"})
+                     objs.push(new fabric.Rect({
+                        left: pad + c * cell,
+                        top:  pad + r * cell,
+                        width:  cell - 3,
+                        height: cell - 3,
+                        fill: bit ? "#f5c542" : "#313244",
+                        strokeWidth: 0
+                     }))
                   }
                }
-               return []
+               return objs
             }
 
    *passed = *cyc_cnt > 80;
