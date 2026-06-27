@@ -33,6 +33,12 @@ When SEL is `0`, the output is whatever A is. When SEL is `1`, the output is wha
 
 ![2-to-1 MUX](../assets/images/2to1-mux.svg)
 
+**See it in action:**
+
+The visualization below shows the MUX responding to live inputs. Watch how the active input wire lights up and the output follows the selected input as SEL changes.
+
+<div id="mc-mux-viz" class="makerchip-embed"></div>
+
 **In TL-Verilog:**
 
 ```tlv
@@ -214,6 +220,15 @@ In Module 1.3 you will meet the **decoder**, a circuit that takes a binary numbe
 
   const base = 'https://raw.githubusercontent.com/in-ir/makerchip-curriculum/main/code/block-1/';
 
+  class VizOnlyIDE extends IdePlugin {
+    async onReady() {
+      await this.setLayoutState({
+        panes: ['Viz'],
+        activePane: 'Viz'
+      });
+    }
+  }
+
   class DiagramWaveformIDE extends IdePlugin {
     async onReady() {
       await this.setLayoutState({
@@ -248,6 +263,12 @@ In Module 1.3 you will meet the **decoder**, a circuit that takes a binary numbe
     }
   }
 
+  if (document.getElementById('mc-mux-viz')) {
+    new VizOnlyIDE('mc-mux-viz', {
+      codeURL: base + '2to1-mux-viz.tlv'
+    });
+  }
+
   if (document.getElementById('mc-mux-demo')) {
     new DiagramWaveformIDE('mc-mux-demo', {
       codeURL: base + '2to1-mux.tlv'
@@ -278,4 +299,3 @@ In Module 1.3 you will meet the **decoder**, a circuit that takes a binary numbe
     });
   }
 </script>
-
