@@ -717,21 +717,20 @@
 <strong>Prerequisites:</strong> Modules 1.1 through 1.4</p>
 <h2 id="what-you-are-building">What you are building</h2>
 <p>You have spent Block 1 learning the individual building blocks of combinational logic: gates, multiplexers, decoders, and the ALU. This project puts all of them to work in something you can actually show people.</p>
-<p>You are going to build a <strong>pixel art generator</strong> — a circuit that renders images on an 8x8 pixel grid entirely through combinational logic. No memory, no clock, no processor. Just gate logic deciding whether each of the 64 pixels is on or off, and a MUX selecting between different images based on a 2-bit pattern code.</p>
-<p>When you are done, your circuit will display a smiley face, a heart, and a design of your own choosing — switchable in real time by changing a single 2-bit input.</p>
+<p>You are going to build a <strong>pixel art generator</strong>: a circuit that renders images on an 8x8 pixel grid entirely through combinational logic. No memory, no clock, no processor. Just gate logic deciding whether each of the 64 pixels is on or off, and a MUX selecting between different images based on a 2-bit pattern code.</p>
+<p>When you are done, your circuit will display a smiley face, a heart, and a design of your own choosing, all switchable in real time by changing a single 2-bit input.</p>
 <h2 id="how-the-grid-works">How the grid works</h2>
-<p>The display is an 8x8 grid of pixels. Each pixel is a single bit: <code>1</code> means the pixel is on (lit up) and <code>0</code> means it is off.</p>
+<p>The display is an 8x8 grid of pixels. Each pixel is a single bit: <code>1</code> means the pixel is on and <code>0</code> means it is off.</p>
 <p>You represent each row of the grid as an 8-bit signal. The leftmost pixel in a row is the most significant bit (bit 7) and the rightmost is the least significant bit (bit 0).</p>
 <p>For example, this row:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a># # . . . . # #   →   11000011   →   8&#39;b11000011
 </code></pre></div>
-<p>has pixels on at positions 7, 6, 1, and 0. Writing it out as a binary literal makes the pattern immediately readable — you can see the image just by looking at the code.</p>
-<p>Eight rows of 8 bits each gives you 64 pixels total: a complete 8x8 image.</p>
+<p>has pixels on at positions 7, 6, 1, and 0. Writing it out as a binary literal makes the pattern immediately readable. You can see the image just by looking at the code. Eight rows of 8 bits each gives you 64 pixels total: a complete 8x8 image.</p>
 <h2 id="the-starter-code">The starter code</h2>
-<p>Open the circuit below. You will see the Viz pane rendering the display on the right, and the Editor on the left where you will write your logic.</p>
+<p>Open the circuit below. The Viz pane on the right renders the display and updates live every time you compile. The Editor on the left is where you write your logic.</p>
 <div id="mc-pixel-art" class="makerchip-embed"></div>
 
-<p>The starter code already has Pattern 0 (a smiley face) fully working. Take a moment to look at how it is structured:</p>
+<p>The starter code already has Pattern 0 (a smiley face) fully working. Take a moment to read how it is structured:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>$smiley_r0[7:0] = 8&#39;b00111100;  //   ####
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>$smiley_r1[7:0] = 8&#39;b01000010;  //  #    #
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>$smiley_r2[7:0] = 8&#39;b10100101;  // # #  # #
@@ -741,32 +740,34 @@
 <a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>$smiley_r6[7:0] = 8&#39;b01000010;  //  #    #
 <a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>$smiley_r7[7:0] = 8&#39;b00111100;  //   ####
 </code></pre></div>
-<p>Each row is defined as a constant 8-bit value. The comments show the pixel pattern in ASCII art so you can read the image directly in the code.</p>
-<p>The pattern selector at the bottom uses the MUX syntax from Module 1.2 to choose between images:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>$row0[7:0] = $pattern == 2&#39;b01 ? $heart_r0 : $smiley_r0;
+<p>Each row is a constant 8-bit value. The comment next to each line shows the pixel pattern in ASCII art so you can read the image directly in the code.</p>
+<p>The pattern selector uses the MUX syntax from Module 1.2 to choose between images:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>$row0[7:0] = $pattern == 2&#39;b10 ? $custom_r0 :
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>             $pattern == 2&#39;b01 ? $heart_r0   :
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>                                 $smiley_r0;
 </code></pre></div>
-<p>When <code>$pattern</code> is <code>01</code>, the output is the heart row. Otherwise it is the smiley.</p>
+<p>When <code>$pattern</code> is <code>01</code>, the output is the heart row. When it is <code>10</code>, the custom row. Otherwise it defaults to the smiley.</p>
 <div class="admonition note">
-<p class="admonition-title">How the cycling works</p>
-<p>The <code>$pattern</code> signal auto-cycles every 16 clock cycles so you can see all your patterns animate in the Viz pane without needing to manually change inputs. When you add your own patterns, they will appear automatically in the rotation.</p>
+<p class="admonition-title">Navigating the Viz pane</p>
+<p>Use the play button at the bottom of the Viz pane to run the simulation and watch the patterns cycle automatically. You can also use the <code>&lt;&lt;</code> and <code>&gt;&gt;</code> buttons to step through one frame at a time. If you want to inspect a specific pattern, pause the simulation and step to the frame you want.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Using the LOG</p>
+<p>For the custom pattern exercise, you will be writing 8 rows of binary values. If you make a mistake and a pixel appears in the wrong place, use the <strong>LOG</strong> tab in Makerchip to see compiler warnings and signal values that can help you track down which row is wrong.</p>
 </div>
 <h2 id="exercise-draw-the-heart">Exercise: Draw the heart</h2>
-<p>Pattern 1 is currently all zeros — a blank screen. Your task is to fill in the 8 heart rows with the correct pixel values.</p>
-<p>Here is the heart pattern you are aiming for:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>. # # . . # # .   →   01100110   →   8&#39;b01100110
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a># # # # # # # #   →   11111111   →   8&#39;b11111111
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a># # # # # # # #   →   11111111   →   8&#39;b11111111
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a># # # # # # # #   →   11111111   →   8&#39;b11111111
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>. # # # # # # .   →   01111110   →   8&#39;b01111110
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>. . # # # # . .   →   00111100   →   8&#39;b00111100
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>. . . # # . . .   →   00011000   →   8&#39;b00011000
-<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>. . . . . . . .   →   00000000   →   8&#39;b00000000
+<p>Pattern 1 is currently all zeros, which means a blank screen. Your task is to fill in the 8 heart rows with the correct pixel values.</p>
+<p>Here is the heart pattern to aim for:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>. # # . . # # .
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a># # # # # # # #
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a># # # # # # # #
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a># # # # # # # #
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>. # # # # # # .
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>. . # # # # . .
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>. . . # # . . .
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>. . . . . . . .
 </code></pre></div>
-<p>Replace the placeholder rows in the <code>$heart_r0</code> through <code>$heart_r7</code> assignments with the correct values. Compile and watch the heart appear in the Viz pane when the pattern cycles to <code>01</code>.</p>
-<details class="hint">
-<summary>Hint</summary>
-<p>Write out the pixel pattern row by row on paper first — mark each cell as <code>#</code> (on) or <code>.</code> (off). Then convert each row to binary from left to right, where <code>#</code> is <code>1</code> and <code>.</code> is <code>0</code>. The comment next to each assignment is a great place to keep your ASCII art so you can read the image in the code.</p>
-</details>
+<p>Replace the placeholder rows in <code>$heart_r0</code> through <code>$heart_r7</code> with the correct values. Each row reads left to right where <code>#</code> is <code>1</code> and <code>.</code> is <code>0</code>. Compile and watch the heart appear in the Viz pane when the pattern cycles to <code>01</code>.</p>
 <details class="solution">
 <summary>Solution</summary>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>$heart_r0[7:0] = 8&#39;b01100110;  //  ##  ##
@@ -781,23 +782,21 @@
 <p>Once you compile, the Viz pane should show the heart when <code>$pattern</code> cycles to <code>01</code>. If a pixel is in the wrong place, go back to the row that looks wrong and check which bit position needs to flip.</p>
 </details>
 <h2 id="challenge-design-your-own-pattern">Challenge: Design your own pattern</h2>
-<p>Pattern 2 is reserved for your own design. Fill in <code>$custom_r0</code> through <code>$custom_r7</code> with whatever you want to draw.</p>
-<p>Some ideas: your initials, a spaceship, a star, an arrow, a house, a Tetris piece. The constraint of 8x8 pixels is part of the fun — you have to think carefully about what fits and what reads clearly at low resolution.</p>
-<p>Once your pattern is working, take a screenshot of the Viz pane. You have just designed hardware that renders an image.</p>
+<p>Pattern 2 is reserved for your own design. Fill in <code>$custom_r0</code> through <code>$custom_r7</code> with whatever you want to draw. Your initials, a spaceship, a star, an arrow, a Tetris piece. The 8x8 constraint is part of the fun.</p>
+<p>Once your pattern is working, take a screenshot of the Viz pane.</p>
 <h2 id="challenge-add-a-fourth-pattern">Challenge: Add a fourth pattern</h2>
-<p>The <code>$pattern</code> signal is 2 bits, which gives you four possible values: <code>00</code>, <code>01</code>, <code>10</code>, and <code>11</code>. The starter code only uses three of them. Add a fourth pattern using <code>$pattern == 2'b11</code> and extend the MUX to include it.</p>
+<p>The <code>$pattern</code> signal is 2 bits, which gives you four possible values: <code>00</code>, <code>01</code>, <code>10</code>, and <code>11</code>. The starter code only uses three. Add a fourth pattern using <code>$pattern == 2'b11</code> and extend the MUX to include it.</p>
 <details class="hint">
 <summary>Hint</summary>
-<p>Add a set of <code>$pattern3_rN</code> signals for your new image, then extend each row MUX from a 3-way to a 4-way selection. The structure is exactly the same as the 4-to-1 MUX from Module 1.2 — one condition per pattern, a default at the bottom.</p>
+<p>Add a set of <code>$pattern3_rN</code> signals for your new image, then extend each row MUX from a 3-way to a 4-way selection. The structure is exactly the same as the 4-to-1 MUX from Module 1.2: one condition per pattern, a default at the bottom.</p>
 </details>
 <h2 id="what-you-just-built">What you just built</h2>
-<p>Take a moment to look at the full circuit and recognize every piece of it.</p>
-<p>The <strong>row signals</strong> (<code>$smiley_r0</code> through <code>$custom_r7</code>) are constant combinational assignments — the simplest form of gate logic. Each one is a fixed binary value that defines a row of pixels.</p>
-<p>The <strong>pattern MUX</strong> is the 4-to-1 MUX from Module 1.2, applied 8 times (once per row). The <code>$pattern</code> input is the select line. The row signals are the inputs. The <code>$rowN</code> outputs are what the Viz pane reads.</p>
-<p>The <strong>Viz pane</strong> is reading those 8 output signals and drawing pixels based on their bit values. The hardware is the circuit. The visualization is just making it visible.</p>
-<p>This is how real display hardware works. The pixels on your screen right now are being driven by circuits that are not fundamentally different from what you just built.</p>
+<p>Take a moment to look at the full circuit and recognize every piece from Block 1.</p>
+<p>The <strong>row signals</strong> are constant combinational assignments: the simplest form of gate logic. Each one is a fixed binary value that defines a row of pixels.</p>
+<p>The <strong>pattern MUX</strong> is the 4-to-1 MUX from Module 1.2, applied 8 times, once per row. The <code>$pattern</code> input is the select line, the row signals are the inputs, and the <code>$rowN</code> outputs are what the Viz pane reads.</p>
+<p>The <strong>Viz pane</strong> reads those 8 output signals and draws pixels based on their bit values. The hardware is the circuit. The visualization is just making it visible.</p>
 <h2 id="where-this-fits-next">Where this fits next</h2>
-<p>In Block 2 you will add <strong>state</strong> to your circuits. Instead of constant patterns, you will be able to make things move — a pixel that shifts position every clock cycle, a counter that drives an animation. The same 8x8 grid, but now alive.</p>
+<p>In Block 2 you will add <strong>state</strong> to your circuits. Instead of constant patterns, you will be able to make things move: a pixel that shifts position over time, a counter that drives an animation. The same 8x8 grid, but now alive.</p>
 <style>
 .makerchip-embed { position: relative; width: 100%; height: 600px; }
 </style>
@@ -807,7 +806,6 @@
 
   const base = 'https://raw.githubusercontent.com/in-ir/makerchip-curriculum/main/code/block-1/';
 
-  // EDITOR + VIZ — students write pixel patterns and see them rendered live
   class EditorVizIDE extends IdePlugin {
     async onReady() {
       await this.setLayoutState({
