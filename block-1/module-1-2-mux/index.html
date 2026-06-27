@@ -784,7 +784,7 @@
 </tbody>
 </table>
 <p>When SEL is <code>0</code>, the output is whatever A is. When SEL is <code>1</code>, the output is whatever B is.</p>
-<p><strong>Circuit diagram:</strong></p>
+<p><strong>Circuit symbol:</strong></p>
 <p><img alt="2-to-1 MUX" src="../../assets/images/2to1-mux.svg" /></p>
 <p><strong>In TL-Verilog:</strong></p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>$out = $sel ? $b : $a;
@@ -795,104 +795,21 @@
 <p>TL-Verilog uses <code>?:</code> for MUX-like selection because it maps directly to hardware. The synthesizer sees <code>condition ? x : y</code> and produces exactly a MUX circuit. It is not just shorthand. It is the idiomatic way to describe selection in hardware description languages.</p>
 </details>
 <h3 id="see-the-mux-circuit-in-makerchip">See the MUX circuit in Makerchip</h3>
-<p>The embed below shows the 2-to-1 MUX circuit and its waveform. Watch the <code>$out</code> signal: it should follow <code>$a</code> when <code>$sel</code> is <code>0</code> and follow <code>$b</code> when <code>$sel</code> is <code>1</code>.</p>
+<p>The embed below shows the 2-to-1 MUX circuit and its waveform. Watch the <code>$out</code> signal: it follows <code>$a</code> when <code>$sel</code> is <code>0</code> and follows <code>$b</code> when <code>$sel</code> is <code>1</code>.</p>
 <div id="mc-mux-demo" class="makerchip-embed"></div>
 
 <details class="note">
 <summary>What are <code>clk</code> and <code>reset</code>?</summary>
-<p>Makerchip always shows <code>clk</code> and <code>reset</code> in the waveform. Ignore them for now. Combinational circuits do not use a clock. The output responds instantly to the inputs with no timing involved. You will learn what the clock does when we get to sequential logic in Block 2.</p>
+<p>Makerchip always shows <code>clk</code> and <code>reset</code> in the waveform. Ignore them for now. Combinational circuits do not depend on a clock. The output responds instantly to the inputs. You will learn what the clock does when we get to sequential logic in Block 2.</p>
 </details>
-<table>
-<thead>
-<tr>
-<th>Cycle</th>
-<th>$sel</th>
-<th>$a</th>
-<th>$b</th>
-<th>$out</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-<td>1</td>
-<td>0</td>
-</tr>
-<tr>
-<td>2</td>
-<td>0</td>
-<td>1</td>
-<td>0</td>
-<td>1</td>
-</tr>
-<tr>
-<td>3</td>
-<td>1</td>
-<td>0</td>
-<td>1</td>
-<td>1</td>
-</tr>
-<tr>
-<td>4</td>
-<td>1</td>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-</tr>
-</tbody>
-</table>
-<p>In cycles 1 and 2, SEL is <code>0</code> so the output follows A. In cycles 3 and 4, SEL is <code>1</code> so the output follows B. The select line is the lever; A and B are the tracks.</p>
 <h2 id="match-the-waveform">Match the waveform</h2>
-<p>Look at the waveform below. Three signals <code>$a</code>, <code>$b</code>, and <code>$sel</code> produce an output <code>$out</code>. Study the pattern and determine what the relationship is between <code>$sel</code> and <code>$out</code>.</p>
+<p>Look at the waveform below. Three signals <code>$a</code>, <code>$b</code>, and <code>$sel</code> produce an output <code>$out</code>. Study how <code>$out</code> changes relative to <code>$sel</code> and determine what the relationship is.</p>
 <div id="mc-mux-waveform" class="makerchip-embed-small"></div>
 
-<table>
-<thead>
-<tr>
-<th>Cycle</th>
-<th>$sel</th>
-<th>$a</th>
-<th>$b</th>
-<th>$out</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>0</td>
-<td>1</td>
-<td>0</td>
-<td>1</td>
-</tr>
-<tr>
-<td>2</td>
-<td>1</td>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr>
-<td>3</td>
-<td>0</td>
-<td>0</td>
-<td>1</td>
-<td>0</td>
-</tr>
-<tr>
-<td>4</td>
-<td>1</td>
-<td>0</td>
-<td>1</td>
-<td>1</td>
-</tr>
-</tbody>
-</table>
-<p>Write the TL-Verilog expression for <code>$out</code>, then verify it in the exercise below.</p>
+<p>Write the TL-Verilog expression for <code>$out</code>, then verify it in the exercise below. Try to match the same select input pattern you see in the waveform above.</p>
 <details class="hint">
 <summary>How to read the pattern</summary>
-<p>In cycle 1, <code>$sel</code> is <code>0</code> and <code>$out</code> matches <code>$a</code> which is <code>1</code>. In cycle 2, <code>$sel</code> is <code>1</code> and <code>$out</code> matches <code>$b</code> which is <code>0</code>. The output always tracks one of the two inputs. Which one depends on <code>$sel</code>. Which operator selects between two values based on a condition?</p>
+<p>When <code>$sel</code> is <code>0</code>, <code>$out</code> matches <code>$a</code>. When <code>$sel</code> is <code>1</code>, <code>$out</code> matches <code>$b</code>. The output always tracks one of the two inputs. Which one depends on <code>$sel</code>. Which operator selects between two values based on a condition?</p>
 </details>
 <details class="solution">
 <summary>Solution</summary>
@@ -901,7 +818,7 @@
 <p>When <code>$sel</code> is <code>0</code> the output follows <code>$a</code>. When <code>$sel</code> is <code>1</code> it follows <code>$b</code>. This is exactly the ternary operator mapping to a 2-to-1 MUX.</p>
 </details>
 <h2 id="exercise-code-the-2-to-1-mux">Exercise: Code the 2-to-1 MUX</h2>
-<p>Now write it yourself. Replace <code>$out = 1'b0</code> with the correct MUX logic and compile. Check that the waveform matches the table above.</p>
+<p>Now write it yourself. Replace <code>$out = 1'b0</code> with the correct MUX logic and compile. Check that the waveform matches the pattern above.</p>
 <div id="mc-mux-exercise-basic" class="makerchip-embed"></div>
 
 <details class="hint">
@@ -1010,7 +927,7 @@
 </tr>
 </tbody>
 </table>
-<p>This is a simplified ALU, a circuit that selects between operations based on a control code. You will build a full one in Module 1.4.</p>
+<p>This is a simplified <strong>Arithmetic Logic Unit (ALU)</strong>, a circuit that selects between operations based on a control code. You will build a full one in Module 1.4.</p>
 <div id="mc-mux-challenge" class="makerchip-embed"></div>
 
 <details class="hint">
@@ -1032,7 +949,7 @@
 <p>Notice that NOT only uses <code>$a</code>. When <code>$op == 2'b11</code>, <code>$b</code> is ignored entirely. That is perfectly fine. In a real ALU, some operations do not use all inputs.</p>
 </details>
 <h2 id="where-this-fits-next">Where this fits next</h2>
-<p>You now have two of the most important combinational building blocks: gates and MUXes. These two alone can express any combinational logic function.</p>
+<p>You now have two of the most important combinational building blocks: gates and MUXes. Together, they can be combined to implement any combinational logic function.</p>
 <p>In Module 1.3 you will meet the <strong>decoder</strong>, a circuit that takes a binary number and activates exactly one output line. It shows up inside ALUs, memory addressing, and instruction decoding in real processors.</p>
 <h2 id="quick-reference">Quick reference</h2>
 <table>
@@ -1066,7 +983,6 @@
 
   const base = 'https://raw.githubusercontent.com/in-ir/makerchip-curriculum/main/code/block-1/';
 
-  // DIAGRAM + WAVEFORM — for circuit demos
   class DiagramWaveformIDE extends IdePlugin {
     async onReady() {
       await this.setLayoutState({
@@ -1079,7 +995,6 @@
     }
   }
 
-  // WAVEFORM only — for match-the-waveform exercises
   class WaveformOnlyIDE extends IdePlugin {
     async onReady() {
       await this.setLayoutState({
@@ -1090,7 +1005,6 @@
     }
   }
 
-  // EDITOR + WAVEFORM — for coding exercises
   class EditorWaveformIDE extends IdePlugin {
     async onReady() {
       await this.setLayoutState({
@@ -1103,35 +1017,30 @@
     }
   }
 
-  // MUX demo — DIAGRAM + WAVEFORM
   if (document.getElementById('mc-mux-demo')) {
     new DiagramWaveformIDE('mc-mux-demo', {
       codeURL: base + '2to1-mux.tlv'
     });
   }
 
-  // Match the waveform — WAVEFORM only
   if (document.getElementById('mc-mux-waveform')) {
     new WaveformOnlyIDE('mc-mux-waveform', {
       codeURL: base + '2to1-mux.tlv'
     });
   }
 
-  // Basic MUX coding exercise — EDITOR + WAVEFORM
   if (document.getElementById('mc-mux-exercise-basic')) {
     new EditorWaveformIDE('mc-mux-exercise-basic', {
-      codeURL: base + 'mux-exercise.tlv'
+      codeURL: base + 'mux-exercise-basic.tlv'
     });
   }
 
-  // 4-to-1 MUX exercise — EDITOR + WAVEFORM
   if (document.getElementById('mc-mux-exercise')) {
     new EditorWaveformIDE('mc-mux-exercise', {
       codeURL: base + 'mux-exercise.tlv'
     });
   }
 
-  // Challenge — EDITOR + WAVEFORM
   if (document.getElementById('mc-mux-challenge')) {
     new EditorWaveformIDE('mc-mux-challenge', {
       codeURL: base + 'mux-challenge.tlv'

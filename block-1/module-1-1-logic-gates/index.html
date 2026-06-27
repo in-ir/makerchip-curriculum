@@ -602,17 +602,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#how-to-read-the-waveform" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        How to read the waveform
-      
-    </span>
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -1052,7 +1041,7 @@
 </code></pre></div>
 <div class="admonition tip">
 <p class="admonition-title">NAND is universal</p>
-<p>You can build every other gate (AND, OR, NOT, XOR) out of NAND gates alone. This is why NAND is called a <strong>universal gate</strong>. In practice, chip designers sometimes implement entire logic functions using only NAND gates because it simplifies the physical layout.</p>
+<p>You can build every other gate (AND, OR, NOT, XOR) out of NAND gates alone. In fact, any combinational logic function can be expressed using only NAND gates. This is why NAND is called a <strong>universal gate</strong>. Chip designers sometimes implement entire logic functions using only NAND gates because it simplifies the physical layout.</p>
 </div>
 <h2 id="see-all-gates-in-action">See all gates in action</h2>
 <p>Now that you know each gate, here they all are together. Use the slider and arrow buttons to step through different input combinations and watch how each gate responds.</p>
@@ -1109,101 +1098,21 @@
 </code></pre></div>
 <p>Two lines. That is a complete half adder.</p>
 <h3 id="see-the-half-adder-circuit-in-makerchip">See the half adder circuit in Makerchip</h3>
-<p>The embed below shows the half adder circuit and its waveform. On the left, find the XOR gate producing <code>$s</code> and the AND gate producing <code>$c</code>. On the right, verify each row of the waveform matches the truth table above.</p>
+<p>The embed below shows the half adder circuit on the left and the waveform on the right. Find the XOR gate producing <code>$s</code> and the AND gate producing <code>$c</code>. In the waveform, verify that the outputs match the truth table above as the inputs change over time.</p>
 <div id="mc-half-adder" class="makerchip-embed"></div>
 
-<h3 id="how-to-read-the-waveform">How to read the waveform</h3>
-<p>Each row is a signal and each column is a clock cycle. The inputs A and B cycle through all four combinations automatically.</p>
 <details class="note">
 <summary>What are <code>clk</code> and <code>reset</code>?</summary>
-<p>Makerchip always shows <code>clk</code> and <code>reset</code> in the waveform. Ignore them for now. Combinational circuits do not use a clock. The output responds instantly to the inputs with no timing involved. You will learn what the clock does when we get to sequential logic in Block 2.</p>
+<p>Makerchip always shows <code>clk</code> and <code>reset</code> in the waveform. Ignore them for now. Combinational circuits do not depend on a clock. The output responds instantly to the inputs. You will learn what the clock does when we get to sequential logic in Block 2.</p>
 </details>
-<table>
-<thead>
-<tr>
-<th>Cycle</th>
-<th>$a</th>
-<th>$b</th>
-<th>$s</th>
-<th>$c</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr>
-<td>2</td>
-<td>0</td>
-<td>1</td>
-<td>1</td>
-<td>0</td>
-</tr>
-<tr>
-<td>3</td>
-<td>1</td>
-<td>0</td>
-<td>1</td>
-<td>0</td>
-</tr>
-<tr>
-<td>4</td>
-<td>1</td>
-<td>1</td>
-<td>0</td>
-<td>1</td>
-</tr>
-</tbody>
-</table>
-<p>This is how hardware engineers debug circuits: read the waveform and check that actual behavior matches expected behavior.</p>
 <h2 id="match-the-waveform">Match the waveform</h2>
-<p>Look at the waveform below. Two inputs A and B produce an output X. Study the pattern and determine what gate produces this output.</p>
+<p>Look at the waveform below. Two inputs A and B produce an output X. Study how X changes as A and B change, and determine what gate produces this output.</p>
 <div id="mc-and-waveform" class="makerchip-embed-small"></div>
 
-<table>
-<thead>
-<tr>
-<th>Cycle</th>
-<th>A</th>
-<th>B</th>
-<th>X</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr>
-<td>2</td>
-<td>0</td>
-<td>1</td>
-<td>1</td>
-</tr>
-<tr>
-<td>3</td>
-<td>1</td>
-<td>0</td>
-<td>1</td>
-</tr>
-<tr>
-<td>4</td>
-<td>1</td>
-<td>1</td>
-<td>0</td>
-</tr>
-</tbody>
-</table>
 <p>Write the TL-Verilog expression for X, then verify it in the exercise below.</p>
 <details class="hint">
 <summary>How to read the pattern</summary>
-<p>X is <code>1</code> in cycles 2 and 3, when A and B are different. When they are the same (both <code>0</code> in cycle 1, both <code>1</code> in cycle 4), X is <code>0</code>. Which gate gives <code>1</code> when inputs are different?</p>
+<p>Watch when X goes high. X is <code>1</code> when A and B are different, and <code>0</code> when they are the same. Which gate gives <code>1</code> when inputs are different?</p>
 </details>
 <details class="solution">
 <summary>Solution</summary>
@@ -1212,7 +1121,7 @@
 <p>Reading signal patterns backwards into code is one of the most important debugging skills in hardware design. When something in your circuit misbehaves, you read its waveform and ask: what logic would produce this pattern?</p>
 </details>
 <h2 id="exercise-code-the-xor-gate">Exercise: Code the XOR gate</h2>
-<p>Now write it yourself. Replace <code>$x = 1'b0</code> with the correct gate logic and compile. The waveform should match the table above exactly.</p>
+<p>Now write it yourself. The editor below has a placeholder output that is always <code>0</code>. Replace <code>$x = 1'b0</code> with the correct gate logic and compile. Check the waveform to verify your answer.</p>
 <div id="mc-xor-exercise" class="makerchip-embed"></div>
 
 <details class="hint">
@@ -1228,7 +1137,7 @@
 <p>Build a circuit that outputs <code>1</code> only when all three inputs A, B, and C are <code>1</code>.</p>
 <div id="mc-three-input-and" class="makerchip-embed"></div>
 
-<p>The starter code has <code>$x = 1'b0</code> as a placeholder. Replace that line with the correct gate logic and verify all 8 combinations of A, B, C in the waveform. Only the row where all three inputs are <code>1</code> should give an output of <code>1</code>.</p>
+<p>The starter code has <code>$x = 1'b0</code> as a placeholder. Replace that line with the correct gate logic and verify in the waveform that only the combination where all three inputs are <code>1</code> gives an output of <code>1</code>.</p>
 <details class="hint">
 <summary>Hint</summary>
 <p>Think about it in plain English: A AND B AND C. Chain two AND gates. First compute A AND B, then AND the result with C.</p>
@@ -1294,7 +1203,6 @@
 
   const base = 'https://raw.githubusercontent.com/in-ir/makerchip-curriculum/main/code/block-1/';
 
-  // VIZ only — for the logic gates overview visualization
   class VizOnlyIDE extends IdePlugin {
     async onReady() {
       await this.setLayoutState({
@@ -1304,12 +1212,11 @@
     }
   }
 
-  // DIAGRAM + WAVEFORM — for circuit demos where we want to show both the circuit and signal values
   class DiagramWaveformIDE extends IdePlugin {
     async onReady() {
       await this.setLayoutState({
         sides: {
-          left:  { panes: ['Diagram'],   activePane: 'Diagram'   },
+          left:  { panes: ['Diagram'],  activePane: 'Diagram'  },
           right: { panes: ['Waveform'], activePane: 'Waveform' }
         },
         splitAt: 0.5
@@ -1317,7 +1224,6 @@
     }
   }
 
-  // WAVEFORM only — for match-the-waveform exercises
   class WaveformOnlyIDE extends IdePlugin {
     async onReady() {
       await this.setLayoutState({
@@ -1328,7 +1234,6 @@
     }
   }
 
-  // EDITOR + WAVEFORM — for coding exercises where student writes code and verifies output
   class EditorWaveformIDE extends IdePlugin {
     async onReady() {
       await this.setLayoutState({
@@ -1341,35 +1246,30 @@
     }
   }
 
-  // Logic gates overview — VIZ only
   if (document.getElementById('mc-logic-gates')) {
     new VizOnlyIDE('mc-logic-gates', {
       codeURL: 'https://cdn.jsdelivr.net/gh/stevehoover/makerchip_examples@a0d80f640661653639c05de49fb8df76e9616f5c/logic_gates.tlv'
     });
   }
 
-  // Half adder demo — DIAGRAM + WAVEFORM (show circuit and verify signal values)
   if (document.getElementById('mc-half-adder')) {
     new DiagramWaveformIDE('mc-half-adder', {
       codeURL: base + 'half-adder.tlv'
     });
   }
 
-  // Match the waveform — WAVEFORM only (student reads the pattern)
   if (document.getElementById('mc-and-waveform')) {
     new WaveformOnlyIDE('mc-and-waveform', {
       codeURL: base + 'xor-puzzle.tlv'
     });
   }
 
-  // XOR coding exercise — EDITOR + WAVEFORM (student writes code and checks output)
   if (document.getElementById('mc-xor-exercise')) {
     new EditorWaveformIDE('mc-xor-exercise', {
-      codeURL: base + 'xor-puzzle.tlv'
+      codeURL: base + 'xor-exercise.tlv'
     });
   }
 
-  // Three-input AND exercise — EDITOR + WAVEFORM
   if (document.getElementById('mc-three-input-and')) {
     new EditorWaveformIDE('mc-three-input-and', {
       codeURL: base + 'three-input-and.tlv'
