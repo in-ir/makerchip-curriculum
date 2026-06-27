@@ -29,7 +29,7 @@ The simplest MUX has two inputs, one select line, and one output.
 
 When SEL is `0`, the output is whatever A is. When SEL is `1`, the output is whatever B is.
 
-**Circuit diagram:**
+**Circuit symbol:**
 
 ![2-to-1 MUX](../assets/images/2to1-mux.svg)
 
@@ -47,41 +47,25 @@ This uses the **ternary operator**, the same `?:` you may know from C or Python.
 
 ### See the MUX circuit in Makerchip
 
-The embed below shows the 2-to-1 MUX circuit and its waveform. Watch the `$out` signal: it should follow `$a` when `$sel` is `0` and follow `$b` when `$sel` is `1`.
+The embed below shows the 2-to-1 MUX circuit and its waveform. Watch the `$out` signal: it follows `$a` when `$sel` is `0` and follows `$b` when `$sel` is `1`.
 
 <div id="mc-mux-demo" class="makerchip-embed"></div>
 
 ??? note "What are `clk` and `reset`?"
 
-    Makerchip always shows `clk` and `reset` in the waveform. Ignore them for now. Combinational circuits do not use a clock. The output responds instantly to the inputs with no timing involved. You will learn what the clock does when we get to sequential logic in Block 2.
-
-| Cycle | $sel | $a  | $b  | $out |
-| ----- | ---- | --- | --- | ---- |
-| 1     | 0    | 0   | 1   | 0    |
-| 2     | 0    | 1   | 0   | 1    |
-| 3     | 1    | 0   | 1   | 1    |
-| 4     | 1    | 1   | 0   | 0    |
-
-In cycles 1 and 2, SEL is `0` so the output follows A. In cycles 3 and 4, SEL is `1` so the output follows B. The select line is the lever; A and B are the tracks.
+    Makerchip always shows `clk` and `reset` in the waveform. Ignore them for now. Combinational circuits do not depend on a clock. The output responds instantly to the inputs. You will learn what the clock does when we get to sequential logic in Block 2.
 
 ## Match the waveform
 
-Look at the waveform below. Three signals `$a`, `$b`, and `$sel` produce an output `$out`. Study the pattern and determine what the relationship is between `$sel` and `$out`.
+Look at the waveform below. Three signals `$a`, `$b`, and `$sel` produce an output `$out`. Study how `$out` changes relative to `$sel` and determine what the relationship is.
 
 <div id="mc-mux-waveform" class="makerchip-embed-small"></div>
 
-| Cycle | $sel | $a  | $b  | $out |
-| ----- | ---- | --- | --- | ---- |
-| 1     | 0    | 1   | 0   | 1    |
-| 2     | 1    | 1   | 0   | 0    |
-| 3     | 0    | 0   | 1   | 0    |
-| 4     | 1    | 0   | 1   | 1    |
-
-Write the TL-Verilog expression for `$out`, then verify it in the exercise below.
+Write the TL-Verilog expression for `$out`, then verify it in the exercise below. Try to match the same select input pattern you see in the waveform above.
 
 ??? hint "How to read the pattern"
 
-    In cycle 1, `$sel` is `0` and `$out` matches `$a` which is `1`. In cycle 2, `$sel` is `1` and `$out` matches `$b` which is `0`. The output always tracks one of the two inputs. Which one depends on `$sel`. Which operator selects between two values based on a condition?
+    When `$sel` is `0`, `$out` matches `$a`. When `$sel` is `1`, `$out` matches `$b`. The output always tracks one of the two inputs. Which one depends on `$sel`. Which operator selects between two values based on a condition?
 
 ??? solution "Solution"
 
@@ -93,7 +77,7 @@ Write the TL-Verilog expression for `$out`, then verify it in the exercise below
 
 ## Exercise: Code the 2-to-1 MUX
 
-Now write it yourself. Replace `$out = 1'b0` with the correct MUX logic and compile. Check that the waveform matches the table above.
+Now write it yourself. Replace `$out = 1'b0` with the correct MUX logic and compile. Check that the waveform matches the pattern above.
 
 <div id="mc-mux-exercise-basic" class="makerchip-embed"></div>
 
@@ -183,7 +167,7 @@ Build a circuit that applies a different operation depending on a 2-bit opcode. 
 | 10  | `$a XOR $b` |
 | 11  | `NOT $a`    |
 
-This is a simplified ALU, a circuit that selects between operations based on a control code. You will build a full one in Module 1.4.
+This is a simplified **Arithmetic Logic Unit (ALU)**, a circuit that selects between operations based on a control code. You will build a full one in Module 1.4.
 
 <div id="mc-mux-challenge" class="makerchip-embed"></div>
 
@@ -209,16 +193,16 @@ This is a simplified ALU, a circuit that selects between operations based on a c
 
 ## Where this fits next
 
-You now have two of the most important combinational building blocks: gates and MUXes. These two alone can express any combinational logic function.
+You now have two of the most important combinational building blocks: gates and MUXes. Together, they can be combined to implement any combinational logic function.
 
 In Module 1.3 you will meet the **decoder**, a circuit that takes a binary number and activates exactly one output line. It shows up inside ALUs, memory addressing, and instruction decoding in real processors.
 
 ## Quick reference
 
-| Circuit    | TL-Verilog                        | What it does                              |
-| ---------- | --------------------------------- | ----------------------------------------- |
-| 2-to-1 MUX | `$out = $sel ? $b : $a`           | Select A or B based on SEL                |
-| 4-to-1 MUX | `$out = $sel == 2'b11 ? $d : ...` | Select between inputs using == conditions |
+| Circuit     | TL-Verilog                        | What it does                              |
+| ----------- | --------------------------------- | ----------------------------------------- |
+| 2-to-1 MUX  | `$out = $sel ? $b : $a`           | Select A or B based on SEL                |
+| 4-to-1 MUX  | `$out = $sel == 2'b11 ? $d : ...` | Select between inputs using == conditions |
 
 <style>
 .makerchip-embed       { position: relative; width: 100%; height: 500px; }
@@ -230,7 +214,6 @@ In Module 1.3 you will meet the **decoder**, a circuit that takes a binary numbe
 
   const base = 'https://raw.githubusercontent.com/in-ir/makerchip-curriculum/main/code/block-1/';
 
-  // DIAGRAM + WAVEFORM — for circuit demos
   class DiagramWaveformIDE extends IdePlugin {
     async onReady() {
       await this.setLayoutState({
@@ -243,7 +226,6 @@ In Module 1.3 you will meet the **decoder**, a circuit that takes a binary numbe
     }
   }
 
-  // WAVEFORM only — for match-the-waveform exercises
   class WaveformOnlyIDE extends IdePlugin {
     async onReady() {
       await this.setLayoutState({
@@ -254,7 +236,6 @@ In Module 1.3 you will meet the **decoder**, a circuit that takes a binary numbe
     }
   }
 
-  // EDITOR + WAVEFORM — for coding exercises
   class EditorWaveformIDE extends IdePlugin {
     async onReady() {
       await this.setLayoutState({
@@ -267,38 +248,34 @@ In Module 1.3 you will meet the **decoder**, a circuit that takes a binary numbe
     }
   }
 
-  // MUX demo — DIAGRAM + WAVEFORM
   if (document.getElementById('mc-mux-demo')) {
     new DiagramWaveformIDE('mc-mux-demo', {
       codeURL: base + '2to1-mux.tlv'
     });
   }
 
-  // Match the waveform — WAVEFORM only
   if (document.getElementById('mc-mux-waveform')) {
     new WaveformOnlyIDE('mc-mux-waveform', {
       codeURL: base + '2to1-mux.tlv'
     });
   }
 
-  // Basic MUX coding exercise — EDITOR + WAVEFORM
   if (document.getElementById('mc-mux-exercise-basic')) {
     new EditorWaveformIDE('mc-mux-exercise-basic', {
-      codeURL: base + 'mux-exercise.tlv'
+      codeURL: base + 'mux-exercise-basic.tlv'
     });
   }
 
-  // 4-to-1 MUX exercise — EDITOR + WAVEFORM
   if (document.getElementById('mc-mux-exercise')) {
     new EditorWaveformIDE('mc-mux-exercise', {
       codeURL: base + 'mux-exercise.tlv'
     });
   }
 
-  // Challenge — EDITOR + WAVEFORM
   if (document.getElementById('mc-mux-challenge')) {
     new EditorWaveformIDE('mc-mux-challenge', {
       codeURL: base + 'mux-challenge.tlv'
     });
   }
 </script>
+

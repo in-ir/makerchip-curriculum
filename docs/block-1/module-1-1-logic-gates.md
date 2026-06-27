@@ -151,7 +151,7 @@ $x_nor  = !($a || $b);
 
 !!! tip "NAND is universal"
 
-    You can build every other gate (AND, OR, NOT, XOR) out of NAND gates alone. This is why NAND is called a **universal gate**. In practice, chip designers sometimes implement entire logic functions using only NAND gates because it simplifies the physical layout.
+    You can build every other gate (AND, OR, NOT, XOR) out of NAND gates alone. In fact, any combinational logic function can be expressed using only NAND gates. This is why NAND is called a **universal gate**. Chip designers sometimes implement entire logic functions using only NAND gates because it simplifies the physical layout.
 
 ## See all gates in action
 
@@ -195,45 +195,25 @@ Two lines. That is a complete half adder.
 
 ### See the half adder circuit in Makerchip
 
-The embed below shows the half adder circuit and its waveform. On the left, find the XOR gate producing `$s` and the AND gate producing `$c`. On the right, verify each row of the waveform matches the truth table above.
+The embed below shows the half adder circuit on the left and the waveform on the right. Find the XOR gate producing `$s` and the AND gate producing `$c`. In the waveform, verify that the outputs match the truth table above as the inputs change over time.
 
 <div id="mc-half-adder" class="makerchip-embed"></div>
 
-### How to read the waveform
-
-Each row is a signal and each column is a clock cycle. The inputs A and B cycle through all four combinations automatically.
-
 ??? note "What are `clk` and `reset`?"
 
-    Makerchip always shows `clk` and `reset` in the waveform. Ignore them for now. Combinational circuits do not use a clock. The output responds instantly to the inputs with no timing involved. You will learn what the clock does when we get to sequential logic in Block 2.
-
-| Cycle | $a  | $b  | $s  | $c  |
-| ----- | --- | --- | --- | --- |
-| 1     | 0   | 0   | 0   | 0   |
-| 2     | 0   | 1   | 1   | 0   |
-| 3     | 1   | 0   | 1   | 0   |
-| 4     | 1   | 1   | 0   | 1   |
-
-This is how hardware engineers debug circuits: read the waveform and check that actual behavior matches expected behavior.
+    Makerchip always shows `clk` and `reset` in the waveform. Ignore them for now. Combinational circuits do not depend on a clock. The output responds instantly to the inputs. You will learn what the clock does when we get to sequential logic in Block 2.
 
 ## Match the waveform
 
-Look at the waveform below. Two inputs A and B produce an output X. Study the pattern and determine what gate produces this output.
+Look at the waveform below. Two inputs A and B produce an output X. Study how X changes as A and B change, and determine what gate produces this output.
 
 <div id="mc-and-waveform" class="makerchip-embed-small"></div>
-
-| Cycle | A   | B   | X   |
-| ----- | --- | --- | --- |
-| 1     | 0   | 0   | 0   |
-| 2     | 0   | 1   | 1   |
-| 3     | 1   | 0   | 1   |
-| 4     | 1   | 1   | 0   |
 
 Write the TL-Verilog expression for X, then verify it in the exercise below.
 
 ??? hint "How to read the pattern"
 
-    X is `1` in cycles 2 and 3, when A and B are different. When they are the same (both `0` in cycle 1, both `1` in cycle 4), X is `0`. Which gate gives `1` when inputs are different?
+    Watch when X goes high. X is `1` when A and B are different, and `0` when they are the same. Which gate gives `1` when inputs are different?
 
 ??? solution "Solution"
 
@@ -245,7 +225,7 @@ Write the TL-Verilog expression for X, then verify it in the exercise below.
 
 ## Exercise: Code the XOR gate
 
-Now write it yourself. Replace `$x = 1'b0` with the correct gate logic and compile. The waveform should match the table above exactly.
+Now write it yourself. The editor below has a placeholder output that is always `0`. Replace `$x = 1'b0` with the correct gate logic and compile. Check the waveform to verify your answer.
 
 <div id="mc-xor-exercise" class="makerchip-embed"></div>
 
@@ -265,7 +245,7 @@ Build a circuit that outputs `1` only when all three inputs A, B, and C are `1`.
 
 <div id="mc-three-input-and" class="makerchip-embed"></div>
 
-The starter code has `$x = 1'b0` as a placeholder. Replace that line with the correct gate logic and verify all 8 combinations of A, B, C in the waveform. Only the row where all three inputs are `1` should give an output of `1`.
+The starter code has `$x = 1'b0` as a placeholder. Replace that line with the correct gate logic and verify in the waveform that only the combination where all three inputs are `1` gives an output of `1`.
 
 ??? hint "Hint"
 
@@ -306,7 +286,6 @@ In Module 1.2 you will meet the **multiplexer (MUX)**, a circuit that acts as a 
 
   const base = 'https://raw.githubusercontent.com/in-ir/makerchip-curriculum/main/code/block-1/';
 
-  // VIZ only — for the logic gates overview visualization
   class VizOnlyIDE extends IdePlugin {
     async onReady() {
       await this.setLayoutState({
@@ -316,12 +295,11 @@ In Module 1.2 you will meet the **multiplexer (MUX)**, a circuit that acts as a 
     }
   }
 
-  // DIAGRAM + WAVEFORM — for circuit demos where we want to show both the circuit and signal values
   class DiagramWaveformIDE extends IdePlugin {
     async onReady() {
       await this.setLayoutState({
         sides: {
-          left:  { panes: ['Diagram'],   activePane: 'Diagram'   },
+          left:  { panes: ['Diagram'],  activePane: 'Diagram'  },
           right: { panes: ['Waveform'], activePane: 'Waveform' }
         },
         splitAt: 0.5
@@ -329,7 +307,6 @@ In Module 1.2 you will meet the **multiplexer (MUX)**, a circuit that acts as a 
     }
   }
 
-  // WAVEFORM only — for match-the-waveform exercises
   class WaveformOnlyIDE extends IdePlugin {
     async onReady() {
       await this.setLayoutState({
@@ -340,7 +317,6 @@ In Module 1.2 you will meet the **multiplexer (MUX)**, a circuit that acts as a 
     }
   }
 
-  // EDITOR + WAVEFORM — for coding exercises where student writes code and verifies output
   class EditorWaveformIDE extends IdePlugin {
     async onReady() {
       await this.setLayoutState({
@@ -353,38 +329,34 @@ In Module 1.2 you will meet the **multiplexer (MUX)**, a circuit that acts as a 
     }
   }
 
-  // Logic gates overview — VIZ only
   if (document.getElementById('mc-logic-gates')) {
     new VizOnlyIDE('mc-logic-gates', {
       codeURL: 'https://cdn.jsdelivr.net/gh/stevehoover/makerchip_examples@a0d80f640661653639c05de49fb8df76e9616f5c/logic_gates.tlv'
     });
   }
 
-  // Half adder demo — DIAGRAM + WAVEFORM (show circuit and verify signal values)
   if (document.getElementById('mc-half-adder')) {
     new DiagramWaveformIDE('mc-half-adder', {
       codeURL: base + 'half-adder.tlv'
     });
   }
 
-  // Match the waveform — WAVEFORM only (student reads the pattern)
   if (document.getElementById('mc-and-waveform')) {
     new WaveformOnlyIDE('mc-and-waveform', {
       codeURL: base + 'xor-puzzle.tlv'
     });
   }
 
-  // XOR coding exercise — EDITOR + WAVEFORM (student writes code and checks output)
   if (document.getElementById('mc-xor-exercise')) {
     new EditorWaveformIDE('mc-xor-exercise', {
-      codeURL: base + 'xor-puzzle.tlv'
+      codeURL: base + 'xor-exercise.tlv'
     });
   }
 
-  // Three-input AND exercise — EDITOR + WAVEFORM
   if (document.getElementById('mc-three-input-and')) {
     new EditorWaveformIDE('mc-three-input-and', {
       codeURL: base + 'three-input-and.tlv'
     });
   }
 </script>
+

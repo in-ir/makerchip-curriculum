@@ -703,7 +703,7 @@
   <span class="md-ellipsis">
     
   
-    Pixel Art
+    Project - Pixel Art
   
 
     
@@ -801,7 +801,7 @@
 </tr>
 </tbody>
 </table>
-<p>Read it row by row. When the input is <code>00</code>, only Y[0] is <code>1</code>. When the input is <code>01</code>, only Y[1] is <code>1</code>. And so on.</p>
+<p>Read it row by row. When the input is <code>00</code>, only Y[0] is <code>1</code>. When the input is <code>01</code>, only Y[1] is <code>1</code>. And so on. Exactly one output is high at any given time.</p>
 <p><strong>Circuit diagram:</strong></p>
 <p><img alt="2-to-4 decoder" src="../../assets/images/decoder-2to4.svg" /></p>
 <p><strong>In TL-Verilog:</strong></p>
@@ -810,73 +810,27 @@
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>           $in[1:0] == 2&#39;b01 ? 4&#39;b0010 :
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>                               4&#39;b0001;
 </code></pre></div>
-<p>You already know this pattern. It is the same chained condition syntax from Module 1.2. The difference is that instead of selecting a single-bit signal, you are outputting a 4-bit one-hot value with exactly one bit set to <code>1</code>.</p>
+<p>You already know this pattern. It is the same chained condition syntax from Module 1.2. The difference is that instead of selecting a single-bit signal, you are outputting a 4-bit value with exactly one bit set to <code>1</code>.</p>
 <div class="admonition note">
 <p class="admonition-title">One-hot encoding</p>
 <p>The output pattern of a decoder, exactly one bit high at a time, is called <strong>one-hot encoding</strong>. It is used throughout digital design whenever you need to represent mutually exclusive states. Finite state machines, instruction decoders, and memory address logic all rely on this idea.</p>
 </div>
 <h3 id="see-the-decoder-circuit-in-makerchip">See the decoder circuit in Makerchip</h3>
-<p>The embed below shows the 2-to-4 decoder circuit and its waveform. Watch the <code>$y</code> signal as <code>$in</code> cycles through 00, 01, 10, and 11. The active bit should shift from right to left like a spotlight scanning across four outputs.</p>
+<p>The embed below shows the 2-to-4 decoder circuit and its waveform. Watch the <code>$y</code> output in the waveform as the input changes over time. You will see the output value change as each new input selects a different output line.</p>
 <div id="mc-decoder-demo" class="makerchip-embed"></div>
 
 <details class="note">
 <summary>What are <code>clk</code> and <code>reset</code>?</summary>
-<p>Makerchip always shows <code>clk</code> and <code>reset</code> in the waveform. Ignore them for now. Combinational circuits do not use a clock. The output responds instantly to the inputs with no timing involved. You will learn what the clock does when we get to sequential logic in Block 2.</p>
+<p>Makerchip always shows <code>clk</code> and <code>reset</code> in the waveform. Ignore them for now. Combinational circuits do not depend on a clock. The output responds instantly to the inputs. You will learn what the clock does when we get to sequential logic in Block 2.</p>
 </details>
 <h2 id="match-the-waveform">Match the waveform</h2>
-<p>Look at the waveform below. A 2-bit input <code>$in</code> produces a 4-bit output <code>$y</code>. Study the pattern and determine which output bit is active for each value of <code>$in</code>.</p>
+<p>Look at the waveform below. A 2-bit input <code>$in</code> produces a 4-bit output <code>$y</code>. Study how <code>$y</code> changes as <code>$in</code> changes and determine the relationship.</p>
 <div id="mc-decoder-waveform" class="makerchip-embed-small"></div>
 
-<table>
-<thead>
-<tr>
-<th>Cycle</th>
-<th>$in</th>
-<th>$y[3]</th>
-<th>$y[2]</th>
-<th>$y[1]</th>
-<th>$y[0]</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>00</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>1</td>
-</tr>
-<tr>
-<td>2</td>
-<td>01</td>
-<td>0</td>
-<td>0</td>
-<td>1</td>
-<td>0</td>
-</tr>
-<tr>
-<td>3</td>
-<td>10</td>
-<td>0</td>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr>
-<td>4</td>
-<td>11</td>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-</tr>
-</tbody>
-</table>
 <p>Write the TL-Verilog expression for <code>$y</code>, then verify it in the exercise below.</p>
 <details class="hint">
 <summary>How to read the pattern</summary>
-<p>In cycle 1, <code>$in</code> is <code>00</code> and only <code>$y[0]</code> is <code>1</code>. In cycle 4, <code>$in</code> is <code>11</code> and only <code>$y[3]</code> is <code>1</code>. Exactly one bit is active at a time, and it corresponds directly to the value of <code>$in</code>. What syntax lets you check the value of <code>$in</code> and output a specific 4-bit pattern for each case?</p>
+<p>Watch the output value in the waveform. Each time <code>$in</code> changes, exactly one bit in <code>$y</code> goes high and all others go low. The active bit corresponds directly to the value of <code>$in</code>. What syntax lets you check the value of <code>$in</code> and output a specific 4-bit pattern for each case?</p>
 </details>
 <details class="solution">
 <summary>Solution</summary>
@@ -888,10 +842,10 @@
 <p>The chained condition pattern from Module 1.2 works here too. The only difference is that the output is a multi-bit one-hot value instead of a single signal.</p>
 </details>
 <h2 id="the-decoder-as-the-inverse-of-a-mux">The decoder as the inverse of a MUX</h2>
-<p>It helps to think of decoders and MUXes as opposites. A MUX takes many inputs and routes one to the output based on a select signal. A decoder takes one input (the select) and routes it to one of many outputs.</p>
+<p>It helps to think of decoders and MUXes as opposites. A MUX takes many inputs and routes one to the output based on a select signal. A decoder takes one input (the select) and routes it to one of many outputs. The inverse of a decoder is called an <strong>encoder</strong>, which does the opposite: it takes a one-hot input and produces the binary index of the active bit.</p>
 <p>You can in fact build a MUX out of a decoder and some AND gates. That is not something you need to do right now, but it illustrates how these building blocks compose. Understanding one deepens your understanding of the other.</p>
 <h2 id="exercise-3-to-8-decoder">Exercise: 3-to-8 decoder</h2>
-<p>Build a 3-to-8 decoder. You have a 3-bit input <code>$in[2:0]</code>. Your output <code>$y[7:0]</code> should have exactly one bit set to <code>1</code>, specifically the bit corresponding to the value of <code>$in</code>. For example, when <code>$in = 3'b101</code> (which is 5 in decimal), <code>$y[5]</code> should be <code>1</code> and all others should be <code>0</code>.</p>
+<p>Build a 3-to-8 decoder. You have a 3-bit input <code>$in[2:0]</code>. Your output <code>$y[7:0]</code> should have exactly one bit set to <code>1</code>, specifically the bit corresponding to the value of <code>$in</code>. For example, when <code>$in</code> is 5, <code>$y[5]</code> should be <code>1</code> and all others should be <code>0</code>.</p>
 <div id="mc-decoder-exercise" class="makerchip-embed"></div>
 
 <p>The starter code has <code>$y[7:0] = 8'b0</code> as a placeholder. Replace it with the correct decoder logic.</p>
@@ -910,7 +864,7 @@
 <a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>           $in[2:0] == 3&#39;b001 ? 8&#39;b00000010 :
 <a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>                                8&#39;b00000001;
 </code></pre></div>
-<p>Check the waveform: as <code>$in</code> counts from 0 to 7, the single active bit in <code>$y</code> should march from right to left. If it does, your decoder is correct.</p>
+<p>Check the waveform: as <code>$in</code> counts from 0 to 7, the single active bit in <code>$y</code> should shift from right to left. If it does, your decoder is correct.</p>
 </details>
 <h2 id="challenge-7-segment-display-driver">Challenge: 7-segment display driver</h2>
 <p>Every digital clock, calculator, and scoreboard you have ever seen uses a <strong>7-segment display</strong>, those rectangular digits made of seven individually-controlled LED segments labeled A through G:</p>
@@ -1048,7 +1002,7 @@
 <p>A 7-segment display driver is one of the first things engineers build when learning FPGAs. You just built one. Every digit on a digital clock works exactly like this.</p>
 </details>
 <h2 id="where-this-fits-next">Where this fits next</h2>
-<p>Decoders are the last pure gate-level building block you need before arithmetic. In Module 1.4 you will put everything together into an <strong>ALU</strong> (Arithmetic Logic Unit), the circuit at the heart of every processor. Gates, MUXes, and decoders are all the ingredients you need.</p>
+<p>Decoders are the last pure gate-level building block you need before arithmetic. In Module 1.4 you will put everything together into an <strong>Arithmetic Logic Unit (ALU)</strong>, the circuit at the heart of every processor. Gates, MUXes, and decoders are all the ingredients you need.</p>
 <h2 id="quick-reference">Quick reference</h2>
 <table>
 <thead>
@@ -1086,7 +1040,6 @@
 
   const base = 'https://raw.githubusercontent.com/in-ir/makerchip-curriculum/main/code/block-1/';
 
-  // DIAGRAM + WAVEFORM — for circuit demos
   class DiagramWaveformIDE extends IdePlugin {
     async onReady() {
       await this.setLayoutState({
@@ -1099,7 +1052,6 @@
     }
   }
 
-  // WAVEFORM only — for match-the-waveform exercises
   class WaveformOnlyIDE extends IdePlugin {
     async onReady() {
       await this.setLayoutState({
@@ -1110,7 +1062,6 @@
     }
   }
 
-  // EDITOR + WAVEFORM — for coding exercises
   class EditorWaveformIDE extends IdePlugin {
     async onReady() {
       await this.setLayoutState({
@@ -1123,28 +1074,24 @@
     }
   }
 
-  // 2-to-4 decoder demo — DIAGRAM + WAVEFORM
   if (document.getElementById('mc-decoder-demo')) {
     new DiagramWaveformIDE('mc-decoder-demo', {
       codeURL: base + '2to4-decoder.tlv'
     });
   }
 
-  // Match the waveform — WAVEFORM only
   if (document.getElementById('mc-decoder-waveform')) {
     new WaveformOnlyIDE('mc-decoder-waveform', {
       codeURL: base + '2to4-decoder.tlv'
     });
   }
 
-  // 3-to-8 decoder exercise — EDITOR + WAVEFORM
   if (document.getElementById('mc-decoder-exercise')) {
     new EditorWaveformIDE('mc-decoder-exercise', {
       codeURL: base + 'decoder-exercise.tlv'
     });
   }
 
-  // 7-segment challenge — EDITOR + WAVEFORM
   if (document.getElementById('mc-decoder-challenge')) {
     new EditorWaveformIDE('mc-decoder-challenge', {
       codeURL: base + 'decoder-challenge.tlv'

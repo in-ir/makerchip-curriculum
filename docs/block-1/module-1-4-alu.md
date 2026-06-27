@@ -1,4 +1,4 @@
-# Module 1.4: The ALU
+# Module 1.4: The Arithmetic Logic Unit (ALU)
 
 **Block 1 — Combinational Logic**  
 **Estimated time:** 60–90 minutes  
@@ -12,7 +12,7 @@ By the end of this module you will be able to explain what an ALU is and why it 
 
 Every computation your computer performs, whether adding two numbers, comparing values, running a loop, or rendering a pixel, eventually comes down to one circuit: the **Arithmetic Logic Unit**, or **ALU**.
 
-An ALU is a combinational circuit that takes two inputs and an opcode and produces one output. The opcode tells it which operation to perform. Everything else (the clock, the memory, the registers) feeds into and out of the ALU, but the ALU itself is pure combinational logic. No state, no memory. Just inputs in and output out.
+An ALU is a combinational circuit that takes two inputs and an opcode and produces one output. The opcode tells it which operation to perform. Everything else (the memory, the registers) feeds into and out of the ALU, but the ALU itself is pure combinational logic. No state, no memory. Just inputs in and output out.
 
 You built a simplified version of this in Module 1.2. What you are building now is the real thing.
 
@@ -170,34 +170,27 @@ Ten lines. That is a complete ALU.
 
 ### See the ALU in Makerchip
 
-The embed below shows the ALU circuit and its waveform. Watch `$out` change as `$op` cycles through the eight operations.
+The embed below shows the ALU circuit and its waveform. Watch `$out` change as `$op` changes over time.
 
 <div id="mc-alu-demo" class="makerchip-embed"></div>
 
 ??? note "What are `clk` and `reset`?"
 
-    Makerchip always shows `clk` and `reset` in the waveform. Ignore them for now. Combinational circuits do not use a clock. The output responds instantly to the inputs with no timing involved. You will learn what the clock does when we get to sequential logic in Block 2.
+    Makerchip always shows `clk` and `reset` in the waveform. Ignore them for now. Combinational circuits do not depend on a clock. The output responds instantly to the inputs. You will learn what the clock does when we get to sequential logic in Block 2.
 
-## Match the waveform
+## Reverse engineer the waveform
 
-Look at the waveform below. Two 8-bit inputs `$a` and `$b` and a 3-bit opcode `$op` produce an output `$out`. Study the pattern and determine which operation is being applied in each cycle.
+Look at the waveform below. Two 8-bit inputs `$a` and `$b` and a 3-bit opcode `$op` produce an output `$out`. Study the output values and work out which operation is being applied each time the opcode changes.
 
 <div id="mc-alu-waveform" class="makerchip-embed-small"></div>
 
-| Cycle | $op    | $a       | $b       | $out     |
-| ----- | ------ | -------- | -------- | -------- |
-| 1     | 3'b000 | 11001100 | 10101010 | 10001000 |
-| 2     | 3'b001 | 11001100 | 10101010 | 11101110 |
-| 3     | 3'b100 | 00000011 | 00000001 | 00000100 |
-| 4     | 3'b110 | 00000001 | xxxxxxxx | 00000010 |
-
 ??? hint "How to read the pattern"
 
-    In cycle 1, `$out` has a `1` only where both `$a` and `$b` have `1`. In cycle 2, `$out` has a `1` wherever either input has a `1`. In cycle 3, `$out` is the sum of `$a` and `$b`. In cycle 4, `$out` is `$a` shifted one position left. Match each to the opcode table above.
+    Look at each section where `$op` is constant and ask: what relationship does `$out` have to `$a` and `$b`? Is it a bitwise combination? A sum? A shift? Match what you see to the opcode table above.
 
 ??? solution "Solution"
 
-    Cycle 1 (`3'b000`) is AND, cycle 2 (`3'b001`) is OR, cycle 3 (`3'b100`) is ADD, and cycle 4 (`3'b110`) is SHL. Reading waveforms and identifying operations from output patterns is exactly what hardware engineers do when debugging a processor.
+    When `$op` is `3'b000`, `$out` has a `1` only where both `$a` and `$b` have `1` — that is AND. When `$op` is `3'b001`, `$out` has a `1` wherever either input has `1` — that is OR. When `$op` is `3'b100`, `$out` is the sum of `$a` and `$b` — that is ADD. When `$op` is `3'b110`, `$out` is `$a` shifted one position left — that is SHL. Working backwards from output patterns to operations is exactly what hardware engineers do when debugging a processor.
 
 ## Exercise: Extend the ALU with XNOR
 
@@ -237,7 +230,7 @@ The starter code has the 8-operation ALU already working. Add the XNOR operation
 
 ## Challenge: Flag generation
 
-A real ALU does not just produce a result. It also produces **flags** that describe properties of the result. These flags are what allow the processor to make decisions. They are the hardware that makes if-statements possible.
+Many processors use **flags** to describe properties of an ALU result, allowing the processor to make decisions based on the outcome of an operation. Note that not all instruction set architectures use flags — this is one design choice among many.
 
 Add the following flags to your ALU. The **zero flag** `$zero` should be `1` if `$out` is all zeros. The **negative flag** `$neg` should be `1` if the most significant bit of `$out` is `1`, indicating a negative number in two's complement. The **carry flag** `$carry` should be `1` if the addition produced a carry out of the 8th bit.
 
@@ -274,26 +267,26 @@ Add the following flags to your ALU. The **zero flag** `$zero` should be `1` if 
     $carry = $add_with_carry[8];
     ```
 
-    When you write `if (a == b)` in C, the compiler generates a SUB instruction and checks the zero flag. When you write `if (a < 0)`, it checks the negative flag. You just built the hardware that makes those decisions possible.
+    In processors that use flags, when you write `if (a == b)` in C, the compiler generates a SUB instruction and checks the zero flag. When you write `if (a < 0)`, it checks the negative flag. You just built the hardware that makes those decisions possible.
 
 ## Where this fits next
 
 You have now completed Block 1. You can build any combinational circuit from gates, route signals with MUXes, decode binary values, and perform arithmetic and logic operations with a full ALU. These are the building blocks of every digital system ever made.
 
-In Block 2 you will add the missing ingredient: **state**. You will learn how circuits can remember values across clock cycles and use that to build counters, registers, and your first finite state machine.
+In Block 2 you will add the missing ingredient: **state**. You will learn how circuits can remember values over time and use that to build counters, registers, and your first finite state machine.
 
 ## Quick reference
 
-| Operation | TL-Verilog | Description                    |
-| --------- | ---------- | ------------------------------ |
-| AND       | `$a & $b`  | Bitwise AND                    |
-| OR        | `$a \| $b` | Bitwise OR                     |
-| XOR       | `$a ^ $b`  | Bitwise XOR                    |
-| NOT       | `~$a`      | Bitwise NOT                    |
-| ADD       | `$a + $b`  | Addition                       |
-| SUB       | `$a - $b`  | Subtraction (two's complement) |
-| SHL       | `$a << 1`  | Logical shift left             |
-| SHR       | `$a >> 1`  | Logical shift right            |
+| Operation | TL-Verilog  | Description                    |
+| --------- | ----------- | ------------------------------ |
+| AND       | `$a & $b`   | Bitwise AND                    |
+| OR        | `$a \| $b`  | Bitwise OR                     |
+| XOR       | `$a ^ $b`   | Bitwise XOR                    |
+| NOT       | `~$a`       | Bitwise NOT                    |
+| ADD       | `$a + $b`   | Addition                       |
+| SUB       | `$a - $b`   | Subtraction (two's complement) |
+| SHL       | `$a << 1`   | Logical shift left             |
+| SHR       | `$a >> 1`   | Logical shift right            |
 
 <style>
 .makerchip-embed       { position: relative; width: 100%; height: 500px; }
@@ -305,7 +298,6 @@ In Block 2 you will add the missing ingredient: **state**. You will learn how ci
 
   const base = 'https://raw.githubusercontent.com/in-ir/makerchip-curriculum/main/code/block-1/';
 
-  // DIAGRAM + WAVEFORM — for circuit demos
   class DiagramWaveformIDE extends IdePlugin {
     async onReady() {
       await this.setLayoutState({
@@ -318,7 +310,6 @@ In Block 2 you will add the missing ingredient: **state**. You will learn how ci
     }
   }
 
-  // WAVEFORM only — for match-the-waveform exercises
   class WaveformOnlyIDE extends IdePlugin {
     async onReady() {
       await this.setLayoutState({
@@ -329,7 +320,6 @@ In Block 2 you will add the missing ingredient: **state**. You will learn how ci
     }
   }
 
-  // EDITOR + WAVEFORM — for coding exercises
   class EditorWaveformIDE extends IdePlugin {
     async onReady() {
       await this.setLayoutState({
@@ -342,28 +332,24 @@ In Block 2 you will add the missing ingredient: **state**. You will learn how ci
     }
   }
 
-  // ALU demo — DIAGRAM + WAVEFORM
   if (document.getElementById('mc-alu-demo')) {
     new DiagramWaveformIDE('mc-alu-demo', {
       codeURL: base + 'alu.tlv'
     });
   }
 
-  // Match the waveform — WAVEFORM only
   if (document.getElementById('mc-alu-waveform')) {
     new WaveformOnlyIDE('mc-alu-waveform', {
       codeURL: base + 'alu.tlv'
     });
   }
 
-  // XNOR exercise — EDITOR + WAVEFORM
   if (document.getElementById('mc-alu-exercise')) {
     new EditorWaveformIDE('mc-alu-exercise', {
       codeURL: base + 'alu-exercise.tlv'
     });
   }
 
-  // Flag generation challenge — EDITOR + WAVEFORM
   if (document.getElementById('mc-alu-challenge')) {
     new EditorWaveformIDE('mc-alu-challenge', {
       codeURL: base + 'alu-challenge.tlv'
