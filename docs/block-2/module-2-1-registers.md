@@ -1,8 +1,8 @@
 # Module 2.1: Registers
 
-**Block 2 — Sequential Logic**
-**Estimated time:** 45–60 minutes
-**Prerequisites:** Block 1 — Combinational Logic
+**Block 2 — Sequential Logic**  
+**Estimated time:** 60-90 minutes  
+**Prerequisites:** None
 
 ## What you'll learn
 
@@ -10,7 +10,7 @@ By the end of this module you will be able to explain why combinational logic al
 
 ## The wall you're about to hit
 
-Everything you built in Block 1 shares one property: the output depends only on the inputs *right now*. An AND gate doesn't remember what its inputs were a moment ago, it just reacts. Change the input, the output changes with it, instantly, with nothing in between.
+Everything you built in Block 1 shares one property: the output depends only on the inputs _right now_. An AND gate doesn't remember what its inputs were a moment ago, it just reacts. Change the input, the output changes with it, instantly, with nothing in between.
 
 So try this one in your head: build a circuit that counts how many times a button has been pressed. Where would the running total live? You don't have anywhere to put it, every signal you wrote in Block 1 is computed fresh, from scratch, every single moment, with no memory of what came before. To count, score, or remember anything at all, a circuit needs a way to hold onto a value across time. That's the entire problem this module solves, and it's a bigger deal than it sounds. Almost nothing you'd call "computing" exists without it.
 
@@ -91,11 +91,11 @@ In Module 2.2 you'll wire this register-plus-feedback idea into a proper **count
 
 ## Quick reference
 
-| Concept | TL-Verilog | Description |
-| --- | --- | --- |
-| Previous value | `>>1$signal` | The value `$signal` held one clock cycle ago |
-| Basic register | `$x = >>1$x + 1;` | Holds and updates a value each cycle |
-| Reset to zero | `$x = *reset ? 0 : >>1$x + 1;` | Forces a known value when reset is active |
+| Concept          | TL-Verilog                     | Description                                            |
+| ---------------- | ------------------------------ | ------------------------------------------------------ |
+| Previous value   | `>>1$signal`                   | The value `$signal` held one clock cycle ago           |
+| Basic register   | `$x = >>1$x + 1;`              | Holds and updates a value each cycle                   |
+| Reset to zero    | `$x = *reset ? 0 : >>1$x + 1;` | Forces a known value when reset is active              |
 | Conditional hold | `$x = cond ? new_val : >>1$x;` | Updates only when a condition is true, otherwise holds |
 
 <style>
