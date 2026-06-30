@@ -786,6 +786,10 @@
 <p>When SEL is <code>0</code>, the output is whatever A is. When SEL is <code>1</code>, the output is whatever B is.</p>
 <p><strong>Circuit symbol:</strong></p>
 <p><img alt="2-to-1 MUX" src="../../assets/images/2to1-mux.svg" /></p>
+<p><strong>See it in action:</strong></p>
+<p>The visualization below shows the MUX responding to live inputs. Watch how the active input wire lights up and the output follows the selected input as SEL changes.</p>
+<div id="mc-mux-viz" class="makerchip-embed"></div>
+
 <p><strong>In TL-Verilog:</strong></p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>$out = $sel ? $b : $a;
 </code></pre></div>
@@ -983,6 +987,15 @@
 
   const base = 'https://raw.githubusercontent.com/in-ir/makerchip-curriculum/main/code/block-1/';
 
+  class VizOnlyIDE extends IdePlugin {
+    async onReady() {
+      await this.setLayoutState({
+        panes: ['Viz'],
+        activePane: 'Viz'
+      });
+    }
+  }
+
   class DiagramWaveformIDE extends IdePlugin {
     async onReady() {
       await this.setLayoutState({
@@ -1015,6 +1028,12 @@
         splitAt: 0.5
       });
     }
+  }
+
+  if (document.getElementById('mc-mux-viz')) {
+    new VizOnlyIDE('mc-mux-viz', {
+      codeURL: base + '2to1-mux-viz.tlv'
+    });
   }
 
   if (document.getElementById('mc-mux-demo')) {
