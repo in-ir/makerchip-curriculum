@@ -1,15 +1,25 @@
 # Block 2: Sequential Logic
 
-In Block 1 you learned how to build circuits that react instantly to their inputs. Every output was a pure function of the present moment, nothing about it could remember the past.
+In this block you'll learn the missing ingredient from Block 1: **state**.
 
-In this block you'll add the missing ingredient: **state**. You'll learn how a circuit can hold a value over time, count, track, and transition between behaviors, building toward your first finite state machine.
+A sequential circuit is one where the output depends not just on the current inputs, but on what the circuit remembers from before. That memory comes from registers, clocked one cycle at a time, and it's what lets a circuit count, track, and behave differently over time instead of just reacting.
 
-## What you'll build
+## What you'll learn
 
-- **Module 2.1 — Registers:** give a circuit memory for the first time
-- **Module 2.2 — Counters:** wire a register into a controlled, resettable counter
-- **Module 2.3 — Shift Registers:** move bits through a chain of flip-flops, the basis of randomness and animation
-- **Module 2.4 — Finite State Machines:** circuits that behave differently depending on what state they're in
-- **Project — Whack-a-Mole:** an interactive game that puts every concept in this block to work
+- How a flip-flop captures and holds a value on a clock edge
+- How to read and write registers in TL-Verilog using `>>1`
+- How to build counters that increment, hold, and wrap around
+- How shift registers move bits through a chain, and how that powers randomness
+- How finite state machines let a circuit behave differently depending on what state it's in
 
-Start with **Module 2.1: Registers**.
+## Modules
+
+1. [Module 2.1 — Registers](module-2-1-registers.md)
+2. [Module 2.2 — Counters](module-2-2-counters.md)
+3. [Module 2.3 — Shift Registers](module-2-3-shift-registers.md)
+4. [Module 2.4 — Finite State Machines](module-2-4-fsm.md)
+5. [Project — Whack-a-Mole](block-2-project.md)
+
+## Project
+
+By the end of Block 2 you'll have everything needed to build circuits with memory and behavior, not just instant reactions. These are the building blocks for the FSM-driven Whack-a-Mole project, and for everything in Blocks 3 and 4.
