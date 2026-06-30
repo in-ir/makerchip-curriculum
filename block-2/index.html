@@ -707,17 +707,26 @@
 
 
 <h1 id="block-2-sequential-logic">Block 2: Sequential Logic</h1>
-<p>In Block 1 you learned how to build circuits that react instantly to their inputs. Every output was a pure function of the present moment, nothing about it could remember the past.</p>
-<p>In this block you'll add the missing ingredient: <strong>state</strong>. You'll learn how a circuit can hold a value over time, count, track, and transition between behaviors, building toward your first finite state machine.</p>
-<h2 id="what-youll-build">What you'll build</h2>
+<p>In this block you'll learn the missing ingredient from Block 1: <strong>state</strong>.</p>
+<p>A sequential circuit is one where the output depends not just on the current inputs, but on what the circuit remembers from before. That memory comes from registers, clocked one cycle at a time, and it's what lets a circuit count, track, and behave differently over time instead of just reacting.</p>
+<h2 id="what-youll-learn">What you'll learn</h2>
 <ul>
-<li><strong>Module 2.1 — Registers:</strong> give a circuit memory for the first time</li>
-<li><strong>Module 2.2 — Counters:</strong> wire a register into a controlled, resettable counter</li>
-<li><strong>Module 2.3 — Shift Registers:</strong> move bits through a chain of flip-flops, the basis of randomness and animation</li>
-<li><strong>Module 2.4 — Finite State Machines:</strong> circuits that behave differently depending on what state they're in</li>
-<li><strong>Project — Whack-a-Mole:</strong> an interactive game that puts every concept in this block to work</li>
+<li>How a flip-flop captures and holds a value on a clock edge</li>
+<li>How to read and write registers in TL-Verilog using <code>&gt;&gt;1</code></li>
+<li>How to build counters that increment, hold, and wrap around</li>
+<li>How shift registers move bits through a chain, and how that powers randomness</li>
+<li>How finite state machines let a circuit behave differently depending on what state it's in</li>
 </ul>
-<p>Start with <strong>Module 2.1: Registers</strong>.</p>
+<h2 id="modules">Modules</h2>
+<ol>
+<li><a href="module-2-1-registers/">Module 2.1 — Registers</a></li>
+<li><a href="module-2-2-counters.md">Module 2.2 — Counters</a></li>
+<li><a href="module-2-3-shift-registers.md">Module 2.3 — Shift Registers</a></li>
+<li><a href="module-2-4-fsm.md">Module 2.4 — Finite State Machines</a></li>
+<li><a href="block-2-project.md">Project — Whack-a-Mole</a></li>
+</ol>
+<h2 id="project">Project</h2>
+<p>By the end of Block 2 you'll have everything needed to build circuits with memory and behavior, not just instant reactions. These are the building blocks for the FSM-driven Whack-a-Mole project, and for everything in Blocks 3 and 4.</p>
 
 
 
