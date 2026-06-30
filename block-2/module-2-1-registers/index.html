@@ -1,0 +1,781 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="An open curriculum for learning digital design through interactive, visual, game-based projects.">
+      
+      
+        <meta name="author" content="Ines Iraoui">
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Module 2.1: Registers - Digital Design with Makerchip & TL-Verilog</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=JetBrains+Mono:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"JetBrains Mono";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="deep-purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#module-21-registers" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Digital Design with Makerchip &amp; TL-Verilog" class="md-header__button md-logo" aria-label="Digital Design with Makerchip & TL-Verilog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Digital Design with Makerchip & TL-Verilog
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Module 2.1: Registers
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../get-started/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Get Started
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../block-1/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Block 1 — Combinational Logic
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Digital Design with Makerchip &amp; TL-Verilog" class="md-nav__button md-logo" aria-label="Digital Design with Makerchip & TL-Verilog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Digital Design with Makerchip & TL-Verilog
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../get-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Get Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../block-1/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Block 1 — Combinational Logic
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Block 1 — Combinational Logic
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../block-1/module-1-1-logic-gates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 1.1 — Logic Gates
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../block-1/module-1-2-mux/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 1.2 — The Multiplexer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../block-1/module-1-3-decoder/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 1.3 — Decoders
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../block-1/module-1-4-alu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 1.4 — Arithmetic Logic Units
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../block-1/block-1-project/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project - Pixel Art
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="module-21-registers">Module 2.1: Registers</h1>
+<p><strong>Block 2 — Sequential Logic</strong>
+<strong>Estimated time:</strong> 45–60 minutes
+<strong>Prerequisites:</strong> Block 1 — Combinational Logic</p>
+<h2 id="what-youll-learn">What you'll learn</h2>
+<p>By the end of this module you will be able to explain why combinational logic alone cannot remember anything, describe what a flip-flop does on a clock tick, read and write a register in TL-Verilog using the <code>&gt;&gt;1</code> operator, avoid the two most common beginner mistakes with sequential logic, and use a register to track a value over time, not just count.</p>
+<h2 id="the-wall-youre-about-to-hit">The wall you're about to hit</h2>
+<p>Everything you built in Block 1 shares one property: the output depends only on the inputs <em>right now</em>. An AND gate doesn't remember what its inputs were a moment ago, it just reacts.</p>
+<p>Try this one in your head: build a circuit that counts how many times a button has been pressed. Where would the running total live? Nothing in Block 1 has a place to put it, because nothing persists from one moment to the next. To count, score, or remember anything at all, a circuit needs memory. That's the entire problem this module solves.</p>
+<h2 id="the-flip-flop-a-photo-taken-once-per-tick">The flip-flop: a photo taken once per tick</h2>
+<p>A <strong>flip-flop</strong> is a tiny piece of hardware that watches its input and, at one specific instant called the <strong>clock edge</strong>, captures whatever value is there and holds it. Between edges, the input can do whatever it wants, the flip-flop ignores it completely.</p>
+<p>Think of a camera that snaps exactly one photo per second no matter what's happening in front of it. The photo on display only changes the instant the shutter clicks. A <strong>register</strong> is just several flip-flops working together to hold a multi-bit value, like a 4-bit number instead of a single bit.</p>
+<h2 id="1-reaching-one-cycle-into-the-past"><code>&gt;&gt;1</code>: reaching one cycle into the past</h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>$count[3:0] = &gt;&gt;1$count + 1;
+</code></pre></div>
+<p><code>&gt;&gt;1$count</code> means "the value <code>$count</code> had one clock cycle ago." So this line says: take last cycle's count, add one, that's this cycle's count. One adder, one register, feeding into each other.</p>
+<details class="note">
+<summary>Why don't I write <code>clk</code> myself?</summary>
+<p>Raw Verilog spells out <code>always @(posedge clk)</code> every time. TL-Verilog skips that, <code>&gt;&gt;1$signal</code> already tells the tool "register this on the clock edge." That's all you need for this entire block.</p>
+</details>
+<p>Here's that counter live. Hover over a couple of consecutive cycles in the waveform and check: does this cycle's <code>$count</code> equal last cycle's value, plus one?</p>
+<div id="mc-register-demo" class="makerchip-embed-small"></div>
+
+<h2 id="watch-it-break-no-reset">Watch it break: no reset</h2>
+<p>What happens if a register never gets told where to start? Run this one and look at <code>$count</code> in cycle 0.</p>
+<div id="mc-register-no-reset" class="makerchip-embed-small"></div>
+
+<p>In simulation it happens to start near zero, but on a real chip a flip-flop powers on holding whatever electrical noise was sitting in it, could be anything. That's why <code>*reset</code> exists, it's a signal Makerchip pulses high for the first few cycles specifically so you can force a known starting value:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>$count[3:0] = *reset ? 4&#39;b0 : &gt;&gt;1$count + 1;
+</code></pre></div>
+<h2 id="watch-it-break-x-instead-of-1x">Watch it break: <code>$x</code> instead of <code>&gt;&gt;1$x</code></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>$count[3:0] = *reset ? 4&#39;b0 : $count + 1;
+</code></pre></div>
+<p>This says "this cycle's count depends on this cycle's count." No notion of time at all, just a circular definition, the hardware equivalent of <code>x = x + 1</code> in ordinary math. The tool rejects it. Anywhere you mean "my value from before," it has to be <code>&gt;&gt;1$count</code>, never bare <code>$count</code>.</p>
+<h2 id="beyond-counting-holding-any-value">Beyond counting: holding any value</h2>
+<p>A register doesn't have to add one each cycle. It can hold a score, a flag, the biggest number seen so far, anything. The recipe is always: look at <code>&gt;&gt;1</code>'s value, decide the new value, let the register carry it forward.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>$max_so_far[3:0] = *reset ? 4&#39;b0 :
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>                   ($in &gt; &gt;&gt;1$max_so_far) ? $in : &gt;&gt;1$max_so_far;
+</code></pre></div>
+<p>Every cycle, compare the new input against what's currently held. Bigger wins, otherwise just keep holding.</p>
+<h2 id="match-the-waveform">Match the waveform</h2>
+<p>A register is toggling and counting below. Predict each signal before pressing play.</p>
+<div id="mc-register-waveform" class="makerchip-embed-small"></div>
+
+<h2 id="your-turn-track-the-maximum">Your turn: track the maximum</h2>
+<p>This circuit feeds a pseudo-random 4-bit value into <code>$in</code> every cycle. Complete <code>$max_so_far</code> using the reasoning above. Hints are in the editor comments.</p>
+<div id="mc-register-exercise" class="makerchip-embed"></div>
+
+<h2 id="where-this-fits-next">Where this fits next</h2>
+<p>You can now give a circuit memory: hold a value, reset it to something known, update it based on its own past.</p>
+<p>In Module 2.2 you'll wire this register-plus-feedback idea into a proper <strong>counter</strong>, with control over when it counts, when it holds, and when it wraps back to zero.</p>
+<h2 id="quick-reference">Quick reference</h2>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>TL-Verilog</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Previous value</td>
+<td><code>&gt;&gt;1$signal</code></td>
+<td>The value <code>$signal</code> held one clock cycle ago</td>
+</tr>
+<tr>
+<td>Basic register</td>
+<td><code>$x = &gt;&gt;1$x + 1;</code></td>
+<td>Holds and updates a value each cycle</td>
+</tr>
+<tr>
+<td>Reset to zero</td>
+<td><code>$x = *reset ? 0 : &gt;&gt;1$x + 1;</code></td>
+<td>Forces a known value when reset is active</td>
+</tr>
+<tr>
+<td>Conditional hold</td>
+<td><code>$x = cond ? new_val : &gt;&gt;1$x;</code></td>
+<td>Updates only when a condition is true, otherwise holds</td>
+</tr>
+</tbody>
+</table>
+<style>
+.makerchip-embed       { position: relative; width: 100%; height: 500px; }
+.makerchip-embed-small { position: relative; width: 100%; height: 333px; }
+</style>
+
+<script type="module">
+  import IdePlugin from 'https://beta.makerchip.com/dist/makerchip-plugin.js';
+
+  const base = 'https://raw.githubusercontent.com/in-ir/makerchip-curriculum/main/code/block-2/';
+
+  class DiagramWaveformIDE extends IdePlugin {
+    async onReady() {
+      await this.setLayoutState({
+        sides: {
+          left:  { panes: ['Diagram'],  activePane: 'Diagram'  },
+          right: { panes: ['Waveform'], activePane: 'Waveform' }
+        },
+        splitAt: 0.5
+      });
+    }
+  }
+
+  class WaveformOnlyIDE extends IdePlugin {
+    async onReady() {
+      await this.setLayoutState({
+        panes: ['Waveform'],
+        activePane: 'Waveform'
+      });
+      await this.compile();
+    }
+  }
+
+  class EditorWaveformIDE extends IdePlugin {
+    async onReady() {
+      await this.setLayoutState({
+        sides: {
+          left:  { panes: ['Editor'],   activePane: 'Editor'   },
+          right: { panes: ['Waveform'], activePane: 'Waveform' }
+        },
+        splitAt: 0.5
+      });
+    }
+  }
+
+  if (document.getElementById('mc-register-demo')) {
+    new WaveformOnlyIDE('mc-register-demo', {
+      codeURL: base + 'register-demo.tlv'
+    });
+  }
+
+  if (document.getElementById('mc-register-no-reset')) {
+    new WaveformOnlyIDE('mc-register-no-reset', {
+      codeURL: base + 'register-no-reset.tlv'
+    });
+  }
+
+  if (document.getElementById('mc-register-waveform')) {
+    new WaveformOnlyIDE('mc-register-waveform', {
+      codeURL: base + 'register-waveform.tlv'
+    });
+  }
+
+  if (document.getElementById('mc-register-exercise')) {
+    new EditorWaveformIDE('mc-register-exercise', {
+      codeURL: base + 'register-exercise.tlv'
+    });
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.indexes", "toc.integrate", "navigation.footer", "content.code.copy", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
