@@ -873,9 +873,11 @@
 
 
 <h1 id="module-21-registers">Module 2.1: Registers</h1>
-<p><strong>Block 2 — Sequential Logic</strong>
-<strong>Estimated time:</strong> 45–60 minutes
+<p><strong>Block 2 — Sequential Logic</strong><br>
+<strong>Estimated time:</strong> 45–60 minutes<br>
 <strong>Prerequisites:</strong> Block 1 — Combinational Logic</p>
+<div id="mc-counter-teaser" class="makerchip-embed-small"></div>
+
 <h2 id="what-youll-learn">What you'll learn</h2>
 <p>By the end of this module you will be able to explain why combinational logic alone cannot remember anything, describe what a flip-flop does on a clock tick, read and write a register in TL-Verilog using the <code>&gt;&gt;1</code> operator, trace a register's value across a few cycles by hand, avoid the two most common beginner mistakes with sequential logic, and use a register to track a value over time, not just count.</p>
 <h2 id="the-wall-youre-about-to-hit">The wall you're about to hit</h2>
@@ -895,8 +897,10 @@
   </defs>
 
   <!-- Clock waveform on left -->
-  <text x="30" y="30" fill="#B39DDB" font-size="11" text-anchor="middle">clock</text>
-  <polyline points="10,80 10,50 40,50 40,80 70,80 70,50 100,50 100,80 130,80 130,50 160,50 160,80" fill="none" stroke="#7C4DFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+
+<text x="30" y="30" fill="#B39DDB" font-size="11" text-anchor="middle">clock</text>
+<polyline points="10,80 10,50 40,50 40,80 70,80 70,50 100,50 100,80 130,80 130,50 160,50 160,80" fill="none" stroke="#7C4DFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+
   <!-- Edge markers -->
   <line x1="40" y1="45" x2="40" y2="90" stroke="#7C4DFF" stroke-width="1" stroke-dasharray="3 3" opacity="0.5"/>
   <line x1="100" y1="45" x2="100" y2="90" stroke="#7C4DFF" stroke-width="1" stroke-dasharray="3 3" opacity="0.5"/>
@@ -922,15 +926,17 @@
   <text x="443" y="55" fill="#B39DDB" font-size="11" text-anchor="middle">Q (output)</text>
 
   <!-- Output signal - shows held values -->
-  <text x="540" y="30" fill="#B39DDB" font-size="11" text-anchor="middle">Q holds steady</text>
-  <polyline points="480,80 520,80 520,50 600,50 600,80 680,80 680,50 760,50 760,80 830,80" fill="none" stroke="#7C4DFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-  <text x="500" y="130" fill="#EDE7F6" font-size="10" text-anchor="middle">0</text>
-  <text x="560" y="130" fill="#EDE7F6" font-size="10" text-anchor="middle">1</text>
-  <text x="630" y="130" fill="#EDE7F6" font-size="10" text-anchor="middle">0</text>
-  <text x="710" y="130" fill="#EDE7F6" font-size="10" text-anchor="middle">1</text>
-  <text x="795" y="130" fill="#EDE7F6" font-size="10" text-anchor="middle">...</text>
-  <text x="640" y="155" fill="#B39DDB" font-size="10" text-anchor="middle">value captured at each ↑ edge, held until next</text>
+
+<text x="540" y="30" fill="#B39DDB" font-size="11" text-anchor="middle">Q holds steady</text>
+<polyline points="480,80 520,80 520,50 600,50 600,80 680,80 680,50 760,50 760,80 830,80" fill="none" stroke="#7C4DFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="500" y="130" fill="#EDE7F6" font-size="10" text-anchor="middle">0</text>
+<text x="560" y="130" fill="#EDE7F6" font-size="10" text-anchor="middle">1</text>
+<text x="630" y="130" fill="#EDE7F6" font-size="10" text-anchor="middle">0</text>
+<text x="710" y="130" fill="#EDE7F6" font-size="10" text-anchor="middle">1</text>
+<text x="795" y="130" fill="#EDE7F6" font-size="10" text-anchor="middle">...</text>
+<text x="640" y="155" fill="#B39DDB" font-size="10" text-anchor="middle">value captured at each ↑ edge, held until next</text>
 </svg>
+
 </div>
 
 <p>A <strong>register</strong> is just several flip-flops working in lockstep to hold a multi-bit value — a 4-bit number instead of a single bit.</p>
@@ -1111,6 +1117,12 @@
         splitAt: 0.5
       });
     }
+  }
+
+  if (document.getElementById('mc-counter-teaser')) {
+    WaveformOnlyIDE.create('mc-counter-teaser', {
+      codeURL: base + 'register-demo.tlv'
+    });
   }
 
   if (document.getElementById('mc-register-demo')) {
