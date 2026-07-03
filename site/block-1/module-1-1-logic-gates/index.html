@@ -1375,31 +1375,31 @@
   }
 
   if (document.getElementById('mc-logic-gates')) {
-    new VizOnlyIDE('mc-logic-gates', {
+    VizOnlyIDE.create('mc-logic-gates', {
       codeURL: 'https://cdn.jsdelivr.net/gh/stevehoover/makerchip_examples@a0d80f640661653639c05de49fb8df76e9616f5c/logic_gates.tlv'
     });
   }
 
   if (document.getElementById('mc-half-adder')) {
-    new DiagramWaveformIDE('mc-half-adder', {
+    DiagramWaveformIDE.create('mc-half-adder', {
       codeURL: base + 'half-adder.tlv'
     });
   }
 
   if (document.getElementById('mc-and-waveform')) {
-    new WaveformOnlyIDE('mc-and-waveform', {
+    WaveformOnlyIDE.create('mc-and-waveform', {
       codeURL: base + 'xor-puzzle.tlv'
     });
   }
 
   if (document.getElementById('mc-xor-exercise')) {
-    new EditorWaveformIDE('mc-xor-exercise', {
+    EditorWaveformIDE.create('mc-xor-exercise', {
       codeURL: base + 'xor-exercise.tlv'
     });
   }
 
   if (document.getElementById('mc-three-input-and')) {
-    new EditorWaveformIDE('mc-three-input-and', {
+    EditorWaveformIDE.create('mc-three-input-and', {
       codeURL: base + 'three-input-and.tlv'
     });
   }

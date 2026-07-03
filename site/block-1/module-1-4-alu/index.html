@@ -1264,25 +1264,25 @@
   }
 
   if (document.getElementById('mc-alu-demo')) {
-    new DiagramWaveformIDE('mc-alu-demo', {
+    DiagramWaveformIDE.create('mc-alu-demo', {
       codeURL: base + 'alu.tlv'
     });
   }
 
   if (document.getElementById('mc-alu-waveform')) {
-    new WaveformOnlyIDE('mc-alu-waveform', {
+    WaveformOnlyIDE.create('mc-alu-waveform', {
       codeURL: base + 'alu.tlv'
     });
   }
 
   if (document.getElementById('mc-alu-exercise')) {
-    new EditorWaveformIDE('mc-alu-exercise', {
+    EditorWaveformIDE.create('mc-alu-exercise', {
       codeURL: base + 'alu-exercise.tlv'
     });
   }
 
   if (document.getElementById('mc-alu-challenge')) {
-    new EditorWaveformIDE('mc-alu-challenge', {
+    EditorWaveformIDE.create('mc-alu-challenge', {
       codeURL: base + 'alu-challenge.tlv'
     });
   }
