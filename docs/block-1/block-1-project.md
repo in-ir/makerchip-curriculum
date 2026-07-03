@@ -149,7 +149,7 @@ In Block 2 you will add **state** to your circuits. Instead of constant patterns
   }
 
   if (document.getElementById('mc-pixel-art')) {
-    new EditorVizIDE('mc-pixel-art', {
+    EditorVizIDE.create('mc-pixel-art', {
       codeURL: base + 'pixel-art.tlv'
     });
   }

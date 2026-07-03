@@ -224,25 +224,25 @@ Decoders are the last pure gate-level building block you need before arithmetic.
   }
 
   if (document.getElementById('mc-decoder-demo')) {
-    new DiagramWaveformIDE('mc-decoder-demo', {
+    DiagramWaveformIDE.create('mc-decoder-demo', {
       codeURL: base + '2to4-decoder.tlv'
     });
   }
 
   if (document.getElementById('mc-decoder-waveform')) {
-    new WaveformOnlyIDE('mc-decoder-waveform', {
+    WaveformOnlyIDE.create('mc-decoder-waveform', {
       codeURL: base + '2to4-decoder.tlv'
     });
   }
 
   if (document.getElementById('mc-decoder-exercise')) {
-    new EditorWaveformIDE('mc-decoder-exercise', {
+    EditorWaveformIDE.create('mc-decoder-exercise', {
       codeURL: base + 'decoder-exercise.tlv'
     });
   }
 
   if (document.getElementById('mc-decoder-challenge')) {
-    new EditorWaveformIDE('mc-decoder-challenge', {
+    EditorWaveformIDE.create('mc-decoder-challenge', {
       codeURL: base + 'decoder-challenge.tlv'
     });
   }

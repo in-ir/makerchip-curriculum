@@ -264,37 +264,37 @@ In Module 1.3 you will meet the **decoder**, a circuit that takes a binary numbe
   }
 
   if (document.getElementById('mc-mux-viz')) {
-    new VizOnlyIDE('mc-mux-viz', {
+    VizOnlyIDE.create('mc-mux-viz', {
       codeURL: base + '2to1-mux-viz.tlv'
     });
   }
 
   if (document.getElementById('mc-mux-demo')) {
-    new DiagramWaveformIDE('mc-mux-demo', {
+    DiagramWaveformIDE.create('mc-mux-demo', {
       codeURL: base + '2to1-mux.tlv'
     });
   }
 
   if (document.getElementById('mc-mux-waveform')) {
-    new WaveformOnlyIDE('mc-mux-waveform', {
+    WaveformOnlyIDE.create('mc-mux-waveform', {
       codeURL: base + '2to1-mux.tlv'
     });
   }
 
   if (document.getElementById('mc-mux-exercise-basic')) {
-    new EditorWaveformIDE('mc-mux-exercise-basic', {
+    EditorWaveformIDE.create('mc-mux-exercise-basic', {
       codeURL: base + 'mux-exercise-basic.tlv'
     });
   }
 
   if (document.getElementById('mc-mux-exercise')) {
-    new EditorWaveformIDE('mc-mux-exercise', {
+    EditorWaveformIDE.create('mc-mux-exercise', {
       codeURL: base + 'mux-exercise.tlv'
     });
   }
 
   if (document.getElementById('mc-mux-challenge')) {
-    new EditorWaveformIDE('mc-mux-challenge', {
+    EditorWaveformIDE.create('mc-mux-challenge', {
       codeURL: base + 'mux-challenge.tlv'
     });
   }

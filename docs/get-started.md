@@ -146,14 +146,14 @@ Once you are comfortable with the interface, jump to whichever block fits what y
 
   // Intro — full IDE so students can see all panes
   if (document.getElementById('mc-intro')) {
-    new FullIDE('mc-intro', {
+    FullIDE.create('mc-intro', {
       codeURL: base + 'half-adder.tlv'
     });
   }
 
   // Sandbox — editor + waveform for free exploration
   if (document.getElementById('mc-sandbox')) {
-    new EditorWaveformIDE('mc-sandbox', {
+    EditorWaveformIDE.create('mc-sandbox', {
       codeURL: base + 'half-adder.tlv'
     });
   }
