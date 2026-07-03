@@ -235,6 +235,16 @@ In Module 2.2 you'll wire this register-plus-feedback idea into a proper **count
 
   const base = 'https://raw.githubusercontent.com/in-ir/makerchip-curriculum/main/code/block-2/';
 
+  class VizOnlyIDE extends IdePlugin {
+    async onReady() {
+      await this.setLayoutState({
+        panes: ['Viz'],
+        activePane: 'Viz'
+      });
+      await this.compile();
+    }
+  }
+
   class WaveformOnlyIDE extends IdePlugin {
     async onReady() {
       await this.setLayoutState({
@@ -258,8 +268,8 @@ In Module 2.2 you'll wire this register-plus-feedback idea into a proper **count
   }
 
   if (document.getElementById('mc-counter-teaser')) {
-    WaveformOnlyIDE.create('mc-counter-teaser', {
-      codeURL: base + 'register-demo.tlv'
+    VizOnlyIDE.create('mc-counter-teaser', {
+      codeURL: base + 'register-counter-viz.tlv'
     });
   }
 
