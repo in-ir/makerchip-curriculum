@@ -1,10 +1,8 @@
 # Module 2.1: Registers
 
-<p style="font-family: 'JetBrains Mono', monospace; font-size: 0.85em; line-height: 2; color: var(--md-default-fg-color--light);">
-<strong>Block 2 — Sequential Logic</strong><br>
-<strong>Estimated time:</strong> 45–60 minutes<br>
-<strong>Prerequisites:</strong> Block 1 — Combinational Logic
-</p>
+**Block 1 — Combinational Logic**  
+**Estimated time:** 60–90 minutes  
+**Prerequisites:** Modules 1.1 through 1.4
 
 <div id="mc-counter-teaser" class="makerchip-embed-small"></div>
 
@@ -14,7 +12,7 @@ By the end of this module you will be able to explain why combinational logic al
 
 ## The wall you're about to hit
 
-Everything you built in Block 1 shares one property: the output depends only on the inputs *right now*. An AND gate doesn't remember what its inputs were a moment ago, it just reacts. Change the input, the output changes with it instantly, with nothing in between.
+Everything you built in Block 1 shares one property: the output depends only on the inputs _right now_. An AND gate doesn't remember what its inputs were a moment ago, it just reacts. Change the input, the output changes with it instantly, with nothing in between.
 
 So try this one in your head: build a circuit that counts how many times a button has been pressed. Where would the running total live? You don't have anywhere to put it. Every signal you wrote in Block 1 is computed fresh from scratch every single moment, with no memory of what came before. To count, score, or remember anything at all, a circuit needs a way to hold onto a value across time. That's the entire problem this module solves.
 
@@ -34,8 +32,10 @@ The piece of hardware that solves this is called a **flip-flop**. Here's the who
   </defs>
 
   <!-- Clock waveform on left -->
-  <text x="30" y="30" fill="#B39DDB" font-size="11" text-anchor="middle">clock</text>
-  <polyline points="10,80 10,50 40,50 40,80 70,80 70,50 100,50 100,80 130,80 130,50 160,50 160,80" fill="none" stroke="#7C4DFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+
+<text x="30" y="30" fill="#B39DDB" font-size="11" text-anchor="middle">clock</text>
+<polyline points="10,80 10,50 40,50 40,80 70,80 70,50 100,50 100,80 130,80 130,50 160,50 160,80" fill="none" stroke="#7C4DFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+
   <!-- Edge markers -->
   <line x1="40" y1="45" x2="40" y2="90" stroke="#7C4DFF" stroke-width="1" stroke-dasharray="3 3" opacity="0.5"/>
   <line x1="100" y1="45" x2="100" y2="90" stroke="#7C4DFF" stroke-width="1" stroke-dasharray="3 3" opacity="0.5"/>
@@ -61,15 +61,17 @@ The piece of hardware that solves this is called a **flip-flop**. Here's the who
   <text x="443" y="55" fill="#B39DDB" font-size="11" text-anchor="middle">Q (output)</text>
 
   <!-- Output signal - shows held values -->
-  <text x="540" y="30" fill="#B39DDB" font-size="11" text-anchor="middle">Q holds steady</text>
-  <polyline points="480,80 520,80 520,50 600,50 600,80 680,80 680,50 760,50 760,80 830,80" fill="none" stroke="#7C4DFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-  <text x="500" y="130" fill="#EDE7F6" font-size="10" text-anchor="middle">0</text>
-  <text x="560" y="130" fill="#EDE7F6" font-size="10" text-anchor="middle">1</text>
-  <text x="630" y="130" fill="#EDE7F6" font-size="10" text-anchor="middle">0</text>
-  <text x="710" y="130" fill="#EDE7F6" font-size="10" text-anchor="middle">1</text>
-  <text x="795" y="130" fill="#EDE7F6" font-size="10" text-anchor="middle">...</text>
-  <text x="640" y="155" fill="#B39DDB" font-size="10" text-anchor="middle">value captured at each ↑ edge, held until next</text>
+
+<text x="540" y="30" fill="#B39DDB" font-size="11" text-anchor="middle">Q holds steady</text>
+<polyline points="480,80 520,80 520,50 600,50 600,80 680,80 680,50 760,50 760,80 830,80" fill="none" stroke="#7C4DFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="500" y="130" fill="#EDE7F6" font-size="10" text-anchor="middle">0</text>
+<text x="560" y="130" fill="#EDE7F6" font-size="10" text-anchor="middle">1</text>
+<text x="630" y="130" fill="#EDE7F6" font-size="10" text-anchor="middle">0</text>
+<text x="710" y="130" fill="#EDE7F6" font-size="10" text-anchor="middle">1</text>
+<text x="795" y="130" fill="#EDE7F6" font-size="10" text-anchor="middle">...</text>
+<text x="640" y="155" fill="#B39DDB" font-size="10" text-anchor="middle">value captured at each ↑ edge, held until next</text>
 </svg>
+
 </div>
 
 A **register** is just several flip-flops working in lockstep to hold a multi-bit value — a 4-bit number instead of a single bit.
@@ -218,11 +220,11 @@ In Module 2.2 you'll wire this register-plus-feedback idea into a proper **count
 
 ## Quick reference
 
-| Concept | TL-Verilog | Description |
-| --- | --- | --- |
-| Previous value | `>>1$signal` | The value `$signal` held one clock cycle ago |
-| Basic register | `$x = >>1$x + 1;` | Holds and updates a value each cycle |
-| Reset to zero | `$x = *reset ? 0 : >>1$x + 1;` | Forces a known value when reset is active |
+| Concept          | TL-Verilog                     | Description                                            |
+| ---------------- | ------------------------------ | ------------------------------------------------------ |
+| Previous value   | `>>1$signal`                   | The value `$signal` held one clock cycle ago           |
+| Basic register   | `$x = >>1$x + 1;`              | Holds and updates a value each cycle                   |
+| Reset to zero    | `$x = *reset ? 0 : >>1$x + 1;` | Forces a known value when reset is active              |
 | Conditional hold | `$x = cond ? new_val : >>1$x;` | Updates only when a condition is true, otherwise holds |
 
 <style>
