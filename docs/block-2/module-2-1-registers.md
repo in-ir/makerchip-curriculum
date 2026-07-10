@@ -1,8 +1,8 @@
 # Module 2.1: Registers
 
-**Block 1 — Combinational Logic**  
+**Block 2 — Sequential Logic**  
 **Estimated time:** 60–90 minutes  
-**Prerequisites:** Modules 1.1 through 1.4
+**Prerequisites:** Block 1
 
 <div id="mc-counter-teaser" class="makerchip-embed-small"></div>
 
