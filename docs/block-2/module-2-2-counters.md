@@ -2,7 +2,7 @@
 
 **Block 2 — Sequential Logic**  
 **Estimated time:** 60–90 minutes  
-**Prerequisites:** Block 1 + Module 2.1
+**Prerequisites:** Module 2.1
 
 <div id="mc-counter-viz" class="makerchip-embed-small"></div>
 

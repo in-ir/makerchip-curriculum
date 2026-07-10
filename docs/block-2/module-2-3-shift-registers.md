@@ -1,10 +1,8 @@
 # Module 2.3: Shift Registers
 
-<p style="font-family: 'JetBrains Mono', monospace; font-size: 0.85em; line-height: 2; color: var(--md-default-fg-color--light);">
-<strong>Block 2 — Sequential Logic</strong><br>
-<strong>Estimated time:</strong> 45–60 minutes<br>
-<strong>Prerequisites:</strong> Module 2.2 — Counters
-</p>
+**Block 2 — Sequential Logic**  
+**Estimated time:** 60–90 minutes  
+**Prerequisites:** Module 2.2
 
 <div id="mc-shift-teaser" class="makerchip-embed-small"></div>
 
