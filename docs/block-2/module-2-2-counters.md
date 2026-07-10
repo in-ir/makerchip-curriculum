@@ -1,10 +1,8 @@
 # Module 2.2: Counters
 
-<p style="font-family: 'JetBrains Mono', monospace; font-size: 0.85em; line-height: 2; color: var(--md-default-fg-color--light);">
-<strong>Block 2 — Sequential Logic</strong><br>
-<strong>Estimated time:</strong> 45–60 minutes<br>
-<strong>Prerequisites:</strong> Module 2.1 — Registers
-</p>
+**Block 2 — Sequential Logic**  
+**Estimated time:** 60–90 minutes  
+**Prerequisites:** Block 1 + Module 2.1
 
 <div id="mc-counter-viz" class="makerchip-embed-small"></div>
 

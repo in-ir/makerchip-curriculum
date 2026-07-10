@@ -4,7 +4,7 @@
 **Estimated time:** 60–90 minutes  
 **Prerequisites:** Block 1
 
-<div id="mc-counter-teaser" class="makerchip-embed-small"></div>
+<div id="mc-register-teaser" class="makerchip-embed-small"></div>
 
 ## What you'll learn
 
@@ -269,9 +269,9 @@ In Module 2.2 you'll wire this register-plus-feedback idea into a proper **count
     }
   }
 
-  if (document.getElementById('mc-counter-teaser')) {
-    VizOnlyIDE.create('mc-counter-teaser', {
-      codeURL: base + 'register-counter-viz.tlv'
+  if (document.getElementById('mc-register-teaser')) {
+    VizOnlyIDE.create('mc-register-teaser', {
+      codeURL: base + 'register-hold-viz.tlv'
     });
   }
 
