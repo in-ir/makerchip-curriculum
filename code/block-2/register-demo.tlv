@@ -3,10 +3,9 @@
 \SV
    m5_makerchip_module
 \TLV
-   $in[3:0] = *cyc_cnt[3:0];
-   
-   $reg[3:0] = >>1$reg[3:0] + 1;
-   
+   // A 4-bit counter: resets to 0, then adds 1 each cycle.
+   $count[3:0] = *reset ? 4'b0 : >>1$count + 1;
+
    *passed = *cyc_cnt > 20;
    *failed = 1'b0;
 \SV

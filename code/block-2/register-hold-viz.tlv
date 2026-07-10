@@ -3,10 +3,10 @@
 \SV
    m5_makerchip_module
 \TLV
-   // Input changes every cycle. Register only captures every 3rd cycle,
+   // Input changes every cycle. Register only captures every 4th cycle,
    // holding its value in between — the defining behavior of a register.
-   $in[3:0] = (*cyc_cnt[3:0] * 4'd5 + 4'd3);
-   $capture = *cyc_cnt % 3 == 0;
+   $in[3:0] = *cyc_cnt[3:0] ^ *cyc_cnt[5:2];
+   $capture = *cyc_cnt[1:0] == 2'b00;
    $stored[3:0] = *reset    ? 4'b0 :
                   $capture  ? $in :
                               >>1$stored;
