@@ -55,3 +55,4 @@ nav:
   - Block 2 - Sequential Logic:
       - Overview: block-2/index.md
       - Module 2.1 - Registers: block-2/module-2-1-registers.md
+      - Module 2.2 - Counters: block-2/module-2-2-counters.md
