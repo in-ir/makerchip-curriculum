@@ -6,9 +6,11 @@
 
 ## What you're building
 
-This is the capstone of Block 2: a complete Whack-a-Mole arcade game, built by you, one piece at a time. You won't learn any new syntax here. Instead you'll assemble the four things you already know into a working system, and watch it come alive stage by stage.
+This is the capstone of Block 2: a complete Whack-a-Mole arcade machine that plays *itself*. You won't learn any new syntax here. Instead you'll assemble the four things you already know into a working system, and watch it come alive stage by stage.
 
-Here's the finished game you're working toward. Moles pop from random holes, a "robot player" whacks them, the score climbs, and the rounds count down to game over.
+A quick note on how it works: a Makerchip simulation runs on the clock with no live mouse, so instead of you clicking moles, the machine has a built-in "robot player" that reacts and whacks automatically. Think of it like a self-playing arcade demo, the kind that runs on the screen while no one's at the cabinet. Your job is to build the machine and then tune how it behaves. Every subsystem is fully visible, so you can watch exactly how the game thinks.
+
+Here's the finished machine you're working toward. Moles pop from random holes, the robot player whacks them, the score climbs, and the rounds count down to game over.
 
 <div id="mc-whack-final" class="makerchip-embed"></div>
 
@@ -18,10 +20,10 @@ The lab has four stages, one per Block 2 concept. Each stage gives you a starter
 
 You'll build the game in the same order the pieces fire during play:
 
-1. **The mole picker** — an LFSR chooses a random hole _(Module 2.3)_
-2. **The mole clock** — a timer controls how long the mole stays up _(Module 2.2)_
-3. **Keeping score** — registers track score and rounds _(Module 2.1)_
-4. **The game brain** — an FSM ties it all together _(Module 2.4)_
+1. **The mole picker** — an LFSR chooses a random hole *(Module 2.3)*
+2. **The mole clock** — a timer controls how long the mole stays up *(Module 2.2)*
+3. **Keeping score** — registers track score and rounds *(Module 2.1)*
+4. **The game brain** — an FSM ties it all together *(Module 2.4)*
 
 ---
 
@@ -35,7 +37,7 @@ There are two blanks: the feedback bit (the XOR of two taps) and the shift itsel
 
 <div id="mc-lab-stage1" class="makerchip-embed"></div>
 
-**Checkpoint:** when you run it, a mole should appear in a hole and jump to a _different, unpredictable_ hole every few cycles. If it never moves, or sits on hole 0 forever, your LFSR isn't shifting yet — check the feedback and the seed.
+**Checkpoint:** when you run it, a mole should appear in a hole and jump to a *different, unpredictable* hole every few cycles. If it never moves, or sits on hole 0 forever, your LFSR isn't shifting yet — check the feedback and the seed.
 
 ---
 
@@ -115,12 +117,14 @@ Step back and look at what you just made: a system that remembers state, makes d
 
 ## Make it your own
 
-The game works, but it's built to be tinkered with:
+Building the machine is the lab. *Tuning* it is where it gets fun. Since the robot plays automatically, your gameplay is tweaking the logic and watching how the robot's score changes. Try these:
 
-1. **Change the difficulty.** Find `MOLE_TIME` (currently 6) and make it smaller. The robot misses more.
-2. **More rounds.** Bump `NUM_ROUNDS` up from 10 for a longer game. (Watch the bit widths.)
-3. **A sharper robot.** The reaction delay comes from the LFSR — narrow its range for a more consistent player.
-4. **A speed ramp.** Make `MOLE_TIME` shrink as the rounds count down, so the game speeds up the longer it runs — the classic arcade difficulty curve.
+1. **Change the difficulty.** Find `MOLE_TIME` (currently 6) and make it smaller. Moles duck down faster, so the robot misses more and the score drops. Make it bigger and the robot hits nearly everything. Can you find the value where the robot scores about half?
+2. **More rounds.** Bump `NUM_ROUNDS` up from 10 for a longer game. (Watch the bit widths, a bigger number may need more than 4 bits.)
+3. **A sharper robot.** The reaction delay comes from the LFSR. Narrow its range so the robot reacts more consistently and rarely misses, or widen it to make it streaky and unpredictable.
+4. **A speed ramp.** Make `MOLE_TIME` shrink as the rounds count down, so the game speeds up the longer it runs, the classic arcade difficulty curve. This is the hardest tweak and the most satisfying: it's one extra piece of logic on the timer limit.
+
+Each of these is a small change to logic you now fully understand. That's the real reward of building it yourself: you can reach into any part of the machine and change how it behaves.
 
 <style>
 .makerchip-embed       { position: relative; width: 100%; height: 540px; }
