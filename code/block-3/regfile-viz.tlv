@@ -21,7 +21,11 @@
    \viz_js
       box: {strokeWidth: 0, left: 0, top: 0, width: 500, height: 300, fill: "#0D001A"},
       render() {
-         let vals = ['$r0'.asInt(), '$r1'.asInt(), '$r2'.asInt(), '$r3'.asInt()]
+         let v0 = '$r0'.asInt()
+         let v1 = '$r1'.asInt()
+         let v2 = '$r2'.asInt()
+         let v3 = '$r3'.asInt()
+         let vals = [v0, v1, v2, v3]
          let wrAddr = '$wr_addr'.asInt()
          let rdAddr = '$rd_addr'.asInt()
          let objs = []
