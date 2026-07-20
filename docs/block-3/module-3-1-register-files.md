@@ -14,13 +14,13 @@ By the end of this module you will be able to explain what a register file is an
 
 In Block 2 you built registers that each held a single value. That's fine when you have one or two things to remember. But imagine you need to store sixteen values, or thirty-two, the way a real processor holds its working numbers. Writing out thirty-two separately named registers and hand-wiring each one would be miserable, and you'd still need a way to say "give me register number 19" without naming it directly.
 
-What you want is a **register file**: a group of registers you can talk to _by number_ instead of by name. You hand it an address like "register 2," and it either stores a new value there or hands you back what's already there. It's the first real form of addressable memory, and it's the foundation for everything else in this block, including the Tetris grid.
+What you want is a **register file**: a group of registers you can talk to *by number* instead of by name. You hand it an address like "register 2," and it either stores a new value there or hands you back what's already there. It's the first real form of addressable memory, and it's the foundation for everything else in this block, including the Tetris grid.
 
 Here's the good news: you already have every piece you need to build one.
 
 ## A register file is a decoder plus a MUX
 
-Think about what "write to register number 2" actually requires. You need something that takes the address `2` and activates _only_ register 2's write path, leaving the others untouched. That's exactly what a **decoder** does (Block 1): turn a number into a one-hot selection.
+Think about what "write to register number 2" actually requires. You need something that takes the address `2` and activates *only* register 2's write path, leaving the others untouched. That's exactly what a **decoder** does (Block 1): turn a number into a one-hot selection.
 
 And "read register number 2" means picking register 2's value out of all of them and passing it along. That's exactly what a **MUX** does (Block 1): choose one input out of many based on a select signal.
 
@@ -35,11 +35,10 @@ So a register file is nothing new. It's a decoder steering writes into a bank of
   </defs>
 
   <!-- Write address -> decoder -->
-
-<text x="70" y="55" fill="#4A3060" font-size="11" text-anchor="middle">wr_addr</text>
-<rect x="30" y="65" width="90" height="46" rx="6" fill="#1A0533" stroke="#22c55e" stroke-width="2"/>
-<text x="75" y="84" fill="#22c55e" font-size="12" font-weight="bold" text-anchor="middle">Decoder</text>
-<text x="75" y="100" fill="#4A3060" font-size="9" text-anchor="middle">picks write</text>
+  <text x="70" y="55" fill="#4A3060" font-size="11" text-anchor="middle">wr_addr</text>
+  <rect x="30" y="65" width="90" height="46" rx="6" fill="#1A0533" stroke="#22c55e" stroke-width="2"/>
+  <text x="75" y="84" fill="#22c55e" font-size="12" font-weight="bold" text-anchor="middle">Decoder</text>
+  <text x="75" y="100" fill="#4A3060" font-size="9" text-anchor="middle">picks write</text>
 
   <!-- Registers stack -->
   <rect x="270" y="30" width="150" height="34" rx="6" fill="#1A0533" stroke="#B39DDB" stroke-width="1.5"/>
@@ -69,11 +68,9 @@ So a register file is nothing new. It's a decoder steering writes into a bank of
   <path d="M420 179 L556 94" fill="none" stroke="#eab308" stroke-width="1.2" opacity="0.5" marker-end="url(#rf-arr)"/>
 
   <!-- read out -->
-
-<text x="690" y="92" fill="#4A3060" font-size="11" text-anchor="middle">rd_data</text>
-<line x1="650" y1="88" x2="672" y2="88" stroke="#eab308" stroke-width="1.5" marker-end="url(#rf-arr)"/>
+  <text x="690" y="92" fill="#4A3060" font-size="11" text-anchor="middle">rd_data</text>
+  <line x1="650" y1="88" x2="672" y2="88" stroke="#eab308" stroke-width="1.5" marker-end="url(#rf-arr)"/>
 </svg>
-
 </div>
 
 ## Writing by address
@@ -86,7 +83,7 @@ $r2[3:0] = *reset ? 4'd0 :
                                           >>1$r2;
 ```
 
-Read it as: on reset, clear to zero. If writes are enabled _and_ the address is 2, take the new data. Otherwise hold, exactly the "conditional hold" register from Module 2.1. Every register in the file has this same shape, differing only in the number it checks against.
+Read it as: on reset, clear to zero. If writes are enabled *and* the address is 2, take the new data. Otherwise hold, exactly the "conditional hold" register from Module 2.1. Every register in the file has this same shape, differing only in the number it checks against.
 
 ## Reading by address
 
@@ -101,7 +98,30 @@ $rd_data[3:0] = ($rd_addr == 2'd0) ? $r0 :
 
 Hand it an address, get back that register's contents. That's the whole read side.
 
-Watch it run: the VIZ at the top of this page cycles through addresses, flashing green on the register being written and yellow on the one being read.
+Watch it run in the waveform below: the write address steps 0, 1, 2, 3 and you can see each register fill with the cycle count as its turn comes up, while `$rd_data` reads back the register from the previous address.
+
+<div id="mc-regfile-waveform" class="makerchip-embed-small"></div>
+
+## Watch it break: reading what you just wrote
+
+Here's a subtle trap that catches almost everyone. What happens if you write to a register *and* read the same register *in the same cycle*? Say `r1` currently holds 5, and this cycle you write 12 to `r1` while also reading `r1`. What does the read return, 5 or 12?
+
+Run this and look carefully. It writes the cycle count into `r1` every cycle and reads `r1` right back:
+
+<div id="mc-regfile-timing" class="makerchip-embed-small"></div>
+
+The read always comes back **one behind** the write. That's not a bug, it's how registers work. Remember from Module 2.1: a register shows its *stored* value this cycle, and the new value only lands on the next clock edge. So when you write 12 and read at the same time, the read still sees the old 5; the 12 doesn't appear until next cycle. This "read-before-write" timing matters enormously once you're updating a game grid, if you read a cell in the same cycle you're changing it, you get the old contents. Keep it in mind for Tetris.
+
+## Scaling up: array syntax
+
+Writing out `$r0`, `$r1`, `$r2`, `$r3` by hand is fine for four registers. But a real memory has dozens or hundreds, and nobody wants to type a hundred near-identical lines. TL-Verilog lets you collapse the whole bank into an **array**, indexed by the address directly:
+
+```
+$reg[$wr_addr] = ...   // write to the addressed register
+$rd_data = $reg[$rd_addr];   // read from the addressed register
+```
+
+Instead of a decoder written as four separate comparisons and a MUX written as a four-way ternary, the index `[$addr]` *is* the decoder and the MUX, handled for you. Under the hood it's exactly the circuit you just built by hand, that's the point of building it manually first. You now know what the array shorthand actually compiles to, which is the difference between using memory and understanding it. In the next module you'll use this array syntax to build a real RAM.
 
 ## Debugging tip: the Nav-TLV panel
 
@@ -119,11 +139,11 @@ A register file lets you store a handful of values and reach any of them by numb
 
 ## Quick reference
 
-| Concept          | TL-Verilog                            | Description                        |
-| ---------------- | ------------------------------------- | ---------------------------------- |
+| Concept | TL-Verilog | Description |
+| --- | --- | --- |
 | Write by address | `($wr_addr == N) ? $wr_data : >>1$rN` | Update only the addressed register |
-| Read by address  | `($rd_addr == N) ? $rN : ...`         | MUX selects the addressed register |
-| Register file    | decoder + registers + MUX             | Addressable bank of registers      |
+| Read by address | `($rd_addr == N) ? $rN : ...` | MUX selects the addressed register |
+| Register file | decoder + registers + MUX | Addressable bank of registers |
 
 <style>
 .makerchip-embed       { position: relative; width: 100%; height: 500px; }
@@ -142,6 +162,13 @@ A register file lets you store a handful of values and reach any of them by numb
     }
   }
 
+  class WaveformOnlyIDE extends IdePlugin {
+    async onReady() {
+      await this.setLayoutState({ panes: ['Waveform'], activePane: 'Waveform' });
+      await this.compile();
+    }
+  }
+
   class EditorWaveformIDE extends IdePlugin {
     async onReady() {
       await this.setLayoutState({
@@ -156,6 +183,12 @@ A register file lets you store a handful of values and reach any of them by numb
 
   if (document.getElementById('mc-regfile-viz')) {
     VizOnlyIDE.create('mc-regfile-viz', { codeURL: base + 'regfile-viz.tlv' });
+  }
+  if (document.getElementById('mc-regfile-waveform')) {
+    WaveformOnlyIDE.create('mc-regfile-waveform', { codeURL: base + 'regfile-waveform.tlv' });
+  }
+  if (document.getElementById('mc-regfile-timing')) {
+    WaveformOnlyIDE.create('mc-regfile-timing', { codeURL: base + 'regfile-timing.tlv' });
   }
   if (document.getElementById('mc-regfile-exercise')) {
     EditorWaveformIDE.create('mc-regfile-exercise', { codeURL: base + 'regfile-exercise.tlv' });
