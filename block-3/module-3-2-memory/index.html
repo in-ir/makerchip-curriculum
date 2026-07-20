@@ -1052,10 +1052,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#why-the-read-lags-the-write" class="md-nav__link">
+  <a href="#watch-it-break-reading-what-you-just-wrote" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Why the read lags the write
+        Watch it break: reading what you just wrote
       
     </span>
   </a>
@@ -1163,6 +1163,56 @@
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>                                          &gt;&gt;1$m3;
 </code></pre></div>
 <p>This is one memory cell. It stores new data only when writes are enabled <em>and</em> the address points at it. Otherwise it holds. Every cell in the memory follows this identical shape, differing only in the address number it answers to.</p>
+<p>Here's how those three signals wire into the whole memory. The address fans out to every cell, but only the cell it selects, and only when write-enable is on, actually stores the incoming data. The read port pulls the addressed cell's value back out:</p>
+<div style="margin: 2rem 0;">
+<svg width="100%" viewBox="0 0 720 280" xmlns="http://www.w3.org/2000/svg" style="font-family: 'JetBrains Mono', monospace;">
+  <defs>
+    <marker id="ram-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M2 2L8 5L2 8" fill="none" stroke="#B39DDB" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+
+  <!-- Inputs on the left -->
+  <text x="60" y="52" fill="#22c55e" font-size="11" text-anchor="middle">wr_en</text>
+  <text x="60" y="92" fill="#eab308" font-size="11" text-anchor="middle">address</text>
+  <text x="60" y="132" fill="#B39DDB" font-size="11" text-anchor="middle">wr_data</text>
+
+  <line x1="90" y1="48" x2="180" y2="48" stroke="#22c55e" stroke-width="1.5" marker-end="url(#ram-arr)"/>
+  <line x1="90" y1="88" x2="180" y2="88" stroke="#eab308" stroke-width="1.5" marker-end="url(#ram-arr)"/>
+  <line x1="90" y1="128" x2="180" y2="128" stroke="#B39DDB" stroke-width="1.5" marker-end="url(#ram-arr)"/>
+
+  <!-- Cells stack -->
+  <rect x="185" y="30" width="170" height="30" rx="5" fill="#1A0533" stroke="#2A1A40" stroke-width="1.5"/>
+  <text x="270" y="50" fill="#EDE7F6" font-size="11" text-anchor="middle">cell 0</text>
+  <rect x="185" y="66" width="170" height="30" rx="5" fill="#3B6D11" stroke="#22c55e" stroke-width="2"/>
+  <text x="270" y="86" fill="#EDE7F6" font-size="11" text-anchor="middle">cell 1  &lt;- selected</text>
+  <rect x="185" y="102" width="170" height="30" rx="5" fill="#1A0533" stroke="#2A1A40" stroke-width="1.5"/>
+  <text x="270" y="122" fill="#EDE7F6" font-size="11" text-anchor="middle">cell 2</text>
+  <rect x="185" y="138" width="170" height="30" rx="5" fill="#1A0533" stroke="#2A1A40" stroke-width="1.5"/>
+  <text x="270" y="158" fill="#EDE7F6" font-size="11" text-anchor="middle">cell 3</text>
+  <text x="270" y="192" fill="#4A3060" font-size="18" text-anchor="middle">...</text>
+
+  <!-- Read MUX on the right -->
+  <rect x="470" y="66" width="90" height="60" rx="6" fill="#1A0533" stroke="#eab308" stroke-width="2"/>
+  <text x="515" y="90" fill="#eab308" font-size="12" font-weight="bold" text-anchor="middle">read</text>
+  <text x="515" y="108" fill="#eab308" font-size="12" font-weight="bold" text-anchor="middle">MUX</text>
+
+  <!-- cells to mux -->
+  <path d="M355 45 L466 88" fill="none" stroke="#eab308" stroke-width="1" opacity="0.4" marker-end="url(#ram-arr)"/>
+  <path d="M355 81 L466 92" fill="none" stroke="#eab308" stroke-width="1" opacity="0.4" marker-end="url(#ram-arr)"/>
+  <path d="M355 117 L466 100" fill="none" stroke="#eab308" stroke-width="1" opacity="0.4" marker-end="url(#ram-arr)"/>
+  <path d="M355 153 L466 108" fill="none" stroke="#eab308" stroke-width="1" opacity="0.4" marker-end="url(#ram-arr)"/>
+
+  <!-- read address into mux -->
+  <text x="515" y="160" fill="#eab308" font-size="10" text-anchor="middle">rd_addr</text>
+  <line x1="515" y1="150" x2="515" y2="130" stroke="#eab308" stroke-width="1.5" marker-end="url(#ram-arr)"/>
+
+  <!-- read out -->
+  <text x="640" y="90" fill="#B39DDB" font-size="11" text-anchor="middle">rd_data</text>
+  <line x1="560" y1="96" x2="610" y2="96" stroke="#eab308" stroke-width="1.5" marker-end="url(#ram-arr)"/>
+</svg>
+</div>
+
 <h2 id="watching-a-memory-fill">Watching a memory fill</h2>
 <p>The VIZ at the top of this page shows an 8-entry RAM. Each cycle the write address steps forward and stores the cycle count, so you can watch the memory fill up one cell at a time, green marks the cell being written, yellow the cell being read.</p>
 <p>Here's the same design in the waveform, where you can see the raw address, data, and write-enable signals driving it:</p>
@@ -1170,8 +1220,12 @@
 
 <h2 id="debugging-tip-the-waveform-radix">Debugging tip: the Waveform radix</h2>
 <p>When you're staring at a memory in the Waveform, the default display might show values in a format that's awkward for what you're doing. Makerchip lets you <strong>right-click any signal in the Waveform and change its radix</strong>, the number base it's displayed in: binary, hexadecimal, or decimal. When you're checking that address 5 holds the number 12, decimal is clearest. When you're about to work with the Tetris grid, where each bit is a column, binary is the only view that makes sense, you'll want to <em>see</em> the individual bits. Get in the habit of switching radix to match the question you're asking; it turns a wall of numbers into something you can actually read.</p>
-<h2 id="why-the-read-lags-the-write">Why the read lags the write</h2>
-<p>Remember the timing trap from Module 3.1? It applies to RAM too, and it matters even more here. When you write to an address, the new value doesn't appear on the read port that same cycle, it lands on the next clock edge, because each cell is a register that updates one cycle later. So if you write 9 to address 4 and read address 4 in the very same cycle, you'll still see the old contents. The 9 shows up next cycle. This "read returns the old value" behavior is something you'll design around constantly once pieces are moving on the Tetris grid.</p>
+<h2 id="watch-it-break-reading-what-you-just-wrote">Watch it break: reading what you just wrote</h2>
+<p>Remember the timing trap from Module 3.1? It applies to RAM too, and it matters even more here. When you write to an address, the new value doesn't appear on the read port that same cycle, it lands on the next clock edge, because each cell is a register that updates one cycle later.</p>
+<p>See it for yourself. This design writes the cycle count into address 2 <em>and</em> reads address 2, every single cycle:</p>
+<div id="mc-ram-timing" class="makerchip-embed-small"></div>
+
+<p>Line up <code>$wr_data</code> and <code>$rd_data</code> in the waveform: the read is always exactly one step behind. Write 5, read still shows 4. Write 6, read shows 5. The value you write this cycle doesn't reach the read port until next cycle. This "read returns the old value" behavior is something you'll design around constantly once pieces are moving on the Tetris grid, if you check a cell in the same cycle you update it, you're seeing its <em>past</em>, not its future.</p>
 <h2 id="a-note-on-array-syntax">A note on array syntax</h2>
 <p>Writing out eight cells by hand, as we've done here, makes the mechanism crystal clear: a memory is just a bank of register cells plus a read MUX, exactly the register file from 3.1, scaled up. But you can imagine that spelling out 64 or 256 cells this way would be unbearable.</p>
 <p>Real designs collapse the whole memory into a single <strong>array</strong>, indexed directly by the address, so one line describes all the cells at once instead of one line per cell. The idea is identical to what you built here, the array index simply stands in for the write-decoder and the read MUX. Seeing it spelled out once, as you have, is what makes the compact version make sense later rather than feeling like magic.</p>
@@ -1254,6 +1308,9 @@
   }
   if (document.getElementById('mc-ram-waveform')) {
     WaveformOnlyIDE.create('mc-ram-waveform', { codeURL: base + 'ram-demo.tlv' });
+  }
+  if (document.getElementById('mc-ram-timing')) {
+    WaveformOnlyIDE.create('mc-ram-timing', { codeURL: base + 'ram-timing.tlv' });
   }
   if (document.getElementById('mc-ram-exercise')) {
     EditorWaveformIDE.create('mc-ram-exercise', { codeURL: base + 'ram-exercise.tlv' });
