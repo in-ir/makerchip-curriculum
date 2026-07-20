@@ -1022,6 +1022,28 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#watch-it-break-reading-what-you-just-wrote" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Watch it break: reading what you just wrote
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scaling-up-array-syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scaling up: array syntax
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#debugging-tip-the-nav-tlv-panel" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1123,11 +1145,10 @@
   </defs>
 
   <!-- Write address -> decoder -->
-
-<text x="70" y="55" fill="#4A3060" font-size="11" text-anchor="middle">wr_addr</text>
-<rect x="30" y="65" width="90" height="46" rx="6" fill="#1A0533" stroke="#22c55e" stroke-width="2"/>
-<text x="75" y="84" fill="#22c55e" font-size="12" font-weight="bold" text-anchor="middle">Decoder</text>
-<text x="75" y="100" fill="#4A3060" font-size="9" text-anchor="middle">picks write</text>
+  <text x="70" y="55" fill="#4A3060" font-size="11" text-anchor="middle">wr_addr</text>
+  <rect x="30" y="65" width="90" height="46" rx="6" fill="#1A0533" stroke="#22c55e" stroke-width="2"/>
+  <text x="75" y="84" fill="#22c55e" font-size="12" font-weight="bold" text-anchor="middle">Decoder</text>
+  <text x="75" y="100" fill="#4A3060" font-size="9" text-anchor="middle">picks write</text>
 
   <!-- Registers stack -->
   <rect x="270" y="30" width="150" height="34" rx="6" fill="#1A0533" stroke="#B39DDB" stroke-width="1.5"/>
@@ -1157,11 +1178,9 @@
   <path d="M420 179 L556 94" fill="none" stroke="#eab308" stroke-width="1.2" opacity="0.5" marker-end="url(#rf-arr)"/>
 
   <!-- read out -->
-
-<text x="690" y="92" fill="#4A3060" font-size="11" text-anchor="middle">rd_data</text>
-<line x1="650" y1="88" x2="672" y2="88" stroke="#eab308" stroke-width="1.5" marker-end="url(#rf-arr)"/>
+  <text x="690" y="92" fill="#4A3060" font-size="11" text-anchor="middle">rd_data</text>
+  <line x1="650" y1="88" x2="672" y2="88" stroke="#eab308" stroke-width="1.5" marker-end="url(#rf-arr)"/>
 </svg>
-
 </div>
 
 <h2 id="writing-by-address">Writing by address</h2>
@@ -1179,7 +1198,21 @@
 <a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>                                     $r3;
 </code></pre></div>
 <p>Hand it an address, get back that register's contents. That's the whole read side.</p>
-<p>Watch it run: the VIZ at the top of this page cycles through addresses, flashing green on the register being written and yellow on the one being read.</p>
+<p>Watch it run in the waveform below: the write address steps 0, 1, 2, 3 and you can see each register fill with the cycle count as its turn comes up, while <code>$rd_data</code> reads back the register from the previous address.</p>
+<div id="mc-regfile-waveform" class="makerchip-embed-small"></div>
+
+<h2 id="watch-it-break-reading-what-you-just-wrote">Watch it break: reading what you just wrote</h2>
+<p>Here's a subtle trap that catches almost everyone. What happens if you write to a register <em>and</em> read the same register <em>in the same cycle</em>? Say <code>r1</code> currently holds 5, and this cycle you write 12 to <code>r1</code> while also reading <code>r1</code>. What does the read return, 5 or 12?</p>
+<p>Run this and look carefully. It writes the cycle count into <code>r1</code> every cycle and reads <code>r1</code> right back:</p>
+<div id="mc-regfile-timing" class="makerchip-embed-small"></div>
+
+<p>The read always comes back <strong>one behind</strong> the write. That's not a bug, it's how registers work. Remember from Module 2.1: a register shows its <em>stored</em> value this cycle, and the new value only lands on the next clock edge. So when you write 12 and read at the same time, the read still sees the old 5; the 12 doesn't appear until next cycle. This "read-before-write" timing matters enormously once you're updating a game grid, if you read a cell in the same cycle you're changing it, you get the old contents. Keep it in mind for Tetris.</p>
+<h2 id="scaling-up-array-syntax">Scaling up: array syntax</h2>
+<p>Writing out <code>$r0</code>, <code>$r1</code>, <code>$r2</code>, <code>$r3</code> by hand is fine for four registers. But a real memory has dozens or hundreds, and nobody wants to type a hundred near-identical lines. TL-Verilog lets you collapse the whole bank into an <strong>array</strong>, indexed by the address directly:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>$reg[$wr_addr] = ...   // write to the addressed register
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>$rd_data = $reg[$rd_addr];   // read from the addressed register
+</code></pre></div>
+<p>Instead of a decoder written as four separate comparisons and a MUX written as a four-way ternary, the index <code>[$addr]</code> <em>is</em> the decoder and the MUX, handled for you. Under the hood it's exactly the circuit you just built by hand, that's the point of building it manually first. You now know what the array shorthand actually compiles to, which is the difference between using memory and understanding it. In the next module you'll use this array syntax to build a real RAM.</p>
 <h2 id="debugging-tip-the-nav-tlv-panel">Debugging tip: the Nav-TLV panel</h2>
 <p>As your designs grow from a couple of signals to a whole bank of registers, the Waveform can get crowded. Makerchip's <strong>Nav-TLV</strong> tab (next to the Editor) shows your compiled design as a browsable tree of every signal, laid out the way your code is structured. When you're chasing a bug like "why didn't register 2 update?", Nav-TLV lets you click straight to that signal and see its logic, instead of hunting through the waveform. Open it now and find <code>$r2</code>, then trace back to the condition that feeds it. Getting comfortable moving between the Editor, Nav-TLV, and Waveform is the core loop of debugging any real design.</p>
 <h2 id="your-turn-complete-the-read-port">Your turn: complete the read port</h2>
@@ -1232,6 +1265,13 @@
     }
   }
 
+  class WaveformOnlyIDE extends IdePlugin {
+    async onReady() {
+      await this.setLayoutState({ panes: ['Waveform'], activePane: 'Waveform' });
+      await this.compile();
+    }
+  }
+
   class EditorWaveformIDE extends IdePlugin {
     async onReady() {
       await this.setLayoutState({
@@ -1246,6 +1286,12 @@
 
   if (document.getElementById('mc-regfile-viz')) {
     VizOnlyIDE.create('mc-regfile-viz', { codeURL: base + 'regfile-viz.tlv' });
+  }
+  if (document.getElementById('mc-regfile-waveform')) {
+    WaveformOnlyIDE.create('mc-regfile-waveform', { codeURL: base + 'regfile-waveform.tlv' });
+  }
+  if (document.getElementById('mc-regfile-timing')) {
+    WaveformOnlyIDE.create('mc-regfile-timing', { codeURL: base + 'regfile-timing.tlv' });
   }
   if (document.getElementById('mc-regfile-exercise')) {
     EditorWaveformIDE.create('mc-regfile-exercise', { codeURL: base + 'regfile-exercise.tlv' });
