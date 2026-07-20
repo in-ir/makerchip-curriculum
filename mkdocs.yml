@@ -62,3 +62,4 @@ nav:
   - Block 3 - Memory and Arrays:
       - Overview: block-3/index.md
       - Module 3.1 - Register Files: block-3/module-3-1-register-files.md
+      - Module 3.2 - Memory (RAM): block-3/module-3-2-memory.md
