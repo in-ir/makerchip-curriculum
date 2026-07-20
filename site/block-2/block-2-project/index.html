@@ -964,8 +964,9 @@
 <strong>Estimated time:</strong> 90–120 minutes<br />
 <strong>Prerequisites:</strong> Modules 2.1 through 2.4</p>
 <h2 id="what-youre-building">What you're building</h2>
-<p>This is the capstone of Block 2: a complete Whack-a-Mole arcade game, built by you, one piece at a time. You won't learn any new syntax here. Instead you'll assemble the four things you already know into a working system, and watch it come alive stage by stage.</p>
-<p>Here's the finished game you're working toward. Moles pop from random holes, a "robot player" whacks them, the score climbs, and the rounds count down to game over.</p>
+<p>This is the capstone of Block 2: a complete Whack-a-Mole arcade machine that plays <em>itself</em>. You won't learn any new syntax here. Instead you'll assemble the four things you already know into a working system, and watch it come alive stage by stage.</p>
+<p>A quick note on how it works: a Makerchip simulation runs on the clock with no live mouse, so instead of you clicking moles, the machine has a built-in "robot player" that reacts and whacks automatically. Think of it like a self-playing arcade demo, the kind that runs on the screen while no one's at the cabinet. Your job is to build the machine and then tune how it behaves. Every subsystem is fully visible, so you can watch exactly how the game thinks.</p>
+<p>Here's the finished machine you're working toward. Moles pop from random holes, the robot player whacks them, the score climbs, and the rounds count down to game over.</p>
 <div id="mc-whack-final" class="makerchip-embed"></div>
 
 <p>The lab has four stages, one per Block 2 concept. Each stage gives you a starter with the previous stages already working, so you're always building on solid ground. Fill in the blanks marked <code>TODO</code>, run it, and check it against the checkpoint before moving on.</p>
@@ -1041,13 +1042,14 @@
 <h2 id="you-built-a-computer-almost">You built a computer (almost)</h2>
 <p>Step back and look at what you just made: a system that remembers state, makes decisions, keeps score, generates randomness, and runs a complete game loop — all from registers, counters, shift registers, and a state machine. Nothing else. Every one of those pieces scales up into the guts of a real processor, which is exactly where Block 3 picks up.</p>
 <h2 id="make-it-your-own">Make it your own</h2>
-<p>The game works, but it's built to be tinkered with:</p>
+<p>Building the machine is the lab. <em>Tuning</em> it is where it gets fun. Since the robot plays automatically, your gameplay is tweaking the logic and watching how the robot's score changes. Try these:</p>
 <ol>
-<li><strong>Change the difficulty.</strong> Find <code>MOLE_TIME</code> (currently 6) and make it smaller. The robot misses more.</li>
-<li><strong>More rounds.</strong> Bump <code>NUM_ROUNDS</code> up from 10 for a longer game. (Watch the bit widths.)</li>
-<li><strong>A sharper robot.</strong> The reaction delay comes from the LFSR — narrow its range for a more consistent player.</li>
-<li><strong>A speed ramp.</strong> Make <code>MOLE_TIME</code> shrink as the rounds count down, so the game speeds up the longer it runs — the classic arcade difficulty curve.</li>
+<li><strong>Change the difficulty.</strong> Find <code>MOLE_TIME</code> (currently 6) and make it smaller. Moles duck down faster, so the robot misses more and the score drops. Make it bigger and the robot hits nearly everything. Can you find the value where the robot scores about half?</li>
+<li><strong>More rounds.</strong> Bump <code>NUM_ROUNDS</code> up from 10 for a longer game. (Watch the bit widths, a bigger number may need more than 4 bits.)</li>
+<li><strong>A sharper robot.</strong> The reaction delay comes from the LFSR. Narrow its range so the robot reacts more consistently and rarely misses, or widen it to make it streaky and unpredictable.</li>
+<li><strong>A speed ramp.</strong> Make <code>MOLE_TIME</code> shrink as the rounds count down, so the game speeds up the longer it runs, the classic arcade difficulty curve. This is the hardest tweak and the most satisfying: it's one extra piece of logic on the timer limit.</li>
 </ol>
+<p>Each of these is a small change to logic you now fully understand. That's the real reward of building it yourself: you can reach into any part of the machine and change how it behaves.</p>
 <style>
 .makerchip-embed       { position: relative; width: 100%; height: 540px; }
 .makerchip-embed-small { position: relative; width: 100%; height: 333px; }

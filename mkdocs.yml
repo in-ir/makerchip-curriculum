@@ -59,3 +59,6 @@ nav:
       - Module 2.3 - Shift Registers: block-2/module-2-3-shift-registers.md
       - Module 2.4 - Finite State Machines: block-2/module-2-4-fsm.md
       - Project - Whack-a-Mole: block-2/block-2-project.md
+  - Block 3 - Memory and Arrays:
+      - Overview: block-3/index.md
+      - Module 3.1 - Register Files: block-3/module-3-1-register-files.md
