@@ -13,10 +13,8 @@
       
       
       
-        <link rel="prev" href="../module-3-2-memory/">
+        <link rel="prev" href="../module-3-3-grid/">
       
-      
-        <link rel="next" href="../module-3-4-grid-ops/">
       
       
         
@@ -27,7 +25,7 @@
     
     
       
-        <title>Module 3.3 - The 2D Grid - Digital Design with Makerchip & TL-Verilog</title>
+        <title>Module 3.4 - Reading and Writing the Grid - Digital Design with Makerchip & TL-Verilog</title>
       
     
     
@@ -78,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#module-33-the-2d-grid" class="md-skip">
+        <a href="#module-34-reading-and-writing-the-grid" class="md-skip">
           Skip to content
         </a>
       
@@ -114,7 +112,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Module 3.3 - The 2D Grid
+              Module 3.4 - Reading and Writing the Grid
             
           </span>
         </div>
@@ -968,6 +966,34 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../module-3-3-grid/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 3.3 - The 2D Grid
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -987,7 +1013,7 @@
   <span class="md-ellipsis">
     
   
-    Module 3.3 - The 2D Grid
+    Module 3.4 - Reading and Writing the Grid
   
 
     
@@ -1005,7 +1031,7 @@
   <span class="md-ellipsis">
     
   
-    Module 3.3 - The 2D Grid
+    Module 3.4 - Reading and Writing the Grid
   
 
     
@@ -1042,10 +1068,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#memory-is-a-list-a-game-board-is-a-grid" class="md-nav__link">
+  <a href="#from-reading-to-writing" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Memory is a list; a game board is a grid
+        From reading to writing
       
     </span>
   </a>
@@ -1053,10 +1079,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#why-not-just-one-signal-per-cell" class="md-nav__link">
+  <a href="#setting-a-cell" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Why not just one signal per cell?
+        Setting a cell
       
     </span>
   </a>
@@ -1064,10 +1090,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#one-row-per-signal-one-bit-per-column" class="md-nav__link">
+  <a href="#clearing-a-cell" class="md-nav__link">
     <span class="md-ellipsis">
       
-        One row per signal, one bit per column
+        Clearing a cell
       
     </span>
   </a>
@@ -1075,10 +1101,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#reading-a-single-cell" class="md-nav__link">
+  <a href="#moving-a-piece-set-then-clear" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Reading a single cell
+        Moving a piece: set, then clear
       
     </span>
   </a>
@@ -1086,10 +1112,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#building-a-shape-from-scratch" class="md-nav__link">
+  <a href="#merging-a-piece-into-the-pile" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Building a shape from scratch
+        Merging a piece into the pile
       
     </span>
   </a>
@@ -1097,10 +1123,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#sizing-a-real-board" class="md-nav__link">
+  <a href="#making-a-piece-fall" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Sizing a real board
+        Making a piece fall
       
     </span>
   </a>
@@ -1108,10 +1134,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#checking-a-full-row" class="md-nav__link">
+  <a href="#watch-it-break-the-smear" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Checking a full row
+        Watch it break: the smear
       
     </span>
   </a>
@@ -1119,10 +1145,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#watch-out-the-binary-looks-mirrored" class="md-nav__link">
+  <a href="#debugging-tip-watch-the-diagram-tab" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Watch out: the binary looks mirrored
+        Debugging tip: watch the Diagram tab
       
     </span>
   </a>
@@ -1130,21 +1156,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#debugging-tip-the-viz-tab-is-your-eyes" class="md-nav__link">
+  <a href="#your-turn-set-and-clear" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Debugging tip: the Viz tab is your eyes
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#your-turn-read-the-grid" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Your turn: read the grid
+        Your turn: set and clear
       
     </span>
   </a>
@@ -1182,34 +1197,6 @@
 
               
             
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../module-3-4-grid-ops/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Module 3.4 - Reading and Writing the Grid
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
           </ul>
         </nav>
       
@@ -1234,169 +1221,157 @@
 
 
 
-<h1 id="module-33-the-2d-grid">Module 3.3: The 2D Grid</h1>
+<h1 id="module-34-reading-and-writing-the-grid">Module 3.4: Reading and Writing the Grid</h1>
 <p><strong>Block 3 — Memory and Arrays</strong><br />
-<strong>Estimated time:</strong> 50–65 minutes<br />
-<strong>Prerequisites:</strong> Module 3.2 — Memory (RAM)</p>
-<div id="mc-grid-viz" class="makerchip-embed-small"></div>
+<strong>Estimated time:</strong> 55–70 minutes<br />
+<strong>Prerequisites:</strong> Module 3.3 — The 2D Grid</p>
+<div id="mc-gridops-viz" class="makerchip-embed-small"></div>
 
 <h2 id="what-youll-learn">What you'll learn</h2>
-<p>By the end of this module you will be able to represent a 2D grid, like a game board, using hardware signals, explain the "one row per signal, one bit per column" convention, read any single cell by its row and column, check whether a whole row is full, and use the Viz tab as your main tool for seeing and debugging a grid. This representation is the foundation the entire Tetris game is built on.</p>
-<h2 id="memory-is-a-list-a-game-board-is-a-grid">Memory is a list; a game board is a grid</h2>
-<p>The RAM you built in Module 3.2 is a <em>list</em>: address 0, 1, 2, 3, and so on, in a single line. That's perfect for many things, but a Tetris board isn't a line. It's a <strong>grid</strong>, with rows going down and columns going across. You need a way to talk about "row 2, column 5," not just "location 21."</p>
-<p>The good news is that a grid is just a stack of rows, and each row is just a list of cells. So if you can represent one row, you can represent the whole board by stacking several of them.</p>
-<h2 id="why-not-just-one-signal-per-cell">Why not just one signal per cell?</h2>
-<p>Before settling on a representation, it's worth seeing why we pick the one we do. You could give every single cell its own 1-bit signal, <code>$cell_0_0</code>, <code>$cell_0_1</code>, and so on, but a real Tetris board is 10 columns by 20 rows, that's 200 separate signals to name and manage. Miserable.</p>
-<p>You could reach for a true 2D array, but as you'll see, packing each row into one number lets you use all the bit tricks from Block 2, shifting, masking, whole-row tests, directly on the board. That turns out to be exactly what makes moving pieces and clearing lines easy. So the representation we'll use is a middle ground that's both compact and powerful: one signal per row, one bit per column.</p>
-<h2 id="one-row-per-signal-one-bit-per-column">One row per signal, one bit per column</h2>
-<p>Here's the representation, and it's beautifully simple: <strong>each row of the grid is a single multi-bit signal, and each bit of that signal is one column.</strong> A <code>1</code> means the cell is filled; a <code>0</code> means it's empty.</p>
-<p>So an 8-column row is an 8-bit signal:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>$row1[7:0] = 8&#39;b00011000;
+<p>By the end of this module you will be able to change a grid, not just read it, by setting and clearing individual cells, merging a falling piece into the pile, and moving a piece left and right. These four operations, all built from the bit tricks you learned in Block 2, are the complete toolkit for making Tetris pieces fall, slide, and lock into place.</p>
+<h2 id="from-reading-to-writing">From reading to writing</h2>
+<p>Module 3.3 gave you a static board you could inspect: read a cell, check a full row. But a game board that never changes isn't much of a game. Pieces need to fall, slide sideways, and lock into the pile at the bottom. All of that is <em>writing</em> to the grid, changing which bits are set.</p>
+<p>Here's the wonderful part: every grid-writing operation Tetris needs is just one of the bitwise operators from Block 2, applied to a row signal. You already know all of them. This module is about recognizing which operator does which job.</p>
+<h2 id="setting-a-cell">Setting a cell</h2>
+<p>To turn a single cell <em>on</em>, you want to flip one specific bit to <code>1</code> while leaving the rest of the row untouched. The tool for that is <strong>OR with a mask that has a single <code>1</code></strong> in the right spot.</p>
+<p>You build that mask by taking a lone <code>1</code> and shifting it to the target column:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>$set_result[7:0] = $row | (8&#39;b00000001 &lt;&lt; $col);
 </code></pre></div>
-<p>Read that binary literally as a picture of the row: empty, empty, empty, filled, filled, empty, empty, empty. The two filled cells are columns 3 and 4. <strong>The bits <em>are</em> the board.</strong> That's the whole reason this representation is so nice, you can look at the binary and see the shape directly, and all the bit tricks you learned in Block 2 (shifting, masking, XOR) now operate on the playfield.</p>
-<p>This diagram shows the mapping explicitly, each bit of the row signal drives exactly one cell on the board:</p>
+<p><code>8'b00000001 &lt;&lt; $col</code> is a mask with exactly one bit set, at position <code>$col</code>. ORing it into the row forces that column to <code>1</code> and leaves every other column exactly as it was (because OR-ing anything with <code>0</code> leaves it unchanged). This is how a piece gets <em>drawn</em> onto the board.</p>
+<p>Here's a single lit cell that slides across a row, built purely by shifting the set-mask to a new column each cycle. Watch <code>$row</code> in the waveform (set its radix to binary) and you'll see the single <code>1</code> march across:</p>
+<div id="mc-gridops-demo" class="makerchip-embed-small"></div>
+
+<h2 id="clearing-a-cell">Clearing a cell</h2>
+<p>Clearing is the mirror image: turn one cell <em>off</em> while leaving the rest alone. Here you want <strong>AND with a mask that has a single <code>0</code></strong> at the target column and <code>1</code>s everywhere else. You build that by shifting a <code>1</code> into place and then <em>inverting</em> it with <code>~</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>$clear_result[7:0] = $row &amp; ~(8&#39;b00000001 &lt;&lt; $col);
+</code></pre></div>
+<p><code>~(8'b00000001 &lt;&lt; $col)</code> is all <code>1</code>s except a single <code>0</code> at position <code>$col</code>. ANDing with it forces that one column to <code>0</code> (because AND with <code>0</code> is always <code>0</code>) and leaves the others unchanged (AND with <code>1</code> keeps them). This is how a piece gets <em>erased</em> from its old position before being redrawn one step down, the essence of animation.</p>
+<p>These two operations are mirror images. This diagram shows both acting on column 3 of the same starting row:</p>
 <div style="margin: 2rem 0;">
-<svg width="100%" viewBox="0 0 720 220" xmlns="http://www.w3.org/2000/svg" style="font-family: 'JetBrains Mono', monospace;">
-  <!-- The 8-bit signal -->
-  <text x="360" y="34" fill="#4A3060" font-size="12" text-anchor="middle">the row signal: $row1[7:0]</text>
+<svg width="100%" viewBox="0 0 720 250" xmlns="http://www.w3.org/2000/svg" style="font-family: 'JetBrains Mono', monospace;">
+  <!-- SET side -->
+  <text x="180" y="30" fill="#22c55e" font-size="13" font-weight="bold" text-anchor="middle">SET column 3   (OR)</text>
+  <text x="60" y="66" fill="#4A3060" font-size="11" text-anchor="start">row</text>
+  <text x="180" y="66" fill="#EDE7F6" font-size="15" text-anchor="middle" font-family="Courier New">00000100</text>
+  <text x="60" y="92" fill="#4A3060" font-size="11" text-anchor="start">mask</text>
+  <text x="180" y="92" fill="#22c55e" font-size="15" text-anchor="middle" font-family="Courier New">00001000</text>
+  <line x1="90" y1="102" x2="270" y2="102" stroke="#4A3060" stroke-width="1"/>
+  <text x="40" y="122" fill="#4A3060" font-size="13" text-anchor="start">OR</text>
+  <text x="180" y="124" fill="#7C4DFF" font-size="15" font-weight="bold" text-anchor="middle" font-family="Courier New">00001100</text>
+  <text x="180" y="150" fill="#4A3060" font-size="10" text-anchor="middle">column 3 now on, rest unchanged</text>
 
-  <!-- bits -->
-  <g>
-    <rect x="120" y="50" width="60" height="44" rx="4" fill="#1A0533" stroke="#2A1A40" stroke-width="1.5"/>
-    <text x="150" y="70" fill="#EDE7F6" font-size="16" font-weight="bold" text-anchor="middle">0</text>
-    <text x="150" y="86" fill="#4A3060" font-size="9" text-anchor="middle">bit 7</text>
-    <rect x="180" y="50" width="60" height="44" rx="4" fill="#1A0533" stroke="#2A1A40" stroke-width="1.5"/>
-    <text x="210" y="70" fill="#EDE7F6" font-size="16" font-weight="bold" text-anchor="middle">0</text>
-    <text x="210" y="86" fill="#4A3060" font-size="9" text-anchor="middle">bit 6</text>
-    <rect x="240" y="50" width="60" height="44" rx="4" fill="#1A0533" stroke="#2A1A40" stroke-width="1.5"/>
-    <text x="270" y="70" fill="#EDE7F6" font-size="16" font-weight="bold" text-anchor="middle">0</text>
-    <text x="270" y="86" fill="#4A3060" font-size="9" text-anchor="middle">bit 5</text>
-    <rect x="300" y="50" width="60" height="44" rx="4" fill="#3B1D6D" stroke="#7C4DFF" stroke-width="2"/>
-    <text x="330" y="70" fill="#ffffff" font-size="16" font-weight="bold" text-anchor="middle">1</text>
-    <text x="330" y="86" fill="#7C4DFF" font-size="9" text-anchor="middle">bit 4</text>
-    <rect x="360" y="50" width="60" height="44" rx="4" fill="#3B1D6D" stroke="#7C4DFF" stroke-width="2"/>
-    <text x="390" y="70" fill="#ffffff" font-size="16" font-weight="bold" text-anchor="middle">1</text>
-    <text x="390" y="86" fill="#7C4DFF" font-size="9" text-anchor="middle">bit 3</text>
-    <rect x="420" y="50" width="60" height="44" rx="4" fill="#1A0533" stroke="#2A1A40" stroke-width="1.5"/>
-    <text x="450" y="70" fill="#EDE7F6" font-size="16" font-weight="bold" text-anchor="middle">0</text>
-    <text x="450" y="86" fill="#4A3060" font-size="9" text-anchor="middle">bit 2</text>
-    <rect x="480" y="50" width="60" height="44" rx="4" fill="#1A0533" stroke="#2A1A40" stroke-width="1.5"/>
-    <text x="510" y="70" fill="#EDE7F6" font-size="16" font-weight="bold" text-anchor="middle">0</text>
-    <text x="510" y="86" fill="#4A3060" font-size="9" text-anchor="middle">bit 1</text>
-    <rect x="540" y="50" width="60" height="44" rx="4" fill="#1A0533" stroke="#2A1A40" stroke-width="1.5"/>
-    <text x="570" y="70" fill="#EDE7F6" font-size="16" font-weight="bold" text-anchor="middle">0</text>
-    <text x="570" y="86" fill="#4A3060" font-size="9" text-anchor="middle">bit 0</text>
-  </g>
+  <!-- divider -->
+  <line x1="360" y1="20" x2="360" y2="160" stroke="#2A1A40" stroke-width="1"/>
 
-  <!-- the board row below, columns in board order (col 0 left) -->
-  <text x="360" y="150" fill="#4A3060" font-size="12" text-anchor="middle">the board row: column 0 on the left</text>
-  <g>
-    <rect x="120" y="160" width="56" height="40" rx="3" fill="#1A0533" stroke="#2A1A40" stroke-width="1"/>
-    <text x="148" y="184" fill="#4A3060" font-size="10" text-anchor="middle">c0</text>
-    <rect x="180" y="160" width="56" height="40" rx="3" fill="#1A0533" stroke="#2A1A40" stroke-width="1"/>
-    <text x="208" y="184" fill="#4A3060" font-size="10" text-anchor="middle">c1</text>
-    <rect x="240" y="160" width="56" height="40" rx="3" fill="#1A0533" stroke="#2A1A40" stroke-width="1"/>
-    <text x="268" y="184" fill="#4A3060" font-size="10" text-anchor="middle">c2</text>
-    <rect x="300" y="160" width="56" height="40" rx="3" fill="#7C4DFF" stroke="#B39DDB" stroke-width="2"/>
-    <text x="328" y="184" fill="#ffffff" font-size="10" text-anchor="middle">c3</text>
-    <rect x="360" y="160" width="56" height="40" rx="3" fill="#7C4DFF" stroke="#B39DDB" stroke-width="2"/>
-    <text x="388" y="184" fill="#ffffff" font-size="10" text-anchor="middle">c4</text>
-    <rect x="420" y="160" width="56" height="40" rx="3" fill="#1A0533" stroke="#2A1A40" stroke-width="1"/>
-    <text x="448" y="184" fill="#4A3060" font-size="10" text-anchor="middle">c5</text>
-    <rect x="480" y="160" width="56" height="40" rx="3" fill="#1A0533" stroke="#2A1A40" stroke-width="1"/>
-    <text x="508" y="184" fill="#4A3060" font-size="10" text-anchor="middle">c6</text>
-    <rect x="540" y="160" width="56" height="40" rx="3" fill="#1A0533" stroke="#2A1A40" stroke-width="1"/>
-    <text x="568" y="184" fill="#4A3060" font-size="10" text-anchor="middle">c7</text>
-  </g>
+  <!-- CLEAR side -->
+  <text x="540" y="30" fill="#ef4444" font-size="13" font-weight="bold" text-anchor="middle">CLEAR column 3   (AND ~)</text>
+  <text x="420" y="66" fill="#4A3060" font-size="11" text-anchor="start">row</text>
+  <text x="540" y="66" fill="#EDE7F6" font-size="15" text-anchor="middle" font-family="Courier New">00001100</text>
+  <text x="420" y="92" fill="#4A3060" font-size="11" text-anchor="start">~mask</text>
+  <text x="540" y="92" fill="#ef4444" font-size="15" text-anchor="middle" font-family="Courier New">11110111</text>
+  <line x1="450" y1="102" x2="630" y2="102" stroke="#4A3060" stroke-width="1"/>
+  <text x="400" y="122" fill="#4A3060" font-size="13" text-anchor="start">AND</text>
+  <text x="540" y="124" fill="#7C4DFF" font-size="15" font-weight="bold" text-anchor="middle" font-family="Courier New">00000100</text>
+  <text x="540" y="150" fill="#4A3060" font-size="10" text-anchor="middle">column 3 now off, rest unchanged</text>
+
+  <!-- key insight -->
+  <text x="360" y="200" fill="#B39DDB" font-size="12" text-anchor="middle">OR forces a bit ON  ·  AND with ~mask forces a bit OFF</text>
+  <text x="360" y="222" fill="#4A3060" font-size="11" text-anchor="middle">both leave every other column exactly as it was</text>
 </svg>
 </div>
 
-<p>Notice the subtlety the diagram makes visible: in the <em>written</em> number <code>00011000</code>, bit 7 is on the left, but on the <em>board</em>, column 0 is on the left. The bit index and the column position run in opposite directions on the page. Keep that in mind, we'll come back to it.</p>
-<p>A full board is just several of these rows:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>$row0[7:0] = 8&#39;b00011000;
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>$row1[7:0] = 8&#39;b00111100;
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>$row2[7:0] = 8&#39;b01111110;
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>$row3[7:0] = 8&#39;b11111111;
+<h2 id="moving-a-piece-set-then-clear">Moving a piece: set, then clear</h2>
+<p>Put those two together and you can move a piece. The pattern for animating movement is always the same two-step: <strong>clear the piece from where it is, then set it where it's going.</strong> If you only set the new position without clearing the old one, you leave a trail behind, the piece smears across the board instead of moving.</p>
+<p>Walk through sliding a single-cell piece from column 2 to column 3 in a row. Start with the piece drawn at column 2:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>row = 00000100        (piece at column 2)
 </code></pre></div>
-<p>Stack those four and you have a little pyramid sitting at the bottom of the board. The VIZ at the top of this page renders exactly this idea, a falling block over a fixed pile, with each cell drawn from one bit of a row signal.</p>
-<p>Here's the same falling block in the waveform. Try right-clicking the <code>$row0</code> and <code>$row1</code> signals and setting their radix to <strong>binary</strong>, then watch the <code>1</code>s move as the block falls, the bits changing in the waveform are the block moving on the board:</p>
-<div id="mc-grid-waveform" class="makerchip-embed-small"></div>
-
+<p>First clear column 2, then set column 3:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>after clear col 2:  00000000
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>after set col 3:    00001000        (piece now at column 3)
+</code></pre></div>
+<p>The piece moved cleanly, no trail, because you erased the old cell before drawing the new one. That clear-then-set pair is the heartbeat of every moving thing on the board.</p>
+<p>Moving sideways can also be done by shifting the piece's bits directly, since a whole piece is just a set of bits in a row signal:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>$moved_right[7:0] = $piece &lt;&lt; 1;   // toward higher bits
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>$moved_left[7:0]  = $piece &gt;&gt; 1;   // toward lower bits
+</code></pre></div>
 <details class="note">
-<summary>Which bit is column 0?</summary>
-<p>We use the convention that <strong>bit <code>c</code> is column <code>c</code></strong>, so bit 0 is the leftmost column and higher bits go rightward. This makes reading a cell as simple as indexing: <code>$row1[3]</code> is column 3 of row 1. (When you print the raw binary, the leftmost digit is the highest bit, so the printed number can look mirror-imaged compared to the board, that's why the Viz tab, which draws it correctly, is your friend.)</p>
+<summary>Wait, <code>&lt;&lt; 1</code> moves it <em>right</em>?</summary>
+<p>Yes, and this catches everyone. Remember our convention: bit 0 is the <em>leftmost</em> column. Shifting left (<code>&lt;&lt;</code>) moves bits toward <em>higher</em> positions, which are the columns further <em>right</em> on the board. So <code>&lt;&lt; 1</code> slides the piece right, and <code>&gt;&gt; 1</code> slides it left. If your piece moves the opposite way from what you expected, this is why. As always, the Viz tab shows you the truth at a glance.</p>
 </details>
-<h2 id="reading-a-single-cell">Reading a single cell</h2>
-<p>Because a column is just a bit position, reading one cell is a bit-index, no math required:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>$cell = $row1[3];   // is column 3 of row 1 filled?
+<h2 id="merging-a-piece-into-the-pile">Merging a piece into the pile</h2>
+<p>When a piece can't fall any further, it <em>locks</em>: it becomes a permanent part of the pile. Locking is just an OR, the same operation as setting a cell, but applied to the whole row at once. You OR the piece's bits into the pile row, and now those cells are part of the stack:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>$pile_row[7:0] = $locking ? (&gt;&gt;1$pile_row | $piece) : &gt;&gt;1$pile_row;
 </code></pre></div>
-<p>That returns the single bit for that cell: <code>1</code> if filled, <code>0</code> if empty. This is the operation Tetris runs constantly, "is the space below my piece already occupied?"</p>
-<h2 id="building-a-shape-from-scratch">Building a shape from scratch</h2>
-<p>Reading is half the story; you also need to <em>construct</em> rows. Say you want a horizontal bar filling columns 2, 3, and 4 of a row. Work it out bit by bit: you need <code>1</code>s at bit positions 2, 3, and 4, and <code>0</code>s everywhere else. Writing the bits from position 7 down to 0:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>bit:    7 6 5 4 3 2 1 0
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>value:  0 0 0 1 1 1 0 0    -&gt;   8&#39;b00011100
+<p>When <code>$locking</code> is true, the piece merges into the pile and stays there (the register holds it). Otherwise the pile row just keeps whatever it already had. The VIZ at the top of this page shows this in action, a yellow piece falls, and when it reaches the bottom it turns purple as it locks into the growing pile.</p>
+<h2 id="making-a-piece-fall">Making a piece fall</h2>
+<p>Falling is the motion Tetris runs most, and it's worth seeing spelled out, because a piece falling is really about <em>which row</em> holds it. If you track the piece's row position in a counter, then a given row shows the piece only when the counter points at it:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>$piece_row[2:0] = *reset ? 3&#39;d0 : &gt;&gt;1$piece_row + 3&#39;d1;   // fall one row per step
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>$row0[7:0] = (&gt;&gt;1$piece_row == 3&#39;d0) ? $piece_shape : 8&#39;b0;
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>$row1[7:0] = (&gt;&gt;1$piece_row == 3&#39;d1) ? $piece_shape : 8&#39;b0;
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>$row2[7:0] = (&gt;&gt;1$piece_row == 3&#39;d2) ? $piece_shape : 8&#39;b0;
 </code></pre></div>
-<p>So <code>$row = 8'b00011100</code> gives you that bar. The trick is always the same: mark a <code>1</code> at each column you want filled, <code>0</code> elsewhere, then read the bits off from the high position down to write the literal. Once you're comfortable, you'll read and write these shapes as fluently as you read decimal numbers.</p>
-<h2 id="sizing-a-real-board">Sizing a real board</h2>
-<p>Our examples use a cozy 8-wide grid to keep things readable, but the technique scales to any size. A standard Tetris board is 10 columns wide and 20 rows tall. In this representation that's simply twenty signals, each 10 bits wide:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>$row0[9:0], $row1[9:0], ... $row19[9:0]
+<p>Each row asks "is the piece on me right now?" If yes, it shows the piece's shape; if no, it's empty. As <code>$piece_row</code> counts up, the piece appears to march downward, one row lighting up as the previous one goes dark. That automatic "clear the old row" behavior falls out for free here, because a row that no longer matches <code>$piece_row</code> simply returns to <code>8'b0</code>. This is exactly the falling logic you saw in the Module 3.3 grid VIZ, now you know how it's built.</p>
+<h2 id="watch-it-break-the-smear">Watch it break: the smear</h2>
+<p>To feel why the clear step matters, here's what happens when you forget it. This design sets a new cell each cycle but never clears the old one, it just keeps OR-ing new positions into the same row:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>$buggy_row[7:0] = &gt;&gt;1$buggy_row | (8&#39;b00000001 &lt;&lt; $pos);   // no clear!
 </code></pre></div>
-<p>Nothing about the approach changes, wider rows just mean more bits per signal, and a taller board means more row signals. Everything you learn on the small grid transfers directly to the full-size game.</p>
-<h2 id="checking-a-full-row">Checking a full row</h2>
-<p>Clearing full rows is the heart of Tetris scoring, and detecting a full row is delightfully easy in this representation. A row is full when <em>every</em> bit is <code>1</code>. The <strong>AND-reduction</strong> operator, a single <code>&amp;</code> in front of a signal, ANDs all the bits together and gives you one result: <code>1</code> only if they were all <code>1</code>.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>$row3_full = &amp; $row3;   // 1 if every column in row 3 is filled
-</code></pre></div>
-<p>If <code>$row3</code> is <code>8'b11111111</code>, the reduction is <code>1</code>. If even one column is empty, it's <code>0</code>. One operator, whole-row check.</p>
-<p>Why does this one little operator matter so much? Because detecting a full row <em>is</em> the core of Tetris scoring. The entire satisfying loop of the game, stack pieces, fill a row completely, watch it vanish, is built on exactly this check. Every cycle, Tetris asks each row "are you full?" using this reduction, and any row that answers yes gets cleared and scored. You've just written the detection half of the most important mechanic in the game; in a later module you'll add the clearing half.</p>
-<p>There's a matching operator for the opposite question. The <strong>OR-reduction</strong>, a single <code>|</code> in front of a signal, is <code>1</code> if <em>any</em> bit is set. So <code>| $row</code> tells you whether a row has anything in it at all, and <code>! | $row</code> (or checking it equals zero) tells you a row is completely empty, useful for knowing where the empty space above the pile begins.</p>
-<h2 id="watch-out-the-binary-looks-mirrored">Watch out: the binary looks mirrored</h2>
-<p>Here's the one thing that trips people up with this representation. Say you want a block in the two <em>leftmost</em> columns, columns 0 and 1. Your instinct might be to write <code>8'b11000000</code>, because that <em>looks</em> left-heavy. But that's wrong: in <code>8'b11000000</code> the two <code>1</code>s are in bit positions 7 and 6, which are columns 7 and 6, the <em>rightmost</em> columns.</p>
-<p>To fill columns 0 and 1, you actually write <code>8'b00000011</code>, because bit 0 and bit 1 are the leftmost columns in our convention. The written binary reads right-to-left compared to the board, the lowest bit (rightmost digit) is the leftmost column.</p>
-<p>This is exactly why the Viz tab matters so much for grids: when you draw the cells as a picture, this confusion disappears, you just see whether the block is where you wanted it. Whenever a shape looks flipped or offset, this bit-ordering is the first thing to suspect.</p>
-<h2 id="debugging-tip-the-viz-tab-is-your-eyes">Debugging tip: the Viz tab is your eyes</h2>
-<p>For everything up to now, the Waveform was the natural place to watch your design. For a grid, that flips. A row shown as <code>01111110</code> in the waveform is technically correct but nearly impossible to <em>see</em> as a shape. The <strong>Viz tab</strong> is where a grid comes alive, it draws the cells as an actual picture, so a bug like "my piece is one column off" jumps out immediately instead of hiding in a binary number.</p>
-<p>From here through the Tetris project, the Viz tab is your primary debugging surface. Build the habit now: when something on the grid looks wrong, open Viz and <em>look</em> at it rather than squinting at bits in the waveform. The two tabs work together, Viz shows you <em>that</em> something's wrong and roughly where, the waveform and Nav-TLV help you find <em>why</em>.</p>
-<h2 id="your-turn-read-the-grid">Your turn: read the grid</h2>
-<p>The grid below is fixed. Complete two operations: read the single cell at row 2, column 4, and check whether row 3 is completely full. The editor comments give you the exact syntax for both.</p>
-<div id="mc-grid-exercise" class="makerchip-embed"></div>
+<p>Run it and watch:</p>
+<div id="mc-gridops-smear" class="makerchip-embed-small"></div>
+
+<p>Instead of one cell moving across, the row fills up with a solid trail, every cell it ever touched stays lit. This is the single most common grid-animation bug. The fix is always the same: to <em>move</em> something, clear where it was before you set where it's going, or, as in the falling example above, rebuild each row from scratch every cycle so stale cells can't survive.</p>
+<details class="note">
+<summary>Another edge trap: shifting off the wall</summary>
+<p>Watch what happens if you shift a piece that's already against the right wall. A piece at column 7 (<code>8'b10000000</code>) shifted left with <code>&lt;&lt; 1</code> moves toward bit 8, but the row is only 8 bits wide, so that bit is truncated away and the piece simply vanishes off the edge. In Tetris you prevent this by <em>checking</em> whether a move is legal before making it, which is exactly what collision detection, the next module, is for.</p>
+</details>
+<h2 id="debugging-tip-watch-the-diagram-tab">Debugging tip: watch the Diagram tab</h2>
+<p>You've now written logic where a single line like <code>$row | (1 &lt;&lt; $col)</code> stands in for a shifter feeding an OR gate feeding a register. Makerchip's <strong>Diagram</strong> tab (near Nav-TLV) draws the actual hardware your code generates, the boxes and wires behind the bit operations. When you're wondering "is my set-mask really doing what I think?", the Diagram shows the shifter and the OR gate wired up, which can make an abstract bit operation feel concrete. It's a great way to connect the one-line shorthand back to the real circuit underneath.</p>
+<h2 id="your-turn-set-and-clear">Your turn: set and clear</h2>
+<p>Below is a row with some cells filled and a <code>$target_col</code> that walks across the columns. Complete two operations: set the cell at <code>$target_col</code>, and clear the cell at <code>$target_col</code>. The editor comments give you the exact masks.</p>
+<div id="mc-gridops-exercise" class="makerchip-embed"></div>
 
 <h2 id="where-this-fits-next">Where this fits next</h2>
-<p>You can now represent a board, read any cell, and detect a full row, all the static pieces of a grid. But Tetris isn't static: pieces move, land, and stack up. In Module 3.4 you'll learn to <em>change</em> the grid, setting and clearing cells so a piece can fall and lock into place.</p>
+<p>You can now draw, erase, move, and lock pieces on the grid, everything needed to make a piece fall and build up a pile. But there's a rule we've been ignoring: pieces aren't allowed to pass <em>through</em> each other or through the walls. Before a piece moves, the game has to check whether the destination is clear. In Module 3.5 you'll build <strong>collision detection</strong>, the check that makes the pile solid and the walls real, and the last concept before the full Tetris game.</p>
 <h2 id="quick-reference">Quick reference</h2>
 <table>
 <thead>
 <tr>
-<th>Concept</th>
+<th>Operation</th>
 <th>TL-Verilog</th>
-<th>Description</th>
+<th>What it does</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>A row</td>
-<td><code>$row[7:0] = 8'b...</code></td>
-<td>One signal, one bit per column</td>
+<td>Set a cell</td>
+<td><code>$row \| (1 &lt;&lt; $col)</code></td>
+<td>Turn column <code>$col</code> on</td>
 </tr>
 <tr>
-<td>Read a cell</td>
-<td><code>$row[c]</code></td>
-<td>Bit <code>c</code> = column <code>c</code> (1 = filled)</td>
+<td>Clear a cell</td>
+<td><code>$row &amp; ~(1 &lt;&lt; $col)</code></td>
+<td>Turn column <code>$col</code> off</td>
 </tr>
 <tr>
-<td>Full-row check</td>
-<td><code>&amp; $row</code></td>
-<td>AND-reduce: 1 if every column filled</td>
+<td>Move piece right</td>
+<td><code>$piece &lt;&lt; 1</code></td>
+<td>Shift toward higher bits</td>
 </tr>
 <tr>
-<td>Empty-row check</td>
-<td><code>\| $row</code> gives 0</td>
-<td>OR-reduce: 0 if every column empty</td>
+<td>Move piece left</td>
+<td><code>$piece &gt;&gt; 1</code></td>
+<td>Shift toward lower bits</td>
+</tr>
+<tr>
+<td>Lock into pile</td>
+<td><code>&gt;&gt;1$pile \| $piece</code></td>
+<td>Merge the piece permanently</td>
 </tr>
 </tbody>
 </table>
 <style>
 .makerchip-embed       { position: relative; width: 100%; height: 500px; }
-.makerchip-embed-small { position: relative; width: 100%; height: 340px; }
+.makerchip-embed-small { position: relative; width: 100%; height: 360px; }
 </style>
 
 <script type="module">
@@ -1430,14 +1405,17 @@
     }
   }
 
-  if (document.getElementById('mc-grid-viz')) {
-    VizOnlyIDE.create('mc-grid-viz', { codeURL: base + 'grid-viz.tlv' });
+  if (document.getElementById('mc-gridops-viz')) {
+    VizOnlyIDE.create('mc-gridops-viz', { codeURL: base + 'gridops-viz.tlv' });
   }
-  if (document.getElementById('mc-grid-waveform')) {
-    WaveformOnlyIDE.create('mc-grid-waveform', { codeURL: base + 'grid-waveform.tlv' });
+  if (document.getElementById('mc-gridops-demo')) {
+    WaveformOnlyIDE.create('mc-gridops-demo', { codeURL: base + 'gridops-demo.tlv' });
   }
-  if (document.getElementById('mc-grid-exercise')) {
-    EditorWaveformIDE.create('mc-grid-exercise', { codeURL: base + 'grid-exercise.tlv' });
+  if (document.getElementById('mc-gridops-smear')) {
+    WaveformOnlyIDE.create('mc-gridops-smear', { codeURL: base + 'gridops-smear.tlv' });
+  }
+  if (document.getElementById('mc-gridops-exercise')) {
+    EditorWaveformIDE.create('mc-gridops-exercise', { codeURL: base + 'gridops-exercise.tlv' });
   }
 </script>
 
@@ -1469,7 +1447,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../module-3-2-memory/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Module 3.2 - Memory (RAM)">
+          <a href="../module-3-3-grid/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Module 3.3 - The 2D Grid">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -1479,27 +1457,11 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                Module 3.2 - Memory (RAM)
+                Module 3.3 - The 2D Grid
               </div>
             </div>
           </a>
         
-        
-          
-          <a href="../module-3-4-grid-ops/" class="md-footer__link md-footer__link--next" aria-label="Next: Module 3.4 - Reading and Writing the Grid">
-            <div class="md-footer__title">
-              <span class="md-footer__direction">
-                Next
-              </span>
-              <div class="md-ellipsis">
-                Module 3.4 - Reading and Writing the Grid
-              </div>
-            </div>
-            <div class="md-footer__button md-icon">
-              
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
-            </div>
-          </a>
         
       </nav>
     
