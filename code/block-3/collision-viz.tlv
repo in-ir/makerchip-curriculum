@@ -15,9 +15,6 @@
    // The falling piece shape.
    $piece[7:0] = 8'b00011000;
 
-   // Which row the piece is on.
-   $prow[2:0] = >>1$prow;
-
    // What is in the row just below the piece?
    $below[7:0] = (>>1$prow == 3'd2) ? $pile3 :
                  (>>1$prow == 3'd3) ? $pile4 :
