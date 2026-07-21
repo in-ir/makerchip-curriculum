@@ -9,10 +9,12 @@
 
    $below[7:0] = (>>1$prow == 3'd3) ? $pile4 : (>>1$prow == 3'd4) ? $pile5 : 8'b0;
    $hit = |($piece & $below);
-   $landed = (>>1$prow == 3'd5) || $hit;
-   $prow[2:0] = *reset ? 3'd0 : $landed ? 3'd0 : >>1$prow + 3'd1;
+   $at_floor = >>1$prow == 3'd5;
+   $landed = $at_floor || $hit;
+   $resetting = >>1$landed;
+   $prow[2:0] = *reset ? 3'd0 : $resetting ? 3'd0 : $landed ? >>1$prow : >>1$prow + 3'd1;
 
-   `BOGUS_USE($piece $prow $pile4 $pile5 $hit $landed)
+   `BOGUS_USE($piece $prow $pile4 $pile5 $hit $landed $resetting)
 
    *passed = *cyc_cnt > 60;
    *failed = 1'b0;
