@@ -13,10 +13,8 @@
       
       
       
-        <link rel="prev" href="../module-3-1-register-files/">
+        <link rel="prev" href="../module-3-2-memory/">
       
-      
-        <link rel="next" href="../module-3-3-grid/">
       
       
         
@@ -27,7 +25,7 @@
     
     
       
-        <title>Module 3.2 - Memory (RAM) - Digital Design with Makerchip & TL-Verilog</title>
+        <title>Module 3.3 - The 2D Grid - Digital Design with Makerchip & TL-Verilog</title>
       
     
     
@@ -78,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#module-32-memory-ram" class="md-skip">
+        <a href="#module-33-the-2d-grid" class="md-skip">
           Skip to content
         </a>
       
@@ -114,7 +112,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Module 3.2 - Memory (RAM)
+              Module 3.3 - The 2D Grid
             
           </span>
         </div>
@@ -938,6 +936,34 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../module-3-2-memory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 3.2 - Memory (RAM)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -957,7 +983,7 @@
   <span class="md-ellipsis">
     
   
-    Module 3.2 - Memory (RAM)
+    Module 3.3 - The 2D Grid
   
 
     
@@ -975,7 +1001,7 @@
   <span class="md-ellipsis">
     
   
-    Module 3.2 - Memory (RAM)
+    Module 3.3 - The 2D Grid
   
 
     
@@ -1012,10 +1038,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#from-a-few-registers-to-real-memory" class="md-nav__link">
+  <a href="#memory-is-a-list-a-game-board-is-a-grid" class="md-nav__link">
     <span class="md-ellipsis">
       
-        From a few registers to real memory
+        Memory is a list; a game board is a grid
       
     </span>
   </a>
@@ -1023,10 +1049,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#the-three-signals-every-memory-needs" class="md-nav__link">
+  <a href="#why-not-just-one-signal-per-cell" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The three signals every memory needs
+        Why not just one signal per cell?
       
     </span>
   </a>
@@ -1034,10 +1060,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#watching-a-memory-fill" class="md-nav__link">
+  <a href="#one-row-per-signal-one-bit-per-column" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Watching a memory fill
+        One row per signal, one bit per column
       
     </span>
   </a>
@@ -1045,10 +1071,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#debugging-tip-the-waveform-radix" class="md-nav__link">
+  <a href="#reading-a-single-cell" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Debugging tip: the Waveform radix
+        Reading a single cell
       
     </span>
   </a>
@@ -1056,10 +1082,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#watch-it-break-reading-what-you-just-wrote" class="md-nav__link">
+  <a href="#building-a-shape-from-scratch" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Watch it break: reading what you just wrote
+        Building a shape from scratch
       
     </span>
   </a>
@@ -1067,10 +1093,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#a-note-on-array-syntax" class="md-nav__link">
+  <a href="#sizing-a-real-board" class="md-nav__link">
     <span class="md-ellipsis">
       
-        A note on array syntax
+        Sizing a real board
       
     </span>
   </a>
@@ -1078,10 +1104,43 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#your-turn-gated-writes" class="md-nav__link">
+  <a href="#checking-a-full-row" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Your turn: gated writes
+        Checking a full row
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#watch-out-the-binary-looks-mirrored" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Watch out: the binary looks mirrored
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#debugging-tip-the-viz-tab-is-your-eyes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Debugging tip: the Viz tab is your eyes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#your-turn-read-the-grid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Your turn: read the grid
       
     </span>
   </a>
@@ -1119,34 +1178,6 @@
 
               
             
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../module-3-3-grid/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Module 3.3 - The 2D Grid
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
           </ul>
         </nav>
       
@@ -1171,102 +1202,134 @@
 
 
 
-<h1 id="module-32-memory-ram">Module 3.2: Memory (RAM)</h1>
+<h1 id="module-33-the-2d-grid">Module 3.3: The 2D Grid</h1>
 <p><strong>Block 3 — Memory and Arrays</strong><br />
 <strong>Estimated time:</strong> 50–65 minutes<br />
-<strong>Prerequisites:</strong> Module 3.1 — Register Files</p>
-<div id="mc-ram-viz" class="makerchip-embed-small"></div>
+<strong>Prerequisites:</strong> Module 3.2 — Memory (RAM)</p>
+<div id="mc-grid-viz" class="makerchip-embed-small"></div>
 
 <h2 id="what-youll-learn">What you'll learn</h2>
-<p>By the end of this module you will be able to explain what RAM is and how it differs from a register file, describe the three signals every memory needs (address, data, write-enable), build a small RAM and write to any cell by address, understand why a write takes a cycle to appear on the read port, and use the Waveform's radix controls in Makerchip to read memory contents in whatever number format is clearest.</p>
-<h2 id="from-a-few-registers-to-real-memory">From a few registers to real memory</h2>
-<p>A register file, like the one you built in Module 3.1, is perfect for a handful of values. But step back and think about scale. A screen has thousands of pixels. A game board has dozens of cells. A processor's main memory has millions of locations. You are not going to hand-write a million registers.</p>
-<p><strong>RAM</strong> (Random Access Memory) is the answer. "Random access" just means you can reach <em>any</em> location directly by its address, in any order, without stepping through the others. It's the same core idea as the register file, address in, data in or out, but built to scale to as many locations as you need. It's the storage that a game board, and eventually your Tetris playfield, lives in.</p>
-<h2 id="the-three-signals-every-memory-needs">The three signals every memory needs</h2>
-<p>Every memory, no matter how big, talks to the outside world through the same three signals:</p>
-<ul>
-<li><strong>Address</strong> — which location you want to talk to.</li>
-<li><strong>Data</strong> — the value going in (for a write) or coming out (for a read).</li>
-<li><strong>Write-enable</strong> — a single bit that says "actually store this," versus just looking.</li>
-</ul>
-<p>That write-enable bit is the important new idea. A register file wrote every cycle; a real memory needs to <em>choose</em> when to write, because most of the time you're just reading. When write-enable is low, the memory holds everything exactly as it is and simply serves up whatever you ask to read.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>$m3[3:0] = *reset ? 4&#39;d0 :
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>           ($wr_en &amp;&amp; $wr_addr == 3&#39;d3) ? $wr_data :
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>                                          &gt;&gt;1$m3;
+<p>By the end of this module you will be able to represent a 2D grid, like a game board, using hardware signals, explain the "one row per signal, one bit per column" convention, read any single cell by its row and column, check whether a whole row is full, and use the Viz tab as your main tool for seeing and debugging a grid. This representation is the foundation the entire Tetris game is built on.</p>
+<h2 id="memory-is-a-list-a-game-board-is-a-grid">Memory is a list; a game board is a grid</h2>
+<p>The RAM you built in Module 3.2 is a <em>list</em>: address 0, 1, 2, 3, and so on, in a single line. That's perfect for many things, but a Tetris board isn't a line. It's a <strong>grid</strong>, with rows going down and columns going across. You need a way to talk about "row 2, column 5," not just "location 21."</p>
+<p>The good news is that a grid is just a stack of rows, and each row is just a list of cells. So if you can represent one row, you can represent the whole board by stacking several of them.</p>
+<h2 id="why-not-just-one-signal-per-cell">Why not just one signal per cell?</h2>
+<p>Before settling on a representation, it's worth seeing why we pick the one we do. You could give every single cell its own 1-bit signal, <code>$cell_0_0</code>, <code>$cell_0_1</code>, and so on, but a real Tetris board is 10 columns by 20 rows, that's 200 separate signals to name and manage. Miserable.</p>
+<p>You could reach for a true 2D array, but as you'll see, packing each row into one number lets you use all the bit tricks from Block 2, shifting, masking, whole-row tests, directly on the board. That turns out to be exactly what makes moving pieces and clearing lines easy. So the representation we'll use is a middle ground that's both compact and powerful: one signal per row, one bit per column.</p>
+<h2 id="one-row-per-signal-one-bit-per-column">One row per signal, one bit per column</h2>
+<p>Here's the representation, and it's beautifully simple: <strong>each row of the grid is a single multi-bit signal, and each bit of that signal is one column.</strong> A <code>1</code> means the cell is filled; a <code>0</code> means it's empty.</p>
+<p>So an 8-column row is an 8-bit signal:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>$row1[7:0] = 8&#39;b00011000;
 </code></pre></div>
-<p>This is one memory cell. It stores new data only when writes are enabled <em>and</em> the address points at it. Otherwise it holds. Every cell in the memory follows this identical shape, differing only in the address number it answers to.</p>
-<p>Here's how those three signals wire into the whole memory. The address fans out to every cell, but only the cell it selects, and only when write-enable is on, actually stores the incoming data. The read port pulls the addressed cell's value back out:</p>
+<p>Read that binary literally as a picture of the row: empty, empty, empty, filled, filled, empty, empty, empty. The two filled cells are columns 3 and 4. <strong>The bits <em>are</em> the board.</strong> That's the whole reason this representation is so nice, you can look at the binary and see the shape directly, and all the bit tricks you learned in Block 2 (shifting, masking, XOR) now operate on the playfield.</p>
+<p>This diagram shows the mapping explicitly, each bit of the row signal drives exactly one cell on the board:</p>
 <div style="margin: 2rem 0;">
-<svg width="100%" viewBox="0 0 720 280" xmlns="http://www.w3.org/2000/svg" style="font-family: 'JetBrains Mono', monospace;">
-  <defs>
-    <marker id="ram-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
-      <path d="M2 2L8 5L2 8" fill="none" stroke="#B39DDB" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-    </marker>
-  </defs>
+<svg width="100%" viewBox="0 0 720 220" xmlns="http://www.w3.org/2000/svg" style="font-family: 'JetBrains Mono', monospace;">
+  <!-- The 8-bit signal -->
+  <text x="360" y="34" fill="#4A3060" font-size="12" text-anchor="middle">the row signal: $row1[7:0]</text>
 
-  <!-- Inputs on the left -->
-  <text x="60" y="52" fill="#22c55e" font-size="11" text-anchor="middle">wr_en</text>
-  <text x="60" y="92" fill="#eab308" font-size="11" text-anchor="middle">address</text>
-  <text x="60" y="132" fill="#B39DDB" font-size="11" text-anchor="middle">wr_data</text>
+  <!-- bits -->
+  <g>
+    <rect x="120" y="50" width="60" height="44" rx="4" fill="#1A0533" stroke="#2A1A40" stroke-width="1.5"/>
+    <text x="150" y="70" fill="#EDE7F6" font-size="16" font-weight="bold" text-anchor="middle">0</text>
+    <text x="150" y="86" fill="#4A3060" font-size="9" text-anchor="middle">bit 7</text>
+    <rect x="180" y="50" width="60" height="44" rx="4" fill="#1A0533" stroke="#2A1A40" stroke-width="1.5"/>
+    <text x="210" y="70" fill="#EDE7F6" font-size="16" font-weight="bold" text-anchor="middle">0</text>
+    <text x="210" y="86" fill="#4A3060" font-size="9" text-anchor="middle">bit 6</text>
+    <rect x="240" y="50" width="60" height="44" rx="4" fill="#1A0533" stroke="#2A1A40" stroke-width="1.5"/>
+    <text x="270" y="70" fill="#EDE7F6" font-size="16" font-weight="bold" text-anchor="middle">0</text>
+    <text x="270" y="86" fill="#4A3060" font-size="9" text-anchor="middle">bit 5</text>
+    <rect x="300" y="50" width="60" height="44" rx="4" fill="#3B1D6D" stroke="#7C4DFF" stroke-width="2"/>
+    <text x="330" y="70" fill="#ffffff" font-size="16" font-weight="bold" text-anchor="middle">1</text>
+    <text x="330" y="86" fill="#7C4DFF" font-size="9" text-anchor="middle">bit 4</text>
+    <rect x="360" y="50" width="60" height="44" rx="4" fill="#3B1D6D" stroke="#7C4DFF" stroke-width="2"/>
+    <text x="390" y="70" fill="#ffffff" font-size="16" font-weight="bold" text-anchor="middle">1</text>
+    <text x="390" y="86" fill="#7C4DFF" font-size="9" text-anchor="middle">bit 3</text>
+    <rect x="420" y="50" width="60" height="44" rx="4" fill="#1A0533" stroke="#2A1A40" stroke-width="1.5"/>
+    <text x="450" y="70" fill="#EDE7F6" font-size="16" font-weight="bold" text-anchor="middle">0</text>
+    <text x="450" y="86" fill="#4A3060" font-size="9" text-anchor="middle">bit 2</text>
+    <rect x="480" y="50" width="60" height="44" rx="4" fill="#1A0533" stroke="#2A1A40" stroke-width="1.5"/>
+    <text x="510" y="70" fill="#EDE7F6" font-size="16" font-weight="bold" text-anchor="middle">0</text>
+    <text x="510" y="86" fill="#4A3060" font-size="9" text-anchor="middle">bit 1</text>
+    <rect x="540" y="50" width="60" height="44" rx="4" fill="#1A0533" stroke="#2A1A40" stroke-width="1.5"/>
+    <text x="570" y="70" fill="#EDE7F6" font-size="16" font-weight="bold" text-anchor="middle">0</text>
+    <text x="570" y="86" fill="#4A3060" font-size="9" text-anchor="middle">bit 0</text>
+  </g>
 
-  <line x1="90" y1="48" x2="180" y2="48" stroke="#22c55e" stroke-width="1.5" marker-end="url(#ram-arr)"/>
-  <line x1="90" y1="88" x2="180" y2="88" stroke="#eab308" stroke-width="1.5" marker-end="url(#ram-arr)"/>
-  <line x1="90" y1="128" x2="180" y2="128" stroke="#B39DDB" stroke-width="1.5" marker-end="url(#ram-arr)"/>
-
-  <!-- Cells stack -->
-  <rect x="185" y="30" width="170" height="30" rx="5" fill="#1A0533" stroke="#2A1A40" stroke-width="1.5"/>
-  <text x="270" y="50" fill="#EDE7F6" font-size="11" text-anchor="middle">cell 0</text>
-  <rect x="185" y="66" width="170" height="30" rx="5" fill="#3B6D11" stroke="#22c55e" stroke-width="2"/>
-  <text x="270" y="86" fill="#EDE7F6" font-size="11" text-anchor="middle">cell 1  &lt;- selected</text>
-  <rect x="185" y="102" width="170" height="30" rx="5" fill="#1A0533" stroke="#2A1A40" stroke-width="1.5"/>
-  <text x="270" y="122" fill="#EDE7F6" font-size="11" text-anchor="middle">cell 2</text>
-  <rect x="185" y="138" width="170" height="30" rx="5" fill="#1A0533" stroke="#2A1A40" stroke-width="1.5"/>
-  <text x="270" y="158" fill="#EDE7F6" font-size="11" text-anchor="middle">cell 3</text>
-  <text x="270" y="192" fill="#4A3060" font-size="18" text-anchor="middle">...</text>
-
-  <!-- Read MUX on the right -->
-  <rect x="470" y="66" width="90" height="60" rx="6" fill="#1A0533" stroke="#eab308" stroke-width="2"/>
-  <text x="515" y="90" fill="#eab308" font-size="12" font-weight="bold" text-anchor="middle">read</text>
-  <text x="515" y="108" fill="#eab308" font-size="12" font-weight="bold" text-anchor="middle">MUX</text>
-
-  <!-- cells to mux -->
-  <path d="M355 45 L466 88" fill="none" stroke="#eab308" stroke-width="1" opacity="0.4" marker-end="url(#ram-arr)"/>
-  <path d="M355 81 L466 92" fill="none" stroke="#eab308" stroke-width="1" opacity="0.4" marker-end="url(#ram-arr)"/>
-  <path d="M355 117 L466 100" fill="none" stroke="#eab308" stroke-width="1" opacity="0.4" marker-end="url(#ram-arr)"/>
-  <path d="M355 153 L466 108" fill="none" stroke="#eab308" stroke-width="1" opacity="0.4" marker-end="url(#ram-arr)"/>
-
-  <!-- read address into mux -->
-  <text x="515" y="160" fill="#eab308" font-size="10" text-anchor="middle">rd_addr</text>
-  <line x1="515" y1="150" x2="515" y2="130" stroke="#eab308" stroke-width="1.5" marker-end="url(#ram-arr)"/>
-
-  <!-- read out -->
-  <text x="640" y="90" fill="#B39DDB" font-size="11" text-anchor="middle">rd_data</text>
-  <line x1="560" y1="96" x2="610" y2="96" stroke="#eab308" stroke-width="1.5" marker-end="url(#ram-arr)"/>
+  <!-- the board row below, columns in board order (col 0 left) -->
+  <text x="360" y="150" fill="#4A3060" font-size="12" text-anchor="middle">the board row: column 0 on the left</text>
+  <g>
+    <rect x="120" y="160" width="56" height="40" rx="3" fill="#1A0533" stroke="#2A1A40" stroke-width="1"/>
+    <text x="148" y="184" fill="#4A3060" font-size="10" text-anchor="middle">c0</text>
+    <rect x="180" y="160" width="56" height="40" rx="3" fill="#1A0533" stroke="#2A1A40" stroke-width="1"/>
+    <text x="208" y="184" fill="#4A3060" font-size="10" text-anchor="middle">c1</text>
+    <rect x="240" y="160" width="56" height="40" rx="3" fill="#1A0533" stroke="#2A1A40" stroke-width="1"/>
+    <text x="268" y="184" fill="#4A3060" font-size="10" text-anchor="middle">c2</text>
+    <rect x="300" y="160" width="56" height="40" rx="3" fill="#7C4DFF" stroke="#B39DDB" stroke-width="2"/>
+    <text x="328" y="184" fill="#ffffff" font-size="10" text-anchor="middle">c3</text>
+    <rect x="360" y="160" width="56" height="40" rx="3" fill="#7C4DFF" stroke="#B39DDB" stroke-width="2"/>
+    <text x="388" y="184" fill="#ffffff" font-size="10" text-anchor="middle">c4</text>
+    <rect x="420" y="160" width="56" height="40" rx="3" fill="#1A0533" stroke="#2A1A40" stroke-width="1"/>
+    <text x="448" y="184" fill="#4A3060" font-size="10" text-anchor="middle">c5</text>
+    <rect x="480" y="160" width="56" height="40" rx="3" fill="#1A0533" stroke="#2A1A40" stroke-width="1"/>
+    <text x="508" y="184" fill="#4A3060" font-size="10" text-anchor="middle">c6</text>
+    <rect x="540" y="160" width="56" height="40" rx="3" fill="#1A0533" stroke="#2A1A40" stroke-width="1"/>
+    <text x="568" y="184" fill="#4A3060" font-size="10" text-anchor="middle">c7</text>
+  </g>
 </svg>
 </div>
 
-<h2 id="watching-a-memory-fill">Watching a memory fill</h2>
-<p>The VIZ at the top of this page shows an 8-entry RAM. Each cycle the write address steps forward and stores the cycle count, so you can watch the memory fill up one cell at a time, green marks the cell being written, yellow the cell being read.</p>
-<p>Here's the same design in the waveform, where you can see the raw address, data, and write-enable signals driving it:</p>
-<div id="mc-ram-waveform" class="makerchip-embed-small"></div>
+<p>Notice the subtlety the diagram makes visible: in the <em>written</em> number <code>00011000</code>, bit 7 is on the left, but on the <em>board</em>, column 0 is on the left. The bit index and the column position run in opposite directions on the page. Keep that in mind, we'll come back to it.</p>
+<p>A full board is just several of these rows:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>$row0[7:0] = 8&#39;b00011000;
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>$row1[7:0] = 8&#39;b00111100;
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>$row2[7:0] = 8&#39;b01111110;
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>$row3[7:0] = 8&#39;b11111111;
+</code></pre></div>
+<p>Stack those four and you have a little pyramid sitting at the bottom of the board. The VIZ at the top of this page renders exactly this idea, a falling block over a fixed pile, with each cell drawn from one bit of a row signal.</p>
+<p>Here's the same falling block in the waveform. Try right-clicking the <code>$row0</code> and <code>$row1</code> signals and setting their radix to <strong>binary</strong>, then watch the <code>1</code>s move as the block falls, the bits changing in the waveform are the block moving on the board:</p>
+<div id="mc-grid-waveform" class="makerchip-embed-small"></div>
 
-<h2 id="debugging-tip-the-waveform-radix">Debugging tip: the Waveform radix</h2>
-<p>When you're staring at a memory in the Waveform, the default display might show values in a format that's awkward for what you're doing. Makerchip lets you <strong>right-click any signal in the Waveform and change its radix</strong>, the number base it's displayed in: binary, hexadecimal, or decimal. When you're checking that address 5 holds the number 12, decimal is clearest. When you're about to work with the Tetris grid, where each bit is a column, binary is the only view that makes sense, you'll want to <em>see</em> the individual bits. Get in the habit of switching radix to match the question you're asking; it turns a wall of numbers into something you can actually read.</p>
-<h2 id="watch-it-break-reading-what-you-just-wrote">Watch it break: reading what you just wrote</h2>
-<p>Remember the timing trap from Module 3.1? It applies to RAM too, and it matters even more here. When you write to an address, the new value doesn't appear on the read port that same cycle, it lands on the next clock edge, because each cell is a register that updates one cycle later.</p>
-<p>See it for yourself. This design writes the cycle count into address 2 <em>and</em> reads address 2, every single cycle:</p>
-<div id="mc-ram-timing" class="makerchip-embed-small"></div>
-
-<p>Line up <code>$wr_data</code> and <code>$rd_data</code> in the waveform: the read is always exactly one step behind. Write 5, read still shows 4. Write 6, read shows 5. The value you write this cycle doesn't reach the read port until next cycle. This "read returns the old value" behavior is something you'll design around constantly once pieces are moving on the Tetris grid, if you check a cell in the same cycle you update it, you're seeing its <em>past</em>, not its future.</p>
-<h2 id="a-note-on-array-syntax">A note on array syntax</h2>
-<p>Writing out eight cells by hand, as we've done here, makes the mechanism crystal clear: a memory is just a bank of register cells plus a read MUX, exactly the register file from 3.1, scaled up. But you can imagine that spelling out 64 or 256 cells this way would be unbearable.</p>
-<p>Real designs collapse the whole memory into a single <strong>array</strong>, indexed directly by the address, so one line describes all the cells at once instead of one line per cell. The idea is identical to what you built here, the array index simply stands in for the write-decoder and the read MUX. Seeing it spelled out once, as you have, is what makes the compact version make sense later rather than feeling like magic.</p>
-<h2 id="your-turn-gated-writes">Your turn: gated writes</h2>
-<p>In the exercise below, writes are only allowed on even cycles (<code>$wr_en</code> is high when the cycle count is even). Complete cell <code>$m3</code> so it stores data only when writes are enabled <em>and</em> the address points at it, holding its value the rest of the time.</p>
-<div id="mc-ram-exercise" class="makerchip-embed"></div>
+<details class="note">
+<summary>Which bit is column 0?</summary>
+<p>We use the convention that <strong>bit <code>c</code> is column <code>c</code></strong>, so bit 0 is the leftmost column and higher bits go rightward. This makes reading a cell as simple as indexing: <code>$row1[3]</code> is column 3 of row 1. (When you print the raw binary, the leftmost digit is the highest bit, so the printed number can look mirror-imaged compared to the board, that's why the Viz tab, which draws it correctly, is your friend.)</p>
+</details>
+<h2 id="reading-a-single-cell">Reading a single cell</h2>
+<p>Because a column is just a bit position, reading one cell is a bit-index, no math required:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>$cell = $row1[3];   // is column 3 of row 1 filled?
+</code></pre></div>
+<p>That returns the single bit for that cell: <code>1</code> if filled, <code>0</code> if empty. This is the operation Tetris runs constantly, "is the space below my piece already occupied?"</p>
+<h2 id="building-a-shape-from-scratch">Building a shape from scratch</h2>
+<p>Reading is half the story; you also need to <em>construct</em> rows. Say you want a horizontal bar filling columns 2, 3, and 4 of a row. Work it out bit by bit: you need <code>1</code>s at bit positions 2, 3, and 4, and <code>0</code>s everywhere else. Writing the bits from position 7 down to 0:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>bit:    7 6 5 4 3 2 1 0
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>value:  0 0 0 1 1 1 0 0    -&gt;   8&#39;b00011100
+</code></pre></div>
+<p>So <code>$row = 8'b00011100</code> gives you that bar. The trick is always the same: mark a <code>1</code> at each column you want filled, <code>0</code> elsewhere, then read the bits off from the high position down to write the literal. Once you're comfortable, you'll read and write these shapes as fluently as you read decimal numbers.</p>
+<h2 id="sizing-a-real-board">Sizing a real board</h2>
+<p>Our examples use a cozy 8-wide grid to keep things readable, but the technique scales to any size. A standard Tetris board is 10 columns wide and 20 rows tall. In this representation that's simply twenty signals, each 10 bits wide:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>$row0[9:0], $row1[9:0], ... $row19[9:0]
+</code></pre></div>
+<p>Nothing about the approach changes, wider rows just mean more bits per signal, and a taller board means more row signals. Everything you learn on the small grid transfers directly to the full-size game.</p>
+<h2 id="checking-a-full-row">Checking a full row</h2>
+<p>Clearing full rows is the heart of Tetris scoring, and detecting a full row is delightfully easy in this representation. A row is full when <em>every</em> bit is <code>1</code>. The <strong>AND-reduction</strong> operator, a single <code>&amp;</code> in front of a signal, ANDs all the bits together and gives you one result: <code>1</code> only if they were all <code>1</code>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>$row3_full = &amp; $row3;   // 1 if every column in row 3 is filled
+</code></pre></div>
+<p>If <code>$row3</code> is <code>8'b11111111</code>, the reduction is <code>1</code>. If even one column is empty, it's <code>0</code>. One operator, whole-row check.</p>
+<p>Why does this one little operator matter so much? Because detecting a full row <em>is</em> the core of Tetris scoring. The entire satisfying loop of the game, stack pieces, fill a row completely, watch it vanish, is built on exactly this check. Every cycle, Tetris asks each row "are you full?" using this reduction, and any row that answers yes gets cleared and scored. You've just written the detection half of the most important mechanic in the game; in a later module you'll add the clearing half.</p>
+<p>There's a matching operator for the opposite question. The <strong>OR-reduction</strong>, a single <code>|</code> in front of a signal, is <code>1</code> if <em>any</em> bit is set. So <code>| $row</code> tells you whether a row has anything in it at all, and <code>! | $row</code> (or checking it equals zero) tells you a row is completely empty, useful for knowing where the empty space above the pile begins.</p>
+<h2 id="watch-out-the-binary-looks-mirrored">Watch out: the binary looks mirrored</h2>
+<p>Here's the one thing that trips people up with this representation. Say you want a block in the two <em>leftmost</em> columns, columns 0 and 1. Your instinct might be to write <code>8'b11000000</code>, because that <em>looks</em> left-heavy. But that's wrong: in <code>8'b11000000</code> the two <code>1</code>s are in bit positions 7 and 6, which are columns 7 and 6, the <em>rightmost</em> columns.</p>
+<p>To fill columns 0 and 1, you actually write <code>8'b00000011</code>, because bit 0 and bit 1 are the leftmost columns in our convention. The written binary reads right-to-left compared to the board, the lowest bit (rightmost digit) is the leftmost column.</p>
+<p>This is exactly why the Viz tab matters so much for grids: when you draw the cells as a picture, this confusion disappears, you just see whether the block is where you wanted it. Whenever a shape looks flipped or offset, this bit-ordering is the first thing to suspect.</p>
+<h2 id="debugging-tip-the-viz-tab-is-your-eyes">Debugging tip: the Viz tab is your eyes</h2>
+<p>For everything up to now, the Waveform was the natural place to watch your design. For a grid, that flips. A row shown as <code>01111110</code> in the waveform is technically correct but nearly impossible to <em>see</em> as a shape. The <strong>Viz tab</strong> is where a grid comes alive, it draws the cells as an actual picture, so a bug like "my piece is one column off" jumps out immediately instead of hiding in a binary number.</p>
+<p>From here through the Tetris project, the Viz tab is your primary debugging surface. Build the habit now: when something on the grid looks wrong, open Viz and <em>look</em> at it rather than squinting at bits in the waveform. The two tabs work together, Viz shows you <em>that</em> something's wrong and roughly where, the waveform and Nav-TLV help you find <em>why</em>.</p>
+<h2 id="your-turn-read-the-grid">Your turn: read the grid</h2>
+<p>The grid below is fixed. Complete two operations: read the single cell at row 2, column 4, and check whether row 3 is completely full. The editor comments give you the exact syntax for both.</p>
+<div id="mc-grid-exercise" class="makerchip-embed"></div>
 
 <h2 id="where-this-fits-next">Where this fits next</h2>
-<p>You can now store and retrieve data across many addressable locations, with control over exactly when writes happen. So far, though, memory has been a simple list: address 0, 1, 2, and so on. A game board isn't a list, it's a <em>grid</em>, with rows and columns. In Module 3.3 you'll learn how to fold a 2D grid into memory, the representation the entire Tetris game is built on.</p>
+<p>You can now represent a board, read any cell, and detect a full row, all the static pieces of a grid. But Tetris isn't static: pieces move, land, and stack up. In Module 3.4 you'll learn to <em>change</em> the grid, setting and clearing cells so a piece can fall and lock into place.</p>
 <h2 id="quick-reference">Quick reference</h2>
 <table>
 <thead>
@@ -1278,30 +1341,30 @@
 </thead>
 <tbody>
 <tr>
-<td>Write-enable</td>
-<td><code>$wr_en &amp;&amp; $wr_addr == N</code></td>
-<td>Store only when enabled and addressed</td>
+<td>A row</td>
+<td><code>$row[7:0] = 8'b...</code></td>
+<td>One signal, one bit per column</td>
 </tr>
 <tr>
-<td>Memory cell</td>
-<td><code>... ? $wr_data : &gt;&gt;1$mN</code></td>
-<td>A register that holds until written</td>
+<td>Read a cell</td>
+<td><code>$row[c]</code></td>
+<td>Bit <code>c</code> = column <code>c</code> (1 = filled)</td>
 </tr>
 <tr>
-<td>Read port</td>
-<td><code>($rd_addr == N) ? $mN : ...</code></td>
-<td>MUX selects the addressed cell</td>
+<td>Full-row check</td>
+<td><code>&amp; $row</code></td>
+<td>AND-reduce: 1 if every column filled</td>
 </tr>
 <tr>
-<td>Read lag</td>
-<td>write appears next cycle</td>
-<td>The read port shows the stored value</td>
+<td>Empty-row check</td>
+<td><code>\| $row</code> gives 0</td>
+<td>OR-reduce: 0 if every column empty</td>
 </tr>
 </tbody>
 </table>
 <style>
 .makerchip-embed       { position: relative; width: 100%; height: 500px; }
-.makerchip-embed-small { position: relative; width: 100%; height: 360px; }
+.makerchip-embed-small { position: relative; width: 100%; height: 340px; }
 </style>
 
 <script type="module">
@@ -1335,17 +1398,14 @@
     }
   }
 
-  if (document.getElementById('mc-ram-viz')) {
-    VizOnlyIDE.create('mc-ram-viz', { codeURL: base + 'ram-viz.tlv' });
+  if (document.getElementById('mc-grid-viz')) {
+    VizOnlyIDE.create('mc-grid-viz', { codeURL: base + 'grid-viz.tlv' });
   }
-  if (document.getElementById('mc-ram-waveform')) {
-    WaveformOnlyIDE.create('mc-ram-waveform', { codeURL: base + 'ram-demo.tlv' });
+  if (document.getElementById('mc-grid-waveform')) {
+    WaveformOnlyIDE.create('mc-grid-waveform', { codeURL: base + 'grid-waveform.tlv' });
   }
-  if (document.getElementById('mc-ram-timing')) {
-    WaveformOnlyIDE.create('mc-ram-timing', { codeURL: base + 'ram-timing.tlv' });
-  }
-  if (document.getElementById('mc-ram-exercise')) {
-    EditorWaveformIDE.create('mc-ram-exercise', { codeURL: base + 'ram-exercise.tlv' });
+  if (document.getElementById('mc-grid-exercise')) {
+    EditorWaveformIDE.create('mc-grid-exercise', { codeURL: base + 'grid-exercise.tlv' });
   }
 </script>
 
@@ -1377,7 +1437,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../module-3-1-register-files/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Module 3.1 - Register Files">
+          <a href="../module-3-2-memory/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Module 3.2 - Memory (RAM)">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -1387,27 +1447,11 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                Module 3.1 - Register Files
+                Module 3.2 - Memory (RAM)
               </div>
             </div>
           </a>
         
-        
-          
-          <a href="../module-3-3-grid/" class="md-footer__link md-footer__link--next" aria-label="Next: Module 3.3 - The 2D Grid">
-            <div class="md-footer__title">
-              <span class="md-footer__direction">
-                Next
-              </span>
-              <div class="md-ellipsis">
-                Module 3.3 - The 2D Grid
-              </div>
-            </div>
-            <div class="md-footer__button md-icon">
-              
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
-            </div>
-          </a>
         
       </nav>
     
