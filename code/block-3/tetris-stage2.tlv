@@ -6,42 +6,41 @@
    // STAGE 2: the piece now LOCKS when it lands. It falls until the row
    // below is blocked (by the floor or the pile), then merges into the
    // pile and a new piece spawns at the top. Watch the pile grow.
+   // Note: the collision signals read the PREVIOUS cycle's board so the
+   // logic has no combinational loops.
 
-   $tick = >>1$timer == 4'd3;
+   $tick = >>1$timer >= 4'd3;
    $timer[3:0] = *reset ? 4'd0 : $tick ? 4'd0 : >>1$timer + 4'd1;
 
-   // The piece shape, shifted a bit each spawn so the pile builds unevenly.
-   $piece[7:0] = 8'b00000111 << >>1$spawn_col[2:0];
-   $spawn_col[2:0] = *reset ? 3'd0 : $lock ? >>1$spawn_col + 3'd2 : >>1$spawn_col;
+   // The piece alternates between the left and right halves on each lock.
+   $piece[7:0] = >>1$spawn_lo ? 8'b11100000 : 8'b00000111;
+   $spawn_lo = *reset ? 1'b0 : $lock ? !>>1$spawn_lo : >>1$spawn_lo;
 
-   // The pile: 10 row registers. A row gets the piece OR'd in when the
-   // piece locks at that row.
-   $pile0[7:0] = *reset ? 8'b0 : ($lock && $prow == 4'd0) ? >>1$pile0 | $piece : >>1$pile0;
-   $pile1[7:0] = *reset ? 8'b0 : ($lock && $prow == 4'd1) ? >>1$pile1 | $piece : >>1$pile1;
-   $pile2[7:0] = *reset ? 8'b0 : ($lock && $prow == 4'd2) ? >>1$pile2 | $piece : >>1$pile2;
-   $pile3[7:0] = *reset ? 8'b0 : ($lock && $prow == 4'd3) ? >>1$pile3 | $piece : >>1$pile3;
-   $pile4[7:0] = *reset ? 8'b0 : ($lock && $prow == 4'd4) ? >>1$pile4 | $piece : >>1$pile4;
-   $pile5[7:0] = *reset ? 8'b0 : ($lock && $prow == 4'd5) ? >>1$pile5 | $piece : >>1$pile5;
-   $pile6[7:0] = *reset ? 8'b0 : ($lock && $prow == 4'd6) ? >>1$pile6 | $piece : >>1$pile6;
-   $pile7[7:0] = *reset ? 8'b0 : ($lock && $prow == 4'd7) ? >>1$pile7 | $piece : >>1$pile7;
-   $pile8[7:0] = *reset ? 8'b0 : ($lock && $prow == 4'd8) ? >>1$pile8 | $piece : >>1$pile8;
-   $pile9[7:0] = *reset ? 8'b0 : ($lock && $prow == 4'd9) ? >>1$pile9 | $piece : >>1$pile9;
+   // What sits in the row just below the piece?
+   $below[7:0] = (>>1$prow == 4'd0) ? >>1$pile1 : (>>1$prow == 4'd1) ? >>1$pile2 : (>>1$prow == 4'd2) ? >>1$pile3 : (>>1$prow == 4'd3) ? >>1$pile4 : (>>1$prow == 4'd4) ? >>1$pile5 : (>>1$prow == 4'd5) ? >>1$pile6 : (>>1$prow == 4'd6) ? >>1$pile7 : (>>1$prow == 4'd7) ? >>1$pile8 : (>>1$prow == 4'd8) ? >>1$pile9 : 8'b0;
 
-   // What's in the row just below the piece?
-   $below[7:0] = ($prow == 4'd0) ? $pile1 : ($prow == 4'd1) ? $pile2 : ($prow == 4'd2) ? $pile3 : ($prow == 4'd3) ? $pile4 : ($prow == 4'd4) ? $pile5 : ($prow == 4'd5) ? $pile6 : ($prow == 4'd6) ? $pile7 : ($prow == 4'd7) ? $pile8 : ($prow == 4'd8) ? $pile9 : 8'b0;
-
-   // Landed if at the floor OR the piece would overlap what's below.
-   $at_floor = $prow == 4'd9;
+   $at_floor = >>1$prow == 4'd9;
    $hit_below = |($piece & $below);
    $landed = $at_floor || $hit_below;
-
-   // Lock happens on a tick when landed. New piece resets row to top.
    $lock = $tick && $landed;
+
    $prow[3:0] = *reset ? 4'd0 : $lock ? 4'd0 : ($tick && !$landed) ? >>1$prow + 4'd1 : >>1$prow;
+
+   // The pile: each row ORs the piece in when the piece locks at that row.
+   $pile0[7:0] = *reset ? 8'b0 : ($lock && >>1$prow == 4'd0) ? >>1$pile0 | $piece : >>1$pile0;
+   $pile1[7:0] = *reset ? 8'b0 : ($lock && >>1$prow == 4'd1) ? >>1$pile1 | $piece : >>1$pile1;
+   $pile2[7:0] = *reset ? 8'b0 : ($lock && >>1$prow == 4'd2) ? >>1$pile2 | $piece : >>1$pile2;
+   $pile3[7:0] = *reset ? 8'b0 : ($lock && >>1$prow == 4'd3) ? >>1$pile3 | $piece : >>1$pile3;
+   $pile4[7:0] = *reset ? 8'b0 : ($lock && >>1$prow == 4'd4) ? >>1$pile4 | $piece : >>1$pile4;
+   $pile5[7:0] = *reset ? 8'b0 : ($lock && >>1$prow == 4'd5) ? >>1$pile5 | $piece : >>1$pile5;
+   $pile6[7:0] = *reset ? 8'b0 : ($lock && >>1$prow == 4'd6) ? >>1$pile6 | $piece : >>1$pile6;
+   $pile7[7:0] = *reset ? 8'b0 : ($lock && >>1$prow == 4'd7) ? >>1$pile7 | $piece : >>1$pile7;
+   $pile8[7:0] = *reset ? 8'b0 : ($lock && >>1$prow == 4'd8) ? >>1$pile8 | $piece : >>1$pile8;
+   $pile9[7:0] = *reset ? 8'b0 : ($lock && >>1$prow == 4'd9) ? >>1$pile9 | $piece : >>1$pile9;
 
    `BOGUS_USE($piece $prow $pile0 $pile1 $pile2 $pile3 $pile4 $pile5 $pile6 $pile7 $pile8 $pile9 $lock $landed)
 
-   *passed = *cyc_cnt > 200;
+   *passed = *cyc_cnt > 300;
    *failed = 1'b0;
 
    \viz_js

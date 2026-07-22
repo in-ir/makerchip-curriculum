@@ -3,50 +3,46 @@
 \SV
    m5_makerchip_module
 \TLV
-   // STAGE 4: the payoff. When a row fills completely it CLEARS, the rows
-   // above drop down, and the score goes up. Pieces are dropped by an
-   // auto-player to build and clear lines.
+   // STAGE 4: the payoff. When the bottom row fills completely it CLEARS,
+   // the rows above drop down, and the line count goes up.
+   // All detection reads the PREVIOUS cycle's board, so there are no
+   // combinational loops.
 
-   $tick = >>1$timer == 4'd2;
+   $tick = >>1$timer >= 4'd2;
    $timer[3:0] = *reset ? 4'd0 : $tick ? 4'd0 : >>1$timer + 4'd1;
 
-   // Auto-player drops a full-width-ish piece alternating position so the
-   // bottom rows fill and clear.
    $piece[7:0] = >>1$spawn_lo ? 8'b11110000 : 8'b00001111;
    $spawn_lo = *reset ? 1'b0 : $lock ? !>>1$spawn_lo : >>1$spawn_lo;
 
-   // Is the bottom row full after a potential lock? Detect clear.
-   $bottom_full = & $pile9;
-   $clear = $bottom_full;
+   $below[7:0] = (>>1$prow == 4'd0) ? >>1$pile1 : (>>1$prow == 4'd1) ? >>1$pile2 : (>>1$prow == 4'd2) ? >>1$pile3 : (>>1$prow == 4'd3) ? >>1$pile4 : (>>1$prow == 4'd4) ? >>1$pile5 : (>>1$prow == 4'd5) ? >>1$pile6 : (>>1$prow == 4'd6) ? >>1$pile7 : (>>1$prow == 4'd7) ? >>1$pile8 : (>>1$prow == 4'd8) ? >>1$pile9 : 8'b0;
 
-   // The pile with clear-and-shift. When $clear, each row takes the row
-   // above it (shift down); otherwise normal lock behavior.
-   // Bottom row: cleared -> takes row 8; else locks piece when landed.
-   $pile9[7:0] = *reset ? 8'b0 : $clear ? >>1$pile8 : ($lock && $prow == 4'd9) ? >>1$pile9 | $piece : >>1$pile9;
-   $pile8[7:0] = *reset ? 8'b0 : $clear ? >>1$pile7 : ($lock && $prow == 4'd8) ? >>1$pile8 | $piece : >>1$pile8;
-   $pile7[7:0] = *reset ? 8'b0 : $clear ? >>1$pile6 : ($lock && $prow == 4'd7) ? >>1$pile7 | $piece : >>1$pile7;
-   $pile6[7:0] = *reset ? 8'b0 : $clear ? >>1$pile5 : ($lock && $prow == 4'd6) ? >>1$pile6 | $piece : >>1$pile6;
-   $pile5[7:0] = *reset ? 8'b0 : $clear ? >>1$pile4 : ($lock && $prow == 4'd5) ? >>1$pile5 | $piece : >>1$pile5;
-   $pile4[7:0] = *reset ? 8'b0 : $clear ? >>1$pile3 : ($lock && $prow == 4'd4) ? >>1$pile4 | $piece : >>1$pile4;
-   $pile3[7:0] = *reset ? 8'b0 : $clear ? >>1$pile2 : ($lock && $prow == 4'd3) ? >>1$pile3 | $piece : >>1$pile3;
-   $pile2[7:0] = *reset ? 8'b0 : $clear ? >>1$pile1 : ($lock && $prow == 4'd2) ? >>1$pile2 | $piece : >>1$pile2;
-   $pile1[7:0] = *reset ? 8'b0 : $clear ? >>1$pile0 : ($lock && $prow == 4'd1) ? >>1$pile1 | $piece : >>1$pile1;
-   $pile0[7:0] = *reset ? 8'b0 : $clear ? 8'b0 : ($lock && $prow == 4'd0) ? >>1$pile0 | $piece : >>1$pile0;
-
-   $below[7:0] = ($prow == 4'd0) ? $pile1 : ($prow == 4'd1) ? $pile2 : ($prow == 4'd2) ? $pile3 : ($prow == 4'd3) ? $pile4 : ($prow == 4'd4) ? $pile5 : ($prow == 4'd5) ? $pile6 : ($prow == 4'd6) ? $pile7 : ($prow == 4'd7) ? $pile8 : ($prow == 4'd8) ? $pile9 : 8'b0;
-
-   $at_floor = $prow == 4'd9;
+   $at_floor = >>1$prow == 4'd9;
    $hit_below = |($piece & $below);
    $landed = $at_floor || $hit_below;
-   $lock = $tick && $landed && !$clear;
-   $prow[3:0] = *reset ? 4'd0 : $clear ? 4'd0 : $lock ? 4'd0 : ($tick && !$landed) ? >>1$prow + 4'd1 : >>1$prow;
 
-   // Score: +1 for each clear.
+   // A full bottom row triggers the clear.
+   $clear = & >>1$pile9;
+   $lock = $tick && $landed && !$clear;
+
+   $prow[3:0] = *reset ? 4'd0 : $clear ? >>1$prow : $lock ? 4'd0 : ($tick && !$landed) ? >>1$prow + 4'd1 : >>1$prow;
+
+   // On a clear, every row takes the value of the row above it.
+   $pile0[7:0] = *reset ? 8'b0 : $clear ? 8'b0 : ($lock && >>1$prow == 4'd0) ? >>1$pile0 | $piece : >>1$pile0;
+   $pile1[7:0] = *reset ? 8'b0 : $clear ? >>1$pile0 : ($lock && >>1$prow == 4'd1) ? >>1$pile1 | $piece : >>1$pile1;
+   $pile2[7:0] = *reset ? 8'b0 : $clear ? >>1$pile1 : ($lock && >>1$prow == 4'd2) ? >>1$pile2 | $piece : >>1$pile2;
+   $pile3[7:0] = *reset ? 8'b0 : $clear ? >>1$pile2 : ($lock && >>1$prow == 4'd3) ? >>1$pile3 | $piece : >>1$pile3;
+   $pile4[7:0] = *reset ? 8'b0 : $clear ? >>1$pile3 : ($lock && >>1$prow == 4'd4) ? >>1$pile4 | $piece : >>1$pile4;
+   $pile5[7:0] = *reset ? 8'b0 : $clear ? >>1$pile4 : ($lock && >>1$prow == 4'd5) ? >>1$pile5 | $piece : >>1$pile5;
+   $pile6[7:0] = *reset ? 8'b0 : $clear ? >>1$pile5 : ($lock && >>1$prow == 4'd6) ? >>1$pile6 | $piece : >>1$pile6;
+   $pile7[7:0] = *reset ? 8'b0 : $clear ? >>1$pile6 : ($lock && >>1$prow == 4'd7) ? >>1$pile7 | $piece : >>1$pile7;
+   $pile8[7:0] = *reset ? 8'b0 : $clear ? >>1$pile7 : ($lock && >>1$prow == 4'd8) ? >>1$pile8 | $piece : >>1$pile8;
+   $pile9[7:0] = *reset ? 8'b0 : $clear ? >>1$pile8 : ($lock && >>1$prow == 4'd9) ? >>1$pile9 | $piece : >>1$pile9;
+
    $score[7:0] = *reset ? 8'd0 : $clear ? >>1$score + 8'd1 : >>1$score;
 
    `BOGUS_USE($piece $prow $pile0 $pile1 $pile2 $pile3 $pile4 $pile5 $pile6 $pile7 $pile8 $pile9 $lock $clear $score)
 
-   *passed = *cyc_cnt > 200;
+   *passed = *cyc_cnt > 300;
    *failed = 1'b0;
 
    \viz_js

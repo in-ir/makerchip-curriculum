@@ -3,49 +3,38 @@
 \SV
    m5_makerchip_module
 \TLV
-   // ============================================================
-   // TETRIS - the complete self-playing game.
-   // 8 wide x 10 tall. A piece falls, an auto-player steers it, it locks
-   // into the pile, full rows clear and score, and the fall speed rises
-   // with the score. Everything from Block 3 assembled into one machine.
-   // ============================================================
+   // TETRIS - the complete self-playing game, 8 wide x 10 tall.
+   // Every detection signal reads the PREVIOUS cycle's board state, which
+   // keeps the logic free of combinational loops.
 
-   // --- Difficulty timer: falls faster as more lines are cleared. ---
    $fall_limit[3:0] = (>>1$score >= 8'd6) ? 4'd1 : (>>1$score >= 8'd3) ? 4'd2 : 4'd3;
    $tick = >>1$timer >= $fall_limit;
    $timer[3:0] = *reset ? 4'd0 : $tick ? 4'd0 : >>1$timer + 4'd1;
 
-   // --- Auto-player: alternates the piece between the left and right
-   //     halves on each spawn so rows fill and clear. ---
    $piece[7:0] = >>1$spawn_lo ? 8'b11110000 : 8'b00001111;
-   $spawn_lo = *reset ? 1'b0 : $lock ? !>>1$spawn_lo : >>1$spawn_lo;
 
-   // --- Line clear: when the bottom row is full, clear it and drop the
-   //     stack down by one. ---
-   $clear = & $pile9;
+   $below[7:0] = (>>1$prow == 4'd0) ? >>1$pile1 : (>>1$prow == 4'd1) ? >>1$pile2 : (>>1$prow == 4'd2) ? >>1$pile3 : (>>1$prow == 4'd3) ? >>1$pile4 : (>>1$prow == 4'd4) ? >>1$pile5 : (>>1$prow == 4'd5) ? >>1$pile6 : (>>1$prow == 4'd6) ? >>1$pile7 : (>>1$prow == 4'd7) ? >>1$pile8 : (>>1$prow == 4'd8) ? >>1$pile9 : 8'b0;
 
-   $pile9[7:0] = *reset ? 8'b0 : $clear ? >>1$pile8 : ($lock && $prow == 4'd9) ? >>1$pile9 | $piece : >>1$pile9;
-   $pile8[7:0] = *reset ? 8'b0 : $clear ? >>1$pile7 : ($lock && $prow == 4'd8) ? >>1$pile8 | $piece : >>1$pile8;
-   $pile7[7:0] = *reset ? 8'b0 : $clear ? >>1$pile6 : ($lock && $prow == 4'd7) ? >>1$pile7 | $piece : >>1$pile7;
-   $pile6[7:0] = *reset ? 8'b0 : $clear ? >>1$pile5 : ($lock && $prow == 4'd6) ? >>1$pile6 | $piece : >>1$pile6;
-   $pile5[7:0] = *reset ? 8'b0 : $clear ? >>1$pile4 : ($lock && $prow == 4'd5) ? >>1$pile5 | $piece : >>1$pile5;
-   $pile4[7:0] = *reset ? 8'b0 : $clear ? >>1$pile3 : ($lock && $prow == 4'd4) ? >>1$pile4 | $piece : >>1$pile4;
-   $pile3[7:0] = *reset ? 8'b0 : $clear ? >>1$pile2 : ($lock && $prow == 4'd3) ? >>1$pile3 | $piece : >>1$pile3;
-   $pile2[7:0] = *reset ? 8'b0 : $clear ? >>1$pile1 : ($lock && $prow == 4'd2) ? >>1$pile2 | $piece : >>1$pile2;
-   $pile1[7:0] = *reset ? 8'b0 : $clear ? >>1$pile0 : ($lock && $prow == 4'd1) ? >>1$pile1 | $piece : >>1$pile1;
-   $pile0[7:0] = *reset ? 8'b0 : $clear ? 8'b0 : ($lock && $prow == 4'd0) ? >>1$pile0 | $piece : >>1$pile0;
-
-   // --- Collision: what is below the piece, and has it landed? ---
-   $below[7:0] = ($prow == 4'd0) ? $pile1 : ($prow == 4'd1) ? $pile2 : ($prow == 4'd2) ? $pile3 : ($prow == 4'd3) ? $pile4 : ($prow == 4'd4) ? $pile5 : ($prow == 4'd5) ? $pile6 : ($prow == 4'd6) ? $pile7 : ($prow == 4'd7) ? $pile8 : ($prow == 4'd8) ? $pile9 : 8'b0;
-   $at_floor = $prow == 4'd9;
+   $at_floor = >>1$prow == 4'd9;
    $hit_below = |($piece & $below);
    $landed = $at_floor || $hit_below;
+   $clear = & >>1$pile9;
    $lock = $tick && $landed && !$clear;
 
-   // --- Falling: advance on each tick unless landed or clearing. ---
-   $prow[3:0] = *reset ? 4'd0 : $clear ? 4'd0 : $lock ? 4'd0 : ($tick && !$landed) ? >>1$prow + 4'd1 : >>1$prow;
+   $prow[3:0] = *reset ? 4'd0 : $clear ? >>1$prow : $lock ? 4'd0 : ($tick && !$landed) ? >>1$prow + 4'd1 : >>1$prow;
 
-   // --- Score: one point per cleared line. ---
+   $pile0[7:0] = *reset ? 8'b0 : $clear ? 8'b0 : ($lock && >>1$prow == 4'd0) ? >>1$pile0 | $piece : >>1$pile0;
+   $pile1[7:0] = *reset ? 8'b0 : $clear ? >>1$pile0 : ($lock && >>1$prow == 4'd1) ? >>1$pile1 | $piece : >>1$pile1;
+   $pile2[7:0] = *reset ? 8'b0 : $clear ? >>1$pile1 : ($lock && >>1$prow == 4'd2) ? >>1$pile2 | $piece : >>1$pile2;
+   $pile3[7:0] = *reset ? 8'b0 : $clear ? >>1$pile2 : ($lock && >>1$prow == 4'd3) ? >>1$pile3 | $piece : >>1$pile3;
+   $pile4[7:0] = *reset ? 8'b0 : $clear ? >>1$pile3 : ($lock && >>1$prow == 4'd4) ? >>1$pile4 | $piece : >>1$pile4;
+   $pile5[7:0] = *reset ? 8'b0 : $clear ? >>1$pile4 : ($lock && >>1$prow == 4'd5) ? >>1$pile5 | $piece : >>1$pile5;
+   $pile6[7:0] = *reset ? 8'b0 : $clear ? >>1$pile5 : ($lock && >>1$prow == 4'd6) ? >>1$pile6 | $piece : >>1$pile6;
+   $pile7[7:0] = *reset ? 8'b0 : $clear ? >>1$pile6 : ($lock && >>1$prow == 4'd7) ? >>1$pile7 | $piece : >>1$pile7;
+   $pile8[7:0] = *reset ? 8'b0 : $clear ? >>1$pile7 : ($lock && >>1$prow == 4'd8) ? >>1$pile8 | $piece : >>1$pile8;
+   $pile9[7:0] = *reset ? 8'b0 : $clear ? >>1$pile8 : ($lock && >>1$prow == 4'd9) ? >>1$pile9 | $piece : >>1$pile9;
+
+   $spawn_lo = *reset ? 1'b0 : $lock ? !>>1$spawn_lo : >>1$spawn_lo;
    $score[7:0] = *reset ? 8'd0 : $clear ? >>1$score + 8'd1 : >>1$score;
 
    `BOGUS_USE($piece $prow $pile0 $pile1 $pile2 $pile3 $pile4 $pile5 $pile6 $pile7 $pile8 $pile9 $lock $clear $score $tick)
@@ -59,7 +48,6 @@
          let piece = '$piece'.asInt()
          let prow = '$prow'.asInt()
          let score = '$score'.asInt()
-         let clear = '$clear'.asBool()
          let q0 = '$pile0'.asInt()
          let q1 = '$pile1'.asInt()
          let q2 = '$pile2'.asInt()

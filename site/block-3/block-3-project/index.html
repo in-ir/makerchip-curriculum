@@ -13,10 +13,8 @@
       
       
       
-        <link rel="prev" href="../module-3-4-grid-ops/">
+        <link rel="prev" href="../module-3-5-collision/">
       
-      
-        <link rel="next" href="../block-3-project/">
       
       
         
@@ -27,7 +25,7 @@
     
     
       
-        <title>Module 3.5 - Collision Detection - Digital Design with Makerchip & TL-Verilog</title>
+        <title>Project - Tetris - Digital Design with Makerchip & TL-Verilog</title>
       
     
     
@@ -78,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#module-35-collision-detection" class="md-skip">
+        <a href="#project-lab-tetris" class="md-skip">
           Skip to content
         </a>
       
@@ -114,7 +112,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Module 3.5 - Collision Detection
+              Project - Tetris
             
           </span>
         </div>
@@ -1028,6 +1026,34 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../module-3-5-collision/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 3.5 - Collision Detection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -1047,7 +1073,7 @@
   <span class="md-ellipsis">
     
   
-    Module 3.5 - Collision Detection
+    Project - Tetris
   
 
     
@@ -1065,7 +1091,7 @@
   <span class="md-ellipsis">
     
   
-    Module 3.5 - Collision Detection
+    Project - Tetris
   
 
     
@@ -1091,10 +1117,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#what-youll-learn" class="md-nav__link">
+  <a href="#what-youre-building" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What you'll learn
+        What you're building
       
     </span>
   </a>
@@ -1102,10 +1128,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#the-problem-pieces-passing-through-walls" class="md-nav__link">
+  <a href="#the-plan" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The problem: pieces passing through walls
+        The plan
       
     </span>
   </a>
@@ -1113,10 +1139,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#the-core-idea-overlap-is-just-and" class="md-nav__link">
+  <a href="#stage-1-the-falling-piece" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The core idea: overlap is just AND
+        Stage 1 — The falling piece
       
     </span>
   </a>
@@ -1124,10 +1150,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#walls-colliding-with-the-edge" class="md-nav__link">
+  <a href="#stage-2-collision-and-locking" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Walls: colliding with the edge
+        Stage 2 — Collision and locking
       
     </span>
   </a>
@@ -1135,10 +1161,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#the-move-guard-check-before-you-move" class="md-nav__link">
+  <a href="#stage-3-sideways-movement" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The move guard: check before you move
+        Stage 3 — Sideways movement
       
     </span>
   </a>
@@ -1146,10 +1172,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#landing-collision-below-means-lock" class="md-nav__link">
+  <a href="#stage-4-line-clear-and-scoring" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Landing: collision below means lock
+        Stage 4 — Line clear and scoring
       
     </span>
   </a>
@@ -1157,10 +1183,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#watch-it-break-the-ghost-piece" class="md-nav__link">
+  <a href="#the-complete-game" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Watch it break: the ghost piece
+        The complete game
       
     </span>
   </a>
@@ -1168,10 +1194,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#debugging-tip-trace-the-collision-signal-in-nav-tlv" class="md-nav__link">
+  <a href="#make-it-your-own" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Debugging tip: trace the collision signal in Nav-TLV
+        Make it your own
       
     </span>
   </a>
@@ -1179,32 +1205,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#your-turn-guard-the-move" class="md-nav__link">
+  <a href="#where-youve-been" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Your turn: guard the move
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#where-this-fits-next" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Where this fits next
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#quick-reference" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Quick reference
+        Where you've been
       
     </span>
   </a>
@@ -1215,34 +1219,6 @@
   
 </nav>
       
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../block-3-project/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Project - Tetris
-  
-
-    
-  </span>
-  
-  
-
-      </a>
     </li>
   
 
@@ -1272,122 +1248,77 @@
 
 
 
-<h1 id="module-35-collision-detection">Module 3.5: Collision Detection</h1>
+<h1 id="project-lab-tetris">Project Lab: Tetris</h1>
 <p><strong>Block 3 — Memory and Arrays</strong><br />
-<strong>Estimated time:</strong> 55–70 minutes<br />
-<strong>Prerequisites:</strong> Module 3.4 — Reading and Writing the Grid</p>
-<div id="mc-collision-viz" class="makerchip-embed-small"></div>
+<strong>Estimated time:</strong> 120–150 minutes<br />
+<strong>Prerequisites:</strong> Modules 3.1 through 3.5</p>
+<h2 id="what-youre-building">What you're building</h2>
+<p>This is the capstone of Block 3, and of the whole course so far: a complete, self-playing Tetris machine. Pieces fall down a grid, land and lock into a growing pile, and whenever a row fills completely it clears and the score climbs, faster and faster as you go. You won't learn any new syntax here. Every single piece is something you already built in Modules 3.1 through 3.5. Your job is to assemble them into a working game, one stage at a time.</p>
+<p>A quick note on how it plays. A Makerchip simulation runs on the clock with no live keyboard, so instead of you steering pieces, the machine has a built-in auto-player that positions each piece for you, the way a demo screen plays itself on an arcade cabinet while no one's at the controls. Everything is fully visible, so you can watch exactly how the game thinks: the falling, the collision, the locking, the line clears.</p>
+<p>Here's the finished machine you're working toward, a piece falls, locks into the pile, and completed rows vanish as the line counter ticks up:</p>
+<div id="mc-tetris-final" class="makerchip-embed"></div>
 
-<h2 id="what-youll-learn">What you'll learn</h2>
-<p>By the end of this module you will be able to detect when a piece would overlap something it shouldn't, using a single AND operation, distinguish wall collisions from pile collisions, guard a move so it only happens when the destination is clear, and detect when a falling piece has landed. Collision detection is the rule that makes the pile solid and the walls real, and it's the final concept before you build the full Tetris game.</p>
-<h2 id="the-problem-pieces-passing-through-walls">The problem: pieces passing through walls</h2>
-<p>In Module 3.4 you learned to move pieces around the grid, but nothing stopped them. A piece could slide right off the edge of the board and vanish, or fall straight through the pile as if it weren't there. That's not a game, it's a ghost.</p>
-<p>Real Tetris has a rule that we've been ignoring: <strong>two things can't occupy the same cell, and nothing can leave the board.</strong> Before a piece is allowed to move, the game has to look ahead at where it <em>wants</em> to go and ask, "is that space actually free?" If it isn't, the move is cancelled. That look-ahead-and-check is called <strong>collision detection</strong>, and it turns out to be one of the most elegant things you'll build in this whole course.</p>
-<h2 id="the-core-idea-overlap-is-just-and">The core idea: overlap is just AND</h2>
-<p>Here's the beautiful part. You already have a representation where a piece and the pile are both just sets of bits in a row. Two cells overlap when <em>both</em> have a <code>1</code> in the same position, and there's a single operator that lights up exactly the positions where two signals both have a <code>1</code>: <strong>AND</strong>.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>$overlap[7:0] = $piece &amp; $pile;
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>$hit = | $overlap;
-</code></pre></div>
-<p><code>$piece &amp; $pile</code> produces a row that has a <code>1</code> only where the piece and the pile collide. If that result is all zeros, there's no overlap and the move is safe. If <em>any</em> bit is set, they clash, and the OR-reduction <code>|</code> collapses that to a single "collision!" bit. One AND, one reduction, and you know whether a move is legal.</p>
-<div style="margin: 2rem 0;">
-<svg width="100%" viewBox="0 0 720 260" xmlns="http://www.w3.org/2000/svg" style="font-family: 'JetBrains Mono', monospace;">
-  <text x="360" y="30" fill="#4A3060" font-size="12" text-anchor="middle">does the piece overlap the pile?</text>
+<p>The lab has four stages, one for each big idea from the block. Each stage hands you a starter with the earlier stages already working, so you're always building on solid ground. Fill in the blanks marked <code>TODO</code>, run it, and check it against the checkpoint before moving on.</p>
+<h2 id="the-plan">The plan</h2>
+<p>You'll build the game in the same order the pieces fire during play:</p>
+<ol>
+<li><strong>The falling piece</strong> — a piece drops down the grid on a difficulty timer <em>(Modules 3.3, 3.4)</em></li>
+<li><strong>Collision and locking</strong> — the piece stops on the pile and merges in <em>(Modules 3.4, 3.5)</em></li>
+<li><strong>Sideways movement</strong> — the piece slides across, blocked by the walls <em>(Module 3.5)</em></li>
+<li><strong>Line clear and scoring</strong> — full rows vanish and the stack drops <em>(Module 3.3)</em></li>
+</ol>
+<p>A note on pieces: real Tetris has seven rotating shapes, and rotation in this bit-per-row representation is a genuine challenge beyond this course. So we use single-row pieces of different widths. Everything important, falling, collision, locking, line-clearing, works exactly the same, and you'll finish with a real, playing game rather than a half-built one. If you later want to add multi-row pieces or rotation, you'll have every tool you need.</p>
+<hr />
+<h2 id="stage-1-the-falling-piece">Stage 1 — The falling piece</h2>
+<p><strong>Concepts:</strong> the grid (Module 3.3), making a piece fall (Module 3.4)</p>
+<p>Everything starts with a piece that falls. You have a piece sitting in a row signal, and a difficulty timer that "ticks" at a set speed. On each tick, the piece should drop one row, and when it reaches the bottom it wraps back to the top so you can watch it loop.</p>
+<p>Your one blank is the falling logic: on each tick, move <code>$prow</code> down by one, wrapping from the last row (9) back to 0. It's the counter pattern from Block 2, gated by the tick.</p>
+<div id="mc-tetris-stage1" class="makerchip-embed"></div>
 
-  <!-- No collision case -->
-  <text x="180" y="62" fill="#22c55e" font-size="12" font-weight="bold" text-anchor="middle">clear move</text>
-  <text x="70" y="92" fill="#4A3060" font-size="11" text-anchor="start">piece</text>
-  <text x="180" y="92" fill="#eab308" font-size="15" text-anchor="middle" font-family="Courier New">00011000</text>
-  <text x="70" y="116" fill="#4A3060" font-size="11" text-anchor="start">pile</text>
-  <text x="180" y="116" fill="#7C4DFF" font-size="15" text-anchor="middle" font-family="Courier New">11100000</text>
-  <line x1="100" y1="126" x2="270" y2="126" stroke="#4A3060" stroke-width="1"/>
-  <text x="55" y="148" fill="#4A3060" font-size="12" text-anchor="start">AND</text>
-  <text x="180" y="150" fill="#22c55e" font-size="15" font-weight="bold" text-anchor="middle" font-family="Courier New">00000000</text>
-  <text x="180" y="176" fill="#22c55e" font-size="12" text-anchor="middle">all zeros -> move allowed</text>
+<p><strong>Checkpoint:</strong> the yellow piece should march steadily down the board, one row at a time, then reappear at the top. If it sits still, your fall logic isn't advancing; if it moves every cycle instead of every few, check that it only moves on <code>$tick</code>.</p>
+<hr />
+<h2 id="stage-2-collision-and-locking">Stage 2 — Collision and locking</h2>
+<p><strong>Concepts:</strong> merging (Module 3.4), collision detection (Module 3.5)</p>
+<p>Now the piece needs to <em>stop</em>. Instead of wrapping, it should fall until the cell below it is blocked, either by the floor or by the pile, then lock in place and let a new piece spawn at the top. This is the collision-below test from Module 3.5 driving the merge from Module 3.4.</p>
+<p>The collision and pile logic are wired for you. Watch how each pile row ORs the piece in when the piece locks at that row, and how <code>$below</code> looks one row down to decide when the piece has landed. Run it and watch the pile build up, one piece at a time.</p>
+<div id="mc-tetris-stage2" class="makerchip-embed"></div>
 
-  <line x1="360" y1="45" x2="360" y2="185" stroke="#2A1A40" stroke-width="1"/>
+<p><strong>Checkpoint:</strong> pieces should fall, stop on top of each other, and build a growing stack instead of passing through. If pieces sink to the bottom and overwrite each other, the collision check isn't catching the pile; if nothing stacks, the lock isn't merging into the pile rows.</p>
+<hr />
+<h2 id="stage-3-sideways-movement">Stage 3 — Sideways movement</h2>
+<p><strong>Concept:</strong> the collision guard applied to left/right motion (Module 3.5)</p>
+<p>A piece that only falls straight down can't fill a board evenly. Here the piece slides sideways as it falls, steered by the auto-player toward a target column, but it must respect the walls: a piece can't move past the edge of the grid.</p>
+<p>Your blank is the move guard: move the piece toward its target column, but only if doing so wouldn't push it through the right wall. This is exactly the guarded-move pattern from Module 3.5, "take the move only if it's legal", applied to horizontal motion.</p>
+<div id="mc-tetris-stage3" class="makerchip-embed"></div>
 
-  <!-- Collision case -->
-  <text x="540" y="62" fill="#ef4444" font-size="12" font-weight="bold" text-anchor="middle">blocked move</text>
-  <text x="430" y="92" fill="#4A3060" font-size="11" text-anchor="start">piece</text>
-  <text x="540" y="92" fill="#eab308" font-size="15" text-anchor="middle" font-family="Courier New">00011000</text>
-  <text x="430" y="116" fill="#4A3060" font-size="11" text-anchor="start">pile</text>
-  <text x="540" y="116" fill="#7C4DFF" font-size="15" text-anchor="middle" font-family="Courier New">00010000</text>
-  <line x1="460" y1="126" x2="630" y2="126" stroke="#4A3060" stroke-width="1"/>
-  <text x="415" y="148" fill="#4A3060" font-size="12" text-anchor="start">AND</text>
-  <text x="540" y="150" fill="#ef4444" font-size="15" font-weight="bold" text-anchor="middle" font-family="Courier New">00010000</text>
-  <text x="540" y="176" fill="#ef4444" font-size="12" text-anchor="middle">a bit is set -> collision!</text>
+<p><strong>Checkpoint:</strong> the piece should drift toward its target column as it falls and stop cleanly at the wall, never disappearing off the edge. If it slides off the board, the wall check isn't holding it back.</p>
+<hr />
+<h2 id="stage-4-line-clear-and-scoring">Stage 4 — Line clear and scoring</h2>
+<p><strong>Concept:</strong> the full-row check and its payoff (Module 3.3)</p>
+<p>This is the moment the whole block has been building toward. When a row fills completely, it should vanish, everything above it drops down by one, and the score goes up. The auto-player drops pieces to alternate halves of the board so the bottom row fills and clears.</p>
+<p>The line-clear logic is provided so you can see the whole mechanism: <code>$clear</code> uses the AND-reduction from Module 3.3 to detect a full bottom row, and when it fires, each pile row takes the value of the row above it, the stack falling down to fill the gap. Run it and watch rows disappear as the line counter climbs.</p>
+<div id="mc-tetris-stage4" class="makerchip-embed"></div>
 
-  <text x="360" y="228" fill="#B39DDB" font-size="12" text-anchor="middle">$hit = | ($piece &amp; $pile)</text>
-  <text x="360" y="248" fill="#4A3060" font-size="11" text-anchor="middle">one line decides whether any move is legal</text>
-</svg>
-</div>
+<p><strong>Checkpoint:</strong> when the bottom row fills completely, it should clear, the stack above should drop by one row, and the line count should increase. If full rows just sit there, the <code>$clear</code> detection isn't firing; if the board empties wrongly, check the shift-down.</p>
+<hr />
+<h2 id="the-complete-game">The complete game</h2>
+<p>Put all four stages together and you have Tetris. The full machine below adds one finishing touch: a difficulty timer that makes pieces fall faster as your score rises, so the game speeds up the better it does. Watch a piece fall, get steered into place, lock into the pile, and watch completed lines vanish while the counter climbs and the pace quickens.</p>
+<div id="mc-tetris-full" class="makerchip-embed"></div>
 
-<p>Here's that test running on its own. A single-cell piece slides across a fixed pile, and <code>$hit</code> goes high on exactly the cycles where they overlap:</p>
-<div id="mc-collision-demo" class="makerchip-embed-small"></div>
-
-<h2 id="walls-colliding-with-the-edge">Walls: colliding with the edge</h2>
-<p>The pile isn't the only thing a piece can hit, there are also the walls. In our bit representation, the walls are the edges of the row: bit 0 on the left, bit 7 on the right. A piece collides with a wall when moving it would push part of it off the end.</p>
-<p>The cleanest way to handle walls is to treat them as an always-present border. You can imagine a permanent "wall mask" with the edge columns marked, and check the piece against it the same way you check the pile, an AND. Or, more simply, you check before shifting: if the piece already has a bit in the last column and you're about to move it further that way, the move is illegal. Either way, a wall collision is the same kind of test as a pile collision: would this move put a piece bit where it isn't allowed?</p>
-<h2 id="the-move-guard-check-before-you-move">The move guard: check before you move</h2>
-<p>Detecting a collision is only useful if you <em>act</em> on it. The pattern is a guard around the move: compute where the piece <em>wants</em> to go, test that destination for a collision, and only actually move if it's clear.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>$desired[7:0] = &gt;&gt;1$piece &lt;&lt; 1;              // where it wants to go
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>$collision = | ($desired &amp; $pile);           // is that spot blocked?
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>$piece[7:0] = *reset     ? 8&#39;b00000100 :
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>              $collision ? &gt;&gt;1$piece :        // blocked: stay put
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>                           $desired;          // clear: move
-</code></pre></div>
-<p>Read the last assignment as the whole rule of legal movement: on reset, start at a known spot; if the desired move would collide, hold your current position; otherwise, take the move. This single guarded assignment is what makes walls solid and pieces stack instead of merge. Every legal move in Tetris flows through a guard shaped exactly like this.</p>
-<h2 id="landing-collision-below-means-lock">Landing: collision below means lock</h2>
-<p>There's one more use of collision, and it's the one that makes pieces pile up. A piece <strong>lands</strong> when it can't fall any further, that is, when the cell directly below it is blocked, either by the pile or by the floor. That's the same overlap test, aimed downward:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>$below_blocked = | ($piece &amp; $row_beneath);
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>$landed = $at_floor || $below_blocked;
-</code></pre></div>
-<p>When <code>$landed</code> is true, the piece stops falling and locks into the pile (the merge you built in Module 3.4). The VIZ at the top of this page shows exactly this: the yellow piece falls until the cell below it is occupied, then stops dead on top of the pile instead of sinking through it. That "stop on contact" is collision detection and locking working together.</p>
-<h2 id="watch-it-break-the-ghost-piece">Watch it break: the ghost piece</h2>
-<p>To appreciate what collision detection buys you, picture leaving it out. Without the guard, a falling piece just decrements its row every cycle with nothing checking the pile, so it slides straight through the stack and out the bottom, a ghost. Everything you've built in this block, the grid, the reads, the writes, only becomes a <em>game</em> once this one check is in place. Collision is the rule that gives the world substance.</p>
-<h2 id="debugging-tip-trace-the-collision-signal-in-nav-tlv">Debugging tip: trace the collision signal in Nav-TLV</h2>
-<p>Collision bugs are sneaky, a piece stops one cell too early, or slips one cell too far, and staring at the Viz alone won't always tell you why. This is where <strong>Nav-TLV</strong> earns its keep. Click your <code>$collision</code> (or <code>$hit</code>) signal and trace back through the signals that feed it: the <code>$desired</code> position, the <code>$pile</code> it's tested against, the AND between them. Following that chain almost always reveals the culprit, usually an off-by-one in the desired position or a piece shape that's shifted from where you think it is. Viz shows you <em>that</em> the piece stopped wrong; Nav-TLV shows you <em>why</em>.</p>
-<h2 id="your-turn-guard-the-move">Your turn: guard the move</h2>
-<p>Below, a piece tries to slide right across a pile that has blocks on both ends. Complete two things: the collision test between <code>$desired</code> and <code>$pile</code>, and the move guard that stops the piece when it would hit the pile. The editor comments give you both lines.</p>
-<div id="mc-collision-exercise" class="makerchip-embed"></div>
-
-<h2 id="where-this-fits-next">Where this fits next</h2>
-<p>That's the last concept. You now have everything a grid-based game needs: addressable storage, a 2D playfield, the operations to draw and move pieces, and the collision rule that makes it all solid. In the <strong>Tetris project</strong> you'll assemble these into a complete, playing game, built in stages, exactly the way you built Whack-a-Mole at the end of Block 2.</p>
-<h2 id="quick-reference">Quick reference</h2>
-<table>
-<thead>
-<tr>
-<th>Concept</th>
-<th>TL-Verilog</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Overlap test</td>
-<td><code>$piece &amp; $pile</code></td>
-<td>1s only where both overlap</td>
-</tr>
-<tr>
-<td>Collision flag</td>
-<td><code>\| ($piece &amp; $pile)</code></td>
-<td>1 if any overlap at all</td>
-</tr>
-<tr>
-<td>Move guard</td>
-<td><code>$collision ? &gt;&gt;1$piece : $desired</code></td>
-<td>Move only when clear</td>
-</tr>
-<tr>
-<td>Landing</td>
-<td><code>\| ($piece &amp; $row_below)</code></td>
-<td>Blocked below means lock</td>
-</tr>
-</tbody>
-</table>
+<p>Take a moment to appreciate what this is. Every part of it is something you built from scratch: the grid is Module 3.3, the falling and locking are Module 3.4, the collision that makes the pile solid is Module 3.5, and the line clear is the full-row check paying off. There's no new magic here, just the pieces of Block 3, assembled.</p>
+<h2 id="make-it-your-own">Make it your own</h2>
+<p>The game is fully yours to tune. Because it plays itself, tuning <em>is</em> the gameplay, change a value, rerun, and watch how the machine behaves differently. Some things to try:</p>
+<ul>
+<li><strong>Change the speed.</strong> Adjust <code>$fall_limit</code> to make pieces fall faster or slower, or change the score thresholds where the difficulty ramps up.</li>
+<li><strong>Change the pieces.</strong> The auto-player uses <code>8'b11110000</code> and <code>8'b00001111</code>. Try different widths or positions and see how it changes what clears.</li>
+<li><strong>Grow the board.</strong> The grid is 8 wide by 10 tall. Widen the rows to 10 bits, or add more pile rows, everything scales the same way.</li>
+<li><strong>Score differently.</strong> Give more points for clears that happen at high speed, or track the number of pieces dropped alongside the lines cleared.</li>
+<li><strong>Harder:</strong> give the auto-player smarter targeting, so it aims pieces at the emptiest column to clear lines faster.</li>
+</ul>
+<h2 id="where-youve-been">Where you've been</h2>
+<p>That's Block 3 complete, and it's a real milestone. You started the block able to store a single value in a register. You finished it having built addressable memory, a 2D grid, the operations to move things on it, collision detection, and a complete game that uses all of it at once. The same ideas, addressable storage and bit-parallel operations, are exactly what real processors and graphics hardware are built from. You've been writing the real thing all along.</p>
 <style>
-.makerchip-embed       { position: relative; width: 100%; height: 500px; }
-.makerchip-embed-small { position: relative; width: 100%; height: 360px; }
+.makerchip-embed { position: relative; width: 100%; height: 620px; }
 </style>
 
 <script type="module">
@@ -1402,33 +1333,35 @@
     }
   }
 
-  class WaveformOnlyIDE extends IdePlugin {
-    async onReady() {
-      await this.setLayoutState({ panes: ['Waveform'], activePane: 'Waveform' });
-      await this.compile();
-    }
-  }
-
-  class EditorWaveformIDE extends IdePlugin {
+  class EditorVizIDE extends IdePlugin {
     async onReady() {
       await this.setLayoutState({
         sides: {
-          left:  { panes: ['Editor'],   activePane: 'Editor'   },
-          right: { panes: ['Waveform'], activePane: 'Waveform' }
+          left:  { panes: ['Editor'], activePane: 'Editor' },
+          right: { panes: ['Viz'],    activePane: 'Viz'    }
         },
         splitAt: 0.5
       });
     }
   }
 
-  if (document.getElementById('mc-collision-viz')) {
-    VizOnlyIDE.create('mc-collision-viz', { codeURL: base + 'collision-viz.tlv' });
+  if (document.getElementById('mc-tetris-final')) {
+    VizOnlyIDE.create('mc-tetris-final', { codeURL: base + 'tetris.tlv' });
   }
-  if (document.getElementById('mc-collision-demo')) {
-    WaveformOnlyIDE.create('mc-collision-demo', { codeURL: base + 'collision-demo.tlv' });
+  if (document.getElementById('mc-tetris-stage1')) {
+    EditorVizIDE.create('mc-tetris-stage1', { codeURL: base + 'tetris-stage1.tlv' });
   }
-  if (document.getElementById('mc-collision-exercise')) {
-    EditorWaveformIDE.create('mc-collision-exercise', { codeURL: base + 'collision-exercise.tlv' });
+  if (document.getElementById('mc-tetris-stage2')) {
+    EditorVizIDE.create('mc-tetris-stage2', { codeURL: base + 'tetris-stage2.tlv' });
+  }
+  if (document.getElementById('mc-tetris-stage3')) {
+    EditorVizIDE.create('mc-tetris-stage3', { codeURL: base + 'tetris-stage3.tlv' });
+  }
+  if (document.getElementById('mc-tetris-stage4')) {
+    EditorVizIDE.create('mc-tetris-stage4', { codeURL: base + 'tetris-stage4.tlv' });
+  }
+  if (document.getElementById('mc-tetris-full')) {
+    VizOnlyIDE.create('mc-tetris-full', { codeURL: base + 'tetris.tlv' });
   }
 </script>
 
@@ -1460,7 +1393,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../module-3-4-grid-ops/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Module 3.4 - Reading and Writing the Grid">
+          <a href="../module-3-5-collision/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Module 3.5 - Collision Detection">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -1470,27 +1403,11 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                Module 3.4 - Reading and Writing the Grid
+                Module 3.5 - Collision Detection
               </div>
             </div>
           </a>
         
-        
-          
-          <a href="../block-3-project/" class="md-footer__link md-footer__link--next" aria-label="Next: Project - Tetris">
-            <div class="md-footer__title">
-              <span class="md-footer__direction">
-                Next
-              </span>
-              <div class="md-ellipsis">
-                Project - Tetris
-              </div>
-            </div>
-            <div class="md-footer__button md-icon">
-              
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
-            </div>
-          </a>
         
       </nav>
     
