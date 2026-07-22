@@ -87,7 +87,15 @@ The line-clear logic is provided so you can see the whole mechanism: `$clear` us
 
 ## The complete game
 
-Put all four stages together and you have Tetris. The full machine below adds one finishing touch: a difficulty timer that makes pieces fall faster as your score rises, so the game speeds up the better it does. Watch a piece fall, get steered into place, lock into the pile, and watch completed lines vanish while the counter climbs and the pace quickens.
+Put all four stages together and you have Tetris. The full machine below adds the finishing touches that turn the mechanism into an actual game:
+
+- **Varied pieces.** An LFSR, the random number generator you built in Module 2.3, picks a fresh piece width for every drop, so no two games play the same.
+- **A player with a strategy.** Most of the time the auto-player aims for the leftmost gap in the bottom row; now and then it drops somewhere else entirely, so the stack builds up unevenly the way a real game does.
+- **Any row can clear.** Not just the bottom one. Fill a row halfway up the stack and it vanishes, with everything above dropping down to fill the space.
+- **Topping out.** If the stack reaches the top row, the game is over, the board clears, and a new game begins.
+- **Rising difficulty.** Pieces fall faster as the score climbs, so the game gets harder the better it does.
+
+Watch it for a while. The board builds unevenly, rows light up white as they clear, the stack sometimes recovers and sometimes tops out and starts over.
 
 <div id="mc-tetris-full" class="makerchip-embed"></div>
 
@@ -98,10 +106,11 @@ Take a moment to appreciate what this is. Every part of it is something you buil
 The game is fully yours to tune. Because it plays itself, tuning *is* the gameplay, change a value, rerun, and watch how the machine behaves differently. Some things to try:
 
 - **Change the speed.** Adjust `$fall_limit` to make pieces fall faster or slower, or change the score thresholds where the difficulty ramps up.
-- **Change the pieces.** The auto-player uses `8'b11110000` and `8'b00001111`. Try different widths or positions and see how it changes what clears.
+- **Change the pieces.** `$wmask` picks widths of 2, 3 or 4 cells from the LFSR. Add wider pieces, or weight the choice so one width shows up more often.
+- **Change the strategy.** `$aim` decides how often the auto-player targets the leftmost gap versus dropping somewhere random. Make it aim more and the board stays tidy and clears often; make it aim less and the stack grows wild and tops out sooner.
 - **Grow the board.** The grid is 8 wide by 10 tall. Widen the rows to 10 bits, or add more pile rows, everything scales the same way.
 - **Score differently.** Give more points for clears that happen at high speed, or track the number of pieces dropped alongside the lines cleared.
-- **Harder:** give the auto-player smarter targeting, so it aims pieces at the emptiest column to clear lines faster.
+- **Harder:** aim at the lowest gap in the *stack* rather than in the bottom row, so the player fills holes it has buried.
 
 ## Where you've been
 
