@@ -16,13 +16,10 @@
    $rd_addr[1:0] = >>1$wr_addr;
 
    // TODO: complete the read MUX.
-   //   Select the register whose number matches $rd_addr.
-   //   This is the same 4-to-1 MUX pattern from Block 1.
-   //
-   //   $rd_data[3:0] = ($rd_addr == 2'd0) ? $r0 :
-   //                   ($rd_addr == 2'd1) ? $r1 :
-   //                   ($rd_addr == 2'd2) ? $r2 :
-   //                                        $r3;
+   //   $rd_data should give back whichever register $rd_addr points at.
+   //   This is the same 4-to-1 MUX you built in Block 1: a chain of
+   //   ternaries, one test per register, with the last register as the
+   //   final fallback.
 
    $rd_data[3:0] = 4'd0;
 

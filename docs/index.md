@@ -26,11 +26,12 @@ Now let's build something.
 
 ## What you'll build
 
-By the end of this curriculum you'll have designed and simulated:
+Every block ends with a real, working game you build yourself, not a toy exercise. By the end of this curriculum you'll have designed and simulated:
 
-- A **penalty kick game** that teaches sequential logic and FSMs
-- **Tetris** — a full implementation in hardware, teaching memory and arrays
-- The building blocks toward **Pac-Man** as a capstone challenge
+- A **pixel art generator** drawn entirely with combinational logic
+- A **Whack-a-Mole arcade machine** driven by registers, timers, and a state machine
+- **Tetris**, a complete self-playing game with collision detection and line clears
+- The building blocks toward **Pac-Man** as a planned capstone challenge
 
 ---
 
@@ -39,20 +40,22 @@ By the end of this curriculum you'll have designed and simulated:
 Each module combines:
 
 - **Concept explanations** with circuit diagrams
-- **TL-Verilog code** you run directly in Makerchip
-- **Hands-on exercises** with starter code
-- **Match-the-waveform puzzles** to sharpen your debugging instincts
+- **TL-Verilog code** you run directly in Makerchip, embedded right in the page
+- **Hands-on exercises** with starter code, hints, and worked solutions
+- **"Watch it break" demos** that show you real bugs so you learn to recognize them
 
 ---
 
 ## Curriculum structure
 
-| Block | Topic | Project |
-|-------|-------|---------|
-| 1 | Combinational Logic | Gates, MUXes, ALU |
-| 2 | Sequential Logic | Registers, FSMs, Penalty Kick |
-| 3 | Memory & Arrays | Tetris |
-| 4 | Multi-FSM & Hierarchy | Pac-Man (capstone) |
+| Block | Topic | Project | Status |
+|-------|-------|---------|--------|
+| 1 | Combinational Logic | Pixel Art | Ready |
+| 2 | Sequential Logic | Whack-a-Mole | Ready |
+| 3 | Memory and Arrays | Tetris | Ready |
+| 4 | Multi-FSM and Hierarchy | Pac-Man (capstone) | Planned |
+
+New to digital logic? Start at Block 1 and work straight through. Already comfortable with gates and flip-flops and just want to learn the tooling? [Get Started](get-started.md) covers Makerchip and TL-Verilog on its own.
 
 ---
 

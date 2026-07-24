@@ -39,6 +39,22 @@ Your one blank is the falling logic: on each tick, move `$prow` down by one, wra
 
 <div id="mc-tetris-stage1" class="makerchip-embed"></div>
 
+??? tip "Hint"
+
+    This is the wrapping counter from Module 2.2 with one extra condition on
+    the front: it must hold its value whenever `$tick` is low, and only then
+    consider counting or wrapping. Remember to keep the whole assignment on a
+    single line.
+
+??? success "Solution"
+
+    ```
+    $prow[3:0] = *reset ? 4'd0 : !$tick ? >>1$prow : (>>1$prow == 4'd9) ? 4'd0 : >>1$prow + 4'd1;
+    ```
+
+    Read the four cases in order: reset to the top, hold between ticks, wrap
+    at the floor, otherwise fall one row.
+
 **Checkpoint:** the yellow piece should march steadily down the board, one row at a time, then reappear at the top. If it sits still, your fall logic isn't advancing; if it moves every cycle instead of every few, check that it only moves on `$tick`.
 
 ---
@@ -67,6 +83,27 @@ Your blank is the move guard: move the piece toward its target column, but only 
 
 <div id="mc-tetris-stage3" class="makerchip-embed"></div>
 
+??? tip "Hint"
+
+    The piece is 2 cells wide, so if its left edge `$px` sat at 7 the piece
+    would hang off the board. That tells you the largest legal value of `$px`.
+    For the guard itself, combine each "wants to move" signal with its
+    matching "has room" signal, and fall through to holding position when
+    neither move is legal.
+
+??? success "Solution"
+
+    ```
+    $can_right = >>1$px < 3'd6;
+    $can_left  = >>1$px > 3'd0;
+    $px[2:0] = *reset ? 3'd0 : !$tick ? >>1$px : ($want_right && $can_right) ? >>1$px + 3'd1 : ($want_left && $can_left) ? >>1$px - 3'd1 : >>1$px;
+    ```
+
+    Watch the outlined target column in the visualization. The piece walks
+    toward it one step per tick and then sits still once it arrives. When the
+    target sits past column 6, the piece stops flush against the right wall
+    instead of sliding off it, which is the guard doing its job.
+
 **Checkpoint:** the piece should drift toward its target column as it falls and stop cleanly at the wall, never disappearing off the edge. If it slides off the board, the wall check isn't holding it back.
 
 ---
@@ -77,7 +114,23 @@ Your blank is the move guard: move the piece toward its target column, but only 
 
 This is the moment the whole block has been building toward. When a row fills completely, it should vanish, everything above it drops down by one, and the score goes up. The auto-player drops pieces to alternate halves of the board so the bottom row fills and clears.
 
-The line-clear logic is provided so you can see the whole mechanism: `$clear` uses the AND-reduction from Module 3.3 to detect a full bottom row, and when it fires, each pile row takes the value of the row above it, the stack falling down to fill the gap. Run it and watch rows disappear as the line counter climbs.
+The shift-down half is wired for you: when `$clear` fires, each pile row takes the value of the row above it and the stack falls to fill the gap. Your blank is the trigger itself. Detect when the bottom row is completely full, using the reduction operator from Module 3.3. It is a short line, and it is the single most important signal in the game.
+
+??? tip "Hint"
+
+    You want one bit that is true only when all eight columns of the bottom
+    row hold a 1. Module 3.3 introduced exactly one operator that collapses
+    every bit of a signal into a single answer that way. Apply it to the
+    previous cycle's value of the bottom pile row.
+
+??? success "Solution"
+
+    ```
+    $clear = & >>1$pile9;
+    ```
+
+    That is the whole detector. One operator, and the most satisfying mechanic
+    in Tetris comes to life.
 
 <div id="mc-tetris-stage4" class="makerchip-embed"></div>
 

@@ -1302,7 +1302,15 @@
 <p><strong>Checkpoint:</strong> when the bottom row fills completely, it should clear, the stack above should drop by one row, and the line count should increase. If full rows just sit there, the <code>$clear</code> detection isn't firing; if the board empties wrongly, check the shift-down.</p>
 <hr />
 <h2 id="the-complete-game">The complete game</h2>
-<p>Put all four stages together and you have Tetris. The full machine below adds one finishing touch: a difficulty timer that makes pieces fall faster as your score rises, so the game speeds up the better it does. Watch a piece fall, get steered into place, lock into the pile, and watch completed lines vanish while the counter climbs and the pace quickens.</p>
+<p>Put all four stages together and you have Tetris. The full machine below adds the finishing touches that turn the mechanism into an actual game:</p>
+<ul>
+<li><strong>Varied pieces.</strong> An LFSR, the random number generator you built in Module 2.3, picks a fresh piece width for every drop, so no two games play the same.</li>
+<li><strong>A player with a strategy.</strong> Most of the time the auto-player aims for the leftmost gap in the bottom row; now and then it drops somewhere else entirely, so the stack builds up unevenly the way a real game does.</li>
+<li><strong>Any row can clear.</strong> Not just the bottom one. Fill a row halfway up the stack and it vanishes, with everything above dropping down to fill the space.</li>
+<li><strong>Topping out.</strong> If the stack reaches the top row, the game is over, the board clears, and a new game begins.</li>
+<li><strong>Rising difficulty.</strong> Pieces fall faster as the score climbs, so the game gets harder the better it does.</li>
+</ul>
+<p>Watch it for a while. The board builds unevenly, rows light up white as they clear, the stack sometimes recovers and sometimes tops out and starts over.</p>
 <div id="mc-tetris-full" class="makerchip-embed"></div>
 
 <p>Take a moment to appreciate what this is. Every part of it is something you built from scratch: the grid is Module 3.3, the falling and locking are Module 3.4, the collision that makes the pile solid is Module 3.5, and the line clear is the full-row check paying off. There's no new magic here, just the pieces of Block 3, assembled.</p>
@@ -1310,10 +1318,11 @@
 <p>The game is fully yours to tune. Because it plays itself, tuning <em>is</em> the gameplay, change a value, rerun, and watch how the machine behaves differently. Some things to try:</p>
 <ul>
 <li><strong>Change the speed.</strong> Adjust <code>$fall_limit</code> to make pieces fall faster or slower, or change the score thresholds where the difficulty ramps up.</li>
-<li><strong>Change the pieces.</strong> The auto-player uses <code>8'b11110000</code> and <code>8'b00001111</code>. Try different widths or positions and see how it changes what clears.</li>
+<li><strong>Change the pieces.</strong> <code>$wmask</code> picks widths of 2, 3 or 4 cells from the LFSR. Add wider pieces, or weight the choice so one width shows up more often.</li>
+<li><strong>Change the strategy.</strong> <code>$aim</code> decides how often the auto-player targets the leftmost gap versus dropping somewhere random. Make it aim more and the board stays tidy and clears often; make it aim less and the stack grows wild and tops out sooner.</li>
 <li><strong>Grow the board.</strong> The grid is 8 wide by 10 tall. Widen the rows to 10 bits, or add more pile rows, everything scales the same way.</li>
 <li><strong>Score differently.</strong> Give more points for clears that happen at high speed, or track the number of pieces dropped alongside the lines cleared.</li>
-<li><strong>Harder:</strong> give the auto-player smarter targeting, so it aims pieces at the emptiest column to clear lines faster.</li>
+<li><strong>Harder:</strong> aim at the lowest gap in the <em>stack</em> rather than in the bottom row, so the player fills holes it has buried.</li>
 </ul>
 <h2 id="where-youve-been">Where you've been</h2>
 <p>That's Block 3 complete, and it's a real milestone. You started the block able to store a single value in a register. You finished it having built addressable memory, a 2D grid, the operations to move things on it, collision detection, and a complete game that uses all of it at once. The same ideas, addressable storage and bit-parallel operations, are exactly what real processors and graphics hardware are built from. You've been writing the real thing all along.</p>

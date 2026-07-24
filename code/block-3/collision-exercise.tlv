@@ -11,18 +11,16 @@
    $desired[7:0] = >>1$piece << 1;
 
    // TODO 1: detect a collision between $desired and the $pile.
-   //   AND them together, then OR-reduce to a single bit.
-   //   $collision = | ($desired & $pile);
+   //   Two cells overlap where both hold a 1, so AND $desired with the
+   //   $pile, then OR-reduce that result down to a single yes/no bit.
    $collision = 1'b0;
 
    // TODO 2: the move guard. Complete $piece so that:
    //   - on reset it starts at column 2 (8'b00000100)
    //   - if there's a collision it holds its position
    //   - otherwise it moves to $desired
-   //
-   //   $piece[7:0] = *reset     ? 8'b00000100 :
-   //                 $collision ? >>1$piece :
-   //                              $desired;
+   //   This is the guarded move from Module 3.5: take the move only when
+   //   the destination is clear, and hold your ground when it is not.
    $piece[7:0] = 8'b00000100;
 
    `BOGUS_USE($pile $piece $desired $collision)

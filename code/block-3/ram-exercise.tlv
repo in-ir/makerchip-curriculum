@@ -12,10 +12,8 @@
    //   - resets to 0
    //   - stores $wr_data only when writes are enabled AND the address is 3
    //   - otherwise holds its value
-   //
-   //   $m3[3:0] = *reset ? 4'd0 :
-   //              ($wr_en && $wr_addr == 3'd3) ? $wr_data :
-   //                                             >>1$m3;
+   //   Compare against the finished cells below to see the shape, but
+   //   work out the address test for m3 yourself.
 
    $m3[3:0] = 4'd0;
 

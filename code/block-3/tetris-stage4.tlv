@@ -20,8 +20,13 @@
    $hit_below = |($piece & $below);
    $landed = $at_floor || $hit_below;
 
-   // A full bottom row triggers the clear.
-   $clear = & >>1$pile9;
+   // TODO: detect a full bottom row.
+   //   A row is full when every one of its 8 columns holds a 1. In
+   //   Module 3.3 you met the single operator that ANDs all the bits of
+   //   a signal together into one yes/no answer. Apply it to the pile's
+   //   bottom row. Read the PREVIOUS cycle's value with >>1, so that the
+   //   detection does not depend on the row it is about to change.
+   $clear = 1'b0;
    $lock = $tick && $landed && !$clear;
 
    $prow[3:0] = *reset ? 4'd0 : $clear ? >>1$prow : $lock ? 4'd0 : ($tick && !$landed) ? >>1$prow + 4'd1 : >>1$prow;

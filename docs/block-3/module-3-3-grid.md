@@ -29,70 +29,67 @@ Here's the representation, and it's beautifully simple: **each row of the grid i
 So an 8-column row is an 8-bit signal:
 
 ```
-$row1[7:0] = 8'b00011000;
+$row1[7:0] = 8'b00000111;
 ```
 
-Read that binary literally as a picture of the row: empty, empty, empty, filled, filled, empty, empty, empty. The two filled cells are columns 3 and 4. **The bits *are* the board.** That's the whole reason this representation is so nice, you can look at the binary and see the shape directly, and all the bit tricks you learned in Block 2 (shifting, masking, XOR) now operate on the playfield.
+**Bit `c` is column `c`.** Bit 0 is the leftmost column, bit 1 the next one over, and so on across to bit 7 at the right edge. So the row above has its three leftmost columns filled and the rest empty.
 
-This diagram shows the mapping explicitly, each bit of the row signal drives exactly one cell on the board:
+Look at that literal again, though, because there is a trap in it worth meeting right now rather than discovering later. The three `1`s appear at the *right* end of the number, but they fill the *left* end of the board. That is not a mistake. When you write a binary literal, the highest bit goes first, so the digits march right-to-left compared to the board. The number is not a picture of the row; it is a list of the row's columns, written backwards.
+
+What you gain in exchange is worth the small awkwardness: because a row is now a single number, every bit trick from Block 2, shifting, masking, XOR, reductions, operates on the playfield directly. Moving a piece sideways becomes one shift. Testing a whole row becomes one operator. That is the payoff, and it is what the rest of this block is built on.
+
+This diagram shows the mapping explicitly. Each bit of the row signal drives exactly one cell on the board, with bit 0 on the left where column 0 is:
 
 <div style="margin: 2rem 0;">
-<svg width="100%" viewBox="0 0 720 220" xmlns="http://www.w3.org/2000/svg" style="font-family: 'JetBrains Mono', monospace;">
-  <!-- The 8-bit signal -->
-  <text x="360" y="34" fill="#4A3060" font-size="12" text-anchor="middle">the row signal: $row1[7:0]</text>
-
-  <!-- bits -->
-  <g>
-    <rect x="120" y="50" width="60" height="44" rx="4" fill="#1A0533" stroke="#2A1A40" stroke-width="1.5"/>
-    <text x="150" y="70" fill="#EDE7F6" font-size="16" font-weight="bold" text-anchor="middle">0</text>
-    <text x="150" y="86" fill="#4A3060" font-size="9" text-anchor="middle">bit 7</text>
-    <rect x="180" y="50" width="60" height="44" rx="4" fill="#1A0533" stroke="#2A1A40" stroke-width="1.5"/>
-    <text x="210" y="70" fill="#EDE7F6" font-size="16" font-weight="bold" text-anchor="middle">0</text>
-    <text x="210" y="86" fill="#4A3060" font-size="9" text-anchor="middle">bit 6</text>
-    <rect x="240" y="50" width="60" height="44" rx="4" fill="#1A0533" stroke="#2A1A40" stroke-width="1.5"/>
-    <text x="270" y="70" fill="#EDE7F6" font-size="16" font-weight="bold" text-anchor="middle">0</text>
-    <text x="270" y="86" fill="#4A3060" font-size="9" text-anchor="middle">bit 5</text>
-    <rect x="300" y="50" width="60" height="44" rx="4" fill="#3B1D6D" stroke="#7C4DFF" stroke-width="2"/>
-    <text x="330" y="70" fill="#ffffff" font-size="16" font-weight="bold" text-anchor="middle">1</text>
-    <text x="330" y="86" fill="#7C4DFF" font-size="9" text-anchor="middle">bit 4</text>
-    <rect x="360" y="50" width="60" height="44" rx="4" fill="#3B1D6D" stroke="#7C4DFF" stroke-width="2"/>
-    <text x="390" y="70" fill="#ffffff" font-size="16" font-weight="bold" text-anchor="middle">1</text>
-    <text x="390" y="86" fill="#7C4DFF" font-size="9" text-anchor="middle">bit 3</text>
-    <rect x="420" y="50" width="60" height="44" rx="4" fill="#1A0533" stroke="#2A1A40" stroke-width="1.5"/>
-    <text x="450" y="70" fill="#EDE7F6" font-size="16" font-weight="bold" text-anchor="middle">0</text>
-    <text x="450" y="86" fill="#4A3060" font-size="9" text-anchor="middle">bit 2</text>
-    <rect x="480" y="50" width="60" height="44" rx="4" fill="#1A0533" stroke="#2A1A40" stroke-width="1.5"/>
-    <text x="510" y="70" fill="#EDE7F6" font-size="16" font-weight="bold" text-anchor="middle">0</text>
-    <text x="510" y="86" fill="#4A3060" font-size="9" text-anchor="middle">bit 1</text>
-    <rect x="540" y="50" width="60" height="44" rx="4" fill="#1A0533" stroke="#2A1A40" stroke-width="1.5"/>
-    <text x="570" y="70" fill="#EDE7F6" font-size="16" font-weight="bold" text-anchor="middle">0</text>
-    <text x="570" y="86" fill="#4A3060" font-size="9" text-anchor="middle">bit 0</text>
-  </g>
-
-  <!-- the board row below, columns in board order (col 0 left) -->
-  <text x="360" y="150" fill="#4A3060" font-size="12" text-anchor="middle">the board row: column 0 on the left</text>
-  <g>
-    <rect x="120" y="160" width="56" height="40" rx="3" fill="#1A0533" stroke="#2A1A40" stroke-width="1"/>
-    <text x="148" y="184" fill="#4A3060" font-size="10" text-anchor="middle">c0</text>
-    <rect x="180" y="160" width="56" height="40" rx="3" fill="#1A0533" stroke="#2A1A40" stroke-width="1"/>
-    <text x="208" y="184" fill="#4A3060" font-size="10" text-anchor="middle">c1</text>
-    <rect x="240" y="160" width="56" height="40" rx="3" fill="#1A0533" stroke="#2A1A40" stroke-width="1"/>
-    <text x="268" y="184" fill="#4A3060" font-size="10" text-anchor="middle">c2</text>
-    <rect x="300" y="160" width="56" height="40" rx="3" fill="#7C4DFF" stroke="#B39DDB" stroke-width="2"/>
-    <text x="328" y="184" fill="#ffffff" font-size="10" text-anchor="middle">c3</text>
-    <rect x="360" y="160" width="56" height="40" rx="3" fill="#7C4DFF" stroke="#B39DDB" stroke-width="2"/>
-    <text x="388" y="184" fill="#ffffff" font-size="10" text-anchor="middle">c4</text>
+<svg width="100%" viewBox="0 0 720 250" xmlns="http://www.w3.org/2000/svg" style="font-family: 'JetBrains Mono', monospace;">
+  <text x="360" y="34" fill="#4A3060" font-size="12" text-anchor="middle">the row signal, drawn bit 0 first</text>
+    <rect x="120" y="50" width="56" height="44" rx="4" fill="#3B1D6D" stroke="#7C4DFF" stroke-width="2"/>
+    <text x="148" y="70" fill="#ffffff" font-size="16" font-weight="bold" text-anchor="middle">1</text>
+    <text x="148" y="86" fill="#7C4DFF" font-size="9" text-anchor="middle">bit 0</text>
+    <rect x="120" y="160" width="56" height="40" rx="3" fill="#7C4DFF" stroke="#B39DDB" stroke-width="2"/>
+    <text x="148" y="184" fill="#ffffff" font-size="10" text-anchor="middle">c0</text>
+    <rect x="180" y="50" width="56" height="44" rx="4" fill="#3B1D6D" stroke="#7C4DFF" stroke-width="2"/>
+    <text x="208" y="70" fill="#ffffff" font-size="16" font-weight="bold" text-anchor="middle">1</text>
+    <text x="208" y="86" fill="#7C4DFF" font-size="9" text-anchor="middle">bit 1</text>
+    <rect x="180" y="160" width="56" height="40" rx="3" fill="#7C4DFF" stroke="#B39DDB" stroke-width="2"/>
+    <text x="208" y="184" fill="#ffffff" font-size="10" text-anchor="middle">c1</text>
+    <rect x="240" y="50" width="56" height="44" rx="4" fill="#3B1D6D" stroke="#7C4DFF" stroke-width="2"/>
+    <text x="268" y="70" fill="#ffffff" font-size="16" font-weight="bold" text-anchor="middle">1</text>
+    <text x="268" y="86" fill="#7C4DFF" font-size="9" text-anchor="middle">bit 2</text>
+    <rect x="240" y="160" width="56" height="40" rx="3" fill="#7C4DFF" stroke="#B39DDB" stroke-width="2"/>
+    <text x="268" y="184" fill="#ffffff" font-size="10" text-anchor="middle">c2</text>
+    <rect x="300" y="50" width="56" height="44" rx="4" fill="#1A0533" stroke="#2A1A40" stroke-width="1.5"/>
+    <text x="328" y="70" fill="#EDE7F6" font-size="16" font-weight="bold" text-anchor="middle">0</text>
+    <text x="328" y="86" fill="#4A3060" font-size="9" text-anchor="middle">bit 3</text>
+    <rect x="300" y="160" width="56" height="40" rx="3" fill="#1A0533" stroke="#2A1A40" stroke-width="1"/>
+    <text x="328" y="184" fill="#4A3060" font-size="10" text-anchor="middle">c3</text>
+    <rect x="360" y="50" width="56" height="44" rx="4" fill="#1A0533" stroke="#2A1A40" stroke-width="1.5"/>
+    <text x="388" y="70" fill="#EDE7F6" font-size="16" font-weight="bold" text-anchor="middle">0</text>
+    <text x="388" y="86" fill="#4A3060" font-size="9" text-anchor="middle">bit 4</text>
+    <rect x="360" y="160" width="56" height="40" rx="3" fill="#1A0533" stroke="#2A1A40" stroke-width="1"/>
+    <text x="388" y="184" fill="#4A3060" font-size="10" text-anchor="middle">c4</text>
+    <rect x="420" y="50" width="56" height="44" rx="4" fill="#1A0533" stroke="#2A1A40" stroke-width="1.5"/>
+    <text x="448" y="70" fill="#EDE7F6" font-size="16" font-weight="bold" text-anchor="middle">0</text>
+    <text x="448" y="86" fill="#4A3060" font-size="9" text-anchor="middle">bit 5</text>
     <rect x="420" y="160" width="56" height="40" rx="3" fill="#1A0533" stroke="#2A1A40" stroke-width="1"/>
     <text x="448" y="184" fill="#4A3060" font-size="10" text-anchor="middle">c5</text>
+    <rect x="480" y="50" width="56" height="44" rx="4" fill="#1A0533" stroke="#2A1A40" stroke-width="1.5"/>
+    <text x="508" y="70" fill="#EDE7F6" font-size="16" font-weight="bold" text-anchor="middle">0</text>
+    <text x="508" y="86" fill="#4A3060" font-size="9" text-anchor="middle">bit 6</text>
     <rect x="480" y="160" width="56" height="40" rx="3" fill="#1A0533" stroke="#2A1A40" stroke-width="1"/>
     <text x="508" y="184" fill="#4A3060" font-size="10" text-anchor="middle">c6</text>
+    <rect x="540" y="50" width="56" height="44" rx="4" fill="#1A0533" stroke="#2A1A40" stroke-width="1.5"/>
+    <text x="568" y="70" fill="#EDE7F6" font-size="16" font-weight="bold" text-anchor="middle">0</text>
+    <text x="568" y="86" fill="#4A3060" font-size="9" text-anchor="middle">bit 7</text>
     <rect x="540" y="160" width="56" height="40" rx="3" fill="#1A0533" stroke="#2A1A40" stroke-width="1"/>
     <text x="568" y="184" fill="#4A3060" font-size="10" text-anchor="middle">c7</text>
-  </g>
+  <text x="360" y="146" fill="#4A3060" font-size="12" text-anchor="middle">the board row, column 0 on the left</text>
+  <text x="360" y="228" fill="#B39DDB" font-size="12" text-anchor="middle">written as a literal this row is 8'b00000111</text>
+  <text x="360" y="246" fill="#4A3060" font-size="11" text-anchor="middle">the digits run right-to-left compared to the board above</text>
 </svg>
 </div>
 
-Notice the subtlety the diagram makes visible: in the *written* number `00011000`, bit 7 is on the left, but on the *board*, column 0 is on the left. The bit index and the column position run in opposite directions on the page. Keep that in mind, we'll come back to it.
+Lined up this way the mapping is obvious: bit 0 sits above column 0, bit 7 above column 7, straight across. The only place the order flips is when you *write the number down*, which is exactly what the caption underneath is warning you about.
 
 A full board is just several of these rows:
 
@@ -156,11 +153,11 @@ If `$row3` is `8'b11111111`, the reduction is `1`. If even one column is empty, 
 
 Why does this one little operator matter so much? Because detecting a full row *is* the core of Tetris scoring. The entire satisfying loop of the game, stack pieces, fill a row completely, watch it vanish, is built on exactly this check. Every cycle, Tetris asks each row "are you full?" using this reduction, and any row that answers yes gets cleared and scored. You've just written the detection half of the most important mechanic in the game; in a later module you'll add the clearing half.
 
-There's a matching operator for the opposite question. The **OR-reduction**, a single `|` in front of a signal, is `1` if *any* bit is set. So `| $row` tells you whether a row has anything in it at all, and `! | $row` (or checking it equals zero) tells you a row is completely empty, useful for knowing where the empty space above the pile begins.
+There's a matching operator for the opposite question. The **OR-reduction**, a single `|` in front of a signal, is `1` if *any* bit is set. So `| $row` tells you whether a row has anything in it at all, and `$row == 8'b0` tells you a row is completely empty, useful for knowing where the empty space above the pile begins.
 
 ## Watch out: the binary looks mirrored
 
-Here's the one thing that trips people up with this representation. Say you want a block in the two *leftmost* columns, columns 0 and 1. Your instinct might be to write `8'b11000000`, because that *looks* left-heavy. But that's wrong: in `8'b11000000` the two `1`s are in bit positions 7 and 6, which are columns 7 and 6, the *rightmost* columns.
+We flagged this above, but it earns a second look, because it is the single most common source of "why is my piece on the wrong side?" Say you want a block in the two *leftmost* columns, columns 0 and 1. Your instinct might be to write `8'b11000000`, because that *looks* left-heavy. But that's wrong: in `8'b11000000` the two `1`s are in bit positions 7 and 6, which are columns 7 and 6, the *rightmost* columns.
 
 To fill columns 0 and 1, you actually write `8'b00000011`, because bit 0 and bit 1 are the leftmost columns in our convention. The written binary reads right-to-left compared to the board, the lowest bit (rightmost digit) is the leftmost column.
 
@@ -177,6 +174,24 @@ From here through the Tetris project, the Viz tab is your primary debugging surf
 The grid below is fixed. Complete two operations: read the single cell at row 2, column 4, and check whether row 3 is completely full. The editor comments give you the exact syntax for both.
 
 <div id="mc-grid-exercise" class="makerchip-embed"></div>
+
+??? tip "Hint"
+
+    For the first one: a column number *is* a bit position, so you can index
+    the row signal directly, no arithmetic needed. For the second: you want a
+    single yes/no answer about all eight bits at once, which is what a
+    reduction operator gives you.
+
+??? success "Solution"
+
+    ```
+    $cell = $row2[4];
+    $row3_full = & $row3;
+    ```
+
+    `$row2` is `8'b01111110`, and bit 4 of that is `1`, so `$cell` is 1.
+    `$row3` is `8'b11111111`, so the AND-reduction gives 1: the row is full.
+
 
 ## Where this fits next
 

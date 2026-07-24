@@ -11,14 +11,14 @@
 
    // TODO 1: read a single cell.
    //   Set $cell to the value of column 4 in row 2.
-   //   Hint: index the row signal by the column number.
-   //   $cell = $row2[4];
+   //   Hint: a column is just a bit position, so you can index the row
+   //   signal directly by the column number.
    $cell = 1'b0;
 
    // TODO 2: check whether row 3 is completely full.
    //   A row is full when ALL its bits are 1. Use the AND-reduction
-   //   operator & in front of the signal.
-   //   $row3_full = & $row3;
+   //   operator, a single & written in front of a signal, ANDs all of
+   //   its bits together into one result.
    $row3_full = 1'b0;
 
    `BOGUS_USE($row0 $row1 $cell $row3_full)

@@ -18,10 +18,9 @@
 
    // TODO: make the piece fall. On each $tick, move it down one row.
    //   When it passes the bottom (row 9), wrap back to row 0.
-   //   $prow[3:0] = *reset ? 4'd0 :
-   //                !$tick ? >>1$prow :
-   //                (>>1$prow == 4'd9) ? 4'd0 :
-   //                >>1$prow + 4'd1;
+   //   This is the wrapping counter from Module 2.2, with one addition:
+   //   it must only advance on a $tick, and hold in between.
+   //   Keep the whole assignment on ONE line.
    $prow[3:0] = 4'd0;
 
    `BOGUS_USE($piece $prow $tick)
