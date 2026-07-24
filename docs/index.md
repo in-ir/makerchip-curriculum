@@ -48,12 +48,12 @@ Each module combines:
 
 ## Curriculum structure
 
-| Block | Topic | Project | Status |
-|-------|-------|---------|--------|
-| 1 | Combinational Logic | Pixel Art | Ready |
-| 2 | Sequential Logic | Whack-a-Mole | Ready |
-| 3 | Memory and Arrays | Tetris | Ready |
-| 4 | Multi-FSM and Hierarchy | Pac-Man (capstone) | Planned |
+| Block | Topic                | Project      | Status     |
+| ----- | -------------------- | ------------ | ---------- |
+| 1     | Combinational Logic  | Pixel Art    | Ready      |
+| 2     | Sequential Logic     | Whack-a-Mole | Ready      |
+| 3     | Memory and Arrays    | Tetris       | Ready      |
+| 4     | Building a Processor | RISC-V CPU   | In Process |
 
 New to digital logic? Start at Block 1 and work straight through. Already comfortable with gates and flip-flops and just want to learn the tooling? [Get Started](get-started.md) covers Makerchip and TL-Verilog on its own.
 

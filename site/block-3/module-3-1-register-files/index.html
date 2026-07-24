@@ -27,7 +27,7 @@
     
     
       
-        <title>Module 3.1 - Register Files - Digital Design with Makerchip & TL-Verilog</title>
+        <title>Module 3.1 — Register Files - Digital Design with Makerchip & TL-Verilog</title>
       
     
     
@@ -114,7 +114,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Module 3.1 - Register Files
+              Module 3.1 — Register Files
             
           </span>
         </div>
@@ -249,7 +249,7 @@
   
     
   
-  Block 2 - Sequential Logic
+  Block 2 — Sequential Logic
 
         </a>
       </li>
@@ -273,7 +273,7 @@
   
     
   
-  Block 3 - Memory and Arrays
+  Block 3 — Memory and Arrays
 
         </a>
       </li>
@@ -581,7 +581,7 @@
   <span class="md-ellipsis">
     
   
-    Project - Pixel Art
+    Project — Pixel Art
   
 
     
@@ -651,7 +651,7 @@
   <span class="md-ellipsis">
     
   
-    Block 2 - Sequential Logic
+    Block 2 — Sequential Logic
   
 
     
@@ -673,7 +673,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    Block 2 - Sequential Logic
+    Block 2 — Sequential Logic
   
 
           </label>
@@ -695,7 +695,7 @@
   <span class="md-ellipsis">
     
   
-    Module 2.1 - Registers
+    Module 2.1 — Registers
   
 
     
@@ -723,7 +723,7 @@
   <span class="md-ellipsis">
     
   
-    Module 2.2 - Counters
+    Module 2.2 — Counters
   
 
     
@@ -751,7 +751,7 @@
   <span class="md-ellipsis">
     
   
-    Module 2.3 - Shift Registers
+    Module 2.3 — Shift Registers
   
 
     
@@ -779,7 +779,7 @@
   <span class="md-ellipsis">
     
   
-    Module 2.4 - Finite State Machines
+    Module 2.4 — Finite State Machines
   
 
     
@@ -807,7 +807,7 @@
   <span class="md-ellipsis">
     
   
-    Project - Whack-a-Mole
+    Project — Whack-a-Mole
   
 
     
@@ -882,7 +882,7 @@
   <span class="md-ellipsis">
     
   
-    Block 3 - Memory and Arrays
+    Block 3 — Memory and Arrays
   
 
     
@@ -904,7 +904,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    Block 3 - Memory and Arrays
+    Block 3 — Memory and Arrays
   
 
           </label>
@@ -935,7 +935,7 @@
   <span class="md-ellipsis">
     
   
-    Module 3.1 - Register Files
+    Module 3.1 — Register Files
   
 
     
@@ -953,7 +953,7 @@
   <span class="md-ellipsis">
     
   
-    Module 3.1 - Register Files
+    Module 3.1 — Register Files
   
 
     
@@ -1122,7 +1122,7 @@
   <span class="md-ellipsis">
     
   
-    Module 3.2 - Memory (RAM)
+    Module 3.2 — Memory (RAM)
   
 
     
@@ -1150,7 +1150,7 @@
   <span class="md-ellipsis">
     
   
-    Module 3.3 - The 2D Grid
+    Module 3.3 — The 2D Grid
   
 
     
@@ -1178,7 +1178,7 @@
   <span class="md-ellipsis">
     
   
-    Module 3.4 - Reading and Writing the Grid
+    Module 3.4 — Reading and Writing the Grid
   
 
     
@@ -1206,7 +1206,7 @@
   <span class="md-ellipsis">
     
   
-    Module 3.5 - Collision Detection
+    Module 3.5 — Collision Detection
   
 
     
@@ -1234,7 +1234,7 @@
   <span class="md-ellipsis">
     
   
-    Project - Tetris
+    Project — Tetris
   
 
     
@@ -1364,7 +1364,7 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>$reg[$wr_addr] = ...   // write to the addressed register
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>$rd_data = $reg[$rd_addr];   // read from the addressed register
 </code></pre></div>
-<p>Instead of a decoder written as four separate comparisons and a MUX written as a four-way ternary, the index <code>[$addr]</code> <em>is</em> the decoder and the MUX, handled for you. Under the hood it's exactly the circuit you just built by hand, that's the point of building it manually first. You now know what the array shorthand actually compiles to, which is the difference between using memory and understanding it. In the next module you'll use this array syntax to build a real RAM.</p>
+<p>Instead of a decoder written as four separate comparisons and a MUX written as a four-way ternary, the index <code>[$addr]</code> <em>is</em> the decoder and the MUX, handled for you. Under the hood it's exactly the circuit you just built by hand, that's the point of building it manually first. You now know what the array shorthand actually compiles to, which is the difference between using memory and understanding it.</p>
 <h2 id="debugging-tip-the-nav-tlv-panel">Debugging tip: the Nav-TLV panel</h2>
 <p>As your designs grow from a couple of signals to a whole bank of registers, the Waveform can get crowded. Makerchip's <strong>Nav-TLV</strong> tab (next to the Editor) shows your compiled design as a browsable tree of every signal, laid out the way your code is structured. When you're chasing a bug like "why didn't register 2 update?", Nav-TLV lets you click straight to that signal and see its logic, instead of hunting through the waveform. Open it now and find <code>$r2</code>, then trace back to the condition that feeds it. Getting comfortable moving between the Editor, Nav-TLV, and Waveform is the core loop of debugging any real design.</p>
 <h2 id="your-turn-complete-the-read-port">Your turn: complete the read port</h2>
@@ -1389,7 +1389,7 @@ others, it must be that one.</p>
 as you built it in Block 1.</p>
 </details>
 <h2 id="where-this-fits-next">Where this fits next</h2>
-<p>A register file lets you store a handful of values and reach any of them by number. But a real playfield, or a real memory, might have hundreds or thousands of locations, far too many to write out by hand. In Module 3.2 you'll meet <strong>RAM</strong>: the same address-in, data-out idea, but scaled up with array syntax so you can build large memories without naming every cell.</p>
+<p>A register file lets you store a handful of values and reach any of them by number. But a real memory needs more than that: it needs a way to say "store this" as opposed to "just let me look." In Module 3.2 you'll meet <strong>RAM</strong>, the same address-in, data-out idea, scaled up and given the one control signal that turns a register bank into a proper memory.</p>
 <h2 id="quick-reference">Quick reference</h2>
 <table>
 <thead>
@@ -1512,13 +1512,13 @@ as you built it in Block 1.</p>
         
         
           
-          <a href="../module-3-2-memory/" class="md-footer__link md-footer__link--next" aria-label="Next: Module 3.2 - Memory (RAM)">
+          <a href="../module-3-2-memory/" class="md-footer__link md-footer__link--next" aria-label="Next: Module 3.2 — Memory (RAM)">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Module 3.2 - Memory (RAM)
+                Module 3.2 — Memory (RAM)
               </div>
             </div>
             <div class="md-footer__button md-icon">

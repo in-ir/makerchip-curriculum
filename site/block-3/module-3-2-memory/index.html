@@ -27,7 +27,7 @@
     
     
       
-        <title>Module 3.2 - Memory (RAM) - Digital Design with Makerchip & TL-Verilog</title>
+        <title>Module 3.2 — Memory (RAM) - Digital Design with Makerchip & TL-Verilog</title>
       
     
     
@@ -114,7 +114,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Module 3.2 - Memory (RAM)
+              Module 3.2 — Memory (RAM)
             
           </span>
         </div>
@@ -249,7 +249,7 @@
   
     
   
-  Block 2 - Sequential Logic
+  Block 2 — Sequential Logic
 
         </a>
       </li>
@@ -273,7 +273,7 @@
   
     
   
-  Block 3 - Memory and Arrays
+  Block 3 — Memory and Arrays
 
         </a>
       </li>
@@ -581,7 +581,7 @@
   <span class="md-ellipsis">
     
   
-    Project - Pixel Art
+    Project — Pixel Art
   
 
     
@@ -651,7 +651,7 @@
   <span class="md-ellipsis">
     
   
-    Block 2 - Sequential Logic
+    Block 2 — Sequential Logic
   
 
     
@@ -673,7 +673,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    Block 2 - Sequential Logic
+    Block 2 — Sequential Logic
   
 
           </label>
@@ -695,7 +695,7 @@
   <span class="md-ellipsis">
     
   
-    Module 2.1 - Registers
+    Module 2.1 — Registers
   
 
     
@@ -723,7 +723,7 @@
   <span class="md-ellipsis">
     
   
-    Module 2.2 - Counters
+    Module 2.2 — Counters
   
 
     
@@ -751,7 +751,7 @@
   <span class="md-ellipsis">
     
   
-    Module 2.3 - Shift Registers
+    Module 2.3 — Shift Registers
   
 
     
@@ -779,7 +779,7 @@
   <span class="md-ellipsis">
     
   
-    Module 2.4 - Finite State Machines
+    Module 2.4 — Finite State Machines
   
 
     
@@ -807,7 +807,7 @@
   <span class="md-ellipsis">
     
   
-    Project - Whack-a-Mole
+    Project — Whack-a-Mole
   
 
     
@@ -882,7 +882,7 @@
   <span class="md-ellipsis">
     
   
-    Block 3 - Memory and Arrays
+    Block 3 — Memory and Arrays
   
 
     
@@ -904,7 +904,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    Block 3 - Memory and Arrays
+    Block 3 — Memory and Arrays
   
 
           </label>
@@ -926,7 +926,7 @@
   <span class="md-ellipsis">
     
   
-    Module 3.1 - Register Files
+    Module 3.1 — Register Files
   
 
     
@@ -963,7 +963,7 @@
   <span class="md-ellipsis">
     
   
-    Module 3.2 - Memory (RAM)
+    Module 3.2 — Memory (RAM)
   
 
     
@@ -981,7 +981,7 @@
   <span class="md-ellipsis">
     
   
-    Module 3.2 - Memory (RAM)
+    Module 3.2 — Memory (RAM)
   
 
     
@@ -1139,7 +1139,7 @@
   <span class="md-ellipsis">
     
   
-    Module 3.3 - The 2D Grid
+    Module 3.3 — The 2D Grid
   
 
     
@@ -1167,7 +1167,7 @@
   <span class="md-ellipsis">
     
   
-    Module 3.4 - Reading and Writing the Grid
+    Module 3.4 — Reading and Writing the Grid
   
 
     
@@ -1195,7 +1195,7 @@
   <span class="md-ellipsis">
     
   
-    Module 3.5 - Collision Detection
+    Module 3.5 — Collision Detection
   
 
     
@@ -1223,7 +1223,7 @@
   <span class="md-ellipsis">
     
   
-    Project - Tetris
+    Project — Tetris
   
 
     
@@ -1350,7 +1350,13 @@
 <p>Line up <code>$wr_data</code> and <code>$rd_data</code> in the waveform: the read is always exactly one step behind. Write 5, read still shows 4. Write 6, read shows 5. The value you write this cycle doesn't reach the read port until next cycle. This "read returns the old value" behavior is something you'll design around constantly once pieces are moving on the Tetris grid, if you check a cell in the same cycle you update it, you're seeing its <em>past</em>, not its future.</p>
 <h2 id="a-note-on-array-syntax">A note on array syntax</h2>
 <p>Writing out eight cells by hand, as we've done here, makes the mechanism crystal clear: a memory is just a bank of register cells plus a read MUX, exactly the register file from 3.1, scaled up. But you can imagine that spelling out 64 or 256 cells this way would be unbearable.</p>
-<p>Real designs collapse the whole memory into a single <strong>array</strong>, indexed directly by the address, so one line describes all the cells at once instead of one line per cell. The idea is identical to what you built here, the array index simply stands in for the write-decoder and the read MUX. Seeing it spelled out once, as you have, is what makes the compact version make sense later rather than feeling like magic.</p>
+<p>Real designs collapse the whole memory into a single <strong>array</strong>, indexed directly by the address, so one line describes all the cells at once instead of one line per cell. Conceptually it reads like this:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>$mem[$wr_addr] = $wr_en ? $wr_data : ...;   // write the addressed cell
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>$rd_data = $mem[$rd_addr];                   // read the addressed cell
+</code></pre></div>
+<p>The index <code>[$addr]</code> does exactly the job of the write-decoder and the read MUX you wrote by hand: it picks which cell the operation lands on. Nothing about the hardware changes, only how much you have to type.</p>
+<p>So why does this course use the long form? Two reasons, and neither is that the short form is wrong. First, the explicit version is <em>inspectable</em>: every cell is a named signal you can find in the waveform and watch update, which is exactly what you want while the concept is still new. Second, and more practically, TL-Verilog's array and memory constructs have their own syntax rules that are worth learning deliberately rather than absorbing by accident partway through a lesson on something else. The <a href="https://tl-x.org/">TL-Verilog documentation</a> covers them properly when you are ready.</p>
+<p>What matters for the rest of this block is that you now know what the shorthand <em>is</em>. When you meet <code>$mem[$addr]</code> in real code, it will read as a decoder and a MUX, not as magic.</p>
 <h2 id="your-turn-gated-writes">Your turn: gated writes</h2>
 <p>In the exercise below, writes are only allowed on even cycles (<code>$wr_en</code> is high when the cycle count is even). Complete cell <code>$m3</code> so it stores data only when writes are enabled <em>and</em> the address points at it, holding its value the rest of the time.</p>
 <div id="mc-ram-exercise" class="makerchip-embed"></div>
@@ -1363,9 +1369,9 @@ hold. The write case needs <em>two</em> things to be true at once, which means
 </details>
 <details class="success">
 <summary>Solution</summary>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>$m3[3:0] = *reset ? 4&#39;d0 :
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>           ($wr_en &amp;&amp; $wr_addr == 3&#39;d3) ? $wr_data :
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>                                          &gt;&gt;1$m3;
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>$m3[3:0] = *reset ? 4&#39;d0 :
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>           ($wr_en &amp;&amp; $wr_addr == 3&#39;d3) ? $wr_data :
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>                                          &gt;&gt;1$m3;
 </code></pre></div>
 <p>Because <code>$wr_en</code> is only high on even cycles, cell 3 updates only when the
 address lands on 3 <em>and</em> the cycle is even. Every other cycle it holds.</p>
@@ -1482,7 +1488,7 @@ address lands on 3 <em>and</em> the cycle is even. Every other cycle it holds.</
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../module-3-1-register-files/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Module 3.1 - Register Files">
+          <a href="../module-3-1-register-files/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Module 3.1 — Register Files">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -1492,20 +1498,20 @@ address lands on 3 <em>and</em> the cycle is even. Every other cycle it holds.</
                 Previous
               </span>
               <div class="md-ellipsis">
-                Module 3.1 - Register Files
+                Module 3.1 — Register Files
               </div>
             </div>
           </a>
         
         
           
-          <a href="../module-3-3-grid/" class="md-footer__link md-footer__link--next" aria-label="Next: Module 3.3 - The 2D Grid">
+          <a href="../module-3-3-grid/" class="md-footer__link md-footer__link--next" aria-label="Next: Module 3.3 — The 2D Grid">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Module 3.3 - The 2D Grid
+                Module 3.3 — The 2D Grid
               </div>
             </div>
             <div class="md-footer__button md-icon">

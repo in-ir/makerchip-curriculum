@@ -25,7 +25,7 @@
     
     
       
-        <title>Project - Tetris - Digital Design with Makerchip & TL-Verilog</title>
+        <title>Project — Tetris - Digital Design with Makerchip & TL-Verilog</title>
       
     
     
@@ -112,7 +112,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Project - Tetris
+              Project — Tetris
             
           </span>
         </div>
@@ -247,7 +247,7 @@
   
     
   
-  Block 2 - Sequential Logic
+  Block 2 — Sequential Logic
 
         </a>
       </li>
@@ -271,7 +271,7 @@
   
     
   
-  Block 3 - Memory and Arrays
+  Block 3 — Memory and Arrays
 
         </a>
       </li>
@@ -579,7 +579,7 @@
   <span class="md-ellipsis">
     
   
-    Project - Pixel Art
+    Project — Pixel Art
   
 
     
@@ -649,7 +649,7 @@
   <span class="md-ellipsis">
     
   
-    Block 2 - Sequential Logic
+    Block 2 — Sequential Logic
   
 
     
@@ -671,7 +671,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    Block 2 - Sequential Logic
+    Block 2 — Sequential Logic
   
 
           </label>
@@ -693,7 +693,7 @@
   <span class="md-ellipsis">
     
   
-    Module 2.1 - Registers
+    Module 2.1 — Registers
   
 
     
@@ -721,7 +721,7 @@
   <span class="md-ellipsis">
     
   
-    Module 2.2 - Counters
+    Module 2.2 — Counters
   
 
     
@@ -749,7 +749,7 @@
   <span class="md-ellipsis">
     
   
-    Module 2.3 - Shift Registers
+    Module 2.3 — Shift Registers
   
 
     
@@ -777,7 +777,7 @@
   <span class="md-ellipsis">
     
   
-    Module 2.4 - Finite State Machines
+    Module 2.4 — Finite State Machines
   
 
     
@@ -805,7 +805,7 @@
   <span class="md-ellipsis">
     
   
-    Project - Whack-a-Mole
+    Project — Whack-a-Mole
   
 
     
@@ -880,7 +880,7 @@
   <span class="md-ellipsis">
     
   
-    Block 3 - Memory and Arrays
+    Block 3 — Memory and Arrays
   
 
     
@@ -902,7 +902,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    Block 3 - Memory and Arrays
+    Block 3 — Memory and Arrays
   
 
           </label>
@@ -924,7 +924,7 @@
   <span class="md-ellipsis">
     
   
-    Module 3.1 - Register Files
+    Module 3.1 — Register Files
   
 
     
@@ -952,7 +952,7 @@
   <span class="md-ellipsis">
     
   
-    Module 3.2 - Memory (RAM)
+    Module 3.2 — Memory (RAM)
   
 
     
@@ -980,7 +980,7 @@
   <span class="md-ellipsis">
     
   
-    Module 3.3 - The 2D Grid
+    Module 3.3 — The 2D Grid
   
 
     
@@ -1008,7 +1008,7 @@
   <span class="md-ellipsis">
     
   
-    Module 3.4 - Reading and Writing the Grid
+    Module 3.4 — Reading and Writing the Grid
   
 
     
@@ -1036,7 +1036,7 @@
   <span class="md-ellipsis">
     
   
-    Module 3.5 - Collision Detection
+    Module 3.5 — Collision Detection
   
 
     
@@ -1073,7 +1073,7 @@
   <span class="md-ellipsis">
     
   
-    Project - Tetris
+    Project — Tetris
   
 
     
@@ -1091,7 +1091,7 @@
   <span class="md-ellipsis">
     
   
-    Project - Tetris
+    Project — Tetris
   
 
     
@@ -1258,7 +1258,7 @@
 <p>Here's the finished machine you're working toward, a piece falls, locks into the pile, and completed rows vanish as the line counter ticks up:</p>
 <div id="mc-tetris-final" class="makerchip-embed"></div>
 
-<p>The lab has four stages, one for each big idea from the block. Each stage hands you a starter with the earlier stages already working, so you're always building on solid ground. Fill in the blanks marked <code>TODO</code>, run it, and check it against the checkpoint before moving on.</p>
+<p>The lab has four stages, one for each big idea from the block. Each stage hands you a starter with the mechanics from earlier stages already in place, so you're always building on solid ground. Fill in the blanks marked <code>TODO</code>, run it, and check it against the checkpoint before moving on.</p>
 <h2 id="the-plan">The plan</h2>
 <p>You'll build the game in the same order the pieces fire during play:</p>
 <ol>
@@ -1304,6 +1304,22 @@ at the floor, otherwise fall one row.</p>
 <p>A piece that only falls straight down can't fill a board evenly. Here the piece slides sideways as it falls, steered by the auto-player toward a target column, but it must respect the walls: a piece can't move past the edge of the grid.</p>
 <p>You have two blanks here. First the wall checks: work out how far the piece's left edge can travel in each direction before part of it would hang off the board. Then the move guard itself: step one column toward the target, but only when the matching wall check says there is room, and hold position otherwise. This is exactly the guarded-move pattern from Module 3.5, "take the move only if it's legal", applied to horizontal motion.</p>
 <p>The visualization outlines the target column so you can watch the piece walk toward it.</p>
+<div class="admonition note">
+<p class="admonition-title">How this relates to the finished game</p>
+<p>Sliding is how a piece moves when something <em>outside</em> the design is steering
+it, a player pressing arrow keys, or an auto-player deciding late where a
+piece should go. It is the mechanism you would need the moment you added
+real input.</p>
+<p>The finished game at the end of this lab takes a shortcut: it decides each
+piece's column at spawn time and places it there directly, with no travel.
+That is a deliberate trade. A sliding piece often runs out of rows before it
+reaches its target, so it lands in the wrong column and rows almost never
+fill, which means the auto-player would clear hardly any lines. Instant
+placement is what lets a machine with no hands actually play well.</p>
+<p>So treat this stage as the movement mechanic in isolation. It is real, it
+works, and "Make it your own" at the end shows you how to wire it into the
+full game if you want to watch that trade-off for yourself.</p>
+</div>
 <div id="mc-tetris-stage3" class="makerchip-embed"></div>
 
 <details class="tip">
@@ -1370,6 +1386,7 @@ in Tetris comes to life.</p>
 <li><strong>Change the strategy.</strong> <code>$aim</code> decides how often the auto-player targets the leftmost gap versus dropping somewhere random. Make it aim more and the board stays tidy and clears often; make it aim less and the stack grows wild and tops out sooner.</li>
 <li><strong>Grow the board.</strong> The grid is 8 wide by 10 tall. Widen the rows to 10 bits, or add more pile rows, everything scales the same way.</li>
 <li><strong>Score differently.</strong> Give more points for clears that happen at high speed, or track the number of pieces dropped alongside the lines cleared.</li>
+<li><strong>Wire in Stage 3.</strong> Replace the instant <code>$col</code> placement with the sliding <code>$px</code> you built in Stage 3, so pieces travel to their target instead of appearing there. Watch the line-clear count fall, and you'll have measured for yourself why the finished game places pieces directly.</li>
 <li><strong>Harder:</strong> aim at the lowest gap in the <em>stack</em> rather than in the bottom row, so the player fills holes it has buried.</li>
 </ul>
 <h2 id="where-youve-been">Where you've been</h2>
@@ -1450,7 +1467,7 @@ in Tetris comes to life.</p>
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../module-3-5-collision/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Module 3.5 - Collision Detection">
+          <a href="../module-3-5-collision/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Module 3.5 — Collision Detection">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -1460,7 +1477,7 @@ in Tetris comes to life.</p>
                 Previous
               </span>
               <div class="md-ellipsis">
-                Module 3.5 - Collision Detection
+                Module 3.5 — Collision Detection
               </div>
             </div>
           </a>

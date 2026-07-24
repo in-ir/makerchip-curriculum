@@ -67,3 +67,6 @@ nav:
       - Module 3.4 — Reading and Writing the Grid: block-3/module-3-4-grid-ops.md
       - Module 3.5 — Collision Detection: block-3/module-3-5-collision.md
       - Project — Tetris: block-3/block-3-project.md
+  - Block 4 — Building a Processor:
+      - Overview: block-4/index.md
+      - Module 4.1 — Anatomy of a Processor: block-4/module-4-1-anatomy.md
