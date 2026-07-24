@@ -13,10 +13,8 @@
       
       
       
-        <link rel="prev" href="../">
+        <link rel="prev" href="../module-4-1-anatomy/">
       
-      
-        <link rel="next" href="../module-4-2-instructions/">
       
       
         
@@ -27,7 +25,7 @@
     
     
       
-        <title>Module 4.1 — Anatomy of a Processor - Digital Design with Makerchip & TL-Verilog</title>
+        <title>Module 4.2 - Instructions - Digital Design with Makerchip & TL-Verilog</title>
       
     
     
@@ -78,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#module-41-anatomy-of-a-processor" class="md-skip">
+        <a href="#module-42-instructions" class="md-skip">
           Skip to content
         </a>
       
@@ -114,7 +112,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Module 4.1 — Anatomy of a Processor
+              Module 4.2 - Instructions
             
           </span>
         </div>
@@ -1186,6 +1184,34 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../module-4-1-anatomy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 4.1 — Anatomy of a Processor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -1205,7 +1231,7 @@
   <span class="md-ellipsis">
     
   
-    Module 4.1 — Anatomy of a Processor
+    Module 4.2 - Instructions
   
 
     
@@ -1223,7 +1249,7 @@
   <span class="md-ellipsis">
     
   
-    Module 4.1 — Anatomy of a Processor
+    Module 4.2 - Instructions
   
 
     
@@ -1260,10 +1286,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#what-a-processor-actually-is" class="md-nav__link">
+  <a href="#an-instruction-is-a-number" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What a processor actually is
+        An instruction is a number
       
     </span>
   </a>
@@ -1271,10 +1297,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#the-map-of-the-machine" class="md-nav__link">
+  <a href="#the-fields" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The map of the machine
+        The fields
       
     </span>
   </a>
@@ -1282,10 +1308,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#the-program-counter" class="md-nav__link">
+  <a href="#why-the-fields-sit-where-they-do" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The program counter
+        Why the fields sit where they do
       
     </span>
   </a>
@@ -1293,10 +1319,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#why-four-not-one" class="md-nav__link">
+  <a href="#immediates-and-sign-extension" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Why four, not one?
+        Immediates and sign extension
       
     </span>
   </a>
@@ -1304,38 +1330,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#instruction-memory" class="md-nav__link">
+  <a href="#watch-it-break-forgetting-to-sign-extend" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Instruction memory
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Instruction memory">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#the-idea-underneath" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        The idea underneath
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#watch-it-break-stepping-by-one" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Watch it break: stepping by one
+        Watch it break: forgetting to sign-extend
       
     </span>
   </a>
@@ -1343,10 +1341,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#debugging-tip-step-one-cycle-at-a-time" class="md-nav__link">
+  <a href="#debugging-tip-hex-is-convenient-binary-is-honest" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Debugging tip: step one cycle at a time
+        Debugging tip: hex is convenient, binary is honest
       
     </span>
   </a>
@@ -1354,10 +1352,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#your-turn-build-the-fetch-stage" class="md-nav__link">
+  <a href="#your-turn-take-an-instruction-apart" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Your turn: build the fetch stage
+        Your turn: take an instruction apart
       
     </span>
   </a>
@@ -1395,34 +1393,6 @@
 
               
             
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../module-4-2-instructions/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Module 4.2 - Instructions
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
           </ul>
         </nav>
       
@@ -1447,202 +1417,211 @@
 
 
 
-<h1 id="module-41-anatomy-of-a-processor">Module 4.1: Anatomy of a Processor</h1>
+<h1 id="module-42-instructions">Module 4.2: Instructions</h1>
 <p><strong>Block 4 — Building a Processor</strong><br />
 <strong>Estimated time:</strong> 65–80 minutes<br />
-<strong>Prerequisites:</strong> Block 3 — Memory and Arrays</p>
-<div id="mc-pc-viz" class="makerchip-embed-small"></div>
+<strong>Prerequisites:</strong> Module 4.1 — Anatomy of a Processor</p>
+<div id="mc-instr-viz" class="makerchip-embed-small"></div>
 
 <h2 id="what-youll-learn">What you'll learn</h2>
-<p>By the end of this module you will be able to describe the fetch, decode, execute cycle that every processor runs, name the parts a processor is built from and say where each one came from, explain why a program counter counts by four instead of one, and build a complete <strong>fetch stage</strong>: a program counter wired to an instruction memory, pulling a real RISC-V program out of storage one instruction per cycle.</p>
-<h2 id="what-a-processor-actually-is">What a processor actually is</h2>
-<p>Strip away everything you have heard about processors and one sentence is left: <strong>a processor is a machine that reads numbers out of memory and does what they say.</strong></p>
-<p>That is the whole idea. A program is a list of numbers sitting in memory. The processor picks up the first number, works out what it means, does it, then picks up the next one. Over and over, billions of times a second. Nothing in that loop is beyond what you have already built.</p>
-<p>The loop has three steps, and they have names you will see everywhere:</p>
-<p><strong>Fetch.</strong> Go to memory and get the next instruction.
-<strong>Decode.</strong> Work out what that instruction is asking for.
-<strong>Execute.</strong> Do it.</p>
-<p>Then repeat. That is called the <strong>fetch-decode-execute cycle</strong>, and it is the heartbeat of every processor ever made, from the chip in a microwave to the one in a data centre.</p>
+<p>By the end of this module you will be able to read a 32-bit RISC-V instruction and say what it does, name the fields an instruction is divided into and pull each one out with a bit slice, explain why RISC-V puts those fields where it does, and sign-extend an immediate correctly, which is the one step in this module that will bite you if you skip it.</p>
+<h2 id="an-instruction-is-a-number">An instruction is a number</h2>
+<p>Your processor can now fetch. Each cycle it hands you a 32-bit number like <code>0x00100113</code> and has no idea what to do with it.</p>
+<p>That number is not arbitrary. Packed into those 32 bits is everything the hardware needs: which operation to perform, which registers to read, where to put the answer, and any constant the instruction carries. Decoding is the act of unpacking it, and the wonderful thing is that <strong>unpacking costs nothing</strong>. Every field is a fixed range of bits, so pulling one out is a bit slice, not a computation.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>$opcode[6:0] = $instr[6:0];
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>$rd[4:0]     = $instr[11:7];
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>$rs1[4:0]    = $instr[19:15];
+</code></pre></div>
+<p>No gates. Just picking wires.</p>
+<h2 id="the-fields">The fields</h2>
+<p>Here is how RISC-V divides up those 32 bits:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Bits</th>
+<th>What it says</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>opcode</code></td>
+<td><code>[6:0]</code></td>
+<td>What <em>kind</em> of instruction this is</td>
+</tr>
+<tr>
+<td><code>rd</code></td>
+<td><code>[11:7]</code></td>
+<td>Destination register: where the answer goes</td>
+</tr>
+<tr>
+<td><code>funct3</code></td>
+<td><code>[14:12]</code></td>
+<td>Which operation within that kind</td>
+</tr>
+<tr>
+<td><code>rs1</code></td>
+<td><code>[19:15]</code></td>
+<td>First source register</td>
+</tr>
+<tr>
+<td><code>rs2</code></td>
+<td><code>[24:20]</code></td>
+<td>Second source register</td>
+</tr>
+<tr>
+<td><code>funct7</code></td>
+<td><code>[31:25]</code></td>
+<td>Extra operation bits, when needed</td>
+</tr>
+</tbody>
+</table>
+<p>Take <code>add x1, x1, x2</code>, which encodes as <code>0x002080B3</code>. Slice it up and you get opcode <code>0110011</code> (a register-to-register operation), <code>rs1 = 1</code>, <code>rs2 = 2</code>, <code>rd = 1</code>, <code>funct3 = 000</code> and <code>funct7 = 0000000</code>. Read together: take register 1, take register 2, do the operation that <code>funct3=000</code> with <code>funct7=0000000</code> names, which is addition, and put the result in register 1.</p>
+<p>The VIZ at the top of this page steps through the whole program showing exactly this split. Watch the coloured boxes: the values change, the boundaries never do.</p>
+<div id="mc-fields-demo" class="makerchip-embed-small"></div>
+
+<h2 id="why-the-fields-sit-where-they-do">Why the fields sit where they do</h2>
+<p>Now the part that makes RISC-V worth studying rather than just using.</p>
+<p>An instruction set needs several <em>shapes</em> of instruction. Some take two registers (<code>add x1, x1, x2</code>). Some take one register and a constant (<code>addi x2, x2, 1</code>). Some need a branch offset. These are called <strong>formats</strong>, and RISC-V has a handful. Here are the four you need:</p>
 <div style="margin: 2rem 0;">
-<svg width="100%" viewBox="0 0 720 260" xmlns="http://www.w3.org/2000/svg" style="font-family: 'JetBrains Mono', monospace;">
-  <defs>
-    <marker id="cpu-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
-      <path d="M2 2L8 5L2 8" fill="none" stroke="#B39DDB" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-    </marker>
-  </defs>
+<svg width="100%" viewBox="0 0 740 300" xmlns="http://www.w3.org/2000/svg" style="font-family: 'JetBrains Mono', monospace;">
+  <text x="20" y="40" fill="#4A3060" font-size="10">31</text>
+  <text x="690" y="40" fill="#4A3060" font-size="10">0</text>
 
-  <!-- PC -->
-  <rect x="40" y="95" width="110" height="60" rx="8" fill="#1A0533" stroke="#eab308" stroke-width="2"/>
-  <text x="95" y="120" fill="#eab308" font-size="13" font-weight="bold" text-anchor="middle">PC</text>
-  <text x="95" y="139" fill="#4A3060" font-size="10" text-anchor="middle">which one?</text>
+  <!-- R-type -->
+  <text x="18" y="76" fill="#B39DDB" font-size="11" font-weight="bold">R</text>
+  <rect x="40" y="56" width="141" height="30" rx="3" fill="#1A0533" stroke="#6D5A8A" stroke-width="1.5"/>
+  <text x="110" y="76" fill="#6D5A8A" font-size="10" text-anchor="middle">funct7</text>
+  <rect x="184" y="56" width="100" height="30" rx="3" fill="#14331A" stroke="#22c55e" stroke-width="1.5"/>
+  <text x="234" y="76" fill="#22c55e" font-size="10" text-anchor="middle">rs2</text>
+  <rect x="287" y="56" width="100" height="30" rx="3" fill="#14331A" stroke="#22c55e" stroke-width="1.5"/>
+  <text x="337" y="76" fill="#22c55e" font-size="10" text-anchor="middle">rs1</text>
+  <rect x="390" y="56" width="59" height="30" rx="3" fill="#3B3312" stroke="#eab308" stroke-width="1.5"/>
+  <text x="420" y="76" fill="#eab308" font-size="10" text-anchor="middle">f3</text>
+  <rect x="452" y="56" width="100" height="30" rx="3" fill="#2A1650" stroke="#7C4DFF" stroke-width="1.5"/>
+  <text x="502" y="76" fill="#7C4DFF" font-size="10" text-anchor="middle">rd</text>
+  <rect x="555" y="56" width="141" height="30" rx="3" fill="#3B1616" stroke="#ef4444" stroke-width="1.5"/>
+  <text x="625" y="76" fill="#ef4444" font-size="10" text-anchor="middle">opcode</text>
 
-  <!-- IMEM -->
-  <rect x="215" y="95" width="130" height="60" rx="8" fill="#1A0533" stroke="#7C4DFF" stroke-width="2"/>
-  <text x="280" y="120" fill="#7C4DFF" font-size="13" font-weight="bold" text-anchor="middle">FETCH</text>
-  <text x="280" y="139" fill="#4A3060" font-size="10" text-anchor="middle">read instruction</text>
+  <!-- I-type -->
+  <text x="18" y="126" fill="#B39DDB" font-size="11" font-weight="bold">I</text>
+  <rect x="40" y="106" width="244" height="30" rx="3" fill="#0F2A38" stroke="#38bdf8" stroke-width="1.5"/>
+  <text x="162" y="126" fill="#38bdf8" font-size="10" text-anchor="middle">imm [11:0]</text>
+  <rect x="287" y="106" width="100" height="30" rx="3" fill="#14331A" stroke="#22c55e" stroke-width="1.5"/>
+  <text x="337" y="126" fill="#22c55e" font-size="10" text-anchor="middle">rs1</text>
+  <rect x="390" y="106" width="59" height="30" rx="3" fill="#3B3312" stroke="#eab308" stroke-width="1.5"/>
+  <text x="420" y="126" fill="#eab308" font-size="10" text-anchor="middle">f3</text>
+  <rect x="452" y="106" width="100" height="30" rx="3" fill="#2A1650" stroke="#7C4DFF" stroke-width="1.5"/>
+  <text x="502" y="126" fill="#7C4DFF" font-size="10" text-anchor="middle">rd</text>
+  <rect x="555" y="106" width="141" height="30" rx="3" fill="#3B1616" stroke="#ef4444" stroke-width="1.5"/>
+  <text x="625" y="126" fill="#ef4444" font-size="10" text-anchor="middle">opcode</text>
 
-  <!-- DECODE -->
-  <rect x="410" y="95" width="130" height="60" rx="8" fill="#1A0533" stroke="#7C4DFF" stroke-width="2"/>
-  <text x="475" y="120" fill="#7C4DFF" font-size="13" font-weight="bold" text-anchor="middle">DECODE</text>
-  <text x="475" y="139" fill="#4A3060" font-size="10" text-anchor="middle">what does it mean?</text>
+  <!-- S-type -->
+  <text x="18" y="176" fill="#B39DDB" font-size="11" font-weight="bold">S</text>
+  <rect x="40" y="156" width="141" height="30" rx="3" fill="#0F2A38" stroke="#38bdf8" stroke-width="1.5"/>
+  <text x="110" y="176" fill="#38bdf8" font-size="10" text-anchor="middle">imm hi</text>
+  <rect x="184" y="156" width="100" height="30" rx="3" fill="#14331A" stroke="#22c55e" stroke-width="1.5"/>
+  <text x="234" y="176" fill="#22c55e" font-size="10" text-anchor="middle">rs2</text>
+  <rect x="287" y="156" width="100" height="30" rx="3" fill="#14331A" stroke="#22c55e" stroke-width="1.5"/>
+  <text x="337" y="176" fill="#22c55e" font-size="10" text-anchor="middle">rs1</text>
+  <rect x="390" y="156" width="59" height="30" rx="3" fill="#3B3312" stroke="#eab308" stroke-width="1.5"/>
+  <text x="420" y="176" fill="#eab308" font-size="10" text-anchor="middle">f3</text>
+  <rect x="452" y="156" width="100" height="30" rx="3" fill="#0F2A38" stroke="#38bdf8" stroke-width="1.5"/>
+  <text x="502" y="176" fill="#38bdf8" font-size="10" text-anchor="middle">imm lo</text>
+  <rect x="555" y="156" width="141" height="30" rx="3" fill="#3B1616" stroke="#ef4444" stroke-width="1.5"/>
+  <text x="625" y="176" fill="#ef4444" font-size="10" text-anchor="middle">opcode</text>
 
-  <!-- EXECUTE -->
-  <rect x="595" y="95" width="90" height="60" rx="8" fill="#1A0533" stroke="#22c55e" stroke-width="2"/>
-  <text x="640" y="120" fill="#22c55e" font-size="13" font-weight="bold" text-anchor="middle">EXECUTE</text>
-  <text x="640" y="139" fill="#4A3060" font-size="10" text-anchor="middle">do it</text>
+  <!-- B-type -->
+  <text x="18" y="226" fill="#B39DDB" font-size="11" font-weight="bold">B</text>
+  <rect x="40" y="206" width="141" height="30" rx="3" fill="#0F2A38" stroke="#38bdf8" stroke-width="1.5"/>
+  <text x="110" y="226" fill="#38bdf8" font-size="10" text-anchor="middle">imm hi</text>
+  <rect x="184" y="206" width="100" height="30" rx="3" fill="#14331A" stroke="#22c55e" stroke-width="1.5"/>
+  <text x="234" y="226" fill="#22c55e" font-size="10" text-anchor="middle">rs2</text>
+  <rect x="287" y="206" width="100" height="30" rx="3" fill="#14331A" stroke="#22c55e" stroke-width="1.5"/>
+  <text x="337" y="226" fill="#22c55e" font-size="10" text-anchor="middle">rs1</text>
+  <rect x="390" y="206" width="59" height="30" rx="3" fill="#3B3312" stroke="#eab308" stroke-width="1.5"/>
+  <text x="420" y="226" fill="#eab308" font-size="10" text-anchor="middle">f3</text>
+  <rect x="452" y="206" width="100" height="30" rx="3" fill="#0F2A38" stroke="#38bdf8" stroke-width="1.5"/>
+  <text x="502" y="226" fill="#38bdf8" font-size="10" text-anchor="middle">imm lo</text>
+  <rect x="555" y="206" width="141" height="30" rx="3" fill="#3B1616" stroke="#ef4444" stroke-width="1.5"/>
+  <text x="625" y="226" fill="#ef4444" font-size="10" text-anchor="middle">opcode</text>
 
-  <!-- arrows across -->
-  <line x1="150" y1="125" x2="211" y2="125" stroke="#B39DDB" stroke-width="1.5" marker-end="url(#cpu-arr)"/>
-  <line x1="345" y1="125" x2="406" y2="125" stroke="#B39DDB" stroke-width="1.5" marker-end="url(#cpu-arr)"/>
-  <line x1="540" y1="125" x2="591" y2="125" stroke="#B39DDB" stroke-width="1.5" marker-end="url(#cpu-arr)"/>
+  <line x1="287" y1="50" x2="287" y2="244" stroke="#22c55e" stroke-width="1" stroke-dasharray="3,3" opacity="0.6"/>
+  <line x1="387" y1="50" x2="387" y2="244" stroke="#22c55e" stroke-width="1" stroke-dasharray="3,3" opacity="0.6"/>
+  <line x1="555" y1="50" x2="555" y2="244" stroke="#ef4444" stroke-width="1" stroke-dasharray="3,3" opacity="0.6"/>
 
-  <!-- feedback loop -->
-  <path d="M640 155 L640 215 L95 215 L95 159" fill="none" stroke="#eab308" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#cpu-arr)"/>
-  <text x="367" y="235" fill="#eab308" font-size="11" text-anchor="middle">then the PC moves on, and the whole thing runs again</text>
-
-  <text x="360" y="45" fill="#4A3060" font-size="12" text-anchor="middle">one trip around this loop = one instruction</text>
+  <text x="368" y="268" fill="#B39DDB" font-size="11" text-anchor="middle">look down the columns: rs1, rs2, funct3 and opcode never move</text>
+  <text x="368" y="288" fill="#4A3060" font-size="10" text-anchor="middle">only the immediate has to shuffle around them</text>
 </svg>
 </div>
 
-<h2 id="the-map-of-the-machine">The map of the machine</h2>
-<p>Those three words, fetch, decode, execute, describe what a processor <em>does</em>. Here is what it is <em>made of</em>, and where each piece comes from. This is the machine you will finish this block having built:</p>
-<div style="margin: 2rem 0;">
-<svg width="100%" viewBox="0 0 720 330" xmlns="http://www.w3.org/2000/svg" style="font-family: 'JetBrains Mono', monospace;">
-  <defs>
-    <marker id="dp-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
-      <path d="M2 2L8 5L2 8" fill="none" stroke="#B39DDB" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-    </marker>
-  </defs>
-
-  <rect x="24" y="70" width="86" height="56" rx="7" fill="#3B1D6D" stroke="#eab308" stroke-width="2"/>
-  <text x="67" y="94" fill="#eab308" font-size="12" font-weight="bold" text-anchor="middle">PC</text>
-  <text x="67" y="110" fill="#B39DDB" font-size="9" text-anchor="middle">counter</text>
-  <text x="67" y="142" fill="#22c55e" font-size="9" text-anchor="middle">4.1</text>
-
-  <rect x="140" y="70" width="108" height="56" rx="7" fill="#3B1D6D" stroke="#eab308" stroke-width="2"/>
-  <text x="194" y="94" fill="#eab308" font-size="12" font-weight="bold" text-anchor="middle">INSTR MEM</text>
-  <text x="194" y="110" fill="#B39DDB" font-size="9" text-anchor="middle">the program</text>
-  <text x="194" y="142" fill="#22c55e" font-size="9" text-anchor="middle">4.1</text>
-
-  <rect x="278" y="70" width="108" height="56" rx="7" fill="#1A0533" stroke="#7C4DFF" stroke-width="2"/>
-  <text x="332" y="94" fill="#7C4DFF" font-size="12" font-weight="bold" text-anchor="middle">DECODER</text>
-  <text x="332" y="110" fill="#4A3060" font-size="9" text-anchor="middle">what to do</text>
-  <text x="332" y="142" fill="#4A3060" font-size="9" text-anchor="middle">4.3</text>
-
-  <rect x="416" y="70" width="108" height="56" rx="7" fill="#1A0533" stroke="#7C4DFF" stroke-width="2"/>
-  <text x="470" y="94" fill="#7C4DFF" font-size="12" font-weight="bold" text-anchor="middle">REG FILE</text>
-  <text x="470" y="110" fill="#4A3060" font-size="9" text-anchor="middle">32 registers</text>
-  <text x="470" y="142" fill="#4A3060" font-size="9" text-anchor="middle">4.4</text>
-
-  <rect x="554" y="70" width="86" height="56" rx="7" fill="#1A0533" stroke="#7C4DFF" stroke-width="2"/>
-  <text x="597" y="94" fill="#7C4DFF" font-size="12" font-weight="bold" text-anchor="middle">ALU</text>
-  <text x="597" y="110" fill="#4A3060" font-size="9" text-anchor="middle">the maths</text>
-  <text x="597" y="142" fill="#4A3060" font-size="9" text-anchor="middle">4.4</text>
-
-  <rect x="416" y="216" width="108" height="52" rx="7" fill="#1A0533" stroke="#7C4DFF" stroke-width="2"/>
-  <text x="470" y="238" fill="#7C4DFF" font-size="12" font-weight="bold" text-anchor="middle">DATA MEM</text>
-  <text x="470" y="254" fill="#4A3060" font-size="9" text-anchor="middle">load and store</text>
-  <text x="470" y="284" fill="#4A3060" font-size="9" text-anchor="middle">4.5</text>
-
-  <line x1="110" y1="98" x2="136" y2="98" stroke="#eab308" stroke-width="1.6" marker-end="url(#dp-arr)"/>
-  <line x1="248" y1="98" x2="274" y2="98" stroke="#B39DDB" stroke-width="1.6" marker-end="url(#dp-arr)"/>
-  <line x1="386" y1="98" x2="412" y2="98" stroke="#B39DDB" stroke-width="1.6" marker-end="url(#dp-arr)"/>
-  <line x1="524" y1="98" x2="550" y2="98" stroke="#B39DDB" stroke-width="1.6" marker-end="url(#dp-arr)"/>
-
-  <path d="M597 126 L597 180 L470 180 L470 212" fill="none" stroke="#B39DDB" stroke-width="1.3" marker-end="url(#dp-arr)"/>
-  <path d="M640 98 L672 98 L672 40 L470 40 L470 66" fill="none" stroke="#B39DDB" stroke-width="1.3" stroke-dasharray="4,3" marker-end="url(#dp-arr)"/>
-  <text x="560" y="34" fill="#4A3060" font-size="9" text-anchor="middle">write the result back</text>
-
-  <path d="M597 126 L597 300 L67 300 L67 130" fill="none" stroke="#ef4444" stroke-width="1.3" stroke-dasharray="5,4" marker-end="url(#dp-arr)"/>
-  <text x="300" y="316" fill="#ef4444" font-size="9" text-anchor="middle">branches: the ALU decides where the PC goes next  (4.5)</text>
-
-  <text x="360" y="20" fill="#B39DDB" font-size="11" text-anchor="middle">yellow = built in this module</text>
-</svg>
-</div>
-
-<p>Five boxes and some wires. That is a processor. Two of them, the PC and instruction memory, you will build before you finish this page.</p>
-<h2 id="the-program-counter">The program counter</h2>
-<p>Something has to keep track of <em>which</em> instruction is next. That something is the <strong>program counter</strong>, almost always written <strong>PC</strong>. It holds the memory address of the instruction currently being executed, and after each instruction it moves along to the next one.</p>
-<p>If that sounds like a counter, that is because it is one. You built counters in Module 2.2. The PC is the same circuit with a more important job:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>$pc[31:0] = *reset ? 32&#39;d0 : &gt;&gt;1$pc + 32&#39;d4;
+<p>Now look down the columns rather than across the rows. <strong><code>rs1</code> is in bits 19:15 in every single format. <code>rs2</code> is always 24:20. <code>funct3</code> is always 14:12. <code>opcode</code> is always 6:0.</strong> They never move.</p>
+<p>That is not a coincidence, it is the central design decision of RISC-V, and it exists for a hardware reason. Your processor can slice <code>rs1</code> and <code>rs2</code> out of the instruction and start reading those registers <strong>before it has worked out what the instruction even is</strong>. The register read and the decode happen at the same time, in parallel, because the register numbers are guaranteed to be in the same place regardless.</p>
+<p>If the fields moved around, the hardware would need a multiplexer in front of the register file to pick where to look, and that MUX would sit on the critical path of every single instruction. Freezing the field positions deletes that hardware entirely.</p>
+<p>The price is paid by the immediate, which gets chopped into whatever space is left over. The S-type immediate is split across two chunks. The B-type immediate is worse: its bits are scrambled so that each one lands, where possible, on the same wire it would occupy in another format. It looks perverse on paper, and it is the correct trade: shuffle wires once at design time, save a multiplexer on every instruction forever.</p>
+<details class="note">
+<summary>Which fields are real?</summary>
+<p>Slicing is unconditional, which means the hardware always produces all six
+fields even when they are meaningless. On a B-type instruction there is no
+destination register, so the bits sitting in the <code>rd</code> position are not a
+register number at all, they are part of the branch offset.</p>
+<p>You will see this in the VIZ: the branch instruction shows <code>rd = 25</code> and
+<code>funct7 = 63</code>, which are nonsense as register numbers. That is fine. It is
+the decoder's job, in Module 4.3, to decide which fields to <em>believe</em>, based
+on the opcode.</p>
+</details>
+<h2 id="immediates-and-sign-extension">Immediates and sign extension</h2>
+<p>Instructions that carry a constant, like <code>addi x2, x2, 1</code>, keep it in the <strong>immediate</strong> field. For an I-type that is bits 31:20, twelve bits.</p>
+<p>But the ALU works in 32 bits. So a 12-bit immediate has to be widened, and how you widen it depends entirely on its sign.</p>
+<p>A positive number widens by padding with zeros. <code>000000000001</code> becomes <code>00000000000000000000000000000001</code>, still 1.</p>
+<p>A negative number is where it gets interesting. In two's complement, <code>111111111111</code> is −1. Pad that with zeros and you get <code>00000000000011111111111</code>, which is <strong>4095</strong>. The value has been destroyed.</p>
+<p>The fix is to copy the top bit into every new bit. That is <strong>sign extension</strong>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>$imm[31:0] = $instr[31] ? {20&#39;hFFFFF, $instr[31:20]} : {20&#39;d0, $instr[31:20]};
 </code></pre></div>
-<p>On reset it points at address 0, the top of the program. Every cycle after that it advances. That is the entire program counter.</p>
-<h2 id="why-four-not-one">Why four, not one?</h2>
-<p>Look at that <code>+ 32'd4</code> again, because it is the detail that trips up everyone meeting this for the first time.</p>
-<p>Memory is addressed in <strong>bytes</strong>. Address 0 is one byte, address 1 is the next byte, and so on. But a RISC-V instruction is not one byte, it is <strong>32 bits, which is four bytes</strong>. So an instruction sitting at address 0 occupies addresses 0, 1, 2 and 3. The next instruction starts at address 4.</p>
-<p>That is why the PC steps by 4. It is not counting instructions, it is counting <em>bytes</em>, and each instruction is four of them.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>address 0  -&gt;  instruction 0
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>address 4  -&gt;  instruction 1
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>address 8  -&gt;  instruction 2
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>address 12 -&gt;  instruction 3
-</code></pre></div>
-<p>Since instructions are always 4 bytes apart, the bottom two bits of the PC are always zero. If you want the instruction <em>number</em> rather than its address, you divide by 4, and dividing by 4 in hardware is free: you just ignore the bottom two bits.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>$idx[2:0] = $pc[4:2];   // pc / 4, by taking the bits above the bottom two
-</code></pre></div>
-<p>That slice is the whole division. No divider, no arithmetic, just picking different wires.</p>
-<p>Watch the PC run below. Set its radix to decimal in the waveform and follow it: 0, 4, 8, 12, 16, 20, then back to the start.</p>
-<div id="mc-pc-demo" class="makerchip-embed-small"></div>
+<p>If the immediate's top bit is 1, fill the upper 20 bits with ones. Otherwise fill with zeros. The <code>{ }</code> braces glue bit patterns together, which is how you build a wide signal out of narrower pieces.</p>
+<h2 id="watch-it-break-forgetting-to-sign-extend">Watch it break: forgetting to sign-extend</h2>
+<p>Here is the bug, side by side. <code>$imm_ok</code> sign-extends properly; <code>$imm_bad</code> always pads with zeros:</p>
+<div id="mc-imm-demo" class="makerchip-embed-small"></div>
 
-<h2 id="instruction-memory">Instruction memory</h2>
-<p>A program counter on its own points at nothing. The other half of fetch is the <strong>instruction memory</strong>: the place the program actually lives.</p>
-<p>And here is the good news. You have built this already. An instruction memory takes an index and returns the word stored there, which is precisely the read port of the register file from Module 3.1: a chain of ternaries selecting one stored value out of many.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>$instr[31:0] = ($idx == 3&#39;d0) ? 32&#39;h00000093 :
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>               ($idx == 3&#39;d1) ? 32&#39;h00100113 :
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>               ...
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>                                32&#39;hFE314CE3;
-</code></pre></div>
-<p>The only difference from a register file is what the words <em>mean</em>. These are not data, they are instructions, and each one completely specifies an operation. <code>0x00100113</code> says "put the value 1 into register x2." You will learn to read those numbers in Module 4.2 and build the hardware that unpacks them in 4.3.</p>
-<p>Wire the PC to that memory and you have a complete fetch stage:</p>
-<div id="mc-fetch-demo" class="makerchip-embed-small"></div>
-
-<p>Watch <code>$instr</code> change each cycle as the PC advances. The design also pulls out <code>$opcode</code>, the bottom seven bits, which is the field that says what <em>kind</em> of instruction this is. Notice it takes three distinct values across the program: <code>0010011</code> for the four <code>addi</code> instructions, <code>0110011</code> for the <code>add</code>, and <code>1100011</code> for the branch at the end. Your first glimpse of decoding, and it is just a bit slice.</p>
-<p>The VIZ at the top of this page is that same fetch stage, drawn as a program listing with the <code>PC &gt;</code> marker stepping down it.</p>
-<h3 id="the-idea-underneath">The idea underneath</h3>
-<p>Something here is worth sitting with, because it is one of the genuinely profound ideas in computing.</p>
-<p><strong>The program is just data in memory.</strong> There is no special "program" storage, no separate mechanism. The instructions are numbers, exactly like any other numbers, sitting in a memory built the same way as the one holding your Tetris grid. The only thing that makes them a program is that the PC is pointing at them.</p>
-<p>That is the <strong>stored-program computer</strong>, and it is why a single piece of hardware can run software it has never seen. Change the numbers in memory and the same silicon does something completely different. Every general-purpose computer that has ever existed rests on that one idea.</p>
-<h2 id="watch-it-break-stepping-by-one">Watch it break: stepping by one</h2>
-<p>To feel why the 4 matters, here is a PC that steps by 1 instead:</p>
-<div id="mc-pc-bug" class="makerchip-embed-small"></div>
-
-<p>Watch <code>$idx</code> in the waveform. Instead of advancing every cycle, <strong>the same instruction gets fetched four times in a row</strong>, then the index jumps. The processor is crawling through memory one byte at a time, landing in the middle of instructions, seeing three-quarters of one instruction glued to a quarter of the next.</p>
-<p>On a real processor this is fatal, and it is exactly what happens if a program jumps to a misaligned address. The machine starts interpreting the middle of an instruction as if it were the start of one, and executes nonsense. Being able to recognise "my PC is off by a factor of four" from a waveform is a genuinely useful debugging instinct.</p>
-<h2 id="debugging-tip-step-one-cycle-at-a-time">Debugging tip: step one cycle at a time</h2>
-<p>Up to now you have mostly let simulations run and looked at the result. A processor is different: it does exactly one meaningful thing per cycle, so the interesting question is almost always <em>"what happened on cycle 7?"</em></p>
-<p>Use the <strong>time slider</strong> underneath the Viz pane to step through the simulation one cycle at a time. As you drag it, the visualization redraws for that exact cycle, so you can walk the PC down the program at your own pace and watch each instruction come up. Pair that with the waveform, where the same cycle is one vertical slice, and you have the whole picture: Viz shows you <em>where the processor is</em>, the waveform shows you <em>what every signal was doing when it got there</em>.</p>
-<p>For the rest of this block, "step to the cycle where it goes wrong and look at every signal in that column" is the debugging move you will reach for most.</p>
-<h2 id="your-turn-build-the-fetch-stage">Your turn: build the fetch stage</h2>
-<p>Three blanks, and together they make a processor that reads a program. Build the program counter, convert its address into a word index, and build the instruction memory it reads from. The six instruction words are listed for you in the comments.</p>
-<div id="mc-fetch-exercise" class="makerchip-embed"></div>
+<p>Set both to decimal in the waveform and compare. For <code>0x001</code> and <code>0x7FF</code> they agree. Then <code>0xFFF</code> arrives: <code>$imm_ok</code> reads <strong>−1</strong>, <code>$imm_bad</code> reads <strong>4095</strong>. And <code>0x800</code> should be <strong>−2048</strong> but comes out as <strong>2048</strong>.</p>
+<p>This is worth dwelling on because of <em>how</em> it fails. Every positive immediate in your program works perfectly. Everything looks fine. Then one loop counts down instead of up, or one branch jumps forwards instead of backwards, and the program falls apart somewhere far away from the actual mistake. Sign extension bugs are quiet, and they are quiet in exactly the way that costs hours.</p>
+<h2 id="debugging-tip-hex-is-convenient-binary-is-honest">Debugging tip: hex is convenient, binary is honest</h2>
+<p>You will naturally want to read instructions in hex, and you should. <code>0x00100113</code> is far easier to hold in your head than thirty-two ones and zeros, and it is how instructions are written in every RISC-V document you will ever read. Set <code>$instr</code> to hex in the waveform.</p>
+<p>But be aware of what hex hides. Each hex digit is exactly 4 bits, and <strong>not one RISC-V field is 4 bits wide.</strong> The opcode is 7, registers are 5, <code>funct3</code> is 3. So field boundaries fall in the middle of hex digits, and no digit corresponds to anything meaningful on its own.</p>
+<p>That gives you a simple rule. Use hex to identify an instruction and compare it against a listing. Switch that one signal to binary when you need to see where a field actually starts and stops. The fastest way to confirm a slice is right is to view the instruction in binary and count.</p>
+<h2 id="your-turn-take-an-instruction-apart">Your turn: take an instruction apart</h2>
+<p>The instruction <code>0x00B00193</code> is waiting below. Pull out all six fields, then build the sign-extended 32-bit immediate.</p>
+<div id="mc-instr-exercise" class="makerchip-embed"></div>
 
 <details class="tip">
 <summary>Hint</summary>
-<p><strong>The PC</strong> is Module 2.2's wrapping counter with a different step size: reset
-to the start, wrap when you are sitting on the last instruction, otherwise
-advance. The section above tells you how far.</p>
-<p><strong>The index</strong> needs no arithmetic at all. You want the address divided by 4,
-and the bottom two bits of the address are always zero, so the answer is a
-bit slice.</p>
-<p><strong>The memory</strong> is the register file read port from Module 3.1 wearing a
-different hat: a chain of ternaries on <code>$idx</code>, with the last word as the
-fallback for "none of the above."</p>
+<p>The six fields are pure bit slices, and the exact ranges are listed in the
+comments. There is no arithmetic anywhere in the first part.</p>
+<p>For the immediate, look at the raw 12 bits first and ask whether the top one
+is set. That single bit chooses which of two padding patterns you glue on the
+front, and the section above shows the shape of the answer.</p>
 </details>
 <details class="success">
 <summary>Solution</summary>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>$pc[31:0] = *reset ? 32&#39;d0 : (&gt;&gt;1$pc == 32&#39;d20) ? 32&#39;d0 : &gt;&gt;1$pc + 32&#39;d4;
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>$idx[2:0] = $pc[4:2];
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>$instr[31:0] = ($idx == 3&#39;d0) ? 32&#39;h00000093 : ($idx == 3&#39;d1) ? 32&#39;h00100113 : ($idx == 3&#39;d2) ? 32&#39;h00B00193 : ($idx == 3&#39;d3) ? 32&#39;h002080B3 : ($idx == 3&#39;d4) ? 32&#39;h00110113 : 32&#39;hFE314CE3;
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>$opcode[6:0] = $instr[6:0];
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>$rd[4:0]     = $instr[11:7];
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>$funct3[2:0] = $instr[14:12];
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>$rs1[4:0]    = $instr[19:15];
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>$rs2[4:0]    = $instr[24:20];
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>$funct7[6:0] = $instr[31:25];
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>$imm[31:0] = $instr[31] ? {20&#39;hFFFFF, $instr[31:20]} : {20&#39;d0, $instr[31:20]};
 </code></pre></div>
-<p>Check it in the waveform: <code>$instr</code> should show a different word each cycle,
-cycling through all six and starting over. If it changes only every fourth
-cycle, your PC is stepping by 1. If it never changes, the index is not
-tracking the PC.</p>
+<p>You should get <code>opcode = 0010011</code>, <code>rd = 3</code>, <code>rs1 = 0</code>, <code>funct3 = 000</code> and
+<code>imm = 11</code>. Which reads: take register 0, add 11, store the result in
+register 3. In assembly, <code>addi x3, x0, 11</code>.</p>
+<p>Register <code>x0</code> in RISC-V is permanently zero, so adding to it is the standard
+way to load a constant. That is exactly what this instruction is doing, and
+it is why three of the six instructions in our program are <code>addi</code> from <code>x0</code>.</p>
 </details>
 <h2 id="where-this-fits-next">Where this fits next</h2>
-<p>You now have a processor that can point at instructions. What it cannot do is understand them. Right now <code>0x00100113</code> is just a number to your hardware.</p>
-<p>In Module 4.2 you will learn how RISC-V packs an entire operation, what to do, which registers to use, and what constant to use, into those 32 bits, and why the layout is designed the way it is. After that, decode turns those bits into control signals, and the machine starts doing real work.</p>
+<p>You can now take an instruction apart by hand. But slicing bits out is not the same as <em>understanding</em> them. Your hardware has <code>opcode = 0110011</code> sitting on a wire and still does not know that means "use the ALU, in add mode, and write the result to a register."</p>
+<p>In Module 4.3 you will build the <strong>decoder</strong>: the logic that turns those raw fields into the control signals that steer the rest of the machine. It is the piece that turns a number into an instruction.</p>
 <h2 id="quick-reference">Quick reference</h2>
 <table>
 <thead>
@@ -1654,35 +1633,35 @@ tracking the PC.</p>
 </thead>
 <tbody>
 <tr>
-<td>Program counter</td>
-<td><code>&gt;&gt;1$pc + 32'd4</code></td>
-<td>Address of the current instruction</td>
+<td>Field extraction</td>
+<td><code>$instr[19:15]</code></td>
+<td>A bit slice, no logic</td>
 </tr>
 <tr>
-<td>Why +4</td>
-<td>instructions are 4 bytes</td>
-<td>Memory is byte-addressed</td>
+<td>Fixed positions</td>
+<td><code>rs1</code>, <code>rs2</code>, <code>rd</code>, <code>opcode</code></td>
+<td>Same bits in every format</td>
 </tr>
 <tr>
-<td>Address to index</td>
-<td><code>$pc[4:2]</code></td>
-<td>Divide by 4 by dropping 2 bits</td>
+<td>Sign extend</td>
+<td><code>$x[11] ? {20'hFFFFF, $x} : {20'd0, $x}</code></td>
+<td>Copy the top bit outward</td>
 </tr>
 <tr>
-<td>Instruction memory</td>
-<td><code>($idx == N) ? word : ...</code></td>
-<td>Read MUX, same as the register file</td>
+<td>Concatenation</td>
+<td><code>{a, b}</code></td>
+<td>Glue bit patterns together</td>
 </tr>
 <tr>
-<td>The cycle</td>
-<td>fetch, decode, execute</td>
-<td>One trip = one instruction</td>
+<td>Formats</td>
+<td>R, I, S, B</td>
+<td>Different shapes, aligned fields</td>
 </tr>
 </tbody>
 </table>
 <style>
 .makerchip-embed       { position: relative; width: 100%; height: 500px; }
-.makerchip-embed-small { position: relative; width: 100%; height: 380px; }
+.makerchip-embed-small { position: relative; width: 100%; height: 400px; }
 </style>
 
 <script type="module">
@@ -1716,20 +1695,17 @@ tracking the PC.</p>
     }
   }
 
-  if (document.getElementById('mc-pc-viz')) {
-    VizOnlyIDE.create('mc-pc-viz', { codeURL: base + 'pc-viz.tlv' });
+  if (document.getElementById('mc-instr-viz')) {
+    VizOnlyIDE.create('mc-instr-viz', { codeURL: base + 'instr-viz.tlv' });
   }
-  if (document.getElementById('mc-pc-demo')) {
-    WaveformOnlyIDE.create('mc-pc-demo', { codeURL: base + 'pc-demo.tlv' });
+  if (document.getElementById('mc-fields-demo')) {
+    WaveformOnlyIDE.create('mc-fields-demo', { codeURL: base + 'fields-demo.tlv' });
   }
-  if (document.getElementById('mc-pc-bug')) {
-    WaveformOnlyIDE.create('mc-pc-bug', { codeURL: base + 'pc-bug.tlv' });
+  if (document.getElementById('mc-imm-demo')) {
+    WaveformOnlyIDE.create('mc-imm-demo', { codeURL: base + 'imm-demo.tlv' });
   }
-  if (document.getElementById('mc-fetch-demo')) {
-    WaveformOnlyIDE.create('mc-fetch-demo', { codeURL: base + 'fetch-demo.tlv' });
-  }
-  if (document.getElementById('mc-fetch-exercise')) {
-    EditorWaveformIDE.create('mc-fetch-exercise', { codeURL: base + 'fetch-exercise.tlv' });
+  if (document.getElementById('mc-instr-exercise')) {
+    EditorWaveformIDE.create('mc-instr-exercise', { codeURL: base + 'instr-exercise.tlv' });
   }
 </script>
 
@@ -1761,7 +1737,7 @@ tracking the PC.</p>
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../" class="md-footer__link md-footer__link--prev" aria-label="Previous: Overview">
+          <a href="../module-4-1-anatomy/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Module 4.1 — Anatomy of a Processor">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -1771,27 +1747,11 @@ tracking the PC.</p>
                 Previous
               </span>
               <div class="md-ellipsis">
-                Overview
+                Module 4.1 — Anatomy of a Processor
               </div>
             </div>
           </a>
         
-        
-          
-          <a href="../module-4-2-instructions/" class="md-footer__link md-footer__link--next" aria-label="Next: Module 4.2 - Instructions">
-            <div class="md-footer__title">
-              <span class="md-footer__direction">
-                Next
-              </span>
-              <div class="md-ellipsis">
-                Module 4.2 - Instructions
-              </div>
-            </div>
-            <div class="md-footer__button md-icon">
-              
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
-            </div>
-          </a>
         
       </nav>
     
