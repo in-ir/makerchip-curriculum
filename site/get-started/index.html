@@ -472,6 +472,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#writing-constants" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Writing constants
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#logic-operators" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -504,6 +515,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#the-signals-makerchip-gives-you" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The signals Makerchip gives you
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -514,6 +536,17 @@
     <span class="md-ellipsis">
       
         Try it yourself
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#when-something-does-not-compile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When something does not compile
       
     </span>
   </a>
@@ -1267,14 +1300,16 @@
 <h1 id="get-started-with-makerchip">Get Started with Makerchip</h1>
 <p>If you are new to digital logic, start with Block 1. You will learn Makerchip naturally as you work through the material. If you already have a solid foundation in digital logic and just want to get up to speed with Makerchip and TL-Verilog, this page is the right starting point. Read through it, play with the sandbox, and then jump to whichever block interests you.</p>
 <h2 id="what-is-makerchip">What is Makerchip?</h2>
-<p>Makerchip is a browser-based IDE for designing and simulating digital circuits. You write TL-Verilog, a modern and significantly cleaner dialect of Verilog, and Makerchip compiles it instantly, generates a circuit diagram, and runs a simulation you can inspect in the waveform viewer. There is nothing to install and no toolchain to configure. You open a browser and start designing chips.</p>
+<p>Makerchip is a browser-based IDE for designing and simulating digital circuits. You write TL-Verilog, an extension to Verilog that adds a much cleaner way to describe timing and state, and Makerchip compiles it instantly, generates a circuit diagram, and runs a simulation you can inspect in the waveform viewer. There is nothing to install and no toolchain to configure. You open a browser and start designing chips.</p>
 <h2 id="the-interface">The interface</h2>
-<p>The Makerchip IDE is organized into four panes. You do not need all of them at once, and throughout this curriculum each exercise only shows the panes that are relevant to what you are doing.</p>
+<p>The Makerchip IDE is organized into five panes. You do not need all of them at once, and throughout this curriculum each exercise only shows the panes that are relevant to what you are doing.</p>
 <p>The <strong>Editor</strong> is where you write your TL-Verilog code. Every time you compile, Makerchip rebuilds the circuit from scratch and updates the other panes.</p>
 <p>The <strong>Diagram</strong> is an auto-generated schematic of your circuit. Every signal you assign becomes a node in the graph. As your designs grow, the diagram grows with them and becomes one of the most useful debugging tools you have.</p>
 <p>The <strong>Waveform</strong> shows signal values over simulation time. Each row is a signal and each column is a clock cycle. Reading waveforms is the primary way hardware engineers verify that a circuit does what it is supposed to do.</p>
 <p><strong>Nav-TLV</strong> gives you a structured, navigable view of your code. It becomes particularly useful once your designs span multiple modules and pipelines.</p>
-<p>The embed below shows all four panes. Use the <code>«</code> arrows to collapse any pane you do not need.</p>
+<p><strong>Viz</strong> is Makerchip's visualizer, and it is the pane that makes this curriculum work the way it does. The waveform shows a signal as a row of numbers. Viz lets a design <em>draw itself</em>: a counter can render as a progress bar, a shift register as a scrolling marquee, a grid of bits as an actual game board. From Block 2 onward most projects here ship with a Viz view, and by Block 3 it becomes your primary debugging tool, because a bug like "my piece is one column too far left" is invisible in a row of binary and obvious the instant you see it drawn.</p>
+<p>A design only gets a Viz pane if its code includes a visualization block, which is why the simple example below does not have one. You will meet your first in Block 2.</p>
+<p>The embed below shows the Editor, Nav-TLV, Diagram and Waveform together. Use the <code>«</code> arrows to collapse any pane you do not need.</p>
 <div id="mc-intro" class="makerchip-embed"></div>
 
 <h2 id="tl-verilog-in-five-minutes">TL-Verilog in five minutes</h2>
@@ -1289,6 +1324,13 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>$out[7:0] = $a[7:0] + $b[7:0];
 </code></pre></div>
 <p>This assigns an 8-bit signal the sum of two other 8-bit signals. TL-Verilog synthesizes the full carry chain automatically.</p>
+<h3 id="writing-constants">Writing constants</h3>
+<p>When you write a fixed value, you state how many bits it has and which base it is in:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>$mask[7:0] = 8&#39;b00000111;   // 8 bits, binary
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>$limit[3:0] = 4&#39;d9;         // 4 bits, decimal, the number 9
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>$flag = 1&#39;b0;               // a single bit, zero
+</code></pre></div>
+<p>The format is <em>width</em> <code>'</code> <em>base</em> <em>value</em>, where the base is <code>b</code> for binary, <code>d</code> for decimal, or <code>h</code> for hexadecimal. Being explicit about width matters in hardware: <code>4'd9</code> and <code>8'd9</code> are the same number but different amounts of wire. You will see this notation constantly from Block 1 onward, so it is worth getting comfortable with early.</p>
 <h3 id="logic-operators">Logic operators</h3>
 <table>
 <thead>
@@ -1334,40 +1376,96 @@
 <td><code>!</code></td>
 <td>Single-bit only</td>
 </tr>
+<tr>
+<td>AND-reduce</td>
+<td><code>&amp; $x</code></td>
+<td>One bit: are <strong>all</strong> bits of <code>$x</code> set?</td>
+</tr>
+<tr>
+<td>OR-reduce</td>
+<td><code>\| $x</code></td>
+<td>One bit: is <strong>any</strong> bit of <code>$x</code> set?</td>
+</tr>
 </tbody>
 </table>
+<p>The last two are worth a second look, because they behave differently from the others. Written in front of a single signal rather than between two, <code>&amp;</code> and <code>|</code> collapse every bit of that signal down to one answer. So <code>&amp; $row</code> asks "is this entire signal all ones?" in a single operator. These become important in Block 3, where a whole row of a game board lives in one signal and you need to ask questions about all of it at once.</p>
 <h3 id="selection">Selection</h3>
 <p>The ternary operator <code>?:</code> maps directly to a multiplexer in hardware:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>$out = $sel ? $b : $a;
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>$out = $sel ? $b : $a;
 </code></pre></div>
 <p>Chain conditions for multi-way selection, which is how you build MUXes, decoders, and ALU operation selectors:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>$out[7:0] = $op == 2&#39;b11 ? $d :
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>             $op == 2&#39;b10 ? $c :
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>             $op == 2&#39;b01 ? $b :
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>                            $a;
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>$out[7:0] = $op == 2&#39;b11 ? $d :
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>            $op == 2&#39;b10 ? $c :
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>            $op == 2&#39;b01 ? $b :
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>                           $a;
 </code></pre></div>
+<p>Read a chain like this top to bottom as a list of questions, with the final value as the "none of the above" fallback. Reading them out loud helps more than you would expect.</p>
 <h3 id="file-structure">File structure</h3>
 <p>A minimal TL-Verilog file looks like this:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>\m5_TLV_version 1d: tl-x.org
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>\m5
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>\SV
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>   `include &quot;sqrt32.v&quot;;
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>\TLV
-<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>   // Your circuit here
-<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>   $out = $a &amp;&amp; $b;
-<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>\SV
-<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>   endmodule
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>\m5_TLV_version 1d: tl-x.org
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>\m5
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>\SV
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>   m5_makerchip_module
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>\TLV
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>   // Your circuit here
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>   $out = $a &amp;&amp; $b;
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>   *passed = *cyc_cnt &gt; 20;
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>   *failed = 1&#39;b0;
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>\SV
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>   endmodule
 </code></pre></div>
-<p>Your logic lives in the <code>\TLV</code> section. Everything outside it is boilerplate that Makerchip handles for you when you use the sandbox.</p>
+<p>Your logic lives in the <code>\TLV</code> section. Everything outside it is boilerplate that Makerchip handles for you. This is the exact skeleton every exercise in this course uses, so it will look familiar the moment you open one.</p>
+<h3 id="the-signals-makerchip-gives-you">The signals Makerchip gives you</h3>
+<p>Alongside your own <code>$signals</code>, every Makerchip design has a few built-in ones that start with <code>*</code>. They appear in every file in this course, so it is worth knowing what they are before they start showing up:</p>
+<table>
+<thead>
+<tr>
+<th>Signal</th>
+<th>What it is</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>*clk</code></td>
+<td>The clock. You almost never reference it directly in TL-Verilog.</td>
+</tr>
+<tr>
+<td><code>*reset</code></td>
+<td>High for the first few cycles. Use it to force signals to a known start value.</td>
+</tr>
+<tr>
+<td><code>*cyc_cnt</code></td>
+<td>The current cycle number. Handy for driving test stimulus.</td>
+</tr>
+<tr>
+<td><code>*passed</code></td>
+<td>Assert this to end the simulation successfully.</td>
+</tr>
+<tr>
+<td><code>*failed</code></td>
+<td>Assert this to end the simulation with a failure.</td>
+</tr>
+</tbody>
+</table>
+<p>Most exercises here end with a line like <code>*passed = *cyc_cnt &gt; 20;</code>, which just means "run 20 cycles, then stop." You can ignore it, or raise the number when you want a longer simulation to watch.</p>
+<p>You will also see <code>`BOGUS_USE($a $b)</code> at the bottom of some files. Makerchip warns about signals that are computed but never consumed, since that is usually a real bug worth knowing about. In teaching examples, though, a signal often exists purely so you can look at it in the waveform. <code>`BOGUS_USE</code> tells the tool "yes, I meant to do that" and silences the warning. It generates no hardware.</p>
 <div class="admonition tip">
 <p class="admonition-title">Coming from Verilog?</p>
 <p>The most important thing to unlearn is the <code>always @(*)</code> block. In TL-Verilog you simply assign signals directly and the compiler handles the rest. For sequential logic in Block 2, you reference previous cycle values with <code>&gt;&gt;1$signal</code> instead of <code>always @(posedge clk)</code>. Everything else follows naturally from there.</p>
 </div>
 <h2 id="try-it-yourself">Try it yourself</h2>
-<p>The sandbox below has a working circuit ready to go. Change the logic, hit compile, and watch the diagram and waveform update in real time.</p>
+<p>The sandbox below has a working circuit ready to go. Change the logic, recompile, and watch the diagram and waveform update in real time.</p>
 <div id="mc-sandbox" class="makerchip-embed"></div>
 
 <p>A few things worth trying: swap <code>&amp;&amp;</code> for <code>||</code> and recompile to see the waveform change, add a new signal like <code>$c[7:0] = $a[7:0] + $b[7:0]</code> and find it in the waveform, or deliberately introduce a syntax error and read what the compiler tells you. Getting comfortable with compiler errors early will save you a lot of time later.</p>
+<h2 id="when-something-does-not-compile">When something does not compile</h2>
+<p>You will hit compile errors, everyone does. A few are common enough that recognizing them saves real time:</p>
+<p><strong>"Signal assigned more than once."</strong> Every signal gets exactly one assignment in TL-Verilog. If you write <code>$count</code> in two places, even if one looks harmless, the tool cannot decide which is real. Search your file for the signal name and delete the stray one. This is easy to do by accident when editing.</p>
+<p><strong>A signal that depends on itself.</strong> Writing <code>$count = $count + 1;</code> asks the circuit to know its own answer before computing it, which no circuit can do. In hardware you reference the <em>previous</em> cycle instead: <code>$count = &gt;&gt;1$count + 1;</code>. Block 2 covers this properly, and it is worth knowing the error exists before you meet it.</p>
+<p><strong>Width mismatches.</strong> Assigning a 4-bit value to an 8-bit signal, or comparing signals of different widths, will at minimum produce a warning. Being explicit with constants (<code>4'd9</code> rather than <code>9</code>) heads most of these off.</p>
+<p><strong>Line numbers that do not match your file.</strong> Some errors come from the preprocessor, which expands your code before compiling. The line number it reports refers to that expanded version, not what you typed. Do not count lines; search for the signal or text the message mentions.</p>
+<p>When an error message is genuinely opaque, the fastest move is to comment out the section you just added and recompile. If the error disappears, you have found your neighborhood.</p>
 <h2 id="where-to-go-next">Where to go next</h2>
 <p>Once you are comfortable with the interface, jump to whichever block fits what you want to learn. If you want to start building something fun right away, head to the Block 1 Project, a pixel art generator built entirely from combinational logic.</p>
 <style>

@@ -119,6 +119,24 @@ In the exercise below, writes are only allowed on even cycles (`$wr_en` is high 
 
 <div id="mc-ram-exercise" class="makerchip-embed"></div>
 
+??? tip "Hint"
+
+    Three cases, in priority order: reset first, then the write case, then
+    hold. The write case needs *two* things to be true at once, which means
+    `&&`.
+
+??? success "Solution"
+
+    ```
+    $m3[3:0] = *reset ? 4'd0 :
+               ($wr_en && $wr_addr == 3'd3) ? $wr_data :
+                                              >>1$m3;
+    ```
+
+    Because `$wr_en` is only high on even cycles, cell 3 updates only when the
+    address lands on 3 *and* the cycle is even. Every other cycle it holds.
+
+
 ## Where this fits next
 
 You can now store and retrieve data across many addressable locations, with control over exactly when writes happen. So far, though, memory has been a simple list: address 0, 1, 2, and so on. A game board isn't a list, it's a *grid*, with rows and columns. In Module 3.3 you'll learn how to fold a 2D grid into memory, the representation the entire Tetris game is built on.

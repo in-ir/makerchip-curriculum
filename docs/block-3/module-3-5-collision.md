@@ -105,9 +105,30 @@ Collision bugs are sneaky, a piece stops one cell too early, or slips one cell t
 
 ## Your turn: guard the move
 
-Below, a piece tries to slide right across a pile that has blocks on both ends. Complete two things: the collision test between `$desired` and `$pile`, and the move guard that stops the piece when it would hit the pile. The editor comments give you both lines.
+Below, a piece tries to slide right across a pile that has blocks on both ends. Complete two things: the collision test between `$desired` and `$pile`, and the move guard that stops the piece when it would hit the pile. Work out the collision test first; the guard depends on it.
 
 <div id="mc-collision-exercise" class="makerchip-embed"></div>
+
+??? tip "Hint"
+
+    For the collision test: overlapping cells are the ones where *both* the
+    piece and the pile hold a `1`, and you want to collapse that whole row
+    down to a single bit. For the guard: it is a three-way ternary, and the
+    "blocked" branch should hand back the piece's *previous* position.
+
+??? success "Solution"
+
+    ```
+    $collision = | ($desired & $pile);
+    $piece[7:0] = *reset     ? 8'b00000100 :
+                  $collision ? >>1$piece :
+                               $desired;
+    ```
+
+    Run it and watch the piece slide right from column 2 and then stop dead at
+    column 5, because moving any further would collide with the pile's right
+    hand block. It holds there for the rest of the simulation.
+
 
 ## Where this fits next
 

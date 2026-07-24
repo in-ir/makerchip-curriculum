@@ -155,9 +155,28 @@ You've now written logic where a single line like `$row | (1 << $col)` stands in
 
 ## Your turn: set and clear
 
-Below is a row with some cells filled and a `$target_col` that walks across the columns. Complete two operations: set the cell at `$target_col`, and clear the cell at `$target_col`. The editor comments give you the exact masks.
+Below is a row with some cells filled and a `$target_col` that walks across the columns. Complete two operations: set the cell at `$target_col`, and clear the cell at `$target_col`. Both need a mask built the same way, so once you have the first, the second is a small variation on it.
 
 <div id="mc-gridops-exercise" class="makerchip-embed"></div>
+
+??? tip "Hint"
+
+    Both start the same way: shift a lone `1` up to position `$target_col` to
+    build a mask. The difference is what you do with it. To turn a bit on you
+    want the operator that forces a `1`. To turn a bit off you first invert
+    the mask with `~`, then use the operator that forces a `0`.
+
+??? success "Solution"
+
+    ```
+    $set_result[7:0]   = $start_row | (8'b00000001 << $target_col);
+    $clear_result[7:0] = $start_row & ~(8'b00000001 << $target_col);
+    ```
+
+    Watch both results in the waveform as `$target_col` walks across. The set
+    version lights one extra cell; the clear version darkens one. Every other
+    column is untouched in both, which is the whole point of masking.
+
 
 ## Where this fits next
 

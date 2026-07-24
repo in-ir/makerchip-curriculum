@@ -133,6 +133,26 @@ The four registers and all the write logic are done for you below. Complete `$rd
 
 <div id="mc-regfile-exercise" class="makerchip-embed"></div>
 
+??? tip "Hint"
+
+    You need a chain of ternaries, one per register. Each link asks whether
+    `$rd_addr` equals that register's number, and hands back that register if
+    so. The last register needs no test: if the address matched none of the
+    others, it must be that one.
+
+??? success "Solution"
+
+    ```
+    $rd_data[3:0] = ($rd_addr == 2'd0) ? $r0 :
+                    ($rd_addr == 2'd1) ? $r1 :
+                    ($rd_addr == 2'd2) ? $r2 :
+                                         $r3;
+    ```
+
+    Four inputs, one select signal, one output. That is a 4-to-1 MUX, exactly
+    as you built it in Block 1.
+
+
 ## Where this fits next
 
 A register file lets you store a handful of values and reach any of them by number. But a real playfield, or a real memory, might have hundreds or thousands of locations, far too many to write out by hand. In Module 3.2 you'll meet **RAM**: the same address-in, data-out idea, but scaled up with array syntax so you can build large memories without naming every cell.

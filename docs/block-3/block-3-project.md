@@ -79,7 +79,9 @@ The collision and pile logic are wired for you. Watch how each pile row ORs the 
 
 A piece that only falls straight down can't fill a board evenly. Here the piece slides sideways as it falls, steered by the auto-player toward a target column, but it must respect the walls: a piece can't move past the edge of the grid.
 
-Your blank is the move guard: move the piece toward its target column, but only if doing so wouldn't push it through the right wall. This is exactly the guarded-move pattern from Module 3.5, "take the move only if it's legal", applied to horizontal motion.
+You have two blanks here. First the wall checks: work out how far the piece's left edge can travel in each direction before part of it would hang off the board. Then the move guard itself: step one column toward the target, but only when the matching wall check says there is room, and hold position otherwise. This is exactly the guarded-move pattern from Module 3.5, "take the move only if it's legal", applied to horizontal motion.
+
+The visualization outlines the target column so you can watch the piece walk toward it.
 
 <div id="mc-tetris-stage3" class="makerchip-embed"></div>
 

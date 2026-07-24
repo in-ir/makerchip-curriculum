@@ -171,7 +171,7 @@ From here through the Tetris project, the Viz tab is your primary debugging surf
 
 ## Your turn: read the grid
 
-The grid below is fixed. Complete two operations: read the single cell at row 2, column 4, and check whether row 3 is completely full. The editor comments give you the exact syntax for both.
+The grid below is fixed. Complete two operations: read the single cell at row 2, column 4, and check whether row 3 is completely full. Try both before opening the hint.
 
 <div id="mc-grid-exercise" class="makerchip-embed"></div>
 
