@@ -1371,6 +1371,23 @@
 <p>The four registers and all the write logic are done for you below. Complete <code>$rd_data</code> so it reads back the register selected by <code>$rd_addr</code>, using the same 4-to-1 MUX pattern from Block 1.</p>
 <div id="mc-regfile-exercise" class="makerchip-embed"></div>
 
+<details class="tip">
+<summary>Hint</summary>
+<p>You need a chain of ternaries, one per register. Each link asks whether
+<code>$rd_addr</code> equals that register's number, and hands back that register if
+so. The last register needs no test: if the address matched none of the
+others, it must be that one.</p>
+</details>
+<details class="success">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>$rd_data[3:0] = ($rd_addr == 2&#39;d0) ? $r0 :
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>                ($rd_addr == 2&#39;d1) ? $r1 :
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>                ($rd_addr == 2&#39;d2) ? $r2 :
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>                                     $r3;
+</code></pre></div>
+<p>Four inputs, one select signal, one output. That is a 4-to-1 MUX, exactly
+as you built it in Block 1.</p>
+</details>
 <h2 id="where-this-fits-next">Where this fits next</h2>
 <p>A register file lets you store a handful of values and reach any of them by number. But a real playfield, or a real memory, might have hundreds or thousands of locations, far too many to write out by hand. In Module 3.2 you'll meet <strong>RAM</strong>: the same address-in, data-out idea, but scaled up with array syntax so you can build large memories without naming every cell.</p>
 <h2 id="quick-reference">Quick reference</h2>

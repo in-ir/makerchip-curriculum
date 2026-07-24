@@ -1355,6 +1355,21 @@
 <p>In the exercise below, writes are only allowed on even cycles (<code>$wr_en</code> is high when the cycle count is even). Complete cell <code>$m3</code> so it stores data only when writes are enabled <em>and</em> the address points at it, holding its value the rest of the time.</p>
 <div id="mc-ram-exercise" class="makerchip-embed"></div>
 
+<details class="tip">
+<summary>Hint</summary>
+<p>Three cases, in priority order: reset first, then the write case, then
+hold. The write case needs <em>two</em> things to be true at once, which means
+<code>&amp;&amp;</code>.</p>
+</details>
+<details class="success">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>$m3[3:0] = *reset ? 4&#39;d0 :
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>           ($wr_en &amp;&amp; $wr_addr == 3&#39;d3) ? $wr_data :
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>                                          &gt;&gt;1$m3;
+</code></pre></div>
+<p>Because <code>$wr_en</code> is only high on even cycles, cell 3 updates only when the
+address lands on 3 <em>and</em> the cycle is even. Every other cycle it holds.</p>
+</details>
 <h2 id="where-this-fits-next">Where this fits next</h2>
 <p>You can now store and retrieve data across many addressable locations, with control over exactly when writes happen. So far, though, memory has been a simple list: address 0, 1, 2, and so on. A game board isn't a list, it's a <em>grid</em>, with rows and columns. In Module 3.3 you'll learn how to fold a 2D grid into memory, the representation the entire Tetris game is built on.</p>
 <h2 id="quick-reference">Quick reference</h2>
