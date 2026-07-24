@@ -1,7 +1,7 @@
 # Module 3.5: Collision Detection
 
 **Block 3 — Memory and Arrays**  
-**Estimated time:** 55–70 minutes  
+**Estimated time:** 50–65 minutes  
 **Prerequisites:** Module 3.4 — Reading and Writing the Grid
 
 <div id="mc-collision-viz" class="makerchip-embed-small"></div>

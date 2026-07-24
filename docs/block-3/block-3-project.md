@@ -14,7 +14,7 @@ Here's the finished machine you're working toward, a piece falls, locks into the
 
 <div id="mc-tetris-final" class="makerchip-embed"></div>
 
-The lab has four stages, one for each big idea from the block. Each stage hands you a starter with the earlier stages already working, so you're always building on solid ground. Fill in the blanks marked `TODO`, run it, and check it against the checkpoint before moving on.
+The lab has four stages, one for each big idea from the block. Each stage hands you a starter with the mechanics from earlier stages already in place, so you're always building on solid ground. Fill in the blanks marked `TODO`, run it, and check it against the checkpoint before moving on.
 
 ## The plan
 
@@ -82,6 +82,24 @@ A piece that only falls straight down can't fill a board evenly. Here the piece 
 You have two blanks here. First the wall checks: work out how far the piece's left edge can travel in each direction before part of it would hang off the board. Then the move guard itself: step one column toward the target, but only when the matching wall check says there is room, and hold position otherwise. This is exactly the guarded-move pattern from Module 3.5, "take the move only if it's legal", applied to horizontal motion.
 
 The visualization outlines the target column so you can watch the piece walk toward it.
+
+!!! note "How this relates to the finished game"
+
+    Sliding is how a piece moves when something *outside* the design is steering
+    it, a player pressing arrow keys, or an auto-player deciding late where a
+    piece should go. It is the mechanism you would need the moment you added
+    real input.
+
+    The finished game at the end of this lab takes a shortcut: it decides each
+    piece's column at spawn time and places it there directly, with no travel.
+    That is a deliberate trade. A sliding piece often runs out of rows before it
+    reaches its target, so it lands in the wrong column and rows almost never
+    fill, which means the auto-player would clear hardly any lines. Instant
+    placement is what lets a machine with no hands actually play well.
+
+    So treat this stage as the movement mechanic in isolation. It is real, it
+    works, and "Make it your own" at the end shows you how to wire it into the
+    full game if you want to watch that trade-off for yourself.
 
 <div id="mc-tetris-stage3" class="makerchip-embed"></div>
 
@@ -165,6 +183,7 @@ The game is fully yours to tune. Because it plays itself, tuning *is* the gamepl
 - **Change the strategy.** `$aim` decides how often the auto-player targets the leftmost gap versus dropping somewhere random. Make it aim more and the board stays tidy and clears often; make it aim less and the stack grows wild and tops out sooner.
 - **Grow the board.** The grid is 8 wide by 10 tall. Widen the rows to 10 bits, or add more pile rows, everything scales the same way.
 - **Score differently.** Give more points for clears that happen at high speed, or track the number of pieces dropped alongside the lines cleared.
+- **Wire in Stage 3.** Replace the instant `$col` placement with the sliding `$px` you built in Stage 3, so pieces travel to their target instead of appearing there. Watch the line-clear count fall, and you'll have measured for yourself why the finished game places pieces directly.
 - **Harder:** aim at the lowest gap in the *stack* rather than in the bottom row, so the player fills holes it has buried.
 
 ## Where you've been

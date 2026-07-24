@@ -1,7 +1,7 @@
 # Module 3.3: The 2D Grid
 
 **Block 3 — Memory and Arrays**  
-**Estimated time:** 50–65 minutes  
+**Estimated time:** 60–75 minutes  
 **Prerequisites:** Module 3.2 — Memory (RAM)
 
 <div id="mc-grid-viz" class="makerchip-embed-small"></div>

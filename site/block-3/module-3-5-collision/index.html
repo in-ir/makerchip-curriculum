@@ -1348,9 +1348,27 @@
 <h2 id="debugging-tip-trace-the-collision-signal-in-nav-tlv">Debugging tip: trace the collision signal in Nav-TLV</h2>
 <p>Collision bugs are sneaky, a piece stops one cell too early, or slips one cell too far, and staring at the Viz alone won't always tell you why. This is where <strong>Nav-TLV</strong> earns its keep. Click your <code>$collision</code> (or <code>$hit</code>) signal and trace back through the signals that feed it: the <code>$desired</code> position, the <code>$pile</code> it's tested against, the AND between them. Following that chain almost always reveals the culprit, usually an off-by-one in the desired position or a piece shape that's shifted from where you think it is. Viz shows you <em>that</em> the piece stopped wrong; Nav-TLV shows you <em>why</em>.</p>
 <h2 id="your-turn-guard-the-move">Your turn: guard the move</h2>
-<p>Below, a piece tries to slide right across a pile that has blocks on both ends. Complete two things: the collision test between <code>$desired</code> and <code>$pile</code>, and the move guard that stops the piece when it would hit the pile. The editor comments give you both lines.</p>
+<p>Below, a piece tries to slide right across a pile that has blocks on both ends. Complete two things: the collision test between <code>$desired</code> and <code>$pile</code>, and the move guard that stops the piece when it would hit the pile. Work out the collision test first; the guard depends on it.</p>
 <div id="mc-collision-exercise" class="makerchip-embed"></div>
 
+<details class="tip">
+<summary>Hint</summary>
+<p>For the collision test: overlapping cells are the ones where <em>both</em> the
+piece and the pile hold a <code>1</code>, and you want to collapse that whole row
+down to a single bit. For the guard: it is a three-way ternary, and the
+"blocked" branch should hand back the piece's <em>previous</em> position.</p>
+</details>
+<details class="success">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>$collision = | ($desired &amp; $pile);
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>$piece[7:0] = *reset     ? 8&#39;b00000100 :
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>              $collision ? &gt;&gt;1$piece :
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>                           $desired;
+</code></pre></div>
+<p>Run it and watch the piece slide right from column 2 and then stop dead at
+column 5, because moving any further would collide with the pile's right
+hand block. It holds there for the rest of the simulation.</p>
+</details>
 <h2 id="where-this-fits-next">Where this fits next</h2>
 <p>That's the last concept. You now have everything a grid-based game needs: addressable storage, a 2D playfield, the operations to draw and move pieces, and the collision rule that makes it all solid. In the <strong>Tetris project</strong> you'll assemble these into a complete, playing game, built in stages, exactly the way you built Whack-a-Mole at the end of Block 2.</p>
 <h2 id="quick-reference">Quick reference</h2>

@@ -121,7 +121,7 @@ $reg[$wr_addr] = ...   // write to the addressed register
 $rd_data = $reg[$rd_addr];   // read from the addressed register
 ```
 
-Instead of a decoder written as four separate comparisons and a MUX written as a four-way ternary, the index `[$addr]` *is* the decoder and the MUX, handled for you. Under the hood it's exactly the circuit you just built by hand, that's the point of building it manually first. You now know what the array shorthand actually compiles to, which is the difference between using memory and understanding it. In the next module you'll use this array syntax to build a real RAM.
+Instead of a decoder written as four separate comparisons and a MUX written as a four-way ternary, the index `[$addr]` *is* the decoder and the MUX, handled for you. Under the hood it's exactly the circuit you just built by hand, that's the point of building it manually first. You now know what the array shorthand actually compiles to, which is the difference between using memory and understanding it.
 
 ## Debugging tip: the Nav-TLV panel
 
@@ -155,7 +155,7 @@ The four registers and all the write logic are done for you below. Complete `$rd
 
 ## Where this fits next
 
-A register file lets you store a handful of values and reach any of them by number. But a real playfield, or a real memory, might have hundreds or thousands of locations, far too many to write out by hand. In Module 3.2 you'll meet **RAM**: the same address-in, data-out idea, but scaled up with array syntax so you can build large memories without naming every cell.
+A register file lets you store a handful of values and reach any of them by number. But a real memory needs more than that: it needs a way to say "store this" as opposed to "just let me look." In Module 3.2 you'll meet **RAM**, the same address-in, data-out idea, scaled up and given the one control signal that turns a register bank into a proper memory.
 
 ## Quick reference
 

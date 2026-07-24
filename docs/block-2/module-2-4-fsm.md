@@ -1,7 +1,7 @@
 # Module 2.4: Finite State Machines
 
 **Block 2 — Sequential Logic**  
-**Estimated time:** 50–65 minutes  
+**Estimated time:** 45–60 minutes  
 **Prerequisites:** Module 2.3 — Shift Registers
 
 <div id="mc-traffic-teaser" class="makerchip-embed-small"></div>
@@ -12,7 +12,7 @@ By the end of this module you will be able to explain what a state is and why ci
 
 ## What is a "state"?
 
-Everything you've built so far reacts the same way every cycle. A counter always adds one. An adder always adds. But think about a traffic light. When it's green, the next thing it does is turn yellow. When it's yellow, the next thing is red. The light's behavior depends entirely on _which color it currently is_ — the same passage of time produces a different result depending on the situation the light is in.
+Everything you've built so far reacts the same way every cycle. A counter always adds one. An adder always adds. But think about a traffic light. When it's green, the next thing it does is turn yellow. When it's yellow, the next thing is red. The light's behavior depends entirely on *which color it currently is* — the same passage of time produces a different result depending on the situation the light is in.
 
 That "situation the circuit is currently in" is called a **state**. A circuit that has a handful of named states, and rules for moving between them, is a **finite state machine**, or FSM. It's the tool you reach for whenever a circuit needs to behave differently at different times, follow a sequence of steps, or remember "where it is" in a process.
 
@@ -122,12 +122,12 @@ You now have the complete Block 2 toolkit: registers that hold, counters that ti
 
 ## Quick reference
 
-| Concept        | TL-Verilog                      | Description                      |
-| -------------- | ------------------------------- | -------------------------------- |
-| State register | `$state = *reset ? START : ...` | Holds the current state          |
-| Hold state     | `! $trigger ? >>1$state : ...`  | Stay put until something happens |
-| Transition     | `(>>1$state == A) ? B : ...`    | Move from one state to the next  |
-| Timed FSM      | timer + `$expired` + next-state | A counter drives the transitions |
+| Concept | TL-Verilog | Description |
+| --- | --- | --- |
+| State register | `$state = *reset ? START : ...` | Holds the current state |
+| Hold state | `! $trigger ? >>1$state : ...` | Stay put until something happens |
+| Transition | `(>>1$state == A) ? B : ...` | Move from one state to the next |
+| Timed FSM | timer + `$expired` + next-state | A counter drives the transitions |
 
 <style>
 .makerchip-embed       { position: relative; width: 100%; height: 500px; }

@@ -111,7 +111,18 @@ Line up `$wr_data` and `$rd_data` in the waveform: the read is always exactly on
 
 Writing out eight cells by hand, as we've done here, makes the mechanism crystal clear: a memory is just a bank of register cells plus a read MUX, exactly the register file from 3.1, scaled up. But you can imagine that spelling out 64 or 256 cells this way would be unbearable.
 
-Real designs collapse the whole memory into a single **array**, indexed directly by the address, so one line describes all the cells at once instead of one line per cell. The idea is identical to what you built here, the array index simply stands in for the write-decoder and the read MUX. Seeing it spelled out once, as you have, is what makes the compact version make sense later rather than feeling like magic.
+Real designs collapse the whole memory into a single **array**, indexed directly by the address, so one line describes all the cells at once instead of one line per cell. Conceptually it reads like this:
+
+```
+$mem[$wr_addr] = $wr_en ? $wr_data : ...;   // write the addressed cell
+$rd_data = $mem[$rd_addr];                   // read the addressed cell
+```
+
+The index `[$addr]` does exactly the job of the write-decoder and the read MUX you wrote by hand: it picks which cell the operation lands on. Nothing about the hardware changes, only how much you have to type.
+
+So why does this course use the long form? Two reasons, and neither is that the short form is wrong. First, the explicit version is *inspectable*: every cell is a named signal you can find in the waveform and watch update, which is exactly what you want while the concept is still new. Second, and more practically, TL-Verilog's array and memory constructs have their own syntax rules that are worth learning deliberately rather than absorbing by accident partway through a lesson on something else. The [TL-Verilog documentation](https://tl-x.org/) covers them properly when you are ready.
+
+What matters for the rest of this block is that you now know what the shorthand *is*. When you meet `$mem[$addr]` in real code, it will read as a decoder and a MUX, not as magic.
 
 ## Your turn: gated writes
 

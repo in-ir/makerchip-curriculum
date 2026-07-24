@@ -1,8 +1,8 @@
 # Module 2.3: Shift Registers
 
 **Block 2 — Sequential Logic**  
-**Estimated time:** 60–90 minutes  
-**Prerequisites:** Module 2.2
+**Estimated time:** 40–55 minutes  
+**Prerequisites:** Module 2.2 — Counters
 
 <div id="mc-shift-teaser" class="makerchip-embed-small"></div>
 
@@ -28,7 +28,7 @@ To describe "slide everything over and bring in a new bit," TL-Verilog gives you
 $sr[3:0] = *reset ? 4'b0 : {$shift_in, >>1$sr[3:1]};
 ```
 
-Read the right-hand side carefully. `>>1$sr[3:1]` takes the _top three bits_ of last cycle's register — positions 3, 2, and 1. `$shift_in` is the new bit coming in. The braces stack them: the new bit goes on top, the old top-three slide down into positions 2, 1, and 0. The bit that used to be in position 0 isn't mentioned anywhere, so it simply falls off the end.
+Read the right-hand side carefully. `>>1$sr[3:1]` takes the *top three bits* of last cycle's register — positions 3, 2, and 1. `$shift_in` is the new bit coming in. The braces stack them: the new bit goes on top, the old top-three slide down into positions 2, 1, and 0. The bit that used to be in position 0 isn't mentioned anywhere, so it simply falls off the end.
 
 That single line is the whole shift register. No arithmetic, just rearranging which bit sits where.
 
@@ -57,7 +57,7 @@ Watch what this produces:
 
 <div id="mc-lfsr-demo" class="makerchip-embed-small"></div>
 
-Look at the sequence of values: 1, 2, 4, 9, 3, 6, 13, 10, 5... It jumps around with no obvious pattern. It hits every number from 1 to 15 exactly once before it repeats, in a scrambled order that _looks_ random even though it is completely deterministic. Reset it and you get the exact same sequence every time. There is no randomness hardware anywhere in here — just a shift register and one XOR gate.
+Look at the sequence of values: 1, 2, 4, 9, 3, 6, 13, 10, 5... It jumps around with no obvious pattern. It hits every number from 1 to 15 exactly once before it repeats, in a scrambled order that *looks* random even though it is completely deterministic. Reset it and you get the exact same sequence every time. There is no randomness hardware anywhere in here — just a shift register and one XOR gate.
 
 This is why LFSRs are everywhere: they're the cheapest possible way to generate numbers that behave randomly enough for games, tests, and simple simulations. In the Whack-a-Mole project, you'll read a few bits off an LFSR each round to decide which of the eight holes the mole appears in. The player can't predict it, but your circuit is doing nothing more mysterious than shifting and XORing.
 
@@ -77,13 +77,13 @@ You now have all three sequential building blocks: registers that hold, counters
 
 ## Quick reference
 
-| Concept            | TL-Verilog                     | Description                              |
-| ------------------ | ------------------------------ | ---------------------------------------- |
-| Concatenation      | `{$a, $b}`                     | Glues signals into one wider value       |
-| Shift toward bit 0 | `{$new, >>1$sr[3:1]}`          | New bit enters top, bottom bit falls off |
-| Shift toward bit 3 | `{>>1$sr[2:0], $new}`          | New bit enters bottom, top bit falls off |
-| LFSR feedback      | `$fb = >>1$sr[3] ^ >>1$sr[2];` | XOR of two taps                          |
-| LFSR               | `{>>1$sr[2:0], $fb}`           | Shift register with XOR feedback         |
+| Concept | TL-Verilog | Description |
+| --- | --- | --- |
+| Concatenation | `{$a, $b}` | Glues signals into one wider value |
+| Shift toward bit 0 | `{$new, >>1$sr[3:1]}` | New bit enters top, bottom bit falls off |
+| Shift toward bit 3 | `{>>1$sr[2:0], $new}` | New bit enters bottom, top bit falls off |
+| LFSR feedback | `$fb = >>1$sr[3] ^ >>1$sr[2];` | XOR of two taps |
+| LFSR | `{>>1$sr[2:0], $fb}` | Shift register with XOR feedback |
 
 <style>
 .makerchip-embed       { position: relative; width: 100%; height: 500px; }

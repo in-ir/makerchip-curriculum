@@ -1389,9 +1389,25 @@
 <h2 id="debugging-tip-watch-the-diagram-tab">Debugging tip: watch the Diagram tab</h2>
 <p>You've now written logic where a single line like <code>$row | (1 &lt;&lt; $col)</code> stands in for a shifter feeding an OR gate feeding a register. Makerchip's <strong>Diagram</strong> tab (near Nav-TLV) draws the actual hardware your code generates, the boxes and wires behind the bit operations. When you're wondering "is my set-mask really doing what I think?", the Diagram shows the shifter and the OR gate wired up, which can make an abstract bit operation feel concrete. It's a great way to connect the one-line shorthand back to the real circuit underneath.</p>
 <h2 id="your-turn-set-and-clear">Your turn: set and clear</h2>
-<p>Below is a row with some cells filled and a <code>$target_col</code> that walks across the columns. Complete two operations: set the cell at <code>$target_col</code>, and clear the cell at <code>$target_col</code>. The editor comments give you the exact masks.</p>
+<p>Below is a row with some cells filled and a <code>$target_col</code> that walks across the columns. Complete two operations: set the cell at <code>$target_col</code>, and clear the cell at <code>$target_col</code>. Both need a mask built the same way, so once you have the first, the second is a small variation on it.</p>
 <div id="mc-gridops-exercise" class="makerchip-embed"></div>
 
+<details class="tip">
+<summary>Hint</summary>
+<p>Both start the same way: shift a lone <code>1</code> up to position <code>$target_col</code> to
+build a mask. The difference is what you do with it. To turn a bit on you
+want the operator that forces a <code>1</code>. To turn a bit off you first invert
+the mask with <code>~</code>, then use the operator that forces a <code>0</code>.</p>
+</details>
+<details class="success">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>$set_result[7:0]   = $start_row | (8&#39;b00000001 &lt;&lt; $target_col);
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>$clear_result[7:0] = $start_row &amp; ~(8&#39;b00000001 &lt;&lt; $target_col);
+</code></pre></div>
+<p>Watch both results in the waveform as <code>$target_col</code> walks across. The set
+version lights one extra cell; the clear version darkens one. Every other
+column is untouched in both, which is the whole point of masking.</p>
+</details>
 <h2 id="where-this-fits-next">Where this fits next</h2>
 <p>You can now draw, erase, move, and lock pieces on the grid, everything needed to make a piece fall and build up a pile. But there's a rule we've been ignoring: pieces aren't allowed to pass <em>through</em> each other or through the walls. Before a piece moves, the game has to check whether the destination is clear. In Module 3.5 you'll build <strong>collision detection</strong>, the check that makes the pile solid and the walls real, and the last concept before the full Tetris game.</p>
 <h2 id="quick-reference">Quick reference</h2>
