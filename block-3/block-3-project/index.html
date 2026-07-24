@@ -1275,6 +1275,20 @@
 <p>Your one blank is the falling logic: on each tick, move <code>$prow</code> down by one, wrapping from the last row (9) back to 0. It's the counter pattern from Block 2, gated by the tick.</p>
 <div id="mc-tetris-stage1" class="makerchip-embed"></div>
 
+<details class="tip">
+<summary>Hint</summary>
+<p>This is the wrapping counter from Module 2.2 with one extra condition on
+the front: it must hold its value whenever <code>$tick</code> is low, and only then
+consider counting or wrapping. Remember to keep the whole assignment on a
+single line.</p>
+</details>
+<details class="success">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>$prow[3:0] = *reset ? 4&#39;d0 : !$tick ? &gt;&gt;1$prow : (&gt;&gt;1$prow == 4&#39;d9) ? 4&#39;d0 : &gt;&gt;1$prow + 4&#39;d1;
+</code></pre></div>
+<p>Read the four cases in order: reset to the top, hold between ticks, wrap
+at the floor, otherwise fall one row.</p>
+</details>
 <p><strong>Checkpoint:</strong> the yellow piece should march steadily down the board, one row at a time, then reappear at the top. If it sits still, your fall logic isn't advancing; if it moves every cycle instead of every few, check that it only moves on <code>$tick</code>.</p>
 <hr />
 <h2 id="stage-2-collision-and-locking">Stage 2 — Collision and locking</h2>
@@ -1291,12 +1305,45 @@
 <p>Your blank is the move guard: move the piece toward its target column, but only if doing so wouldn't push it through the right wall. This is exactly the guarded-move pattern from Module 3.5, "take the move only if it's legal", applied to horizontal motion.</p>
 <div id="mc-tetris-stage3" class="makerchip-embed"></div>
 
+<details class="tip">
+<summary>Hint</summary>
+<p>The piece is 2 cells wide, so if its left edge <code>$px</code> sat at 7 the piece
+would hang off the board. That tells you the largest legal value of <code>$px</code>.
+For the guard itself, combine each "wants to move" signal with its
+matching "has room" signal, and fall through to holding position when
+neither move is legal.</p>
+</details>
+<details class="success">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>$can_right = &gt;&gt;1$px &lt; 3&#39;d6;
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>$can_left  = &gt;&gt;1$px &gt; 3&#39;d0;
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>$px[2:0] = *reset ? 3&#39;d0 : !$tick ? &gt;&gt;1$px : ($want_right &amp;&amp; $can_right) ? &gt;&gt;1$px + 3&#39;d1 : ($want_left &amp;&amp; $can_left) ? &gt;&gt;1$px - 3&#39;d1 : &gt;&gt;1$px;
+</code></pre></div>
+<p>Watch the outlined target column in the visualization. The piece walks
+toward it one step per tick and then sits still once it arrives. When the
+target sits past column 6, the piece stops flush against the right wall
+instead of sliding off it, which is the guard doing its job.</p>
+</details>
 <p><strong>Checkpoint:</strong> the piece should drift toward its target column as it falls and stop cleanly at the wall, never disappearing off the edge. If it slides off the board, the wall check isn't holding it back.</p>
 <hr />
 <h2 id="stage-4-line-clear-and-scoring">Stage 4 — Line clear and scoring</h2>
 <p><strong>Concept:</strong> the full-row check and its payoff (Module 3.3)</p>
 <p>This is the moment the whole block has been building toward. When a row fills completely, it should vanish, everything above it drops down by one, and the score goes up. The auto-player drops pieces to alternate halves of the board so the bottom row fills and clears.</p>
-<p>The line-clear logic is provided so you can see the whole mechanism: <code>$clear</code> uses the AND-reduction from Module 3.3 to detect a full bottom row, and when it fires, each pile row takes the value of the row above it, the stack falling down to fill the gap. Run it and watch rows disappear as the line counter climbs.</p>
+<p>The shift-down half is wired for you: when <code>$clear</code> fires, each pile row takes the value of the row above it and the stack falls to fill the gap. Your blank is the trigger itself. Detect when the bottom row is completely full, using the reduction operator from Module 3.3. It is a short line, and it is the single most important signal in the game.</p>
+<details class="tip">
+<summary>Hint</summary>
+<p>You want one bit that is true only when all eight columns of the bottom
+row hold a 1. Module 3.3 introduced exactly one operator that collapses
+every bit of a signal into a single answer that way. Apply it to the
+previous cycle's value of the bottom pile row.</p>
+</details>
+<details class="success">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>$clear = &amp; &gt;&gt;1$pile9;
+</code></pre></div>
+<p>That is the whole detector. One operator, and the most satisfying mechanic
+in Tetris comes to life.</p>
+</details>
 <div id="mc-tetris-stage4" class="makerchip-embed"></div>
 
 <p><strong>Checkpoint:</strong> when the bottom row fills completely, it should clear, the stack above should drop by one row, and the line count should increase. If full rows just sit there, the <code>$clear</code> detection isn't firing; if the board empties wrongly, check the shift-down.</p>
