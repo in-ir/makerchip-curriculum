@@ -63,18 +63,17 @@
    \viz_js
       box: {strokeWidth: 0, left: 0, top: 0, width: 720, height: 400, fill: "#0D001A"},
       render() {
+         let cur = '$idx'.asInt()
          let pc = '$pc'.asInt()
-         let instr = '$instr'.asInt()
          let x1 = '$x1'.asInt()
          let x2 = '$x2'.asInt()
          let x3 = '$x3'.asInt()
-         let take = '$take_branch'.asBool()
+         let take = '$take_branch'.asInt()
          let aluout = '$alu_out'.asInt()
          let objs = []
 
          let asm = ["addi x1, x0, 0", "addi x2, x0, 1", "addi x3, x0, 11", "add x1, x1, x2", "addi x2, x2, 1", "blt x2, x3, -8"]
          let note = ["sum = 0", "i = 1", "limit = 11", "sum = sum + i", "i = i + 1", "loop while i < 11"]
-         let cur = pc / 4
 
          objs.push(new fabric.Text("RISC-V CPU  -  summing 1 to 10", {
             left: 360, top: 20, originX: "center",
@@ -82,12 +81,13 @@
          }))
 
          for (let i = 0; i < 6; i++) {
-            let here = (cur === i)
+            let here = (cur == i)
             let y = 48 + i * 34
             objs.push(new fabric.Rect({
                left: 40, top: y, width: 360, height: 30, rx: 4, ry: 4,
                fill: here ? "#3B1D6D" : "#1A0533",
-               stroke: here ? "#eab308" : "#2A1A40", strokeWidth: here ? 2 : 1
+               stroke: here ? "#eab308" : "#2A1A40",
+               strokeWidth: here ? 2 : 1
             }))
             objs.push(new fabric.Text((here ? "> " : "  ") + asm[i], {
                left: 54, top: y + 15, originX: "left", originY: "center",
@@ -99,41 +99,39 @@
             }))
          }
 
-         let regs = [["x1 (sum)", x1], ["x2 (i)", x2], ["x3 (limit)", x3]]
+         let rlabel = ["x1 (sum)", "x2 (i)", "x3 (limit)"]
+         let rval = [x1, x2, x3]
          for (let i = 0; i < 3; i++) {
             let y = 70 + i * 60
             objs.push(new fabric.Rect({
                left: 450, top: y, width: 230, height: 48, rx: 6, ry: 6,
                fill: "#1A0533", stroke: "#7C4DFF", strokeWidth: 2
             }))
-            objs.push(new fabric.Text(regs[i][0], {
+            objs.push(new fabric.Text(rlabel[i], {
                left: 466, top: y + 24, originX: "left", originY: "center",
                fontSize: 12, fontFamily: "Courier New", fill: "#B39DDB"
             }))
-            objs.push(new fabric.Text("" + regs[i][1], {
+            objs.push(new fabric.Text("" + rval[i], {
                left: 664, top: y + 24, originX: "right", originY: "center",
                fontSize: 20, fontWeight: "bold", fontFamily: "Courier New", fill: "#EDE7F6"
             }))
          }
 
-         if (take) {
-            objs.push(new fabric.Text("branch taken: looping back", {
-               left: 565, top: 262, originX: "center",
-               fontSize: 12, fontWeight: "bold", fontFamily: "Courier New", fill: "#22c55e"
-            }))
+         let status = "PC = " + pc
+         let statusColor = "#4A3060"
+         if (take == 1) {
+            status = "branch taken: looping back"
+            statusColor = "#22c55e"
          }
-
-         if (x1 === 55) {
-            objs.push(new fabric.Text("DONE: sum = 55", {
-               left: 565, top: 262, originX: "center",
-               fontSize: 15, fontWeight: "bold", fontFamily: "Courier New", fill: "#eab308"
-            }))
+         if (x1 == 55) {
+            status = "DONE: sum = 55"
+            statusColor = "#eab308"
          }
-
-         objs.push(new fabric.Text("PC = " + pc + "     ALU = " + aluout, {
-            left: 360, top: 300, originX: "center",
-            fontSize: 11, fontFamily: "Courier New", fill: "#4A3060"
+         objs.push(new fabric.Text(status, {
+            left: 565, top: 262, originX: "center",
+            fontSize: 14, fontWeight: "bold", fontFamily: "Courier New", fill: statusColor
          }))
+
          objs.push(new fabric.Text("watch x1 climb: 0, 1, 3, 6, 10, 15, 21, 28, 36, 45, 55", {
             left: 360, top: 322, originX: "center",
             fontSize: 11, fontFamily: "Courier New", fill: "#4A3060"
