@@ -1,0 +1,1598 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="An open curriculum for learning digital design through interactive, visual, game-based projects.">
+      
+      
+        <meta name="author" content="Ines Iraoui">
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Module 4.5: Branches and Memory - Digital Design with Makerchip & TL-Verilog</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=JetBrains+Mono:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"JetBrains Mono";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="deep-purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#module-45-branches-and-memory" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Digital Design with Makerchip &amp; TL-Verilog" class="md-header__button md-logo" aria-label="Digital Design with Makerchip & TL-Verilog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Digital Design with Makerchip & TL-Verilog
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Module 4.5: Branches and Memory
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../get-started/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Get Started
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../block-1/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Block 1 — Combinational Logic
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../block-2/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Block 2 — Sequential Logic
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../block-3/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Block 3 — Memory and Arrays
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Block 4 — Building a Processor
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Digital Design with Makerchip &amp; TL-Verilog" class="md-nav__button md-logo" aria-label="Digital Design with Makerchip & TL-Verilog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Digital Design with Makerchip & TL-Verilog
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../get-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Get Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../block-1/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Block 1 — Combinational Logic
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Block 1 — Combinational Logic
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../block-1/module-1-1-logic-gates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 1.1 — Logic Gates
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../block-1/module-1-2-mux/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 1.2 — The Multiplexer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../block-1/module-1-3-decoder/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 1.3 — Decoders
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../block-1/module-1-4-alu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 1.4 — Arithmetic Logic Units
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../block-1/block-1-project/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project — Pixel Art
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../block-2/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Block 2 — Sequential Logic
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Block 2 — Sequential Logic
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../block-2/module-2-1-registers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 2.1 — Registers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../block-2/module-2-2-counters/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 2.2 — Counters
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../block-2/module-2-3-shift-registers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 2.3 — Shift Registers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../block-2/module-2-4-fsm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 2.4 — Finite State Machines
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../block-2/block-2-project/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project — Whack-a-Mole
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../block-3/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Block 3 — Memory and Arrays
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Block 3 — Memory and Arrays
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../block-3/module-3-1-register-files/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 3.1 — Register Files
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../block-3/module-3-2-memory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 3.2 — Memory (RAM)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../block-3/module-3-3-grid/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 3.3 — The 2D Grid
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../block-3/module-3-4-grid-ops/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 3.4 — Reading and Writing the Grid
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../block-3/module-3-5-collision/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 3.5 — Collision Detection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../block-3/block-3-project/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project — Tetris
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Block 4 — Building a Processor
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Block 4 — Building a Processor
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../module-4-1-anatomy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 4.1 — Anatomy of a Processor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../module-4-2-instructions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 4.2 - Instructions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../module-4-3-decode/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 4.3 - Decode
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../module-4-4-datapath/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 4.4 - Datapath
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="module-45-branches-and-memory">Module 4.5: Branches and Memory</h1>
+<p><strong>Block 4 — Building a Processor</strong><br />
+<strong>Estimated time:</strong> 70–85 minutes<br />
+<strong>Prerequisites:</strong> Module 4.4 — The Datapath</p>
+<div id="mc-branch-demo" class="makerchip-embed-small"></div>
+
+<h2 id="what-youll-learn">What you'll learn</h2>
+<p>By the end of this module your processor will be able to make decisions and touch memory. You will build <strong>branches</strong>, which let the program counter jump based on a comparison, and <strong>loads and stores</strong>, which move data between registers and memory. With these, the CPU can run loops and conditionals, and the sum-1-to-10 program from the start of the block will finally run to completion.</p>
+<h2 id="the-pc-stops-being-a-plain-counter">The PC stops being a plain counter</h2>
+<p>Every program you have run so far goes straight down: fetch instruction 0, then 1, then 2, forever. The PC only ever does <code>+4</code>. That is enough for arithmetic but it cannot express the two things every real program needs: <em>do this only if</em> and <em>do this again</em>.</p>
+<p>Both come from a single new ability: letting the PC jump somewhere other than the next instruction. That is a <strong>branch</strong>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>$pc[31:0] = *reset ? 32&#39;d0 : $take ? &gt;&gt;1$pc + $offset : &gt;&gt;1$pc + 32&#39;d4;
+</code></pre></div>
+<p>Look at what changed from Module 4.1. The PC used to have one update rule. Now it has two, chosen by <code>$take</code>. If the branch is not taken, <code>+4</code> as always. If it is taken, add a signed <code>$offset</code> instead, which can be negative. A negative offset sends the PC <em>backwards</em>, and a backward jump to an earlier instruction is exactly what a loop is.</p>
+<p>The VIZ at the top of this page shows this. A tiny program increments <code>x1</code> and branches back as long as <code>x1 &lt; 3</code>. Watch the PC jump from the branch back up to the top, three times, then fall through when the condition finally fails. That jump, repeated, is a loop running on hardware you built.</p>
+<div style="margin: 2rem 0;">
+<svg width="100%" viewBox="0 0 720 250" xmlns="http://www.w3.org/2000/svg" style="font-family: 'JetBrains Mono', monospace;">
+  <defs>
+    <marker id="br-arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M2 2L8 5L2 8" fill="none" stroke="#6D5A8A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <marker id="br-back" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M2 2L8 5L2 8" fill="none" stroke="#22c55e" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+
+  <text x="180" y="30" fill="#4A3060" font-size="12" text-anchor="middle">straight line: PC always +4</text>
+  <text x="540" y="30" fill="#4A3060" font-size="12" text-anchor="middle">branch: PC can jump back</text>
+
+  <!-- left column: straight line -->
+  <rect x="110" y="50" width="140" height="30" rx="4" fill="#1A0533" stroke="#2A1A40" stroke-width="1.5"/>
+  <text x="180" y="70" fill="#6D5A8A" font-size="11" text-anchor="middle">instr 0</text>
+  <rect x="110" y="90" width="140" height="30" rx="4" fill="#1A0533" stroke="#2A1A40" stroke-width="1.5"/>
+  <text x="180" y="110" fill="#6D5A8A" font-size="11" text-anchor="middle">instr 1</text>
+  <rect x="110" y="130" width="140" height="30" rx="4" fill="#1A0533" stroke="#2A1A40" stroke-width="1.5"/>
+  <text x="180" y="150" fill="#6D5A8A" font-size="11" text-anchor="middle">instr 2</text>
+  <rect x="110" y="170" width="140" height="30" rx="4" fill="#1A0533" stroke="#2A1A40" stroke-width="1.5"/>
+  <text x="180" y="190" fill="#6D5A8A" font-size="11" text-anchor="middle">instr 3</text>
+  <path d="M180 80 L180 88" stroke="#6D5A8A" stroke-width="1.5" marker-end="url(#br-arr)"/>
+  <path d="M180 120 L180 128" stroke="#6D5A8A" stroke-width="1.5" marker-end="url(#br-arr)"/>
+  <path d="M180 160 L180 168" stroke="#6D5A8A" stroke-width="1.5" marker-end="url(#br-arr)"/>
+
+  <!-- right column: loop -->
+  <rect x="470" y="50" width="140" height="30" rx="4" fill="#3B1D6D" stroke="#7C4DFF" stroke-width="1.5"/>
+  <text x="540" y="70" fill="#EDE7F6" font-size="11" text-anchor="middle">addi x1, x1, 1</text>
+  <rect x="470" y="90" width="140" height="30" rx="4" fill="#3B1616" stroke="#ef4444" stroke-width="1.5"/>
+  <text x="540" y="110" fill="#EDE7F6" font-size="11" text-anchor="middle">blt x1, x2, back</text>
+  <rect x="470" y="150" width="140" height="30" rx="4" fill="#1A0533" stroke="#2A1A40" stroke-width="1.5"/>
+  <text x="540" y="170" fill="#6D5A8A" font-size="11" text-anchor="middle">done</text>
+
+  <path d="M540 80 L540 88" stroke="#6D5A8A" stroke-width="1.5" marker-end="url(#br-arr)"/>
+  <!-- taken: loop back up -->
+  <path d="M610 105 L660 105 L660 65 L613 65" fill="none" stroke="#22c55e" stroke-width="1.8" marker-end="url(#br-back)"/>
+  <text x="672" y="88" fill="#22c55e" font-size="10" text-anchor="middle" transform="rotate(90 672 88)">taken: x1 &lt; x2</text>
+  <!-- not taken: fall through -->
+  <path d="M540 120 L540 148" stroke="#6D5A8A" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#br-arr)"/>
+  <text x="470" y="140" fill="#4A3060" font-size="9" text-anchor="end">not taken</text>
+
+  <text x="360" y="235" fill="#4A3060" font-size="11" text-anchor="middle">the only difference is one signal: does the PC add 4, or add the offset?</text>
+</svg>
+</div>
+
+<h2 id="deciding-whether-to-branch">Deciding whether to branch</h2>
+<p>A branch carries a condition. <code>beq</code> branches if two registers are equal, <code>bne</code> if they differ, <code>blt</code> if the first is less than the second. Each is a comparison the ALU can already do, selected by <code>funct3</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>$eq  = $rs1_val == $rs2_val;
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>$lt  = $rs1_val &lt;  $rs2_val;
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>$take = $is_branch &amp;&amp; ( ($funct3 == 3&#39;b000) ? $eq :
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>                        ($funct3 == 3&#39;b001) ? !$eq :
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>                        ($funct3 == 3&#39;b100) ? $lt :
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>                                              1&#39;b0 );
+</code></pre></div>
+<p><code>$take</code> is the whole point. It is one bit, and it is the bit that decides the future of the program. When it is high the PC leaps; when it is low execution continues in a straight line. Everything a program does that is not pure calculation, every <code>if</code>, every loop, every function call, comes down to this one signal.</p>
+<h2 id="the-branch-offset">The branch offset</h2>
+<p>There is a wrinkle, and it is the scrambled B-type immediate you met in Module 4.2. A branch's jump distance is not stored as a clean 12-bit field. Its bits are scattered across the instruction so that they line up, where possible, with the immediate bits of other formats.</p>
+<p>Reassembling it is a concatenation that puts the pieces back in order:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>$offset[31:0] = $instr[31] ? {19&#39;h7FFFF, $instr[31], $instr[7], $instr[30:25], $instr[11:8], 1&#39;b0}
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>                           : {19&#39;d0,     $instr[31], $instr[7], $instr[30:25], $instr[11:8], 1&#39;b0};
+</code></pre></div>
+<p>It looks intimidating and it is really just the sign-extension pattern from Module 4.2 with the middle bits gathered from several places instead of one. The trailing <code>1'b0</code> is there because branch targets are always even (instructions are 4 bytes, addresses are multiples of 2 at minimum), so the lowest bit is not stored, it is known to be zero.</p>
+<p>You do not need to memorise this. You need to understand that the offset is <em>reconstructed</em> from scattered bits, and that if you gather them wrong, the branch jumps to the wrong place.</p>
+<h2 id="watch-it-break-a-hardcoded-jump-distance">Watch it break: a hardcoded jump distance</h2>
+<p>Here is a tempting shortcut. Your one test loop jumps back by a fixed amount, so why not just hardcode the offset?</p>
+<div id="mc-branch-bug" class="makerchip-embed-small"></div>
+
+<p><code>$good_offset</code> reconstructs the real offset from the instruction and reads −4. <code>$bad_offset</code> is hardcoded to +8. For the one branch it was tuned to, the hardcoded version might even work. For every <em>other</em> branch in every other program, it jumps somewhere completely wrong: a loop that should step back four bytes leaps forward eight, execution lands in the middle of the program, and the machine runs whatever happens to be there.</p>
+<p>This is the difference between a processor and a trick that passes one test. A real CPU reads the offset out of each branch, because each branch carries its own. Hardcoding it means your hardware only runs one program, which is not a processor at all.</p>
+<h2 id="loads-and-stores">Loads and stores</h2>
+<p>The last capability. So far every value lives in a register, and there are only 32 of them. Real programs need more room, and that room is <strong>data memory</strong>.</p>
+<p>Two instructions reach it. <code>sw</code> (store word) writes a register to memory; <code>lw</code> (load word) reads memory into a register. And here is the detail that ties the module together: <strong>the address is computed by the ALU, as an addition.</strong></p>
+<p><code>lw x6, 0(x1)</code> means "take register <code>x1</code>, add the immediate 0, and use that sum as a memory address." That is why loads and stores set <code>use_imm</code> back in Module 4.3: the address calculation is an add like any other, base register plus offset. Your ALU already does it.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>$addr[31:0] = $rs1_val + $imm;              // same add as everything else
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>$mem[$addr]  = $is_store ? $rs2_val : ...;   // store writes
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>$load_data   = $mem[$addr];                  // load reads
+</code></pre></div>
+<div id="mc-memory-demo" class="makerchip-embed-small"></div>
+
+<p>The demo stores 42 to memory and loads it straight back into another register. Watch <code>x1</code> become 42, then the store push it into <code>mem0</code>, then the load pull it into <code>x2</code>. The value makes a round trip through memory and comes back intact.</p>
+<div class="admonition note">
+<p class="admonition-title">The load-use delay</p>
+<p>Reading memory takes a cycle, exactly like the register-file read you met in
+Module 3.2: the value you ask for this cycle arrives next cycle. In a
+simple design that means the instruction immediately after a load cannot use
+the loaded value yet. Real pipelines handle this with a "load-use hazard"
+check, and it is one of the things Module 4.6 will make visible when we
+pipeline the processor. For our single-instruction-per-cycle CPU it does not
+bite, but it is worth knowing the delay is there.</p>
+</div>
+<h2 id="your-turn-build-the-branch-logic">Your turn: build the branch logic</h2>
+<p>Below is the counting loop. Fetch, the registers, and the offset reconstruction are done for you. Build the two signals that make a branch work: the decision, and the next PC.</p>
+<div id="mc-branch-exercise" class="makerchip-embed"></div>
+
+<details class="tip">
+<summary>Hint</summary>
+<p><strong>The decision.</strong> This program uses <code>blt</code>, funct3 <code>100</code>, which is "less
+than." So <code>$take</code> is high when the instruction is a branch and last cycle's
+<code>x1</code> is less than <code>x2</code>. One <code>&amp;&amp;</code> joining those two conditions.</p>
+<p><strong>The next PC.</strong> Two cases: taken adds the signed <code>$offset</code>, not-taken adds
+4. A single ternary on <code>$take</code>, and remember to reset to 0. Keep it on one
+line.</p>
+</details>
+<details class="success">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>$take = $is_branch &amp;&amp; (&gt;&gt;1$x1 &lt; $x2);
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>$pc[31:0] = *reset ? 32&#39;d0 : $take ? &gt;&gt;1$pc + $offset : &gt;&gt;1$pc + 32&#39;d4;
+</code></pre></div>
+<p>Watch <code>$pc</code> in the waveform. It should climb 0, 4, then jump back to 0 from
+the branch, over and over, until <code>x1</code> reaches 3. Then <code>$take</code> goes low, the
+PC advances to 8, and the loop is done. If the PC runs away past 8, your
+<code>$take</code> never goes low; check the comparison direction.</p>
+</details>
+<h2 id="your-cpu-is-complete">Your CPU is complete</h2>
+<p>Stop and take this in. Your processor now has arithmetic, logic, decisions, and memory. That is not a teaching subset of a computer, it is a computer. Anything that can be computed at all can be computed by a machine with exactly these capabilities. You built one.</p>
+<p>The sum-1-to-10 program that opened this block, the one whose instructions you learned to read, decode, and execute, now runs start to finish: the loop counts, the branch carries it back nine times, and the answer, 55, comes to rest in <code>x1</code>. You will assemble the whole thing in the project.</p>
+<h2 id="where-this-fits-next">Where this fits next</h2>
+<p>There is one more module, and it is the one that makes this a <em>TL-Verilog</em> processor rather than just a processor.</p>
+<p>Right now your CPU does everything for one instruction before starting the next: fetch, decode, execute, all in a single cycle. That works, but it is slow, because the fetch hardware sits idle while the ALU runs, and vice versa. In Module 4.6 you will <strong>pipeline</strong> the processor: overlap the stages so that while one instruction executes, the next is already being decoded and a third is being fetched. Pipelining is the feature TL-Verilog was built to express, and you will see why the language exists.</p>
+<h2 id="quick-reference">Quick reference</h2>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>TL-Verilog</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Branch PC</td>
+<td><code>$take ? &gt;&gt;1$pc + $offset : &gt;&gt;1$pc + 32'd4</code></td>
+<td>Jump or continue</td>
+</tr>
+<tr>
+<td>Branch decision</td>
+<td><code>$is_branch &amp;&amp; $condition</code></td>
+<td>The bit that steers control flow</td>
+</tr>
+<tr>
+<td>beq / bne / blt</td>
+<td><code>funct3</code> selects</td>
+<td>Equal, not equal, less than</td>
+</tr>
+<tr>
+<td>Address</td>
+<td><code>$rs1_val + $imm</code></td>
+<td>Computed by the ALU, an add</td>
+</tr>
+<tr>
+<td>Store / load</td>
+<td><code>sw</code> writes, <code>lw</code> reads</td>
+<td>Move data to and from memory</td>
+</tr>
+</tbody>
+</table>
+<style>
+.makerchip-embed       { position: relative; width: 100%; height: 500px; }
+.makerchip-embed-small { position: relative; width: 100%; height: 400px; }
+</style>
+
+<script type="module">
+  import IdePlugin from 'https://beta.makerchip.com/dist/makerchip-plugin.js';
+
+  const base = 'https://raw.githubusercontent.com/in-ir/makerchip-curriculum/main/code/block-4/';
+
+  class VizOnlyIDE extends IdePlugin {
+    async onReady() {
+      await this.setLayoutState({ panes: ['Viz'], activePane: 'Viz' });
+      await this.compile();
+    }
+  }
+
+  class WaveformOnlyIDE extends IdePlugin {
+    async onReady() {
+      await this.setLayoutState({ panes: ['Waveform'], activePane: 'Waveform' });
+      await this.compile();
+    }
+  }
+
+  class EditorWaveformIDE extends IdePlugin {
+    async onReady() {
+      await this.setLayoutState({
+        sides: {
+          left:  { panes: ['Editor'],   activePane: 'Editor'   },
+          right: { panes: ['Waveform'], activePane: 'Waveform' }
+        },
+        splitAt: 0.5
+      });
+    }
+  }
+
+  if (document.getElementById('mc-branch-demo')) {
+    VizOnlyIDE.create('mc-branch-demo', { codeURL: base + 'branch-demo.tlv' });
+  }
+  if (document.getElementById('mc-branch-bug')) {
+    WaveformOnlyIDE.create('mc-branch-bug', { codeURL: base + 'branch-bug.tlv' });
+  }
+  if (document.getElementById('mc-memory-demo')) {
+    WaveformOnlyIDE.create('mc-memory-demo', { codeURL: base + 'memory-demo.tlv' });
+  }
+  if (document.getElementById('mc-branch-exercise')) {
+    EditorWaveformIDE.create('mc-branch-exercise', { codeURL: base + 'branch-exercise.tlv' });
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.indexes", "toc.integrate", "navigation.footer", "content.code.copy", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
