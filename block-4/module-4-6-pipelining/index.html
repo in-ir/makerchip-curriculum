@@ -1575,7 +1575,7 @@
 <p>To pipeline a design in ordinary Verilog, you have to manually insert a flip-flop everywhere a signal crosses from one stage to the next, and rename the signal at each stage so you can tell the copies apart. A value used three stages later needs to be explicitly carried through all three, flip-flop by flip-flop, name by name. Miss one and the design breaks in a way that is genuinely hard to find, because the <em>logic</em> is right and only the <em>timing</em> is wrong.</p>
 <p>Worse, if you later decide to move a computation one stage earlier or later, to balance the work, you have to rip out and rewire all of those flip-flops by hand. Retiming a Verilog pipeline is dangerous, tedious surgery. This is a real source of bugs in real chips.</p>
 <h2 id="the-tl-verilog-answer">The TL-Verilog answer</h2>
-<p>TL-Verilog makes the pipeline a first-class part of the language. You name a pipeline with <code>|name</code>, mark stages with <code>@</code>, and write each computation in the stage where it belongs. That is all.</p>
+<p>TL-Verilog makes the pipeline a first-class part of the language. You name a pipeline with <code>|name</code>, mark stages with <code>@</code>, and write each computation in the stage where it belongs:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>|calc
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>   @1
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>      $step1[7:0] = $in + 8&#39;d10;
@@ -1584,23 +1584,30 @@
 <a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>   @3
 <a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>      $step3[7:0] = $step2 - 8&#39;d5;
 </code></pre></div>
-<p>Look at stage 2. It uses <code>$step1</code> from stage 1 directly, by name. There is no flip-flop written anywhere, no renamed copy, no manual carrying. <strong>TL-Verilog inserts the flip-flops for you</strong>, automatically, wherever a signal crosses a stage boundary. The staging is written as plainly as the arithmetic.</p>
+<p>Look at stage 2. It uses <code>$step1</code> from stage 1 directly, by name, with no flip-flop written anywhere. In the <code>@</code> notation, TL-Verilog inserts the flip-flops for you wherever a signal crosses a stage boundary.</p>
+<p>You have actually been doing the same thing by hand all block, with <code>&gt;&gt;1</code>. A pipeline stage is nothing more than a computation whose inputs are delayed by a cycle, and <code>&gt;&gt;1</code> is exactly that delay. The two forms below describe the identical hardware:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>// idiomatic pipeline form            // the explicit form you already know
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>|calc                                 $step1[7:0] = $in + 8&#39;d10;
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>   @1                                  $step2[7:0] = &gt;&gt;1$step1 &lt;&lt; 1;
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>      $step1 = $in + 8&#39;d10;            $step3[7:0] = &gt;&gt;1$step2 - 8&#39;d5;
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>   @2
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>      $step2 = $step1 &lt;&lt; 1;
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>   @3
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>      $step3 = $step2 - 8&#39;d5;
+</code></pre></div>
+<p>On the left, the stage boundaries imply the delays. On the right, you write each delay explicitly with <code>&gt;&gt;1</code>, the same operator you used for every register since Block 2. The <code>@</code> form is what you will see in real TL-Verilog processors like WARP-V and the RISC-V MYTH core, because at the scale of a full CPU the automatic staging saves enormous effort. The explicit form makes the flip-flops visible, which is why the runnable examples in this module use it: you can see the one-cycle delay at every stage in the waveform, rather than having to trust that it is there.</p>
 <div id="mc-pipeline-demo" class="makerchip-embed-small"></div>
 
-<p>Run it. A value enters at stage 1 and emerges three cycles later, transformed by each stage on the way. In the waveform you can watch a single input ripple through <code>$step1</code>, <code>$step2</code>, <code>$step3</code> on successive cycles.</p>
+<p>Run it. A value enters as <code>$in</code> and moves through the three stages, each reading the previous stage's result from the cycle before with <code>&gt;&gt;1</code>. In the waveform, watch a single value ripple through <code>$step1</code>, <code>$step2</code>, <code>$step3</code> on successive cycles: that one-cycle shift at each stage is the pipeline flip-flop, made visible.</p>
 <p>Now here is the part that matters, in the words of the person who designed the language: <strong>staging is a physical attribute with no impact on behavior.</strong> Move a line from <code>@2</code> to <code>@1</code> and the <em>what</em> is unchanged, only the <em>when</em> shifts. You can retime the pipeline, balance the stages, make the clock faster, all by moving lines between <code>@</code> sections, and the logic cannot break because you never touched the logic. That safety is the entire point. It is what the research paper behind TL-Verilog calls <em>timing-abstract</em> design, and it is genuinely one of the most elegant ideas in modern hardware description.</p>
 <h2 id="pipelining-the-processor">Pipelining the processor</h2>
 <p>Your CPU maps naturally onto three stages, because you built it in three conceptual pieces already:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>|cpu
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>   @1
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>      // fetch: PC and instruction memory
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>   @2
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>      // decode: fields, control signals, register reads
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>   @3
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>      // execute: ALU, writeback
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>@1  fetch:   PC and instruction memory
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>@2  decode:  fields, control signals, register reads
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>@3  execute: ALU, writeback
 </code></pre></div>
-<p>Every signal you have written this block goes into one of these three stages, in the module it came from. The fetch logic from 4.1 into <code>@1</code>, the decode from 4.3 into <code>@2</code>, the datapath from 4.4 into <code>@3</code>. The logic is identical to what you already have. You are only telling TL-Verilog <em>when</em> each part runs, and it handles the flip-flops that carry values from stage to stage.</p>
-<p>That is the reveal of this whole block: you did not have to rewrite your processor to pipeline it. You wrapped it in a pipeline and labelled the stages.</p>
+<p>Every signal you have written this block belongs to one of these three stages, in the module it came from: the fetch logic from 4.1 in stage 1, the decode from 4.3 in stage 2, the datapath from 4.4 in stage 3. To pipeline the processor, each value that crosses a stage boundary gets a one-cycle delay, a <code>&gt;&gt;1</code> in the explicit form, or an automatic flip-flop in the <code>@</code> form. The logic itself does not change at all. You are only deciding <em>when</em> each part runs.</p>
+<p>That is the reveal of this whole block: you did not have to rewrite your processor to pipeline it. The same logic, staged, is a pipelined CPU.</p>
 <h2 id="watch-it-break-the-branch-that-arrives-too-late">Watch it break: the branch that arrives too late</h2>
 <p>Pipelining is not free, and honesty requires showing the catch.</p>
 <p>Think about a branch. It is resolved in the execute stage, <code>@3</code>, because that is where the comparison happens. But by the time the branch computes whether to jump, the processor has <em>already fetched the next two instructions</em> in stages 1 and 2, before it knew the branch was taken. Those two instructions are in the pipeline, and they are the wrong ones.</p>
@@ -1608,33 +1615,27 @@
 <p>The same happens with loads: the value arrives from memory a cycle late, so the instruction right behind a load cannot use its result yet. That is the <strong>load-use hazard</strong> the note in Module 4.5 mentioned.</p>
 <p>Real pipelines solve these with forwarding, stalls, and branch prediction, which are a course in themselves. The point for you is to understand the trade honestly: <strong>a pipeline goes faster by overlapping instructions, and the price is that overlap sometimes fights the program's own control flow.</strong> Recognising a hazard when you see one in a waveform, an instruction executing that should have been skipped, is a real and valuable skill.</p>
 <h2 id="your-turn-build-a-pipeline">Your turn: build a pipeline</h2>
-<p>Take three transformations and stage them. The arithmetic is trivial on purpose: the whole exercise is about putting each line in the right <code>@</code> stage and letting the pipeline carry values between them.</p>
+<p>Take three transformations and stage them. The arithmetic is trivial on purpose: the whole exercise is about carrying each stage's result forward by one cycle, which is what turns a chain of expressions into a pipeline.</p>
 <div id="mc-pipeline-exercise" class="makerchip-embed"></div>
 
 <details class="tip">
 <summary>Hint</summary>
-<p>Stage 1 is written for you. For stage 2, start a new line with <code>@2</code> at the
-same indentation as <code>@1</code>, then assign <code>$s2</code> by shifting <code>$s1</code> left by one.
-You reference <code>$s1</code> directly, no flip-flop, no renaming. Stage 3 opens with
-<code>@3</code> and subtracts 2 from <code>$s2</code>.</p>
-<p>The indentation matters: <code>@2</code> and <code>@3</code> line up under <code>@1</code>, and their
-contents indent one level further, exactly like <code>@1</code> and its body.</p>
+<p>Stage 1 is done for you. For each later stage, read the <em>previous</em> stage's
+result from last cycle with <code>&gt;&gt;1</code>. Stage 2 doubles <code>&gt;&gt;1$s1</code> with a left
+shift; stage 3 subtracts 2 from <code>&gt;&gt;1$s2</code>. The <code>&gt;&gt;1</code> is the point: it is the
+flip-flop that carries the value from one stage into the next, exactly what
+the <code>@</code> notation inserts automatically.</p>
 </details>
 <details class="success">
 <summary>Solution</summary>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>|work
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>   @1
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>      $in[7:0] = *cyc_cnt;
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>      $s1[7:0] = $in + 8&#39;d3;
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>   @2
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>      $s2[7:0] = $s1 &lt;&lt; 1;
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>   @3
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>      $s3[7:0] = $s2 - 8&#39;d2;
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>$s2[7:0] = &gt;&gt;1$s1 &lt;&lt; 1;
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>$s3[7:0] = &gt;&gt;1$s2 - 8&#39;d2;
 </code></pre></div>
-<p>In the waveform, watch a value enter as <code>$in</code> and come out as <code>$s3</code> three
-cycles later. You wrote no flip-flops, yet the values are correctly delayed
-by a cycle at each stage. That is TL-Verilog inserting the sequential
-hardware from the staging context, which is the whole idea.</p>
+<p>In the waveform, watch a value enter as <code>$in</code> and emerge at <code>$s3</code> two cycles
+later, delayed one cycle at each stage. In the idiomatic <code>@</code> form this same
+design would place <code>$s1</code>, <code>$s2</code> and <code>$s3</code> in stages <code>@1</code>, <code>@2</code> and <code>@3</code>, and
+the delays you wrote with <code>&gt;&gt;1</code> would be inserted for you. Same hardware,
+written two ways.</p>
 </details>
 <h2 id="what-you-have-built">What you have built</h2>
 <p>Step back and look at the whole block. You started with a program counter and finished with a pipelined RISC-V processor. Along the way you built, or rather assembled from parts you already had, a fetch stage, an instruction decoder, a register file, an ALU, branch logic, and a memory interface, and then wrapped the whole thing in a pipeline using the feature that makes TL-Verilog worth learning.</p>
@@ -1664,8 +1665,8 @@ hardware from the staging context, which is the whole idea.</p>
 </tr>
 <tr>
 <td>Cross-stage signal</td>
-<td><code>$sig</code> used in a later stage</td>
-<td>Flip-flops inserted automatically</td>
+<td><code>&gt;&gt;1$sig</code>, or <code>$sig</code> in a later <code>@</code> stage</td>
+<td>A one-cycle delay carries it forward</td>
 </tr>
 <tr>
 <td>Timing-abstract</td>
