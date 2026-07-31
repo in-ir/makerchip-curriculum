@@ -42,7 +42,7 @@ Worse, if you later decide to move a computation one stage earlier or later, to 
 
 ## The TL-Verilog answer
 
-TL-Verilog makes the pipeline a first-class part of the language. You name a pipeline with `|name`, mark stages with `@`, and write each computation in the stage where it belongs. That is all.
+TL-Verilog makes the pipeline a first-class part of the language. You name a pipeline with `|name`, mark stages with `@`, and write each computation in the stage where it belongs:
 
 ```
 |calc
@@ -54,11 +54,26 @@ TL-Verilog makes the pipeline a first-class part of the language. You name a pip
       $step3[7:0] = $step2 - 8'd5;
 ```
 
-Look at stage 2. It uses `$step1` from stage 1 directly, by name. There is no flip-flop written anywhere, no renamed copy, no manual carrying. **TL-Verilog inserts the flip-flops for you**, automatically, wherever a signal crosses a stage boundary. The staging is written as plainly as the arithmetic.
+Look at stage 2. It uses `$step1` from stage 1 directly, by name, with no flip-flop written anywhere. In the `@` notation, TL-Verilog inserts the flip-flops for you wherever a signal crosses a stage boundary.
+
+You have actually been doing the same thing by hand all block, with `>>1`. A pipeline stage is nothing more than a computation whose inputs are delayed by a cycle, and `>>1` is exactly that delay. The two forms below describe the identical hardware:
+
+```
+// idiomatic pipeline form            // the explicit form you already know
+|calc                                 $step1[7:0] = $in + 8'd10;
+   @1                                  $step2[7:0] = >>1$step1 << 1;
+      $step1 = $in + 8'd10;            $step3[7:0] = >>1$step2 - 8'd5;
+   @2
+      $step2 = $step1 << 1;
+   @3
+      $step3 = $step2 - 8'd5;
+```
+
+On the left, the stage boundaries imply the delays. On the right, you write each delay explicitly with `>>1`, the same operator you used for every register since Block 2. The `@` form is what you will see in real TL-Verilog processors like WARP-V and the RISC-V MYTH core, because at the scale of a full CPU the automatic staging saves enormous effort. The explicit form makes the flip-flops visible, which is why the runnable examples in this module use it: you can see the one-cycle delay at every stage in the waveform, rather than having to trust that it is there.
 
 <div id="mc-pipeline-demo" class="makerchip-embed-small"></div>
 
-Run it. A value enters at stage 1 and emerges three cycles later, transformed by each stage on the way. In the waveform you can watch a single input ripple through `$step1`, `$step2`, `$step3` on successive cycles.
+Run it. A value enters as `$in` and moves through the three stages, each reading the previous stage's result from the cycle before with `>>1`. In the waveform, watch a single value ripple through `$step1`, `$step2`, `$step3` on successive cycles: that one-cycle shift at each stage is the pipeline flip-flop, made visible.
 
 Now here is the part that matters, in the words of the person who designed the language: **staging is a physical attribute with no impact on behavior.** Move a line from `@2` to `@1` and the *what* is unchanged, only the *when* shifts. You can retime the pipeline, balance the stages, make the clock faster, all by moving lines between `@` sections, and the logic cannot break because you never touched the logic. That safety is the entire point. It is what the research paper behind TL-Verilog calls *timing-abstract* design, and it is genuinely one of the most elegant ideas in modern hardware description.
 
@@ -67,18 +82,14 @@ Now here is the part that matters, in the words of the person who designed the l
 Your CPU maps naturally onto three stages, because you built it in three conceptual pieces already:
 
 ```
-|cpu
-   @1
-      // fetch: PC and instruction memory
-   @2
-      // decode: fields, control signals, register reads
-   @3
-      // execute: ALU, writeback
+@1  fetch:   PC and instruction memory
+@2  decode:  fields, control signals, register reads
+@3  execute: ALU, writeback
 ```
 
-Every signal you have written this block goes into one of these three stages, in the module it came from. The fetch logic from 4.1 into `@1`, the decode from 4.3 into `@2`, the datapath from 4.4 into `@3`. The logic is identical to what you already have. You are only telling TL-Verilog *when* each part runs, and it handles the flip-flops that carry values from stage to stage.
+Every signal you have written this block belongs to one of these three stages, in the module it came from: the fetch logic from 4.1 in stage 1, the decode from 4.3 in stage 2, the datapath from 4.4 in stage 3. To pipeline the processor, each value that crosses a stage boundary gets a one-cycle delay, a `>>1` in the explicit form, or an automatic flip-flop in the `@` form. The logic itself does not change at all. You are only deciding *when* each part runs.
 
-That is the reveal of this whole block: you did not have to rewrite your processor to pipeline it. You wrapped it in a pipeline and labelled the stages.
+That is the reveal of this whole block: you did not have to rewrite your processor to pipeline it. The same logic, staged, is a pipelined CPU.
 
 ## Watch it break: the branch that arrives too late
 
@@ -94,37 +105,30 @@ Real pipelines solve these with forwarding, stalls, and branch prediction, which
 
 ## Your turn: build a pipeline
 
-Take three transformations and stage them. The arithmetic is trivial on purpose: the whole exercise is about putting each line in the right `@` stage and letting the pipeline carry values between them.
+Take three transformations and stage them. The arithmetic is trivial on purpose: the whole exercise is about carrying each stage's result forward by one cycle, which is what turns a chain of expressions into a pipeline.
 
 <div id="mc-pipeline-exercise" class="makerchip-embed"></div>
 
 ??? tip "Hint"
 
-    Stage 1 is written for you. For stage 2, start a new line with `@2` at the
-    same indentation as `@1`, then assign `$s2` by shifting `$s1` left by one.
-    You reference `$s1` directly, no flip-flop, no renaming. Stage 3 opens with
-    `@3` and subtracts 2 from `$s2`.
-
-    The indentation matters: `@2` and `@3` line up under `@1`, and their
-    contents indent one level further, exactly like `@1` and its body.
+    Stage 1 is done for you. For each later stage, read the *previous* stage's
+    result from last cycle with `>>1`. Stage 2 doubles `>>1$s1` with a left
+    shift; stage 3 subtracts 2 from `>>1$s2`. The `>>1` is the point: it is the
+    flip-flop that carries the value from one stage into the next, exactly what
+    the `@` notation inserts automatically.
 
 ??? success "Solution"
 
     ```
-    |work
-       @1
-          $in[7:0] = *cyc_cnt;
-          $s1[7:0] = $in + 8'd3;
-       @2
-          $s2[7:0] = $s1 << 1;
-       @3
-          $s3[7:0] = $s2 - 8'd2;
+    $s2[7:0] = >>1$s1 << 1;
+    $s3[7:0] = >>1$s2 - 8'd2;
     ```
 
-    In the waveform, watch a value enter as `$in` and come out as `$s3` three
-    cycles later. You wrote no flip-flops, yet the values are correctly delayed
-    by a cycle at each stage. That is TL-Verilog inserting the sequential
-    hardware from the staging context, which is the whole idea.
+    In the waveform, watch a value enter as `$in` and emerge at `$s3` two cycles
+    later, delayed one cycle at each stage. In the idiomatic `@` form this same
+    design would place `$s1`, `$s2` and `$s3` in stages `@1`, `@2` and `@3`, and
+    the delays you wrote with `>>1` would be inserted for you. Same hardware,
+    written two ways.
 
 ## What you have built
 
@@ -144,7 +148,7 @@ After that, the curriculum opens up. The Pac-Man challenge is waiting, unguided 
 | --- | --- | --- |
 | Pipeline | `\|name` | Names a pipeline |
 | Stage | `@1`, `@2`, `@3` | Marks which stage logic runs in |
-| Cross-stage signal | `$sig` used in a later stage | Flip-flops inserted automatically |
+| Cross-stage signal | `>>1$sig`, or `$sig` in a later `@` stage | A one-cycle delay carries it forward |
 | Timing-abstract | staging has no behavioural effect | Retime safely by moving lines |
 | Control hazard | branch resolves late | The price of overlapping instructions |
 

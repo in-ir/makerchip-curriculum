@@ -5,26 +5,27 @@
 \TLV
    // Build a 3-stage pipeline. A value enters, and each stage transforms it:
    //   stage 1: add 3
-   //   stage 2: shift left by 1 (double)
+   //   stage 2: double it (shift left by 1)
    //   stage 3: subtract 2
    //
-   // The point of this exercise is the STRUCTURE, not the arithmetic. Put
-   // each assignment in the right stage and let TL-Verilog insert the
-   // flip-flops between them.
+   // The point is the STRUCTURE: each stage reads the PREVIOUS stage's
+   // result from last cycle with >>1, which is the flip-flop that carries
+   // a value from one pipeline stage to the next.
 
-   |work
-      @1
-         $in[7:0] = *cyc_cnt;
-         // TODO 1: stage 1 result. Add 3 to $in.
-         $s1[7:0] = 8'd0;
+   $in[7:0] = *cyc_cnt;
 
-      // TODO 2: open stage 2 with @2, then compute $s2 by shifting $s1
-      //   left by 1. Notice you reference $s1 directly: the pipeline
-      //   carries it from stage 1 into stage 2 for you.
+   // Stage 1 is done for you.
+   $s1[7:0] = $in + 8'd3;
 
-      // TODO 3: open stage 3 with @3, then compute $s3 = $s2 - 2.
+   // TODO 1: stage 2. Double the stage-1 result, but read it from LAST
+   //   cycle with >>1$s1. That one-cycle delay is what makes this a
+   //   pipeline stage rather than a single combded expression.
+   $s2[7:0] = 8'd0;
 
-   `BOGUS_USE(|work$s1)
+   // TODO 2: stage 3. Subtract 2 from last cycle's stage-2 result.
+   $s3[7:0] = 8'd0;
+
+   `BOGUS_USE($s1 $s2 $s3)
 
    *passed = *cyc_cnt > 30;
    *failed = 1'b0;
