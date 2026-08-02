@@ -1452,7 +1452,7 @@
   <span class="md-ellipsis">
     
   
-    Module 4.2 - Instructions
+    Module 4.2 — Instructions
   
 
     
@@ -1480,7 +1480,7 @@
   <span class="md-ellipsis">
     
   
-    Module 4.3 - Decode
+    Module 4.3 — Decode
   
 
     
@@ -1508,7 +1508,7 @@
   <span class="md-ellipsis">
     
   
-    Module 4.4 - Datapath
+    Module 4.4 — The Datapath
   
 
     
@@ -1536,7 +1536,7 @@
   <span class="md-ellipsis">
     
   
-    Module 4.5 - Branches & Memory
+    Module 4.5 — Branches and Memory
   
 
     
@@ -1564,7 +1564,7 @@
   <span class="md-ellipsis">
     
   
-    Module 4.6 - Pipelining
+    Module 4.6 — Pipelining
   
 
     
@@ -1794,11 +1794,11 @@
 <p>Look at the waveform below. Two 8-bit inputs <code>$a</code> and <code>$b</code> and a 3-bit opcode <code>$op</code> produce an output <code>$out</code>. Study the output values and work out which operation is being applied each time the opcode changes.</p>
 <div id="mc-alu-waveform" class="makerchip-embed-small"></div>
 
-<details class="hint">
+<details class="tip">
 <summary>How to read the pattern</summary>
 <p>Look at each section where <code>$op</code> is constant and ask: what relationship does <code>$out</code> have to <code>$a</code> and <code>$b</code>? Is it a bitwise combination? A sum? A shift? Match what you see to the opcode table above.</p>
 </details>
-<details class="solution">
+<details class="success">
 <summary>Solution</summary>
 <p>When <code>$op</code> is <code>3'b000</code>, <code>$out</code> has a <code>1</code> only where both <code>$a</code> and <code>$b</code> have <code>1</code> — that is AND. When <code>$op</code> is <code>3'b001</code>, <code>$out</code> has a <code>1</code> wherever either input has <code>1</code> — that is OR. When <code>$op</code> is <code>3'b100</code>, <code>$out</code> is the sum of <code>$a</code> and <code>$b</code> — that is ADD. When <code>$op</code> is <code>3'b110</code>, <code>$out</code> is <code>$a</code> shifted one position left — that is SHL. Working backwards from output patterns to operations is exactly what hardware engineers do when debugging a processor.</p>
 </details>
@@ -1807,11 +1807,11 @@
 <div id="mc-alu-exercise" class="makerchip-embed"></div>
 
 <p>The starter code has the 8-operation ALU already working. Add the XNOR operation and update the opcode MUX to include it.</p>
-<details class="hint">
+<details class="tip">
 <summary>Hint</summary>
 <p>XNOR is just XOR with the output inverted. Compute it as an intermediate signal first, then add it as the first case in your opcode chain with <code>$op[3:0] == 4'b1000</code>.</p>
 </details>
-<details class="solution">
+<details class="success">
 <summary>Solution</summary>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>$and[7:0]  = $a[7:0] &amp; $b[7:0];
 <a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>$or[7:0]   = $a[7:0] | $b[7:0];
@@ -1839,11 +1839,11 @@
 <p>Add the following flags to your ALU. The <strong>zero flag</strong> <code>$zero</code> should be <code>1</code> if <code>$out</code> is all zeros. The <strong>negative flag</strong> <code>$neg</code> should be <code>1</code> if the most significant bit of <code>$out</code> is <code>1</code>, indicating a negative number in two's complement. The <strong>carry flag</strong> <code>$carry</code> should be <code>1</code> if the addition produced a carry out of the 8th bit.</p>
 <div id="mc-alu-challenge" class="makerchip-embed"></div>
 
-<details class="hint">
+<details class="tip">
 <summary>Hint</summary>
 <p>The zero flag is a NOR of all output bits. If any bit is <code>1</code>, the result is not zero. The negative flag is simply <code>$out[7]</code>. For the carry flag, compute addition with a 9-bit result and take the extra bit: <code>$add_with_carry[8:0] = {1'b0, $a} + {1'b0, $b}</code> then <code>$carry = $add_with_carry[8]</code>.</p>
 </details>
-<details class="solution">
+<details class="success">
 <summary>Solution</summary>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>$and[7:0] = $a[7:0] &amp; $b[7:0];
 <a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>$or[7:0]  = $a[7:0] | $b[7:0];

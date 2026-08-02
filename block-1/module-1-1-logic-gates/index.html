@@ -1463,7 +1463,7 @@
   <span class="md-ellipsis">
     
   
-    Module 4.2 - Instructions
+    Module 4.2 — Instructions
   
 
     
@@ -1491,7 +1491,7 @@
   <span class="md-ellipsis">
     
   
-    Module 4.3 - Decode
+    Module 4.3 — Decode
   
 
     
@@ -1519,7 +1519,7 @@
   <span class="md-ellipsis">
     
   
-    Module 4.4 - Datapath
+    Module 4.4 — The Datapath
   
 
     
@@ -1547,7 +1547,7 @@
   <span class="md-ellipsis">
     
   
-    Module 4.5 - Branches & Memory
+    Module 4.5 — Branches and Memory
   
 
     
@@ -1575,7 +1575,7 @@
   <span class="md-ellipsis">
     
   
-    Module 4.6 - Pipelining
+    Module 4.6 — Pipelining
   
 
     
@@ -1643,7 +1643,7 @@
 
 <h1 id="module-11-logic-gates">Module 1.1: Logic Gates</h1>
 <p><strong>Block 1 — Combinational Logic</strong><br />
-<strong>Estimated time:</strong> 45–60 minutes<br />
+<strong>Estimated time:</strong> 50–65 minutes<br />
 <strong>Prerequisites:</strong> None</p>
 <h2 id="what-youll-learn">What you'll learn</h2>
 <p>By the end of this module you will be able to explain what a logic gate does and why it matters, read and write truth tables for NOT, AND, OR, XOR, NAND, and NOR, express gate logic in TL-Verilog, run a combinational circuit in Makerchip and read its output, and combine gates to build a simple function.</p>
@@ -1941,14 +1941,14 @@
 </details>
 <h2 id="match-the-waveform">Match the waveform</h2>
 <p>Look at the waveform below. Two inputs A and B produce an output X. Study how X changes as A and B change, and determine what gate produces this output.</p>
-<div id="mc-and-waveform" class="makerchip-embed-small"></div>
+<div id="mc-xor-waveform" class="makerchip-embed-small"></div>
 
 <p>Write the TL-Verilog expression for X, then verify it in the exercise below.</p>
-<details class="hint">
+<details class="tip">
 <summary>How to read the pattern</summary>
 <p>Watch when X goes high. X is <code>1</code> when A and B are different, and <code>0</code> when they are the same. Which gate gives <code>1</code> when inputs are different?</p>
 </details>
-<details class="solution">
+<details class="success">
 <summary>Solution</summary>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>$x = $a ^ $b;  // XOR
 </code></pre></div>
@@ -1958,11 +1958,11 @@
 <p>Now write it yourself. The editor below has a placeholder output that is always <code>0</code>. Replace <code>$x = 1'b0</code> with the correct gate logic and compile. Check the waveform to verify your answer.</p>
 <div id="mc-xor-exercise" class="makerchip-embed"></div>
 
-<details class="hint">
+<details class="tip">
 <summary>Hint</summary>
 <p>Which gate outputs <code>1</code> when inputs are different? Think back to the XOR gate we covered earlier.</p>
 </details>
-<details class="solution">
+<details class="success">
 <summary>Solution</summary>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>$x = $a ^ $b;
 </code></pre></div>
@@ -1972,11 +1972,11 @@
 <div id="mc-three-input-and" class="makerchip-embed"></div>
 
 <p>The starter code has <code>$x = 1'b0</code> as a placeholder. Replace that line with the correct gate logic and verify in the waveform that only the combination where all three inputs are <code>1</code> gives an output of <code>1</code>.</p>
-<details class="hint">
+<details class="tip">
 <summary>Hint</summary>
 <p>Think about it in plain English: A AND B AND C. Chain two AND gates. First compute A AND B, then AND the result with C.</p>
 </details>
-<details class="solution">
+<details class="success">
 <summary>Solution</summary>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>$x = $a &amp;&amp; $b &amp;&amp; $c;
 </code></pre></div>
@@ -2092,8 +2092,8 @@
     });
   }
 
-  if (document.getElementById('mc-and-waveform')) {
-    WaveformOnlyIDE.create('mc-and-waveform', {
+  if (document.getElementById('mc-xor-waveform')) {
+    WaveformOnlyIDE.create('mc-xor-waveform', {
       codeURL: base + 'xor-puzzle.tlv'
     });
   }

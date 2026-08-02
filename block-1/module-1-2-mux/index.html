@@ -1408,7 +1408,7 @@
   <span class="md-ellipsis">
     
   
-    Module 4.2 - Instructions
+    Module 4.2 — Instructions
   
 
     
@@ -1436,7 +1436,7 @@
   <span class="md-ellipsis">
     
   
-    Module 4.3 - Decode
+    Module 4.3 — Decode
   
 
     
@@ -1464,7 +1464,7 @@
   <span class="md-ellipsis">
     
   
-    Module 4.4 - Datapath
+    Module 4.4 — The Datapath
   
 
     
@@ -1492,7 +1492,7 @@
   <span class="md-ellipsis">
     
   
-    Module 4.5 - Branches & Memory
+    Module 4.5 — Branches and Memory
   
 
     
@@ -1520,7 +1520,7 @@
   <span class="md-ellipsis">
     
   
-    Module 4.6 - Pipelining
+    Module 4.6 — Pipelining
   
 
     
@@ -1645,11 +1645,11 @@
 <div id="mc-mux-waveform" class="makerchip-embed-small"></div>
 
 <p>Write the TL-Verilog expression for <code>$out</code>, then verify it in the exercise below. Try to match the same select input pattern you see in the waveform above.</p>
-<details class="hint">
+<details class="tip">
 <summary>How to read the pattern</summary>
 <p>When <code>$sel</code> is <code>0</code>, <code>$out</code> matches <code>$a</code>. When <code>$sel</code> is <code>1</code>, <code>$out</code> matches <code>$b</code>. The output always tracks one of the two inputs. Which one depends on <code>$sel</code>. Which operator selects between two values based on a condition?</p>
 </details>
-<details class="solution">
+<details class="success">
 <summary>Solution</summary>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>$out = $sel ? $b : $a;
 </code></pre></div>
@@ -1659,11 +1659,11 @@
 <p>Now write it yourself. Replace <code>$out = 1'b0</code> with the correct MUX logic and compile. Check that the waveform matches the pattern above.</p>
 <div id="mc-mux-exercise-basic" class="makerchip-embed"></div>
 
-<details class="hint">
+<details class="tip">
 <summary>Hint</summary>
 <p>Use the ternary operator: <code>condition ? value_if_true : value_if_false</code>. What is the condition here? What are the two values to choose between?</p>
 </details>
-<details class="solution">
+<details class="success">
 <summary>Solution</summary>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>$out = $sel ? $b : $a;
 </code></pre></div>
@@ -1713,7 +1713,7 @@
 <div id="mc-mux-exercise" class="makerchip-embed"></div>
 
 <p>The starter code has <code>$out = 1'b0</code> as a placeholder. Replace it with the correct MUX logic.</p>
-<details class="hint">
+<details class="tip">
 <summary>Hint</summary>
 <p>Break it into two steps. First compute all four expressions as intermediate signals:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>$and = $x &amp;&amp; $y;
@@ -1723,7 +1723,7 @@
 </code></pre></div>
 <p>Then chain them into a 4-to-1 MUX using <code>==</code> conditions.</p>
 </details>
-<details class="solution">
+<details class="success">
 <summary>Solution</summary>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>$and = $x &amp;&amp; $y;
 <a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>$or  = $x || $y;
@@ -1768,11 +1768,11 @@
 <p>This is a simplified <strong>Arithmetic Logic Unit (ALU)</strong>, a circuit that selects between operations based on a control code. You will build a full one in Module 1.4.</p>
 <div id="mc-mux-challenge" class="makerchip-embed"></div>
 
-<details class="hint">
+<details class="tip">
 <summary>Hint</summary>
 <p>Same pattern as the exercise. Compute all four results first as intermediate signals, then use <code>$op</code> as your select to choose between them.</p>
 </details>
-<details class="solution">
+<details class="success">
 <summary>Solution</summary>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>$and = $a &amp;&amp; $b;
 <a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>$or  = $a || $b;
