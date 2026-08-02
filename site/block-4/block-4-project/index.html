@@ -1494,6 +1494,45 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="The complete processor">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#following-the-program-cycle-by-cycle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Following the program, cycle by cycle
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-you-are-actually-looking-at" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What you are actually looking at
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prove-it-to-yourself" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prove it to yourself
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1515,6 +1554,45 @@
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="The final challenge: Pac-Man">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#you-have-built-every-part-already" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        You have built every part already
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-to-approach-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How to approach it
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#no-starter-no-checkpoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        No starter, no checkpoint
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1631,8 +1709,23 @@ lets six instructions add up ten numbers. When it goes low, <code>i</code> has r
 </details>
 <h2 id="the-complete-processor">The complete processor</h2>
 <p>Put the three stages together and you have the whole thing, running at the top of this page. Fetch, decode, register file, ALU, branch, writeback, every piece you built across four blocks, wired into a machine that executes real RISC-V.</p>
-<p>Step through it with the time slider and watch the story unfold: the PC walking through the program, the highlighted instruction, <code>x2</code> counting up as <code>i</code>, <code>x1</code> accumulating the sum, the branch flashing "looping back" each time it carries control to the top, and finally <strong>sum = 55</strong> when the loop completes.</p>
+<h3 id="following-the-program-cycle-by-cycle">Following the program, cycle by cycle</h3>
+<p>Step through it with the time slider and watch the story unfold. Here is what happens on each cycle, so you know what to look for:</p>
+<p>The first three cycles are setup. The PC sits at 0, 4, then 8, and each <code>addi</code> loads a constant: <code>x1</code> becomes 0 (the running sum), <code>x2</code> becomes 1 (the counter <code>i</code>), and <code>x3</code> becomes 11 (the limit). Nothing dramatic yet, just three registers being initialised.</p>
+<p>Then the loop begins, and this is where it gets interesting. At PC 12, <code>add x1, x1, x2</code> reads the current sum and the current <code>i</code>, adds them in the ALU, and writes the result back to <code>x1</code>. At PC 16, <code>addi x2, x2, 1</code> bumps the counter. At PC 20, <code>blt x2, x3, -8</code> compares <code>i</code> against the limit: if <code>i</code> is still less than 11, the branch is taken and the PC jumps <em>backwards</em> by 8, landing at PC 12 again.</p>
+<p>That backward jump is the whole game. Watch the PC in the visualization: it climbs 12, 16, 20, then snaps back to 12, over and over. Each trip round, <code>x1</code> grows by the current <code>i</code>, and <code>x2</code> ticks up by one. The sum in <code>x1</code> traces out exactly the sequence you would compute by hand: 0, then 1, then 3, then 6, 10, 15, 21, 28, 36, 45, and finally 55.</p>
+<p>On the last trip, <code>x2</code> reaches 11. Now <code>blt</code> finds that <code>i</code> is <em>not</em> less than 11, so the branch is not taken, the PC advances past the loop, and the machine comes to rest. The answer, <strong>55</strong>, sits in <code>x1</code>, exactly where the program left it.</p>
+<h3 id="what-you-are-actually-looking-at">What you are actually looking at</h3>
+<p>Every number moving in that visualization is a signal on a wire in hardware you designed. The PC is a counter from Module 2.2. The instruction it fetches comes from a memory that is the register-file read MUX from Module 3.1. The fields being pulled apart are the bit slices from Module 4.2. The decision to add versus subtract is the decoder from Module 4.3. The addition itself runs through the ALU from Module 1.4. The sum is held in registers from Module 2.1. And the loop closes through the branch logic from Module 4.5.</p>
+<p>Four blocks of work, all of it visible at once, all of it running. There is nothing hidden, no library doing the hard part, no magic. You can point at any value on the screen and trace it back to a line you wrote.</p>
 <p>Take a moment with this. You started this curriculum with a single logic gate. You are ending it with a processor that runs the same instruction set as real silicon, and you understand every wire in it, because you placed every wire yourself.</p>
+<h3 id="prove-it-to-yourself">Prove it to yourself</h3>
+<p>The best way to believe a processor works is to break it deliberately and watch it fail in a way you predicted. A few experiments worth trying on the complete CPU:</p>
+<ul>
+<li><strong>Change the limit.</strong> Instruction 8 loads 11 into <code>x3</code>. Change it to load a different number and the sum changes to match: load 6 and you get 1+2+3+4+5 = 15. You have reprogrammed the computer by changing one constant in memory, which is exactly what running different software means.</li>
+<li><strong>Break the branch offset.</strong> Change the <code>-8</code> in the branch to <code>-4</code> and watch the loop body shrink to a single instruction, computing the wrong sum. This is the hardcoded-offset lesson from Module 4.5, live.</li>
+<li><strong>Forget to sign-extend.</strong> Feed the immediate through without sign extension and watch a subtraction turn into a huge positive number, the quiet failure from Module 4.2.</li>
+</ul>
 <h2 id="make-it-your-own">Make it your own</h2>
 <p>The CPU is a foundation, not a finish line. Some directions:</p>
 <ul>
@@ -1644,18 +1737,35 @@ lets six instructions add up ten numbers. When it goes low, <code>i</code> has r
 </ul>
 <h2 id="the-final-challenge-pac-man">The final challenge: Pac-Man</h2>
 <p>Every project in this curriculum so far has been guided. This one is not.</p>
-<p>You now have every tool you need to build a complete arcade game in hardware, and the challenge is to do it on your own: <strong>Pac-Man</strong>.</p>
-<p>Think about what it needs, and notice that you have built all of it:</p>
+<div id="mc-pacman" class="makerchip-embed-small"></div>
+
+<p>You now have every tool you need to build a complete arcade game in hardware, and the challenge is to do it on your own: <strong>Pac-Man</strong>. The visualization above is a glimpse, a dot moving through a maze with a ghost one step behind. It is deliberately simple, because the point is not to hand you a finished game. It is to show you that the pieces are already in your hands.</p>
+<h3 id="you-have-built-every-part-already">You have built every part already</h3>
+<p>Think about what Pac-Man needs, and notice where each piece came from:</p>
 <ul>
-<li><strong>A maze</strong> is a grid, exactly like the Tetris board from Block 3. Walls are cells that block movement, which is the collision detection you already wrote.</li>
-<li><strong>Pac-Man's movement</strong> through the maze is guarded motion, the same "take the move only if it is legal" pattern from Module 3.5.</li>
-<li><strong>The ghosts</strong> are several state machines running at once, each chasing, each with its own position. Multiple instances of the same logic is what TL-Verilog's hierarchy construct is <em>for</em>: describe one ghost, instantiate four.</li>
-<li><strong>Ghost AI</strong> is the chase logic of a simple processor: compare coordinates, pick a direction, respect the walls. If you built a CPU, you can build a ghost that decides where to go.</li>
-<li><strong>Score, lives, and game state</strong> are a state machine and a few registers, like the game logic in Whack-a-Mole and Tetris.</li>
-<li><strong>Power pellets</strong> flip every ghost from chase mode to flee mode at once, then each returns on its own timer. That is a global state change rippling through several independent state machines, which is the multi-FSM idea at the heart of this block.</li>
+<li><strong>A maze</strong> is a grid, exactly like the Tetris board from Block 3. Each cell is a bit: wall or open. Reading and testing those cells is the grid work from Module 3.3, and the walls that block movement are the collision detection from Module 3.5.</li>
+<li><strong>Pac-Man's movement</strong> is guarded motion: he moves in a direction unless a wall is in the way. That is the exact "take the move only if it is legal" pattern you built for the falling Tetris piece in Module 3.5, now in two dimensions.</li>
+<li><strong>The ghosts</strong> are several state machines running at once, each with its own position and its own behaviour. This is the multi-FSM idea at the heart of this block, and it is where TL-Verilog's hierarchy construct earns its place: describe <em>one</em> ghost, then instantiate four with <code>/ghost[3:0]</code>, exactly as you would instantiate registers in a register file.</li>
+<li><strong>Ghost AI</strong> is the chase logic of a simple processor: look at Pac-Man's position, compare it to your own, pick the direction that closes the gap, and respect the walls. Comparing coordinates and choosing a direction is decision logic no harder than the branch you just built into a CPU.</li>
+<li><strong>Score, lives, and game state</strong> are a state machine and a few registers, the same shape as the game logic in Whack-a-Mole and Tetris.</li>
+<li><strong>Power pellets</strong> are the most satisfying piece. Eat one and <em>every</em> ghost flips from chase mode to flee mode at once, then each returns to chasing on its own timer. That is a single global event rippling through several independent state machines, each responding and then recovering on its own schedule. It is the multi-FSM idea in its purest form, and it is genuinely Pac-Man.</li>
 </ul>
-<p>There is no starter file and no checkpoint. That is the point. You have spent four blocks learning to build hardware with guidance, and this is where you find out that you can do it without. Start small, one moving dot in a maze, and grow it. Share what you make.</p>
-<p>You are a hardware designer now. Go build something.</p>
+<h3 id="how-to-approach-it">How to approach it</h3>
+<p>The trap with a project this open is trying to build all of it at once. Do not. Build it the way you built everything else in this course: one working piece at a time, each verified before the next.</p>
+<p>A sensible order:</p>
+<ol>
+<li><strong>Draw a static maze.</strong> Just the walls, no movement. Get the grid rendering in the Viz pane. This is Module 3.3 with a nicer shape.</li>
+<li><strong>Add Pac-Man, moving in one direction.</strong> Make him slide right and stop at a wall. Now you have guarded movement working.</li>
+<li><strong>Let him turn.</strong> Add a simple rule for changing direction, a fixed pattern is fine to start. Now he navigates.</li>
+<li><strong>Add one ghost that chases.</strong> A single state machine comparing its position to Pac-Man's. Get one ghost right before you make four.</li>
+<li><strong>Instantiate the rest with hierarchy.</strong> Once one ghost works, <code>/ghost[3:0]</code> gives you four for almost free. This is the moment the block's title, hierarchy, pays off.</li>
+<li><strong>Add pellets, scoring, and power mode.</strong> The game logic on top.</li>
+</ol>
+<p>Each step is something you have done before, in a different costume. None of them is beyond you now.</p>
+<h3 id="no-starter-no-checkpoint">No starter, no checkpoint</h3>
+<p>There is no starter file here and no solution to reveal. That is the point. You have spent four blocks learning to build hardware with guidance, and this is where you find out that you can do it without. Start with a single dot in a maze and grow it as far as you like. When something breaks, you now know how to open the Viz pane, step to the cycle where it goes wrong, and read the signals until you find it. That skill, more than any single circuit, is what you actually built here.</p>
+<p>Share what you make. Post it to the course repository, show it to someone, put it in the Makerchip gallery. The world has one more hardware designer in it now, and that is you.</p>
+<p>Go build something.</p>
 <style>
 .makerchip-embed       { position: relative; width: 100%; height: 540px; }
 .makerchip-embed-small { position: relative; width: 100%; height: 440px; }
@@ -1696,6 +1806,9 @@ lets six instructions add up ten numbers. When it goes low, <code>i</code> has r
   }
   if (document.getElementById('mc-cpu-stage3')) {
     EditorWaveformIDE.create('mc-cpu-stage3', { codeURL: base + 'cpu-stage3.tlv' });
+  }
+  if (document.getElementById('mc-pacman')) {
+    VizOnlyIDE.create('mc-pacman', { codeURL: base + 'pacman-viz.tlv' });
   }
 </script>
 
