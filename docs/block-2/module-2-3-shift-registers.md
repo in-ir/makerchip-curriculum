@@ -71,6 +71,26 @@ Complete the LFSR below so it produces the pseudo-random sequence. You need to f
 
 <div id="mc-lfsr-exercise" class="makerchip-embed"></div>
 
+??? tip "Hint"
+
+    Two lines. The feedback bit is bit 3 XOR bit 2 of *last cycle's* value, so
+    both reads use `>>1$lfsr`. Then the new value shifts the old one left by one
+    and brings the feedback bit in at the bottom, which is a concatenation
+    `{>>1$lfsr[2:0], $fb}`. Seed with `4'b0001` on reset.
+
+??? success "Solution"
+
+    ```
+    $fb = >>1$lfsr[3] ^ >>1$lfsr[2];
+    $lfsr[3:0] = *reset ? 4'b0001 : {>>1$lfsr[2:0], $fb};
+    ```
+
+    Watch the waveform: the value never repeats until it has cycled through all
+    fifteen non-zero patterns, then starts over. That long, jumbled-looking
+    period is exactly what makes an LFSR useful as a cheap pseudo-random source.
+    The seed must be non-zero, an all-zero LFSR is stuck at zero forever.
+
+
 ## Where this fits next
 
 You now have all three sequential building blocks: registers that hold, counters that increment, and shift registers that slide — including the LFSR that manufactures randomness from a single gate. In Module 2.4 you'll learn the **finite state machine**, the tool that ties everything together by letting a circuit behave differently depending on which "mode" it's in. That's the last piece before the Whack-a-Mole project.

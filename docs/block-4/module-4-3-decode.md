@@ -170,7 +170,7 @@ Here is every instruction your processor will support, with everything the decod
 | `sw rs2, imm(rs1)` | mem[rs1 + imm] = rs2 | S | `0100011` | `010` | — |
 | `beq rs1, rs2, off` | branch if rs1 == rs2 | B | `1100011` | `000` | — |
 | `bne rs1, rs2, off` | branch if rs1 != rs2 | B | `1100011` | `001` | — |
-| `blt rs1, rs2, off` | branch if rs1 < rs2 | B | `1100011` | `100` | — |
+| `blt rs1, rs2, off` | branch if rs1 < rs2 (signed) | B | `1100011` | `100` | — |
 
 Eleven instructions. That is not many, and it is genuinely enough to compute anything computable: you have arithmetic, logic, memory access and conditional control flow. Real RV32I adds about thirty more, mostly variations on these (different comparison directions, byte and halfword memory access, jumps, shifts). None of them introduce a new *idea*; they are more of the same pattern, which is exactly what makes RISC-V pleasant to implement.
 

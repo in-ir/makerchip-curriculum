@@ -75,6 +75,16 @@ The VIZ at the top of this page shows this. A tiny program increments `x1` and b
 
 A branch carries a condition. `beq` branches if two registers are equal, `bne` if they differ, `blt` if the first is less than the second. Each is a comparison the ALU can already do, selected by `funct3`:
 
+!!! note "Real hardware: signed comparison"
+
+    RISC-V's `blt` compares its operands as **signed** numbers, so that
+    `blt` treats `-1` as less than `1`. Our subset's operands are always small
+    and positive, so the plain `<` used below gives the same answer. A complete
+    RV32I core sign-extends and compares as signed, and also provides `bltu` for
+    an explicitly *unsigned* comparison. It is worth knowing the distinction
+    exists: an unsigned `<` on two 32-bit values treats a negative number,
+    whose top bit is 1, as a very large positive one.
+
 ```
 $eq  = $rs1_val == $rs2_val;
 $lt  = $rs1_val <  $rs2_val;

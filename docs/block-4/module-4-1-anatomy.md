@@ -249,6 +249,27 @@ Three blanks, and together they make a processor that reads a program. Build the
     cycle, your PC is stepping by 1. If it never changes, the index is not
     tracking the PC.
 
+## Check yourself
+
+Answer from memory before continuing.
+
+??? question "Why does the program counter step by 4, not by 1?"
+
+    Because memory is addressed in bytes and a RISC-V instruction is 4 bytes
+    wide. The instruction at address 0 occupies bytes 0 to 3, so the next one
+    starts at address 4.
+
+??? question "What are the three steps of the instruction cycle, in order?"
+
+    Fetch (get the instruction from memory), decode (work out what it means),
+    execute (do it). Then the PC advances and it repeats.
+
+??? question "How do you turn a byte address into an instruction index, for free?"
+
+    Drop the bottom two bits: `$pc[4:2]`. Since instructions are 4 bytes apart,
+    dividing the address by 4 is just ignoring the two always-zero low bits, no
+    arithmetic needed.
+
 ## Where this fits next
 
 You now have a processor that can point at instructions. What it cannot do is understand them. Right now `0x00100113` is just a number to your hardware.

@@ -136,6 +136,29 @@ Step back and look at the whole block. You started with a program counter and fi
 
 That is a genuine accomplishment. A pipelined CPU is the canonical hard project in a computer architecture course, and you built one from gates up, understanding every piece, because you built every piece yourself across four blocks.
 
+## Check yourself
+
+Try these from memory.
+
+??? question "In one sentence, why is a pipelined processor faster?"
+
+    Because it overlaps instructions, while one instruction executes, the next
+    is being decoded and a third fetched, so every stage of the hardware stays
+    busy every cycle instead of sitting idle.
+
+??? question "What does it mean that staging is *timing-abstract*?"
+
+    That moving a line from one `@` stage to another changes *when* it runs but
+    not *what* it computes. You can retime the pipeline without breaking the
+    logic, because you never touched the logic.
+
+??? question "What is a control hazard?"
+
+    A branch is resolved late in the pipeline, after the next instructions have
+    already been fetched. If the branch is taken, those fetched instructions are
+    the wrong ones. That conflict between overlapping instructions and the
+    program's own control flow is a control hazard.
+
 ## Where this fits next
 
 There is nothing left to teach. What remains is to *do it*: the project assembles the complete processor and runs a real program on it, the sum from 1 to 10, and watches the answer appear.

@@ -69,11 +69,11 @@ Look at the waveform below. Three signals `$a`, `$b`, and `$sel` produce an outp
 
 Write the TL-Verilog expression for `$out`, then verify it in the exercise below. Try to match the same select input pattern you see in the waveform above.
 
-??? hint "How to read the pattern"
+??? tip "How to read the pattern"
 
     When `$sel` is `0`, `$out` matches `$a`. When `$sel` is `1`, `$out` matches `$b`. The output always tracks one of the two inputs. Which one depends on `$sel`. Which operator selects between two values based on a condition?
 
-??? solution "Solution"
+??? success "Solution"
 
     ```tlv
     $out = $sel ? $b : $a;
@@ -87,11 +87,11 @@ Now write it yourself. Replace `$out = 1'b0` with the correct MUX logic and comp
 
 <div id="mc-mux-exercise-basic" class="makerchip-embed"></div>
 
-??? hint "Hint"
+??? tip "Hint"
 
     Use the ternary operator: `condition ? value_if_true : value_if_false`. What is the condition here? What are the two values to choose between?
 
-??? solution "Solution"
+??? success "Solution"
 
     ```tlv
     $out = $sel ? $b : $a;
@@ -133,7 +133,7 @@ Build a 4-to-1 MUX where each input is a logic expression. When `$sel == 2'b00`,
 
 The starter code has `$out = 1'b0` as a placeholder. Replace it with the correct MUX logic.
 
-??? hint "Hint"
+??? tip "Hint"
 
     Break it into two steps. First compute all four expressions as intermediate signals:
 
@@ -146,7 +146,7 @@ The starter code has `$out = 1'b0` as a placeholder. Replace it with the correct
 
     Then chain them into a 4-to-1 MUX using `==` conditions.
 
-??? solution "Solution"
+??? success "Solution"
 
     ```tlv
     $and = $x && $y;
@@ -177,11 +177,11 @@ This is a simplified **Arithmetic Logic Unit (ALU)**, a circuit that selects bet
 
 <div id="mc-mux-challenge" class="makerchip-embed"></div>
 
-??? hint "Hint"
+??? tip "Hint"
 
     Same pattern as the exercise. Compute all four results first as intermediate signals, then use `$op` as your select to choose between them.
 
-??? solution "Solution"
+??? success "Solution"
 
     ```tlv
     $and = $a && $b;

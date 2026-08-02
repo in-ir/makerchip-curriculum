@@ -135,6 +135,23 @@ Complete `$count` below so it counts upward when `$enable` is high, holds when i
 
 <div id="mc-counter-exercise" class="makerchip-embed"></div>
 
+??? tip "Hint"
+
+    Four cases in priority order: reset first, then the wrap at 12, then the
+    count-up when `$enable` is high, then hold. Every branch that refers to the
+    counter's own value reads it with `>>1$count`.
+
+??? success "Solution"
+
+    ```
+    $count[3:0] = *reset ? 4'b0 : (>>1$count == 12) ? 4'b0 : $enable ? >>1$count + 1 : >>1$count;
+    ```
+
+    The order matters. If the wrap check came after the enable check, the
+    counter could sail past 12 on a cycle where enable was low. Reset, wrap,
+    enable, hold, in that order.
+
+
 ## Where this fits next
 
 You can now build a counter with full control: reset it, pause it, wrap it. In Module 2.3 you'll meet the **shift register**, which instead of adding one each cycle, moves bits sideways through a chain of flip-flops — the key ingredient for both animation and randomness in the Whack-a-Mole project.

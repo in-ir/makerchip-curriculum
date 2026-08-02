@@ -184,11 +184,11 @@ Look at the waveform below. Two 8-bit inputs `$a` and `$b` and a 3-bit opcode `$
 
 <div id="mc-alu-waveform" class="makerchip-embed-small"></div>
 
-??? hint "How to read the pattern"
+??? tip "How to read the pattern"
 
     Look at each section where `$op` is constant and ask: what relationship does `$out` have to `$a` and `$b`? Is it a bitwise combination? A sum? A shift? Match what you see to the opcode table above.
 
-??? solution "Solution"
+??? success "Solution"
 
     When `$op` is `3'b000`, `$out` has a `1` only where both `$a` and `$b` have `1` — that is AND. When `$op` is `3'b001`, `$out` has a `1` wherever either input has `1` — that is OR. When `$op` is `3'b100`, `$out` is the sum of `$a` and `$b` — that is ADD. When `$op` is `3'b110`, `$out` is `$a` shifted one position left — that is SHL. Working backwards from output patterns to operations is exactly what hardware engineers do when debugging a processor.
 
@@ -200,11 +200,11 @@ Add a ninth operation to the ALU: XNOR. XNOR is the inverse of XOR: the output i
 
 The starter code has the 8-operation ALU already working. Add the XNOR operation and update the opcode MUX to include it.
 
-??? hint "Hint"
+??? tip "Hint"
 
     XNOR is just XOR with the output inverted. Compute it as an intermediate signal first, then add it as the first case in your opcode chain with `$op[3:0] == 4'b1000`.
 
-??? solution "Solution"
+??? success "Solution"
 
     ```tlv
     $and[7:0]  = $a[7:0] & $b[7:0];
@@ -236,11 +236,11 @@ Add the following flags to your ALU. The **zero flag** `$zero` should be `1` if 
 
 <div id="mc-alu-challenge" class="makerchip-embed"></div>
 
-??? hint "Hint"
+??? tip "Hint"
 
     The zero flag is a NOR of all output bits. If any bit is `1`, the result is not zero. The negative flag is simply `$out[7]`. For the carry flag, compute addition with a 9-bit result and take the extra bit: `$add_with_carry[8:0] = {1'b0, $a} + {1'b0, $b}` then `$carry = $add_with_carry[8]`.
 
-??? solution "Solution"
+??? success "Solution"
 
     ```tlv
     $and[7:0] = $a[7:0] & $b[7:0];

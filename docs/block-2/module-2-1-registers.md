@@ -208,6 +208,46 @@ This circuit feeds a pseudo-random 4-bit value into `$in` every cycle. Complete 
 
 <div id="mc-register-exercise" class="makerchip-embed"></div>
 
+??? tip "Hint"
+
+    You want a register that only ever grows. Each cycle, compare the new input
+    against what the register held *last* cycle with `>>1$max_so_far`, and keep
+    whichever is larger. Reset it to 0 so it starts from the bottom.
+
+??? success "Solution"
+
+    ```
+    $max_so_far[3:0] = *reset ? 4'b0 : ($in > >>1$max_so_far) ? $in : >>1$max_so_far;
+    ```
+
+    The `>>1` is essential: you are comparing against the running maximum from
+    the previous cycle, not the value you are currently computing. Watch it in
+    the waveform, it steps up and then never comes back down.
+
+
+## Check yourself
+
+Before moving on, try to answer these from memory. If any one is shaky, that is the part to reread.
+
+??? question "What does `>>1$count` mean, and why not just write `$count`?"
+
+    `>>1$count` is the value `$count` held *one cycle ago*. You need it whenever
+    a signal's next value depends on its own current value, because a signal
+    cannot be defined in terms of itself in the same cycle, that is a circular
+    definition the tool rejects. Reaching one cycle back breaks the loop.
+
+??? question "Why does a register need a reset?"
+
+    Without a reset, a register powers up holding an unknown value, and every
+    calculation built on it is garbage until something happens to overwrite it.
+    Reset forces a known starting value so the circuit behaves predictably from
+    cycle zero.
+
+??? question "A register holds 5. On the next cycle nothing writes to it. What does it hold?"
+
+    Still 5. That is the defining behaviour of a register: it holds its value
+    until something explicitly changes it.
+
 ## Where this fits next
 
 You can now give a circuit memory: hold a value, reset it to something known, update it based on its own past, and trace that update by hand.

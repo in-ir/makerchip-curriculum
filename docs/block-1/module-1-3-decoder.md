@@ -1,7 +1,7 @@
 # Module 1.3: Decoders
 
 **Block 1 — Combinational Logic**  
-**Estimated time:** 45–60 minutes  
+**Estimated time:** 50–65 minutes  
 **Prerequisites:** Module 1.2 — The Multiplexer
 
 ## What you'll learn
@@ -70,11 +70,11 @@ Look at the waveform below. A 2-bit input `$in` produces a 4-bit output `$y`. St
 
 Write the TL-Verilog expression for `$y`, then verify it in the exercise below.
 
-??? hint "How to read the pattern"
+??? tip "How to read the pattern"
 
     Watch the output value in the waveform. Each time `$in` changes, exactly one bit in `$y` goes high and all others go low. The active bit corresponds directly to the value of `$in`. What syntax lets you check the value of `$in` and output a specific 4-bit pattern for each case?
 
-??? solution "Solution"
+??? success "Solution"
 
     ```tlv
     $y[3:0] = $in[1:0] == 2'b11 ? 4'b1000 :
@@ -99,11 +99,11 @@ Build a 3-to-8 decoder. You have a 3-bit input `$in[2:0]`. Your output `$y[7:0]`
 
 The starter code has `$y[7:0] = 8'b0` as a placeholder. Replace it with the correct decoder logic.
 
-??? hint "Hint"
+??? tip "Hint"
 
     Same pattern as the 2-to-4 decoder, just with 8 cases instead of 4. Work through each value of `$in` from `3'b111` down to the default, and for each one output an 8-bit value with exactly one `1` in the right position.
 
-??? solution "Solution"
+??? success "Solution"
 
     ```tlv
     $y[7:0] = $in[2:0] == 3'b111 ? 8'b10000000 :
@@ -148,11 +148,11 @@ Build a circuit that takes a 3-bit input `$digit[2:0]` representing digits 0 thr
 
 <div id="mc-decoder-challenge" class="makerchip-embed"></div>
 
-??? hint "Hint"
+??? tip "Hint"
 
     Same chained condition pattern, one case per digit. For each value of `$digit`, output the 7-bit segment pattern from the table above.
 
-??? solution "Solution"
+??? success "Solution"
 
     ```tlv
     $seg[6:0] = $digit[2:0] == 3'd7 ? 7'b1110000 :

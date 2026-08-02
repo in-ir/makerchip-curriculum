@@ -84,7 +84,7 @@ Here is the heart pattern to aim for:
 
 Replace the placeholder rows in `$heart_r0` through `$heart_r7` with the correct values. Each row reads left to right where `#` is `1` and `.` is `0`. Compile and watch the heart appear in the Viz pane when the pattern cycles to `01`.
 
-??? solution "Solution"
+??? success "Solution"
 
     ```tlv
     $heart_r0[7:0] = 8'b01100110;  //  ##  ##
@@ -109,7 +109,7 @@ Once your pattern is working, take a screenshot of the Viz pane.
 
 The `$pattern` signal is 2 bits, which gives you four possible values: `00`, `01`, `10`, and `11`. The starter code only uses three. Add a fourth pattern using `$pattern == 2'b11` and extend the MUX to include it.
 
-??? hint "Hint"
+??? tip "Hint"
 
     Add a set of `$pattern3_rN` signals for your new image, then extend each row MUX from a 3-way to a 4-way selection. The structure is exactly the same as the 4-to-1 MUX from Module 1.2: one condition per pattern, a default at the bottom.
 

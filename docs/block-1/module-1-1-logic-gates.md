@@ -1,7 +1,7 @@
 # Module 1.1: Logic Gates
 
 **Block 1 — Combinational Logic**  
-**Estimated time:** 45–60 minutes  
+**Estimated time:** 50–65 minutes  
 **Prerequisites:** None
 
 ## What you'll learn
@@ -207,15 +207,15 @@ The embed below shows the half adder circuit on the left and the waveform on the
 
 Look at the waveform below. Two inputs A and B produce an output X. Study how X changes as A and B change, and determine what gate produces this output.
 
-<div id="mc-and-waveform" class="makerchip-embed-small"></div>
+<div id="mc-xor-waveform" class="makerchip-embed-small"></div>
 
 Write the TL-Verilog expression for X, then verify it in the exercise below.
 
-??? hint "How to read the pattern"
+??? tip "How to read the pattern"
 
     Watch when X goes high. X is `1` when A and B are different, and `0` when they are the same. Which gate gives `1` when inputs are different?
 
-??? solution "Solution"
+??? success "Solution"
 
     ```tlv
     $x = $a ^ $b;  // XOR
@@ -229,11 +229,11 @@ Now write it yourself. The editor below has a placeholder output that is always 
 
 <div id="mc-xor-exercise" class="makerchip-embed"></div>
 
-??? hint "Hint"
+??? tip "Hint"
 
     Which gate outputs `1` when inputs are different? Think back to the XOR gate we covered earlier.
 
-??? solution "Solution"
+??? success "Solution"
 
     ```tlv
     $x = $a ^ $b;
@@ -247,11 +247,11 @@ Build a circuit that outputs `1` only when all three inputs A, B, and C are `1`.
 
 The starter code has `$x = 1'b0` as a placeholder. Replace that line with the correct gate logic and verify in the waveform that only the combination where all three inputs are `1` gives an output of `1`.
 
-??? hint "Hint"
+??? tip "Hint"
 
     Think about it in plain English: A AND B AND C. Chain two AND gates. First compute A AND B, then AND the result with C.
 
-??? solution "Solution"
+??? success "Solution"
 
     ```tlv
     $x = $a && $b && $c;
@@ -341,8 +341,8 @@ In Module 1.2 you will meet the **multiplexer (MUX)**, a circuit that acts as a 
     });
   }
 
-  if (document.getElementById('mc-and-waveform')) {
-    WaveformOnlyIDE.create('mc-and-waveform', {
+  if (document.getElementById('mc-xor-waveform')) {
+    WaveformOnlyIDE.create('mc-xor-waveform', {
       codeURL: base + 'xor-puzzle.tlv'
     });
   }

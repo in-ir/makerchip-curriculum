@@ -112,6 +112,24 @@ The timer is written for you below. Complete the next-state logic so the light c
 
 <div id="mc-fsm-exercise" class="makerchip-embed"></div>
 
+??? tip "Hint"
+
+    The timer and `$expired` are given. Your job is only the next-state choice.
+    On reset, GREEN. If the timer has *not* expired, hold `>>1$state`. When it
+    expires, advance one step: GREEN to YELLOW to RED and back to GREEN.
+
+??? success "Solution"
+
+    ```
+    $state[1:0] = *reset ? 2'd0 : !$expired ? >>1$state : (>>1$state == 2'd0) ? 2'd1 : (>>1$state == 2'd1) ? 2'd2 : 2'd0;
+    ```
+
+    The `!$expired ? >>1$state` line is the whole trick: most cycles the state
+    just holds itself, and only on the tick where the timer expires does it
+    advance. That "hold until a condition, then step" shape is the heart of
+    every finite state machine.
+
+
 ## How this powers Whack-a-Mole
 
 The traffic light and the game are the same machine wearing different clothes. In the project, the states won't be colors — they'll be phases of a round: waiting for the game to start, a mole popping up, checking whether you hit it, updating the score, and moving on. The transitions won't be a traffic timer — they'll be the mole's time running out, or you whacking the right hole. But the shape is identical: a state register, next-state logic, and a timer deciding when to move on. Once you can build a traffic light, you can build the game.

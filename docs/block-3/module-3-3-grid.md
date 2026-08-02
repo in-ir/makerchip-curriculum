@@ -193,6 +193,27 @@ The grid below is fixed. Complete two operations: read the single cell at row 2,
     `$row3` is `8'b11111111`, so the AND-reduction gives 1: the row is full.
 
 
+## Check yourself
+
+Try these from memory before moving on.
+
+??? question "In `8'b00000111`, which columns of the board are filled?"
+
+    The three *leftmost* columns, 0, 1 and 2. The bits set are bits 0, 1 and 2,
+    and bit `c` maps to column `c`. The digits look right-aligned in the literal
+    but fill the left of the board, which is the mirroring trap.
+
+??? question "How do you test whether an entire row is full, in one operation?"
+
+    An AND-reduction: `& $row`. It ANDs all the bits together and gives 1 only
+    when every column is set.
+
+??? question "Why is the board stored as one number per row instead of a boolean per cell?"
+
+    Because then every bit trick from Block 2, shifting, masking, XOR,
+    reductions, operates on a whole row at once. Moving a piece sideways becomes
+    one shift; checking a full row becomes one operator.
+
 ## Where this fits next
 
 You can now represent a board, read any cell, and detect a full row, all the static pieces of a grid. But Tetris isn't static: pieces move, land, and stack up. In Module 3.4 you'll learn to *change* the grid, setting and clearing cells so a piece can fall and lock into place.
