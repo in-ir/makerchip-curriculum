@@ -1369,7 +1369,7 @@
   <span class="md-ellipsis">
     
   
-    Module 4.2 - Instructions
+    Module 4.2 — Instructions
   
 
     
@@ -1397,7 +1397,7 @@
   <span class="md-ellipsis">
     
   
-    Module 4.3 - Decode
+    Module 4.3 — Decode
   
 
     
@@ -1425,7 +1425,7 @@
   <span class="md-ellipsis">
     
   
-    Module 4.4 - Datapath
+    Module 4.4 — The Datapath
   
 
     
@@ -1453,7 +1453,7 @@
   <span class="md-ellipsis">
     
   
-    Module 4.5 - Branches & Memory
+    Module 4.5 — Branches and Memory
   
 
     
@@ -1481,7 +1481,7 @@
   <span class="md-ellipsis">
     
   
-    Module 4.6 - Pipelining
+    Module 4.6 — Pipelining
   
 
     
@@ -1604,7 +1604,7 @@
 <a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>. . . . . . . .
 </code></pre></div>
 <p>Replace the placeholder rows in <code>$heart_r0</code> through <code>$heart_r7</code> with the correct values. Each row reads left to right where <code>#</code> is <code>1</code> and <code>.</code> is <code>0</code>. Compile and watch the heart appear in the Viz pane when the pattern cycles to <code>01</code>.</p>
-<details class="solution">
+<details class="success">
 <summary>Solution</summary>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>$heart_r0[7:0] = 8&#39;b01100110;  //  ##  ##
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>$heart_r1[7:0] = 8&#39;b11111111;  // ########
@@ -1622,7 +1622,7 @@
 <p>Once your pattern is working, take a screenshot of the Viz pane.</p>
 <h2 id="challenge-add-a-fourth-pattern">Challenge: Add a fourth pattern</h2>
 <p>The <code>$pattern</code> signal is 2 bits, which gives you four possible values: <code>00</code>, <code>01</code>, <code>10</code>, and <code>11</code>. The starter code only uses three. Add a fourth pattern using <code>$pattern == 2'b11</code> and extend the MUX to include it.</p>
-<details class="hint">
+<details class="tip">
 <summary>Hint</summary>
 <p>Add a set of <code>$pattern3_rN</code> signals for your new image, then extend each row MUX from a 3-way to a 4-way selection. The structure is exactly the same as the 4-to-1 MUX from Module 1.2: one condition per pattern, a default at the bottom.</p>
 </details>

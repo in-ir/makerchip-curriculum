@@ -331,7 +331,7 @@ In Module 1.2 you will meet the **multiplexer (MUX)**, a circuit that acts as a 
 
   if (document.getElementById('mc-logic-gates')) {
     VizOnlyIDE.create('mc-logic-gates', {
-      codeURL: 'https://cdn.jsdelivr.net/gh/stevehoover/makerchip_examples@a0d80f640661653639c05de49fb8df76e9616f5c/logic_gates.tlv'
+      codeURL: base + 'logic-gates-viz.tlv'
     });
   }
 

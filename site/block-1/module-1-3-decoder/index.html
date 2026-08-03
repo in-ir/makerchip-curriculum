@@ -1397,7 +1397,7 @@
   <span class="md-ellipsis">
     
   
-    Module 4.2 - Instructions
+    Module 4.2 — Instructions
   
 
     
@@ -1425,7 +1425,7 @@
   <span class="md-ellipsis">
     
   
-    Module 4.3 - Decode
+    Module 4.3 — Decode
   
 
     
@@ -1453,7 +1453,7 @@
   <span class="md-ellipsis">
     
   
-    Module 4.4 - Datapath
+    Module 4.4 — The Datapath
   
 
     
@@ -1481,7 +1481,7 @@
   <span class="md-ellipsis">
     
   
-    Module 4.5 - Branches & Memory
+    Module 4.5 — Branches and Memory
   
 
     
@@ -1509,7 +1509,7 @@
   <span class="md-ellipsis">
     
   
-    Module 4.6 - Pipelining
+    Module 4.6 — Pipelining
   
 
     
@@ -1577,7 +1577,7 @@
 
 <h1 id="module-13-decoders">Module 1.3: Decoders</h1>
 <p><strong>Block 1 — Combinational Logic</strong><br />
-<strong>Estimated time:</strong> 45–60 minutes<br />
+<strong>Estimated time:</strong> 50–65 minutes<br />
 <strong>Prerequisites:</strong> Module 1.2 — The Multiplexer</p>
 <h2 id="what-youll-learn">What you'll learn</h2>
 <p>By the end of this module you will be able to explain what a decoder does and where it shows up in real hardware, read and write a 2-to-4 decoder in TL-Verilog, understand the relationship between decoders and MUXes, build a 3-to-8 decoder from scratch, and apply decoder logic to drive a 7-segment display.</p>
@@ -1662,11 +1662,11 @@
 <div id="mc-decoder-waveform" class="makerchip-embed-small"></div>
 
 <p>Write the TL-Verilog expression for <code>$y</code>, then verify it in the exercise below.</p>
-<details class="hint">
+<details class="tip">
 <summary>How to read the pattern</summary>
 <p>Watch the output value in the waveform. Each time <code>$in</code> changes, exactly one bit in <code>$y</code> goes high and all others go low. The active bit corresponds directly to the value of <code>$in</code>. What syntax lets you check the value of <code>$in</code> and output a specific 4-bit pattern for each case?</p>
 </details>
-<details class="solution">
+<details class="success">
 <summary>Solution</summary>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>$y[3:0] = $in[1:0] == 2&#39;b11 ? 4&#39;b1000 :
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>           $in[1:0] == 2&#39;b10 ? 4&#39;b0100 :
@@ -1683,11 +1683,11 @@
 <div id="mc-decoder-exercise" class="makerchip-embed"></div>
 
 <p>The starter code has <code>$y[7:0] = 8'b0</code> as a placeholder. Replace it with the correct decoder logic.</p>
-<details class="hint">
+<details class="tip">
 <summary>Hint</summary>
 <p>Same pattern as the 2-to-4 decoder, just with 8 cases instead of 4. Work through each value of <code>$in</code> from <code>3'b111</code> down to the default, and for each one output an 8-bit value with exactly one <code>1</code> in the right position.</p>
 </details>
-<details class="solution">
+<details class="success">
 <summary>Solution</summary>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>$y[7:0] = $in[2:0] == 3&#39;b111 ? 8&#39;b10000000 :
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>           $in[2:0] == 3&#39;b110 ? 8&#39;b01000000 :
@@ -1818,11 +1818,11 @@
 </table>
 <div id="mc-decoder-challenge" class="makerchip-embed"></div>
 
-<details class="hint">
+<details class="tip">
 <summary>Hint</summary>
 <p>Same chained condition pattern, one case per digit. For each value of <code>$digit</code>, output the 7-bit segment pattern from the table above.</p>
 </details>
-<details class="solution">
+<details class="success">
 <summary>Solution</summary>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>$seg[6:0] = $digit[2:0] == 3&#39;d7 ? 7&#39;b1110000 :
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>            $digit[2:0] == 3&#39;d6 ? 7&#39;b1011111 :

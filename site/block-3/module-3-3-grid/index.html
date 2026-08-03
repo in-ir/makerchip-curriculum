@@ -1178,6 +1178,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#check-yourself" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Check yourself
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#where-this-fits-next" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1424,7 +1435,7 @@
   <span class="md-ellipsis">
     
   
-    Module 4.2 - Instructions
+    Module 4.2 — Instructions
   
 
     
@@ -1452,7 +1463,7 @@
   <span class="md-ellipsis">
     
   
-    Module 4.3 - Decode
+    Module 4.3 — Decode
   
 
     
@@ -1480,7 +1491,7 @@
   <span class="md-ellipsis">
     
   
-    Module 4.4 - Datapath
+    Module 4.4 — The Datapath
   
 
     
@@ -1508,7 +1519,7 @@
   <span class="md-ellipsis">
     
   
-    Module 4.5 - Branches & Memory
+    Module 4.5 — Branches and Memory
   
 
     
@@ -1536,7 +1547,7 @@
   <span class="md-ellipsis">
     
   
-    Module 4.6 - Pipelining
+    Module 4.6 — Pipelining
   
 
     
@@ -1737,6 +1748,25 @@ reduction operator gives you.</p>
 </code></pre></div>
 <p><code>$row2</code> is <code>8'b01111110</code>, and bit 4 of that is <code>1</code>, so <code>$cell</code> is 1.
 <code>$row3</code> is <code>8'b11111111</code>, so the AND-reduction gives 1: the row is full.</p>
+</details>
+<h2 id="check-yourself">Check yourself</h2>
+<p>Try these from memory before moving on.</p>
+<details class="question">
+<summary>In <code>8'b00000111</code>, which columns of the board are filled?</summary>
+<p>The three <em>leftmost</em> columns, 0, 1 and 2. The bits set are bits 0, 1 and 2,
+and bit <code>c</code> maps to column <code>c</code>. The digits look right-aligned in the literal
+but fill the left of the board, which is the mirroring trap.</p>
+</details>
+<details class="question">
+<summary>How do you test whether an entire row is full, in one operation?</summary>
+<p>An AND-reduction: <code>&amp; $row</code>. It ANDs all the bits together and gives 1 only
+when every column is set.</p>
+</details>
+<details class="question">
+<summary>Why is the board stored as one number per row instead of a boolean per cell?</summary>
+<p>Because then every bit trick from Block 2, shifting, masking, XOR,
+reductions, operates on a whole row at once. Moving a piece sideways becomes
+one shift; checking a full row becomes one operator.</p>
 </details>
 <h2 id="where-this-fits-next">Where this fits next</h2>
 <p>You can now represent a board, read any cell, and detect a full row, all the static pieces of a grid. But Tetris isn't static: pieces move, land, and stack up. In Module 3.4 you'll learn to <em>change</em> the grid, setting and clearing cells so a piece can fall and lock into place.</p>

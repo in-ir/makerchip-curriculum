@@ -27,7 +27,7 @@
     
     
       
-        <title>Module 4.5 - Branches & Memory - Digital Design with Makerchip & TL-Verilog</title>
+        <title>Module 4.5 — Branches and Memory - Digital Design with Makerchip & TL-Verilog</title>
       
     
     
@@ -114,7 +114,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Module 4.5 - Branches & Memory
+              Module 4.5 — Branches and Memory
             
           </span>
         </div>
@@ -1234,7 +1234,7 @@
   <span class="md-ellipsis">
     
   
-    Module 4.2 - Instructions
+    Module 4.2 — Instructions
   
 
     
@@ -1262,7 +1262,7 @@
   <span class="md-ellipsis">
     
   
-    Module 4.3 - Decode
+    Module 4.3 — Decode
   
 
     
@@ -1290,7 +1290,7 @@
   <span class="md-ellipsis">
     
   
-    Module 4.4 - Datapath
+    Module 4.4 — The Datapath
   
 
     
@@ -1327,7 +1327,7 @@
   <span class="md-ellipsis">
     
   
-    Module 4.5 - Branches & Memory
+    Module 4.5 — Branches and Memory
   
 
     
@@ -1345,7 +1345,7 @@
   <span class="md-ellipsis">
     
   
-    Module 4.5 - Branches & Memory
+    Module 4.5 — Branches and Memory
   
 
     
@@ -1503,7 +1503,7 @@
   <span class="md-ellipsis">
     
   
-    Module 4.6 - Pipelining
+    Module 4.6 — Pipelining
   
 
     
@@ -1633,6 +1633,16 @@
 
 <h2 id="deciding-whether-to-branch">Deciding whether to branch</h2>
 <p>A branch carries a condition. <code>beq</code> branches if two registers are equal, <code>bne</code> if they differ, <code>blt</code> if the first is less than the second. Each is a comparison the ALU can already do, selected by <code>funct3</code>:</p>
+<div class="admonition note">
+<p class="admonition-title">Real hardware: signed comparison</p>
+<p>RISC-V's <code>blt</code> compares its operands as <strong>signed</strong> numbers, so that
+<code>blt</code> treats <code>-1</code> as less than <code>1</code>. Our subset's operands are always small
+and positive, so the plain <code>&lt;</code> used below gives the same answer. A complete
+RV32I core sign-extends and compares as signed, and also provides <code>bltu</code> for
+an explicitly <em>unsigned</em> comparison. It is worth knowing the distinction
+exists: an unsigned <code>&lt;</code> on two 32-bit values treats a negative number,
+whose top bit is 1, as a very large positive one.</p>
+</div>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>$eq  = $rs1_val == $rs2_val;
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>$lt  = $rs1_val &lt;  $rs2_val;
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
@@ -1822,7 +1832,7 @@ PC advances to 8, and the loop is done. If the PC runs away past 8, your
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../module-4-4-datapath/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Module 4.4 - Datapath">
+          <a href="../module-4-4-datapath/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Module 4.4 — The Datapath">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -1832,20 +1842,20 @@ PC advances to 8, and the loop is done. If the PC runs away past 8, your
                 Previous
               </span>
               <div class="md-ellipsis">
-                Module 4.4 - Datapath
+                Module 4.4 — The Datapath
               </div>
             </div>
           </a>
         
         
           
-          <a href="../module-4-6-pipelining/" class="md-footer__link md-footer__link--next" aria-label="Next: Module 4.6 - Pipelining">
+          <a href="../module-4-6-pipelining/" class="md-footer__link md-footer__link--next" aria-label="Next: Module 4.6 — Pipelining">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Module 4.6 - Pipelining
+                Module 4.6 — Pipelining
               </div>
             </div>
             <div class="md-footer__button md-icon">

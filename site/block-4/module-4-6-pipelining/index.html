@@ -27,7 +27,7 @@
     
     
       
-        <title>Module 4.6 - Pipelining - Digital Design with Makerchip & TL-Verilog</title>
+        <title>Module 4.6 — Pipelining - Digital Design with Makerchip & TL-Verilog</title>
       
     
     
@@ -114,7 +114,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Module 4.6 - Pipelining
+              Module 4.6 — Pipelining
             
           </span>
         </div>
@@ -1234,7 +1234,7 @@
   <span class="md-ellipsis">
     
   
-    Module 4.2 - Instructions
+    Module 4.2 — Instructions
   
 
     
@@ -1262,7 +1262,7 @@
   <span class="md-ellipsis">
     
   
-    Module 4.3 - Decode
+    Module 4.3 — Decode
   
 
     
@@ -1290,7 +1290,7 @@
   <span class="md-ellipsis">
     
   
-    Module 4.4 - Datapath
+    Module 4.4 — The Datapath
   
 
     
@@ -1318,7 +1318,7 @@
   <span class="md-ellipsis">
     
   
-    Module 4.5 - Branches & Memory
+    Module 4.5 — Branches and Memory
   
 
     
@@ -1355,7 +1355,7 @@
   <span class="md-ellipsis">
     
   
-    Module 4.6 - Pipelining
+    Module 4.6 — Pipelining
   
 
     
@@ -1373,7 +1373,7 @@
   <span class="md-ellipsis">
     
   
-    Module 4.6 - Pipelining
+    Module 4.6 — Pipelining
   
 
     
@@ -1491,6 +1491,17 @@
     <span class="md-ellipsis">
       
         What you have built
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#check-yourself" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Check yourself
       
     </span>
   </a>
@@ -1672,6 +1683,27 @@ written two ways.</p>
 <h2 id="what-you-have-built">What you have built</h2>
 <p>Step back and look at the whole block. You started with a program counter and finished with a pipelined RISC-V processor. Along the way you built, or rather assembled from parts you already had, a fetch stage, an instruction decoder, a register file, an ALU, branch logic, and a memory interface, and then wrapped the whole thing in a pipeline using the feature that makes TL-Verilog worth learning.</p>
 <p>That is a genuine accomplishment. A pipelined CPU is the canonical hard project in a computer architecture course, and you built one from gates up, understanding every piece, because you built every piece yourself across four blocks.</p>
+<h2 id="check-yourself">Check yourself</h2>
+<p>Try these from memory.</p>
+<details class="question">
+<summary>In one sentence, why is a pipelined processor faster?</summary>
+<p>Because it overlaps instructions, while one instruction executes, the next
+is being decoded and a third fetched, so every stage of the hardware stays
+busy every cycle instead of sitting idle.</p>
+</details>
+<details class="question">
+<summary>What does it mean that staging is <em>timing-abstract</em>?</summary>
+<p>That moving a line from one <code>@</code> stage to another changes <em>when</em> it runs but
+not <em>what</em> it computes. You can retime the pipeline without breaking the
+logic, because you never touched the logic.</p>
+</details>
+<details class="question">
+<summary>What is a control hazard?</summary>
+<p>A branch is resolved late in the pipeline, after the next instructions have
+already been fetched. If the branch is taken, those fetched instructions are
+the wrong ones. That conflict between overlapping instructions and the
+program's own control flow is a control hazard.</p>
+</details>
 <h2 id="where-this-fits-next">Where this fits next</h2>
 <p>There is nothing left to teach. What remains is to <em>do it</em>: the project assembles the complete processor and runs a real program on it, the sum from 1 to 10, and watches the answer appear.</p>
 <p>After that, the curriculum opens up. The Pac-Man challenge is waiting, unguided this time, and everything you would need to build it, state machines, memory, grids, collision, hierarchy for multiple ghosts, you now have. You are no longer following a lab. You are a hardware designer with a toolbox.</p>
@@ -1787,7 +1819,7 @@ written two ways.</p>
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../module-4-5-branches-memory/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Module 4.5 - Branches &amp; Memory">
+          <a href="../module-4-5-branches-memory/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Module 4.5 — Branches and Memory">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -1797,7 +1829,7 @@ written two ways.</p>
                 Previous
               </span>
               <div class="md-ellipsis">
-                Module 4.5 - Branches & Memory
+                Module 4.5 — Branches and Memory
               </div>
             </div>
           </a>
