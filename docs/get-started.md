@@ -18,7 +18,7 @@ The **Waveform** shows signal values over simulation time. Each row is a signal 
 
 **Nav-TLV** gives you a structured, navigable view of your code. It becomes particularly useful once your designs span multiple modules and pipelines.
 
-**Viz** is Makerchip's visualizer, and it is the pane that makes this curriculum work the way it does. The waveform shows a signal as a row of numbers. Viz lets a design *draw itself*: a counter can render as a progress bar, a shift register as a scrolling marquee, a grid of bits as an actual game board. From Block 2 onward most projects here ship with a Viz view, and by Block 3 it becomes your primary debugging tool, because a bug like "my piece is one column too far left" is invisible in a row of binary and obvious the instant you see it drawn.
+**Viz** is Makerchip's visualizer, and it is the pane that makes this curriculum work the way it does. The waveform shows a signal as a row of numbers. Viz lets a design *draw itself*: a counter can render as a progress bar, a shift register as a scrolling marquee, a grid of bits as an actual game board. From Block 2 onward most projects here ship with a Viz view, and in the later blocks it becomes your primary debugging tool, because a bug like "my piece is one column too far left" is invisible in a row of binary and obvious the instant you see it drawn.
 
 A design only gets a Viz pane if its code includes a visualization block, which is why the simple example below does not have one. You will meet your first in Block 2.
 
@@ -76,7 +76,7 @@ The format is *width* `'` *base* *value*, where the base is `b` for binary, `d` 
 | AND-reduce  | `& $x`   | One bit: are **all** bits of `$x` set?   |
 | OR-reduce   | `\| $x`  | One bit: is **any** bit of `$x` set?     |
 
-The last two are worth a second look, because they behave differently from the others. Written in front of a single signal rather than between two, `&` and `|` collapse every bit of that signal down to one answer. So `& $row` asks "is this entire signal all ones?" in a single operator. These become important in Block 3, where a whole row of a game board lives in one signal and you need to ask questions about all of it at once.
+The last two are worth a second look, because they behave differently from the others. Written in front of a single signal rather than between two, `&` and `|` collapse every bit of that signal down to one answer. So `& $row` asks "is this entire signal all ones?" in a single operator. These become important later, when a whole row of a game board lives in one signal and you need to ask questions about all of it at once.
 
 ### Selection
 

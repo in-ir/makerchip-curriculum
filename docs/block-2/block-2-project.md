@@ -113,7 +113,7 @@ Your final blank is `$state`. Each line of it is one arrow in that diagram. Fill
 
 ## You built a computer (almost)
 
-Step back and look at what you just made: a system that remembers state, makes decisions, keeps score, generates randomness, and runs a complete game loop — all from registers, counters, shift registers, and a state machine. Nothing else. Every one of those pieces scales up into the guts of a real processor, which is exactly where Block 3 picks up.
+Step back and look at what you just made: a system that remembers state, makes decisions, keeps score, generates randomness, and runs a complete game loop — all from registers, counters, shift registers, and a state machine. Nothing else. Every one of those pieces scales up into the guts of a real processor — which is exactly where this course goes next. See [What's Next](../whats-next.md) for the road to Tetris and a working RISC-V CPU.
 
 ## Make it your own
 

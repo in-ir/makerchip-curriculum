@@ -22,4 +22,4 @@ A combinational circuit is one where the output depends only on the current inpu
 
 ## Project
 
-By the end of Block 1 you'll have all the tools to understand and build combinational circuits. These are the building blocks for everything in Blocks 2, 3, and 4.
+By the end of Block 1 you'll have all the tools to understand and build combinational circuits. These are the building blocks for everything that comes after, starting with Block 2.

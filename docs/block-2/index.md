@@ -22,4 +22,4 @@ A sequential circuit is one where the output depends not just on the current inp
 
 ## Project
 
-By the end of Block 2 you'll have everything needed to build circuits with memory and behavior, not just instant reactions. These are the building blocks for the FSM-driven Whack-a-Mole project, and for everything in Blocks 3 and 4.
+By the end of Block 2 you'll have everything needed to build circuits with memory and behavior, not just instant reactions. These are the building blocks for the FSM-driven Whack-a-Mole project, and for everything the course builds toward next.
