@@ -13,6 +13,8 @@
       
       
       
+        <link rel="prev" href="../block-2/block-2-project/">
+      
       
       
         
@@ -23,7 +25,7 @@
     
     
       
-        <title>Block 4: Building a Processor - Digital Design with Makerchip & TL-Verilog</title>
+        <title>What's Next - Digital Design with Makerchip & TL-Verilog</title>
       
     
     
@@ -74,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#block-4-building-a-processor" class="md-skip">
+        <a href="#whats-next" class="md-skip">
           Skip to content
         </a>
       
@@ -110,7 +112,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Block 4: Building a Processor
+              What's Next
             
           </span>
         </div>
@@ -257,9 +259,11 @@
   
   
   
+    
   
-    <li class="md-tabs__item">
-      <a href="../whats-next/" class="md-tabs__link">
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
         
   
   
@@ -823,10 +827,37 @@
       
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../whats-next/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What's Next
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -842,6 +873,59 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#coming-soon-tetris" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Coming soon: Tetris
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#in-development-your-own-processor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        In development: your own processor
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#want-to-know-when-it-drops" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Want to know when it drops?
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -863,72 +947,18 @@
 
 
 
-<h1 id="block-4-building-a-processor">Block 4: Building a Processor</h1>
-<p>This is where everything comes together.</p>
-<p>Over the last three blocks you have built logic gates, multiplexers, decoders, an ALU, registers, counters, state machines, a register file, and memory. What you have not been told is that those are not a random assortment of circuits. They are, almost exactly, the parts list for a <strong>processor</strong>.</p>
-<p>Look at what is already sitting in your toolbox:</p>
-<table>
-<thead>
-<tr>
-<th>You built</th>
-<th>In a CPU it is called</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>A decoder (Module 1.3)</td>
-<td>The instruction decoder</td>
-</tr>
-<tr>
-<td>An ALU (Module 1.4)</td>
-<td>The ALU</td>
-</tr>
-<tr>
-<td>Registers (Module 2.1)</td>
-<td>State registers</td>
-</tr>
-<tr>
-<td>A counter (Module 2.2)</td>
-<td>The program counter</td>
-</tr>
-<tr>
-<td>A state machine (Module 2.4)</td>
-<td>The control unit</td>
-</tr>
-<tr>
-<td>A register file (Module 3.1)</td>
-<td>The register file</td>
-</tr>
-<tr>
-<td>RAM (Module 3.2)</td>
-<td>Instruction and data memory</td>
-</tr>
-</tbody>
-</table>
-<p>Every one of those is a real part of a real CPU, and you have already built and debugged all of them. This block is about wiring them together into a machine that reads instructions out of memory and executes them.</p>
-<p>And not a made-up machine. You are going to build a subset of <strong>RISC-V</strong>, the open instruction set used in everything from research chips to shipping silicon, and the architecture behind Makerchip's own RISC-V course. The programs you run on it will be real RISC-V programs, assembled from real RISC-V encodings.</p>
-<h2 id="what-youll-learn">What you'll learn</h2>
-<ul>
-<li>How a processor fetches, decodes, and executes instructions, one per cycle</li>
-<li>How an instruction is encoded as a 32-bit number, and how hardware pulls it apart</li>
-<li>How to turn instruction bits into control signals that steer the datapath</li>
-<li>How to wire the register file and ALU into a working execution path</li>
-<li>How branches let a program make decisions, and how loads and stores reach memory</li>
-<li>How to <strong>pipeline</strong> the whole thing, the feature TL-Verilog was designed for</li>
-</ul>
-<h2 id="modules">Modules</h2>
-<ol>
-<li><a href="module-4-1-anatomy/">Module 4.1 — Anatomy of a Processor</a></li>
-<li><a href="module-4-2-instructions/">Module 4.2 — Instructions</a></li>
-<li><a href="module-4-3-decode/">Module 4.3 — Decode</a></li>
-<li><a href="module-4-4-datapath/">Module 4.4 — The Datapath</a></li>
-<li><a href="module-4-5-branches-memory/">Module 4.5 — Branches and Memory</a></li>
-<li><a href="module-4-6-pipelining/">Module 4.6 — Pipelining</a></li>
-<li><a href="block-4-project/">Project — Your RISC-V CPU</a></li>
-</ol>
-<h2 id="project">Project</h2>
-<p>By the end you will have a working RISC-V processor running a real program: a loop that adds up the numbers from 1 to 10 and leaves the answer, 55, sitting in a register. You will watch it happen instruction by instruction, in the visualizer, on hardware you designed.</p>
-<p>Then, if you want to keep going, there is an open challenge waiting: <strong>Pac-Man</strong>, unguided this time, using everything you have learned across all four blocks.</p>
+<h1 id="whats-next">What's Next</h1>
+<p>You just worked through the foundation of digital design: pure logic in Block 1, and memory and state in Block 2. That foundation is the hard part, and it's the part most courses rush. Everything from here is built out of what you already know.</p>
+<p>Here's where this course is going.</p>
+<h2 id="coming-soon-tetris">Coming soon: Tetris</h2>
+<p>Block 3 takes the registers and state machines you just learned and scales them up into <strong>memory, register files, and a 2D grid</strong> you can read, write, and search. The payoff is a complete, self-playing <strong>Tetris</strong>: falling pieces, collision detection, and line clears, all in TL-Verilog, all visualized in Makerchip.</p>
+<p>If you've ever seen the <em>Nand to Tetris</em> course, this is that same spirit, with the added advantage that you <em>watch</em> your design run instead of just trusting that it does.</p>
+<h2 id="in-development-your-own-processor">In development: your own processor</h2>
+<p>Block 4 reveals the secret the whole course has been building toward: the decoder, the ALU, the counter, the register file, the memory, those were never separate topics. They're the parts of a <strong>processor</strong>. You'll wire them together into a working <strong>RISC-V CPU</strong> that runs a real program, one instruction at a time.</p>
+<h2 id="want-to-know-when-it-drops">Want to know when it drops?</h2>
+<p>The best way to follow along is to <strong>watch the <a href="https://github.com/in-ir/makerchip-curriculum">course repo on GitHub</a></strong>. New blocks land there first.</p>
+<p>If something in Blocks 1 or 2 was unclear, that's useful to me too, open a <a href="https://github.com/in-ir/makerchip-curriculum/discussions">discussion</a> and tell me. This course gets better every time someone does.</p>
+<p>Now go build something.</p>
 
 
 
@@ -953,6 +983,28 @@
       
         <footer class="md-footer">
   
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../block-2/block-2-project/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Project — Whack-a-Mole">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Project — Whack-a-Mole
+              </div>
+            </div>
+          </a>
+        
+        
+      </nav>
     
   
   <div class="md-footer-meta md-typeset">
