@@ -9,7 +9,7 @@ No installation required. No prior hardware experience needed. Just a laptop and
 ## Meet your instructor
 
 <div class="instructor-widget">
-  <div class="instructor-bubble">Ready to build some computers.</div>
+  <div class="instructor-bubble">Ready to build some computers?</div>
   <div class="instructor-stage">
     <img src="assets/images/instructor.png" alt="Ines waving hello next to her Siamese cat">
   </div>
@@ -55,12 +55,12 @@ Each module combines:
 
 ## Curriculum structure
 
-| Block | Topic                | Project      | Status        |
-| ----- | -------------------- | ------------ | ------------- |
-| 1     | Combinational Logic  | Pixel Art    | Available now |
-| 2     | Sequential Logic     | Whack-a-Mole | Available now |
-| 3     | Memory and Arrays    | Tetris       | Coming soon   |
-| 4     | Building a Processor | RISC-V CPU   | In development|
+| Block | Topic                | Project      | Status         |
+| ----- | -------------------- | ------------ | -------------- |
+| 1     | Combinational Logic  | Pixel Art    | Available now  |
+| 2     | Sequential Logic     | Whack-a-Mole | Available now  |
+| 3     | Memory and Arrays    | Tetris       | Coming soon    |
+| 4     | Building a Processor | RISC-V CPU   | In development |
 
 New to digital logic? Start at Block 1 and work straight through Blocks 1 and 2. Already comfortable with gates and flip-flops and just want to learn the tooling? [Get Started](get-started.md) covers Makerchip and TL-Verilog on its own.
 
